@@ -122,8 +122,35 @@ inline void Vitaleon::refreshProxies(){
     if(effectSlot_>=0){int order[9];vital::utils::decodeFloatToOrder(order,get(effectOrder_),9);publish(effectType_,float(order[getInt(effectSlot_)-1]));}
     refreshNavigation();
 }
+inline bool Vitaleon::listStep(int index,float plain){
+    // The lists of the file selectors are filled at run time, so a skin cannot name
+    // their entries and the host turns them as continuous parameters: it moves 1/100
+    // of the range per wheel click and ignores the parameter's own steps (host
+    // contract; discrete steps come only from replacementStrings). With 33 tables a
+    // click therefore moved 0.01 while one table is 1/32 of the range - two clicks
+    // for the first table, three for every later one. A coarse click now moves the
+    // list by one entry; a jump (preset, list change) stays absolute.
+    int slot=-1;
+    for(int i=0;i<3;++i)if(index==tableSelect_[i])slot=i;
+    if(slot<0)slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
+    if(slot<0)return false;
+    const float raw=getNormalised(index);
+    const int last=std::max(0,int(param(index).max));
+    if(last==0){listRaw_[slot]=raw;listIndex_[slot]=0;return false;}
+    const float step=1.0f/float(last),delta=raw-listRaw_[slot];
+    int next=listIndex_[slot];
+    if(std::fabs(raw-float(next)*step)>1e-6f){
+        // 1/100 coarse click; 1/128 and 1/64 hosts land in the same band.
+        const bool click=std::fabs(delta)>=0.006f&&std::fabs(delta)<0.017f&&std::fabs(delta)<step*.5f;
+        next=click?next+(delta>0?1:-1):int(std::lround(plain));
+    }
+    listRaw_[slot]=raw;next=mpc::clamp(next,0,last);const bool changed=next!=listIndex_[slot];listIndex_[slot]=next;
+    publishNormalised(index,float(next)*step);
+    return changed;
+}
 inline void Vitaleon::parameterChanged(int index,float plain){
     if(!ready_)return;
+    listStep(index,plain);
     fxPlanDirty_.store(true,std::memory_order_relaxed);
     if(navigationChanged(index,plain)||storageChanged(index))return;
     if(index==FullMode){publish(FullMode,1);return;}

@@ -411,6 +411,18 @@ int main(int argc,char** argv){
    effect->setParameter(effect,g1,0.0f);native->set(id("ui_section"),1);waitNative();
    native->setNormalised(id("ui_g1_slot_0"),.7f);
    check(std::abs(native->getNormalised(native->controlIndex("osc_1_phase"))-.7f)<1e-5,"the same phase knob follows the selected oscillator");}
+  // The preset selector is a run-time list, so the host turns it as a continuous
+  // parameter: one coarse wheel click still moves it by one entry.
+  {
+    const int sel=id("preset_select");
+    native->setNormalised(sel,0.0f);native->setNormalised(sel,0.01f);
+    check(native->getInt(sel)==1,"one data wheel click moves a run-time list by one entry");
+    native->setNormalised(sel,0.02f);
+    check(native->getInt(sel)==2,"the next click moves the run-time list again");
+    native->setNormalised(sel,0.5f);
+    check(native->getInt(sel)>=4,"a jump in a run-time list stays absolute");
+    native->setNormalised(sel,0.0f);
+  }
   // Each page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1.
   native->set(id("ui_gpage_1"),0);native->set(id("ui_section"),1);
   native->set(id("ui_gpage_1"),1);native->set(id("ui_section"),2);
