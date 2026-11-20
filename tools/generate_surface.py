@@ -415,22 +415,29 @@ definitions.append(g.obj(('key','mx-target'),('value',g.component_definition(g.c
     ent('value','Label',g.label_data('Value',TEXT,18),(4,2,92,44)),
     ent('fader','Knob',g.knob_filmstrip_data('mx-fader.png',127,'Horizontal'),(96,0,120,52))],'00000000'))))
 def matrix_table(children):
-    for x,text in [(60,'SOURCE'),(292,'AMOUNT'),(504,'TARGET')]:children.append(label(text,(x,128,200,20),MUTED,15))
+    # The Force has no sidebar, so the table spreads over the full width. Its Q-Link
+    # frame surrounds the whole four-row block of the bank; around the amount column
+    # only, it read like a stray box under the AMOUNT caption.
+    src,amt,tgt=(full(60),full(292),full(504)) if FORCE else (60,292,504)
+    pick,pitch=(full(730),full(68)) if FORCE else (730,68)
+    for x,text in [(src,'SOURCE'),(amt,'AMOUNT'),(tgt,'TARGET')]:children.append(label(text,(x,128,200,20),MUTED,15))
     for page in range(8):
         show=[f'IndexedEnabling/{page}/32/'+handle('UI Section')]
         for row in range(8):
             route=page*8+row+1;y=148+row*52;knob=handle(f'UI Control {row+1}')
             cell=lambda key,param,x,w:g.entry(f'route {route}',key,{'version':1,'handleName':'Data'},f'{x} {y} {w} 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+handle(param)),('QTarget',knob)],invalidating=show)
-            if row%4==0:children.append(g.entry('Q-Link frame','Image',{'version':1,'colour':'0','image':frame_image(216,216,'mod')},f'288 {y-4} 216 216','No','Hide','Always',invalidating=show+[f'IndexedEnabling/{row//4}/4/'+handle('UI Bank')]))
+            if row%4==0:
+                fx,fw=(16,SCREEN_RIGHT-32) if FORCE else (288,216)
+                children.append(g.entry('Q-Link frame','Image',{'version':1,'colour':'0','image':frame_image(fw,216,'mod')},f'{fx} {y-4} {fw} 216','No','Hide','Always',invalidating=show+[f'IndexedEnabling/{row//4}/4/'+handle('UI Bank')]))
             children.append(conditional(label(f'{route:02d}',(24,y+4,32,44),MUTED,16),show))
-            children.append(cell('mx-source',f'Route {route} Source',60,228))
-            amount=g.entry(f'route {route}','mx-amount',{'version':1,'handleName':'Data'},f'292 {y} 208 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+knob),('Target',handle(f'modulation_{route}_amount')),('QTarget',knob)],invalidating=show)
+            children.append(cell('mx-source',f'Route {route} Source',src,228))
+            amount=g.entry(f'route {route}','mx-amount',{'version':1,'handleName':'Data'},f'{amt} {y} 208 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+knob),('Target',handle(f'modulation_{route}_amount')),('QTarget',knob)],invalidating=show)
             children.append(amount)
-            children.append(cell('mx-target',f'Route {route} Target',504,222))
-            children.append(conditional(nav_button('PICK',730,y,64,52,'UI Pick',route,65,'mod'),show))
-            children.append(conditional(nav_button('BIP',798,y,64,52,f'modulation_{route}_bipolar',color='mod'),show))
-            children.append(conditional(nav_button('STER',866,y,64,52,f'modulation_{route}_stereo',color='mod'),show))
-            children.append(conditional(nav_button('MUTE',934,y,64,52,f'modulation_{route}_bypass',color='fx'),show))
+            children.append(cell('mx-target',f'Route {route} Target',tgt,222))
+            children.append(conditional(nav_button('PICK',pick,y,64,52,'UI Pick',route,65,'mod'),show))
+            children.append(conditional(nav_button('BIP',pick+pitch,y,64,52,f'modulation_{route}_bipolar',color='mod'),show))
+            children.append(conditional(nav_button('STER',pick+2*pitch,y,64,52,f'modulation_{route}_stereo',color='mod'),show))
+            children.append(conditional(nav_button('MUTE',pick+3*pitch,y,64,52,f'modulation_{route}_bypass',color='fx'),show))
 def pick_groups(children):
     children.append(label('for route',(300,72,110,38),MUTED,24));children.append(label('Route',(410,72,100,38),COLORS['mod'],30,value='Route Select'))
     children.append(nav_button('BACK',886,76,110,52,'UI Page',MATRIX_VIEW,len(VIEWS),'mod'))

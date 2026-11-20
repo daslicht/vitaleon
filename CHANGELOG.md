@@ -2,6 +2,11 @@
 
 Device results refer to an MPC Live II with MPC OS 3.10.1.
 
+## 0.3.29
+
+- The modulation matrix uses the Force width: source, amount and target columns and the PICK/BIP/STER/MUTE buttons spread to x = 1237.
+- The matrix Q-Link frame surrounds the whole four-row block of the active bank. Around the amount column only it read like a stray box under the AMOUNT caption.
+
 ## 0.3.28
 
 - The Force layout is designed at Force size instead of being a stretched MPC skin: three 394 px columns at x 24, 442 and 860, its own knob (120 px), fader (372 x 64), switch (168 x 88) and segment button (186 x 56) artwork behind the `-f` asset names, 26 px slot captions, and graphs, envelope, library, browser panel and footer buttons widened to match.
