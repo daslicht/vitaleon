@@ -40,7 +40,7 @@ for page,section,values in states():
             if p==NAMES['UI Group']:assert d['numButtonsInGroup']==7
         if kind=='Knob':
             assert image_size(d['filmStrip'])==(w,h*d['numFrames'])
-            assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52),(300,56)],(e['name'],w,h)
+            assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52),(300,56),(120,120),(372,64)],(e['name'],w,h)
     if VIEWS[page]['group']==1 and isinstance(VIEWS[page]['chart'],int) and section==0:
         segments=[e for e in leaves if e['name'].startswith('wave column')]
         left=min(e['box'][0] for e in segments);right=max(e['box'][2] for e in segments)

@@ -2,6 +2,11 @@
 
 Device results refer to an MPC Live II with MPC OS 3.10.1.
 
+## 0.3.28
+
+- The Force layout is designed at Force size instead of being a stretched MPC skin: three 394 px columns at x 24, 442 and 860, its own knob (120 px), fader (372 x 64), switch (168 x 88) and segment button (186 x 56) artwork behind the `-f` asset names, 26 px slot captions, and graphs, envelope, library, browser panel and footer buttons widened to match.
+- Both skins pass the same six checks; `surface_states.py` and `check_surface.py` audit either file through `VITALEON_SKIN` and `VITALEON_SAFE_RIGHT`.
+
 ## 0.3.27
 
 - The Force gets its own skin, `Plugin Skins/TUI - Force.json`. The Force has no Q-Link sidebar over the right edge, so the MPC layout ends at x = 1000 and leaves a black strip; the Force layout scales every column, graph and frame out to x = 1256. The firmware prefers the product-specific file, so MPCs keep the untouched `TUI.json`.

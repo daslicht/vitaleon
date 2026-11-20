@@ -1,9 +1,12 @@
 """Expand the actual native skin in every module/section state, including aliases."""
-import json,re
+import json,os,re
 from pathlib import Path
 from surface_spec import VIEWS
 PROJECT=Path(__file__).resolve().parents[1]
-UI=json.loads((PROJECT/'skins/TUI.json').read_text(encoding='utf-8'))['pageData']
+# VITALEON_SKIN/​VITALEON_SAFE_RIGHT audit the product-specific skins too, e.g.
+# VITALEON_SKIN="skins/TUI - Force.json" VITALEON_SAFE_RIGHT=1256.
+SKIN=os.environ.get('VITALEON_SKIN','skins/TUI.json')
+UI=json.loads((PROJECT/SKIN).read_text(encoding='utf-8'))['pageData']
 DEFS={d['key']:d['value'] for d in UI['componentDefinitions']['localComponentDefinitions']}
 PARAMS=json.loads((PROJECT/'build/params.json').read_text())['params']
 NAMES={p['name']:p['index'] for p in PARAMS}
@@ -46,7 +49,7 @@ def expand(entries,values,ox=0,oy=0,mapping=None):
     return result
 # SDK ui-reference 1.4: the hardware shows a Q-Link sidebar over the right edge,
 # roughly x >= 1025. Controls end at x = 1000 so the sidebar never covers them.
-SAFE_RIGHT=1000
+SAFE_RIGHT=int(os.environ.get('VITALEON_SAFE_RIGHT','1000'))
 CONTROLS=('Button','Knob','Slider')
 def has_value_widget(value,depth=0):
     for e in value['componentsData']:

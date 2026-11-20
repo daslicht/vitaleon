@@ -1,6 +1,6 @@
 """Generate native MPC skins and a source-derived layout preview, no web runtime."""
 from pathlib import Path
-import json,sys,math,re,hashlib
+import json,sys,math,re,hashlib,os
 from PIL import Image,ImageDraw,ImageFont
 root=Path(__file__).resolve().parent; project=root.parent; sdk=project.parents[1]
 sys.path.insert(0,str(sdk/'tools'));import gen_ui as g
@@ -80,10 +80,23 @@ COLORS={'osc':'ffbca3ff','env':'ff64d9ba','mod':'fff6bf66','fx':'ff7cb9e8'}
 # edge, roughly x >= 1025, as soon as a Q-Link is touched, and stays. Three
 # columns of 308 px at x = 24, 356, 688 end at x = 996, so every control stays
 # out of the sidebar and each column stays wide enough to read and to hit.
-SLOT_W,SLOT_H=308,156
+# Two layouts from one design. The MPC keeps the 1000 px safe area above
+# because its Q-Link sidebar covers x >= 1025. The Force has no sidebar, so its
+# skin fills the screen: three 394 px columns at x 24, 442, 860 (right edge
+# 1254), and its slots are drawn at their own size instead of being stretched.
+FORCE=os.environ.get('VITALEON_VARIANT')=='force'
+SLOT_W,SLOT_H=(394,156) if FORCE else (308,156)
 SLOT=f'0 0 {SLOT_W} {SLOT_H}'
-SCREEN_RIGHT=1000
-def col_x(col):return 24+332*col
+SCREEN_RIGHT=1256 if FORCE else 1000
+KNOB=120 if FORCE else 112
+FADER_W,FADER_H=(372,64) if FORCE else (300,56)
+TOGGLE_W,TOGGLE_H=(168,88) if FORCE else (136,72)
+SEG_W,SEG_H=(186,56) if FORCE else (148,52)
+SEG_DX,SEG_DY=(194,62) if FORCE else (152,58)
+SLOT_FONT=26 if FORCE else 22
+DEF_SUFFIX='-f' if FORCE else ''
+def full(v):return round(v*SCREEN_RIGHT/1000)
+def col_x(col):return 24+(SLOT_W+24)*col
 def handle(name):
     if name not in byname:
         if name.replace('_',' ') in byname:name=name.replace('_',' ')
@@ -172,18 +185,18 @@ for color,accent in COLORS.items():
         # a tap anywhere in the cell focuses it and the data wheel edits its
         # value (knob, fader, switch and choice cells alike).
         children=[g.entry('focus','Focus',g.focus_data(accent),SLOT,'No','Show','WhenFocussed'),
-            ent('name','Label',g.label_data('Name',TEXT,22),(0,0,SLOT_W,26))]
+            ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,30 if FORCE else 26))]
         actions=g.control_actions('value overlay')
         if role in ['knob','bipolar']:
-            children.extend([ent('knob','Knob',g.knob_filmstrip_data(f'large-{color}-{role}.png',127,'Vertical'),(4,28,112,112)),
-                ent('value','Label',g.label_data('Value',accent,22),(118,50,SLOT_W-118,64))])
+            children.extend([ent('knob','Knob',g.knob_filmstrip_data(f'large-{color}-{role}{DEF_SUFFIX}.png',127,'Vertical'),(8,30 if FORCE else 28,KNOB,KNOB)),
+                ent('value','Label',g.label_data('Value',accent,SLOT_FONT),(16+KNOB,50,SLOT_W-24-KNOB,64))])
             if role=='bipolar':actions=g.control_actions('bipolar overlay')
         elif role=='fader':
-            children.extend([ent('value','Label',g.label_data('Value',accent,24),(0,24,SLOT_W,40)),
-                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader.png',127,'Horizontal'),(4,72,300,56))])
+            children.extend([ent('value','Label',g.label_data('Value',accent,SLOT_FONT),(0,24,SLOT_W,40)),
+                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader{DEF_SUFFIX}.png',127,'Horizontal'),(6,78,FADER_W,FADER_H))])
         elif role=='toggle':
-            children.extend([ent('switch','Button',g.button_data(f'large-{color}-on.png',f'large-{color}-off.png',1,1),(0,42,136,72)),
-                ent('state','Label',g.label_data('Value',accent,24),(140,54,SLOT_W-140,48))])
+            children.extend([ent('switch','Button',g.button_data(f'large-{color}-on{DEF_SUFFIX}.png',f'large-{color}-off{DEF_SUFFIX}.png',1,1),(0,40,TOGGLE_W,TOGGLE_H)),
+                ent('state','Label',g.label_data('Value',accent,SLOT_FONT),(TOGGLE_W+8,52,SLOT_W-TOGGLE_W-8,52))])
             actions=[g.action('Mouse Down','Q-Link','Data','')]
         elif role=='menu':
             # 0.3.9: exactly the slot the SDK's own generator uses for a choice with a
@@ -195,16 +208,16 @@ for color,accent in COLORS.items():
             # so it is an SDK/firmware limitation and is no longer used. A choice is
             # a Vitaleon-style fader that steps through its labels (drag, data wheel,
             # Q-Link) and opens the working KnobOverlay on double-tap, like any knob.
-            children.extend([ent('value','Label',g.label_data('Value',accent,24),(0,24,SLOT_W,40)),
-                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader.png',127,'Horizontal'),(4,72,300,56))])
+            children.extend([ent('value','Label',g.label_data('Value',accent,SLOT_FONT),(0,24,SLOT_W,40)),
+                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader{DEF_SUFFIX}.png',127,'Horizontal'),(6,78,FADER_W,FADER_H))])
             actions=g.control_actions('value overlay')
         else:
             # 0.3.17: file selectors (wavetable, sample, LFO shape) were wheel-only.
             # They now carry the same fader as every other choice, so a table can be
             # chosen by touch; the data wheel and the double-tap overlay still work.
             children.extend([ent('field','Image',{'version':1,'colour':PANEL,'image':''},(0,22,SLOT_W,46)),
-                ent('value','Label',g.label_data('Value',accent,20),(6,24,SLOT_W-12,42)),
-                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader.png',127,'Horizontal'),(4,74,300,56))])
+                ent('value','Label',g.label_data('Value',accent,SLOT_FONT-2),(6,24,SLOT_W-12,42)),
+                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader{DEF_SUFFIX}.png',127,'Horizontal'),(6,78,FADER_W,FADER_H))])
         definitions.append(g.obj(('key',role+'-'+color),('value',g.component_definition(actions,children,'00000000'))))
 definitions.append(g.obj(('key','value overlay'),('value',g.overlay_component('KnobOverlay',g.knob_overlay_data(),BG))))
 definitions.append(g.obj(('key','bipolar overlay'),('value',g.overlay_component('KnobOverlay',g.knob_overlay_data(True),BG))))
@@ -275,15 +288,15 @@ def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
     if 1<len(choices)<=4 and p['kind']!='bool':
         # Short enumerations are immediately tappable, not a rotary mode selector.
         role='segments';key='segments-'+str(p['index'])+'-'+color
-        children=[g.entry('focus','Focus',g.focus_data(COLORS[color]),SLOT,'No','Show','WhenFocussed'),ent('name','Label',g.label_data('Name',TEXT,22),(0,0,SLOT_W,26))]
+        children=[g.entry('focus','Focus',g.focus_data(COLORS[color]),SLOT,'No','Show','WhenFocussed'),ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,30))]
         for n,choice in enumerate(choices):
-            px=4+(n%2)*152;py=30+(n//2)*58
-            children.append(ent('choice','Button',g.button_data(f'segment-choice-{color}-on.png',f'segment-choice-{color}-off.png',n,len(choices)),(px,py,148,52)))
+            px=6+(n%2)*SEG_DX;py=32+(n//2)*SEG_DY
+            children.append(ent('choice','Button',g.button_data(f'segment-choice-{color}-on{DEF_SUFFIX}.png',f'segment-choice-{color}-off{DEF_SUFFIX}.png',n,len(choices)),(px,py,SEG_W,SEG_H)))
             words=choice.split();lines=['']
             for word in words:
                 if len(lines[-1])+len(word)>12 and lines[-1]:lines.append(word)
                 else:lines[-1]=(lines[-1]+' '+word).strip()
-            for line,text in enumerate(lines[:2]):children.append(ent('choice text','Label',g.label_data('Text',TEXT,18,'horizontallyCentred verticallyCentred',text),(px+4,py+(4+line*20 if len(lines)>1 else 10),140,24)))
+            for line,text in enumerate(lines[:2]):children.append(ent('choice text','Label',g.label_data('Text',TEXT,22 if FORCE else 18,'horizontallyCentred verticallyCentred',text),(px+4,py+(4+line*20 if len(lines)>1 else 10),SEG_W-8,24)))
         if key not in segment_keys:
             definitions.append(g.obj(('key',key),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],children,'00000000'))));segment_keys.add(key)
     else:key=role+'-'+color
@@ -297,40 +310,43 @@ def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
     return g.entry(title,key,{'version':1,'handleName':'Data'},f'{x} {y} '+('184 188' if compact else f'{SLOT_W} {SLOT_H}'),'Yes','Hide' if visible else 'Show','Always',data+([('Menu',handle(name))] if role=='menu' else []),invalidating=visible)
 
 def home_browser(children):
-    children.append(rect('browser divider',(800,96,1,516),LINE))
-    children.append(label('Loaded sound',(24,98,760,24),MUTED,20))
-    for part in range(2):children.append(label('Loaded name',(24+part*384,126,376,32),COLORS['env'],24,value='library_loaded_'+str(part)))
-    for part in range(4):children.append(label('Import status',(24+(part%2)*280,166+(part//2)*25,276,24),COLORS['mod'],17,value='display_load_text_'+str(part)))
+    # The Force is wider: the browser panel moves left and gains the space.
+    divid=700 if FORCE else 800;rx=divid+28;rw=SCREEN_RIGHT-rx-20
+    half=(divid-48)//2
+    children.append(rect('browser divider',(divid,96,1,516),LINE))
+    children.append(label('Loaded sound',(24,98,divid-40,24),MUTED,20))
+    for part in range(2):children.append(label('Loaded name',(24+part*(half+8),126,half,32),COLORS['env'],24,value='library_loaded_'+str(part)))
+    for part in range(4):children.append(label('Import status',(24+(part%2)*(half//2+8),166+(part//2)*25,half//2,24),COLORS['mod'],17,value='display_load_text_'+str(part)))
     data={'version':2,'onImage':'home-filter-on.png','offImage':'home-filter-off.png','buttonId':1,'numButtonsInGroup':1,'handleName':handle('Home Filter'),'gestureBehaviour':'Instant'}
     children.append(ent('Filter 1 enable','Button',data,(584,160,200,52),True))
     children.append(label('FILTER 1',(596,160,116,52),TEXT,19))
     children.append(label('Filter state',(712,160,66,52),TEXT,21,value='Home Filter'))
-    children.append(label('MPC PRESET',(828,104,412,40),TEXT,30))
-    children.append(label('All sounds are in the top bar.',(828,154,412,32),MUTED,23))
-    children.append(label('Choose a name to load it.',(828,190,412,32),MUTED,23))
-    children.append(rect('sound count divider',(828,248,404,1),LINE))
-    children.append(label('Available sounds',(828,274,412,30),MUTED,22))
-    children.append(label('Inventory',(828,316,412,36),COLORS['env'],24,value='library_page_text'))
-    children.append(label('Bank',(828,388,412,30),MUTED,22))
-    for part in range(2):children.append(label('Bank name',(828,430+part*30,412,30),TEXT,23,value='library_bank_text_'+str(part)))
-    children.append(label('Save edits with the MPC save icon.',(828,548,412,30),MUTED,20))
+    children.append(label('MPC PRESET',(rx,104,rw,40),TEXT,30))
+    children.append(label('All sounds are in the top bar.',(rx,154,rw,32),MUTED,23))
+    children.append(label('Choose a name to load it.',(rx,190,rw,32),MUTED,23))
+    children.append(rect('sound count divider',(rx,248,rw,1),LINE))
+    children.append(label('Available sounds',(rx,274,rw,30),MUTED,22))
+    children.append(label('Inventory',(rx,316,rw,36),COLORS['env'],24,value='library_page_text'))
+    children.append(label('Bank',(rx,388,rw,30),MUTED,22))
+    for part in range(2):children.append(label('Bank name',(rx,430+part*30,rw,30),TEXT,23,value='library_bank_text_'+str(part)))
+    children.append(label('Save edits with the MPC save icon.',(rx,548,rw,30),MUTED,20))
 
 def envelope(children):
     data={'version':1,'envelopeType':'DAHDSR','envelopeStyle':'WithoutHeader','envelopeName':'ENVELOPE','backgroundColour':'ff1c1f29','scaleColour':LINE,'lineColour':COLORS['env'],'fillColour':'2064d9ba','highlightColour':TEXT,'lineWidth':3,'handleWidth':40,'handleHeight':40,'handleShape':'Circle','handleLineWidth':2,'handleLineColour':COLORS['env'],'handleFillColour':BG,'handleTextColour':TEXT,'handleLineWidthOnPressed':2,'handleLineColourOnPressed':TEXT,'handleFillColourOnPressed':COLORS['env'],'handleTextColourOnPressed':BG,'handleArrowLineColourOnPressed':TEXT,'handleArrowFillColourOnPressed':COLORS['env']}
     for stage in ['delay','attack','hold','decay','sustain','release']:data[stage+'Handle']=handle('Env '+stage)
     for stage in ['attack','decay','release']:data[stage+'ShapeHandle']=handle('Env '+stage+'_power')
     data.update(forceHideShapeHandles=False,decayAndReleaseCurvesLinked=False,curveType='Exponential')
-    children.append(ent('editable envelope','Envelope',data,(24,100,728,164),True))
-    children.append(trace('Envelope output',(768,100,232,164),'display_env_value','env'))
+    children.append(ent('editable envelope','Envelope',data,(24,100,full(728),164),True))
+    children.append(trace('Envelope output',(full(768),100,full(232),164),'display_env_value','env'))
 def pretty(k):
     words=k.replace('_',' ').replace('spectral morph','spectral').replace('distortion','warp').replace('unison voices','unison').replace('keytrack transpose','key transpose').replace('keytrack tune','key tune')
     return words.title()
 from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
 write_header()
 definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],[
-    ent('Effect name','Label',g.label_data('Name',TEXT,22),(0,0,SLOT_W,28)),
-    ent('Effect switch','Button',g.button_data('large-fx-on.png','large-fx-off.png',1,1),(0,40,136,72)),
-    ent('Effect state','Label',g.label_data('Value',COLORS['fx'],24),(140,50,SLOT_W-140,48)),
+    ent('Effect name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,24 if FORCE else 26)),
+    ent('Effect switch','Button',g.button_data(f'large-fx-on{DEF_SUFFIX}.png',f'large-fx-off{DEF_SUFFIX}.png',1,1),(0,24 if FORCE else 40,TOGGLE_W,TOGGLE_H)),
+    ent('Effect state','Label',g.label_data('Value',COLORS['fx'],SLOT_FONT),(TOGGLE_W+8,28,SLOT_W-TOGGLE_W-8,52)),
 ],'00000000'))))
 pages=[]
 def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
@@ -356,14 +372,15 @@ def add_library(c):
     for n,(caption,param,w) in enumerate([('DRIVES','Drives',150),('UP','Up Folder',150),('INSTALLED','Installed Banks',190)]):c.append(nav_button(caption,[24,182,340][n],108,w,52,param))
     c.append(label('Page',(560,112,190,36),MUTED,22,value='storage_page'))
     c.append(nav_button('PREV',760,108,116,52,'Previous Files'));c.append(nav_button('NEXT',884,108,116,52,'Next Files'))
+    row_w=full(976);action_x=full(840)
     for row in range(6):
         y=174+row*54;available=handle(f'storage_available_{row}')
-        c.append(rect('file separator',(24,y+51,976,1),LINE))
+        c.append(rect('file separator',(24,y+51,row_w,1),LINE))
         c.append(label('File kind',(24,y+12,96,30),MUTED,18,value=f'storage_row_{row*2}'))
-        c.append(label('File name',(124,y+4,676,44),TEXT,24,value=f'storage_row_{row*2+1}'))
-        c.append(conditional(nav_button('OPEN',840,y,156,52,f'Open Row {row+1}'),['IndexedEnabling/1/3/'+available]))
-        c.append(conditional(nav_button('LOAD',840,y,156,52,f'Open Row {row+1}',color='env'),['IndexedEnabling/2/3/'+available]))
-    for part in range(4):c.append(label('Browser status',(24+part*244,512,236,26),COLORS['mod'],18,value=f'storage_status_{part}'))  # one reading line, like HOME
+        c.append(label('File name',(124,y+4,action_x-136,44),TEXT,24,value=f'storage_row_{row*2+1}'))
+        c.append(conditional(nav_button('OPEN',action_x,y,156,52,f'Open Row {row+1}'),['IndexedEnabling/1/3/'+available]))
+        c.append(conditional(nav_button('LOAD',action_x,y,156,52,f'Open Row {row+1}',color='env'),['IndexedEnabling/2/3/'+available]))
+    for part in range(4):c.append(label('Browser status',(24+part*full(244),512,full(236),26),COLORS['mod'],18,value=f'storage_status_{part}'))  # one reading line, like HOME
 
 # ---- Serum-style modulation matrix and its two-step target picker ------------
 MATRIX_VIEW=next(i for i,v in enumerate(VIEWS) if v['chart']=='mxtable')
@@ -502,7 +519,8 @@ for i,view in enumerate(VIEWS):
             # is shown/hidden uses "Children" (ui-reference 7.3), never "No".
             children.insert(0,g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Section'))],invalidating=[f'IndexedEnabling/0/32/'+handle('UI Section')]))
         elif chart in ['lfo','curve']:
-            curve_bars(children,24,140,960,190)
+            curve_w=full(960)//GRAPH['kCurveColumns']*GRAPH['kCurveColumns']
+            curve_bars(children,24,140,curve_w,190)
         elif chart=='mxtable':matrix_table(children)
         elif chart=='pickgroup':pick_groups(children)
         elif chart=='picktarget':pick_targets(children)
@@ -511,8 +529,8 @@ for i,view in enumerate(VIEWS):
             # Preserve the editable stage controls, with space for the footer.
             for e in children:
                 d=dict(dict(e)['componentData']);b=dict(e)['bounds']
-                if d['type']=='Envelope':b[:]=[(k,'24 140 728 190' if k=='bounds' else v) for k,v in b]
-                if d['type']=='Plotter':b[:]=[(k,'768 140 232 190' if k=='bounds' else v) for k,v in b]
+                if d['type']=='Envelope':b[:]=[(k,f'24 140 {full(728)} 190' if k=='bounds' else v) for k,v in b]
+                if d['type']=='Plotter':b[:]=[(k,f'{full(768)} 140 {full(232)} 190' if k=='bounds' else v) for k,v in b]
         for section,part in enumerate(sections):
             if chart in ['mxtable','pickgroup','picktarget']:break
             cells=[]
@@ -543,7 +561,7 @@ for i,view in enumerate(VIEWS):
             # Below the second control row (ends at y = 512), like every page.
             children.append(label('Active bank',(24,520,140,24),MUTED,18))
             for part in range(2):children.append(label('Bank',(168+part*330,520,320,24),COLORS['env'],18,value=f'active_bank_{part}'))
-            children.append(nav_button('LIBRARY',840,512,156,52,'UI Page',3,len(VIEWS)))
+            children.append(nav_button('LIBRARY',SCREEN_RIGHT-24-156,512,156,52,'UI Page',3,len(VIEWS)))
     else:add_library(children)
     if title=='Advanced' and __import__('os').environ.get('VITALEON_DIAG'):  # device diagnostic only
         children.append(label('DIAGNOSTIC: a test chord plays on every page except HOME',(24,352,1000,30),COLORS['mod'],20))
@@ -560,7 +578,8 @@ for i,view in enumerate(VIEWS):
     # "Children": the page container itself takes no focus, but everything in
     # it may. With "No" nothing on any page could be focused or tapped (7.3).
     all_children.append(g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Page'))],invalidating=[condition]))
-for group,name in enumerate(GROUPS):all_children.append(nav_button(name,24+136*group,568,128,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
+FOOT_W=(SCREEN_RIGHT-72)//7;FOOT_STEP=FOOT_W+8
+for group,name in enumerate(GROUPS):all_children.append(nav_button(name,24+FOOT_STEP*group,568,FOOT_W,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
 
 # Touching a visible control selects the bank containing its live Q-Link proxy.
 for definition in definitions:
@@ -649,6 +668,19 @@ for color,argb in COLORS.items():
                 image=Image.new('RGBA',(64,512));d=ImageDraw.Draw(image);d.line((0,(1-a/31)*511,63,(1-b/31)*511),fill=rgb,width=8)
                 strip.paste(image.resize((8,64),Image.Resampling.LANCZOS),(0,((a%8)*32+b)*64))
         strip.save(skin/f'segment-{color}-{bank}.png')
+# Force slot artwork (0.3.28): the base images are drawn at MPC size and then
+# resampled to the Force slot metrics, so a wide card is filled by a bigger
+# knob/fader/switch instead of a stretched one. Base names stay untouched.
+if FORCE:
+    def variant(source,size):
+        Image.open(skin/source).resize(size,Image.Resampling.LANCZOS).save(skin/source.replace('.png','-f.png'))
+    for color in COLORS:
+        for role in ['knob','bipolar']:variant(f'large-{color}-{role}.png',(KNOB,KNOB*127))
+        variant(f'compact-{color}-fader.png',(FADER_W,FADER_H*127))
+        for state in ['off','on']:
+            variant(f'large-{color}-{state}.png',(TOGGLE_W,TOGGLE_H))
+            variant(f'segment-choice-{color}-{state}.png',(SEG_W,SEG_H))
+            variant(f'large-fx-{state}.png',(TOGGLE_W,TOGGLE_H))
 (root/'surface-pages.json').write_text(json.dumps([{k:p[k] for k in ['family','sub','title','items','chart','color','subtitle','sections']} for p in pages],indent=2))
 strip=Image.new('RGBA',(1216,4*512))
 for frame in range(512):
@@ -723,39 +755,12 @@ def bind_native_handles(entries):
 for definition in definitions:bind_native_handles(dict(dict(definition)['value'])['componentsData'])
 for tab in tabs:bind_native_handles(dict(tab['componentDefinition'])['componentsData'])
 (root/'button-captions.json').write_text(json.dumps(caption_assets,indent=2),encoding='utf-8')
-# Force variant (0.3.27). The Force has no Q-Link sidebar over the right edge, so
-# the 1000 px safe area of the MPC layout leaves about 280 px of its screen black.
-# The variant is this same skin with every absolute x/w scaled about the left
-# margin out to 1256 px; slot internals scale with it and each Q-Link frame is
-# re-rendered at its new size. The firmware prefers "TUI - Force.json" over
-# "TUI.json" (ui-reference 8.4), so MPCs keep the untouched layout.
-FULL_RIGHT=1256
-K=(FULL_RIGHT-24)/(SCREEN_RIGHT-24)
-def stretch(entries,origin,limit):
-    undo=[]
-    for entry in entries:
-        bounds=dict(entry)['bounds'];old=dict(bounds)['bounds']
-        x,y,w,h=map(int,old.split())
-        if w>=1200:continue                      # page-wide containers stay full width
-        nx=origin+round((x-origin)*K);nw=max(1,round(w*K))
-        if nx+nw>limit:nw=max(1,limit-nx)
-        undo.append((bounds,old));bounds[:]=[(key,f'{nx} {y} {nw} {h}' if key=='bounds' else value) for key,value in bounds]
-        model=dict(dict(entry)['componentData']);data=dict(model)['data']
-        image=dict(data).get('image') if isinstance(data,dict) else None
-        if model['type']=='Image' and isinstance(image,str) and image.startswith('qframe-'):
-            undo.append((data,image));data['image']=frame_image(nw,h,image.rsplit('-',1)[-1].replace('.png',''))
-    return undo
-def unstretch(undo):
-    for target,old in undo:
-        if isinstance(target,list):target[:]=[(key,old if key=='bounds' else value) for key,value in target]
-        else:target['image']=old
-undo=[]
-for definition in definitions:
-    absolute=dict(definition)['key'].startswith(('view-','osc-graph-'))
-    undo+=stretch(dict(dict(definition)['value'])['componentsData'],24 if absolute else 0,FULL_RIGHT if absolute else round(1280*K))
-undo+=stretch(all_children,24,FULL_RIGHT)
-(skin/'TUI - Force.json').write_text(g.dump_json(tui)+'\n',encoding='utf-8')
-unstretch(undo)
-(skin/'TUI.json').write_text(g.dump_json(tui)+'\n',encoding='utf-8');(skin/'Q-Links.json').write_text(g.dump_json(qlinks)+'\n',encoding='utf-8')
-print('Generated',len(tabs),'native pages;',len(params),'parameters;',len(replacements),'choice labels; Force layout right edge',FULL_RIGHT)
+# One design, two skins (0.3.28). The MPC keeps the 1000 px safe area; the Force
+# skin is generated at its own width and with its own slot metrics. The firmware
+# prefers "TUI - Force.json" over "TUI.json" (ui-reference 8.4), so an MPC still
+# loads the untouched layout.
+name='TUI - Force.json' if FORCE else 'TUI.json'
+(skin/name).write_text(g.dump_json(tui)+'\n',encoding='utf-8')
+if not FORCE:(skin/'Q-Links.json').write_text(g.dump_json(qlinks)+'\n',encoding='utf-8')
+print('Generated',len(tabs),'native pages;',len(params),'parameters;',len(replacements),'choice labels;',name,'right edge',SCREEN_RIGHT)
 
