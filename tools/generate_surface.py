@@ -589,8 +589,12 @@ for i,view in enumerate(VIEWS):
                 if view['group']==5:
                     for prefix in ['Compressor ','Chorus ','Delay ','Warp ','Eq ','Filter Fx ','Flanger ','Phaser ','Reverb ']:
                         if caption.startswith(prefix):caption=caption[len(prefix):]
+                # Only the page's own module prefix may go: 'Osc 1 Random Phase' is
+                # the oscillator's phase randomisation, not a control of the Random
+                # module, so the first match ends the stripping (it used to end as
+                # 'Phase', the same caption as the plain phase control).
                 for prefix in ['Osc '+str(view['member'])+' ','Filter 1 ','Filter 2 ','Env ','Lfo ','Random ']:
-                    if caption.startswith(prefix):caption=caption[len(prefix):]
+                    if caption.startswith(prefix):caption=caption[len(prefix):];break
                 caption=caption.replace('Spectral Amount','Spectral Amt').replace('Warp Amount','Warp Amount').replace('Unison Detune','Detune').replace('Smooth Interpolation','Smooth Frames').replace('Keytrack','Key Track').replace('Transpose Quantize','Pitch Quantize').replace('Lower Threshold','Lower Thresh.').replace('Upper Threshold','Upper Thresh.').replace('Dry Wet','Mix').replace('Home ','').replace('Macro Control','Macro')
                 if chart=='effects' and section==0:
                     row,col=divmod(slot,3);caption=name[:-3].replace('_',' ').title()

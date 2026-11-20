@@ -18057,7 +18057,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Phase",
+                                    "name": "Random Phase",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -18069,7 +18069,7 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Phase]/Parameter 1840"
+                                            "value": "WithName[Random Phase]/Parameter 1840"
                                         },
                                         {
                                             "key": "Target",
@@ -24808,7 +24808,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Phase",
+                                    "name": "Random Phase",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -24820,7 +24820,7 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Phase]/Parameter 1840"
+                                            "value": "WithName[Random Phase]/Parameter 1840"
                                         },
                                         {
                                             "key": "Target",
@@ -31559,7 +31559,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Phase",
+                                    "name": "Random Phase",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -31571,7 +31571,7 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Phase]/Parameter 1840"
+                                            "value": "WithName[Random Phase]/Parameter 1840"
                                         },
                                         {
                                             "key": "Target",
