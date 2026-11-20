@@ -39,6 +39,13 @@ inline void Vitaleon::updateNavigation(){
     slotEditMs_.store(0,std::memory_order_relaxed); // other controls now: every slot shows its new target
     refreshProxies();browserDisplayDirty_.store(true);
 }
+inline int Vitaleon::groupMemberPage(int group,int member){
+    // Group pages count members inside the group, as the tab bar does.
+    int k=0,first=-1;
+    for(int i=0;i<int(surfaceViews_.size());++i)if(surfaceViews_[i].group==group&&!surfaceViews_[i].hidden){
+        if(first<0)first=i;if(k==member)return i;++k;}
+    return first<0?0:first;
+}
 inline bool Vitaleon::applySlot(int slot,float plain){
     int target=uiTargets_[slot].load();if(target<0)return true;
     // Record the stable sound parameter, never a page-dependent UI slot.
@@ -68,11 +75,10 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
     for(int g=0;g<7;++g){
         if(index==groupPage_[g]){
             std::lock_guard<std::mutex> lock(navigationMutex_);
-            const int page=mpc::clamp(int(std::lround(plain)),0,int(surfaceViews_.size())-1);
+            const int page=groupMemberPage(g,int(std::lround(plain)));
             publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();return true;}
         if(groupSlot_[g]>=0&&index>=groupSlot_[g]&&index<groupSlot_[g]+9){
-            int page=mpc::clamp(getInt(groupPage_[g]),0,int(surfaceViews_.size())-1);
-            if(surfaceViews_[page].group!=g)for(int i=0;i<int(surfaceViews_.size());++i)if(surfaceViews_[i].group==g&&!surfaceViews_[i].hidden){page=i;break;}
+            const int page=groupMemberPage(g,getInt(groupPage_[g]));
             if(getInt(uiPage_)!=page||getInt(uiGroup_)!=g){
                 std::lock_guard<std::mutex> lock(navigationMutex_);
                 publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();}

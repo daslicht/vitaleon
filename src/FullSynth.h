@@ -115,6 +115,7 @@ private:
     void createNavigation();
     void updateNavigation();
     bool applySlot(int slot,float plain);
+    int groupMemberPage(int group,int member);
     bool navigationChanged(int index,float plain);
     void refreshNavigation();
     struct LibraryBank {std::string name;std::vector<int> files;};

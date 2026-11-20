@@ -276,7 +276,10 @@ def qlink_frames(cells,section,color):
 # for display updates instead, which made every control stutter. 'Target' keeps the
 # sound parameter in the entry for the checks; the MPC ignores it. Switches, lists
 # and file selectors stay on their own parameter: their steps and labels belong to it.
-def slot_data(title,name,slot):return [('Data','WithName['+title+']/'+handle(f'UI Control {slot+1}')),('Target',handle(name))]
+GROUP_SLOT=None
+def group_page_handle(group):return handle(f'Group {group} Page')
+def group_members(group):return [i for i,v in enumerate(VIEWS) if v['group']==group and not v.get('hidden')]
+def slot_data(title,name,slot):return [('Data','WithName['+title+']/'+handle((f'Group {GROUP_SLOT} Slot' if GROUP_SLOT is not None else 'UI Control')+f' {slot+1}')),('Target',handle(name))]
 def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
     p=parameter(name);choices=p.get('choices',[])
     if p['kind']=='bool':role='toggle'
@@ -471,13 +474,22 @@ def cell_position(chart,section,slot):
 from surface_spec import DESTINATIONS
 all_children=[]
 version=json.loads((project/'plugin.json').read_text())['version']
+member_rows={};page_entries={}
 for group,group_name in enumerate(GROUPS):
     members=[(i,p) for i,p in enumerate(VIEWS) if p['group']==group and not p.get('hidden')]
     width=(SCREEN_RIGHT-24-8*(len(members)-1))//len(members)
+    row=[]
     for slot,(i,p) in enumerate(members):
-        e=nav_button(p['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color'])
-        all_children.append(conditional(e,[f'IndexedEnabling/{group}/7/'+handle('UI Group')]))
+        if FORCE:
+            # The tab is chosen by the function key; this row is the member strip
+            # of that tab and stays visible for as long as the tab is open.
+            row.append(nav_button(p['tab'],24+slot*(width+8),4,width,56,('Group',group,'Page')[0]+f' {group} Page',slot,len(members),p['color']))
+        else:
+            row.append(conditional(nav_button(p['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color']),[f'IndexedEnabling/{group}/7/'+handle('UI Group')]))
+    member_rows[group]=row
+    if not FORCE:all_children.extend(row)
 for i,view in enumerate(VIEWS):
+    GROUP_SLOT=view['group'] if FORCE else None
     title=view['title'];chart=view['chart'];color=view['color'];sections=view['sections'];children=[]
     pages.append(dict(family=view['group'],sub=view['member'],title=title,items=[x for sec in sections for x in sec['items']],chart=chart,color=color,subtitle='',sections=sections))
     # ENV/LFO instances share their actual proxy-backed graph/control view.
@@ -559,7 +571,7 @@ for i,view in enumerate(VIEWS):
                         elif name.startswith('filter_') or name in ['Home Cutoff','Home Resonance','Home Filter']:control_color='fx'
                         elif name.startswith('macro_'):control_color='mod'
                     cell=control(name,caption,x,y,control_color,visible=[f'IndexedEnabling/{section}/32/'+handle('UI Section')],slot=slot)
-                dict(dict(cell)['handle remapping'])['map'].append(g.obj(('key','QTarget'),('value',handle(f'UI Control {slot+1}'))))
+                dict(dict(cell)['handle remapping'])['map'].append(g.obj(('key','QTarget'),('value',handle(f'Group {GROUP_SLOT} Slot {slot+1}' if GROUP_SLOT is not None else f'UI Control {slot+1}'))))
                 cells.append(cell)
             # Frames first: they lie under the controls and take no touch. The Force
             # has eight Q-Links in two banks, so its knobs address the eight visible
@@ -581,14 +593,18 @@ for i,view in enumerate(VIEWS):
         b[:]=[(k,f'{x} {y-64} {w} {h}' if k=='bounds' else v) for k,v in b]
     key=f'view-{i}'
     definitions.append(g.obj(('key',key),('value',g.component_definition([],children,BG))))
-    condition=f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')
+    if FORCE:
+        own=group_members(view['group']);slot=own.index(i) if i in own else 0;condition=f'IndexedEnabling/{slot}/{len(own)}/'+group_page_handle(view['group'])
+    else:condition=f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')
     # A hidden-on-invalid container needs a valid model of its own. Child
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).
     # "Children": the page container itself takes no focus, but everything in
     # it may. With "No" nothing on any page could be focused or tapped (7.3).
-    all_children.append(g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Page'))],invalidating=[condition]))
+    entry=g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',group_page_handle(view['group']) if FORCE else handle('UI Page'))],invalidating=[condition])
+    if FORCE:page_entries.setdefault(view['group'],[]).append(entry)
+    else:all_children.append(entry)
 FOOT_W=(SCREEN_RIGHT-72)//7;FOOT_STEP=FOOT_W+8
-for group,name in enumerate(GROUPS):all_children.append(nav_button(name,24+FOOT_STEP*group,568,FOOT_W,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
+foot=[] if FORCE else [nav_button(name,24+FOOT_STEP*group,568,FOOT_W,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]) for group,name in enumerate(GROUPS)]
 
 # Touching a visible control selects the bank containing its live Q-Link proxy.
 for definition in definitions:
@@ -596,10 +612,22 @@ for definition in definitions:
     for action in value['actions']:
         a=dict(action)
         if a.get('handler')=='Q-Link':action[:]=[(k,'QTarget' if k=='handleName' else v) for k,v in action]
-tabs=[{'version':1,'tabName':'VITALEON','fnKeyIndex':0,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],all_children,BG),'qlinkBoundsData':[]}]
+if FORCE:
+    tabs=[]
+    for group,group_name in enumerate(GROUPS):
+        tabs.append({'version':1,'tabName':group_name,'fnKeyIndex':group,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],member_rows[group]+page_entries.get(group,[]),BG),'qlinkBoundsData':[]})
+else:
+    all_children.extend(e for group in range(len(GROUPS)) for e in page_entries.get(group,[]))
+    all_children.extend(foot)
+    tabs=[{'version':1,'tabName':'VITALEON','fnKeyIndex':0,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],all_children,BG),'qlinkBoundsData':[]}]
 q={}
 for slot in range(16):row,col=divmod(slot,4);q[f'Q-Link {13+col-row*4}']=index(f'UI Control {slot+1}')
-maps=[{'Tab':1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':q}]
+if FORCE:
+    maps=[]
+    for group in range(len(GROUPS)):
+        gm={f'Q-Link {slot+1}':index(f'Group {group} Slot {slot+1}') for slot in range(8)}
+        maps.append({'Tab':group+1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':gm})
+else:maps=[{'Tab':1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':q}]
 replacements=[{'key':'Parameter '+str(p['index']),'value':p['choices']} for p in params if p['name']!='Full Engine' and len(p.get('choices',[]))>1]
 tui={'pageData':{'version':1,'componentDefinitions':{'version':2,'importFiles':[],'localComponentDefinitions':definitions},'replacementStrings':replacements,'info':{'version':1,'type':'CompleteDescription'},'tabs':tabs}}
 qlinks={'version':4,'info':{'version':1,'type':'CompleteDescription'},'Screen Mode Q-Links':{'version':4,'map':maps},'Program Mode Q-Links':{f'Q-Link {i+1}':index(n) for i,n in enumerate(['macro_control_1','macro_control_2','macro_control_3','macro_control_4','filter_1_cutoff','filter_1_resonance','filter_2_cutoff','filter_2_resonance','Env attack','Env decay','Env sustain','Env release','volume','Voices','osc_1_wave_frame','osc_1_unison_voices'])}}
@@ -770,6 +798,6 @@ for tab in tabs:bind_native_handles(dict(tab['componentDefinition'])['components
 # loads the untouched layout.
 name='TUI - Force.json' if FORCE else 'TUI.json'
 (skin/name).write_text(g.dump_json(tui)+'\n',encoding='utf-8')
-if not FORCE:(skin/'Q-Links.json').write_text(g.dump_json(qlinks)+'\n',encoding='utf-8')
+(skin/('Q-Links - Force.json' if FORCE else 'Q-Links.json')).write_text(g.dump_json(qlinks)+'\n',encoding='utf-8')
 print('Generated',len(tabs),'native pages;',len(params),'parameters;',len(replacements),'choice labels;',name,'right edge',SCREEN_RIGHT)
 
