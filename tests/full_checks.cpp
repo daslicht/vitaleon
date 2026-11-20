@@ -416,23 +416,25 @@ int main(int argc,char** argv){
   {
     const int sel=id("preset_select");
     auto pause=[](){std::this_thread::sleep_for(std::chrono::milliseconds(30));};
-    native->setNormalised(sel,0.0f);pause();
-    native->setNormalised(sel,0.01f);
+    // A jump (preset load, list change) stays absolute.
+    pause();native->setNormalised(sel,1.0f);pause();native->setNormalised(sel,0.0f);
+    check(native->getInt(sel)==0,"a jump in a run-time list stays absolute");
+    pause();native->setNormalised(sel,0.01f);
     check(native->getInt(sel)==1,"one data wheel click moves a run-time list by one entry");
     native->setNormalised(sel,0.01f);
     check(native->getInt(sel)==1,"a click the host reports twice moves the list once");
     pause();native->setNormalised(sel,0.02f);
     check(native->getInt(sel)==2,"the next click moves the list again");
-    // A drag reports a stream of small changes: the list follows the position and
-    // must not step once per report.
-    native->setNormalised(sel,0.0f);pause();
-    native->setNormalised(sel,0.01f);native->setNormalised(sel,0.02f);native->setNormalised(sel,0.03f);native->setNormalised(sel,0.04f);
-    check(native->getInt(sel)==0,"a drag follows the position instead of one entry per report");
+    pause();native->setNormalised(sel,0.01f);
+    check(native->getInt(sel)==1,"a reverse click moves the list back");
+    // A drag reports a stream of changes: the list follows the travel and must not
+    // step once per report.
+    native->setNormalised(sel,0.02f);native->setNormalised(sel,0.03f);native->setNormalised(sel,0.04f);
+    check(native->getInt(sel)==1,"a drag does not step once per report");
     native->setNormalised(sel,0.22f);
-    check(native->getInt(sel)==2,"the drag keeps following the position");
-    native->setNormalised(sel,0.5f);pause();
-    check(native->getInt(sel)>=5,"a jump in a run-time list stays absolute");
-    native->setNormalised(sel,0.0f);
+    check(native->getInt(sel)>=2,"the drag keeps following the travel");
+    pause();native->setNormalised(sel,0.9f);
+    check(native->getInt(sel)>=8,"a jump in a run-time list stays absolute again");
   }
   // Each page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1.
   native->set(id("ui_gpage_1"),0);native->set(id("ui_section"),1);

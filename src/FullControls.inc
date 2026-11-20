@@ -130,7 +130,7 @@ inline void Vitaleon::publishList(int index,float plain){
     for(int i=0;i<3;++i)if(index==tableSelect_[i])slot=i;
     if(slot<0)slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
     if(slot<0)return;
-    listIndex_[slot]=int(std::lround(plain));listRaw_[slot]=getNormalised(index);listMs_[slot]=0;
+    listIndex_[slot]=int(std::lround(plain));listRaw_[slot]=getNormalised(index);listMs_[slot]=0;listTravel_[slot]=0;
 }
 inline void Vitaleon::listStep(int index,float plain){
     // The lists of the file selectors are filled at run time, so a skin cannot name
@@ -147,18 +147,25 @@ inline void Vitaleon::listStep(int index,float plain){
     const int last=std::max(0,int(param(index).max));
     const float raw=getNormalised(index),delta=raw-listRaw_[slot];
     const long long now=nowMs();
-    // A drag or a swipe reports a continuous stream; a wheel click arrives alone.
-    const bool stream=now-listMs_[slot]<25;
+    // A wheel click arrives alone; a drag or a swipe reports a stream of changes.
+    const bool click=now-listMs_[slot]>=25;
     listRaw_[slot]=raw;listMs_[slot]=now;
     if(last==0)return;
     const float step=1.0f/float(last);
-    // The same value reported again: the host's write already replaced the stored
-    // value with its own fraction, so put the entry back (it used to stay there and
-    // the list only moved on every second click).
-    if(std::fabs(delta)<step*.01f){publishNormalised(index,float(listIndex_[slot])*step);return;}
+    // The host reports a click twice and its second write had replaced the stored
+    // entry with its own fraction: put the entry back.
+    if(std::fabs(delta)<step*.01f){publishNormalised(index,float(listIndex_[slot])*step);listTravel_[slot]=0;return;}
     int next=listIndex_[slot];
-    if(!stream&&std::fabs(delta)<step*1.5f)next+=(delta>0?1:-1); // one click, one entry
-    else next=int(std::lround(plain));                        // drag, swipe or jump
+    if(click&&std::fabs(delta)>=0.25f){next=int(std::lround(plain));listTravel_[slot]=0;}       // preset load, list change
+    else if(click&&std::fabs(delta)<step*1.5f){next+=(delta>0?1:-1);listTravel_[slot]=0;}       // one click, one entry
+    else{
+        // Follow the travel instead of stepping once per report: a drag moves the list
+        // with the finger and never one entry per touch event. Reading the direction
+        // from the travel also keeps reverse turns from ever running forward.
+        listTravel_[slot]+=delta;
+        const int moved=int(listTravel_[slot]/step);
+        if(moved){next+=moved;listTravel_[slot]-=float(moved)*step;}
+    }
     listIndex_[slot]=next=mpc::clamp(next,0,last);
     publishNormalised(index,float(next)*step);
     // The host draws the value it was told last; without this it showed the entry

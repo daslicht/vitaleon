@@ -122,7 +122,7 @@ private:
     bool navigationChanged(int index,float plain);
     void refreshNavigation();
     // Run-time list selectors: the wheel's coarse fraction moves one entry (listStep).
-    float listRaw_[6]{};int listIndex_[6]{};long long listMs_[6]{};
+    float listRaw_[6]{};int listIndex_[6]{};long long listMs_[6]{};float listTravel_[6]{};
     void listStep(int index,float plain);
     void publishList(int index,float plain); // sets a selector and its list cache
     struct LibraryBank {std::string name;std::vector<int> files;};
