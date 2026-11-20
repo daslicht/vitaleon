@@ -367,14 +367,14 @@ int main(int argc,char** argv){
    {std::string path,type;check(vitaleon_storage::parseMount("98 61 8:17 / /media/USB\\040STICK rw,noexec - vfat /dev/sdb1 rw,fmask=0022",path,type)&&path=="/media/USB STICK"&&type=="vfat","mount lines give the path and the file system");}
    command(5);command(0);dispatch(effSetChunk,0,kept.size(),kept.data());waitNative();}
   // Every rendered module/section must remap Q-Links to its actual parameters.
-  auto spec=nlohmann::json::parse(surfaceMapJson);bool mapped=true;int sectionCount=0;nlohmann::json snapshots;
+  auto spec=nlohmann::json::parse(surfaceMapJson);bool mapped=true;int sectionCount=0;nlohmann::json snapshots;int expectedSections=0;for(const auto& pageSpec:spec)expectedSections+=int(pageSpec["sections"].size());
   for(int page=0;page<int(spec.size());++page){native->set(id("ui_page"),float(page));
     for(int sec=0;sec<int(spec[page]["sections"].size());++sec){native->set(id("ui_section"),float(sec));waitNative();++sectionCount;
       int slot=0;for(const auto& value:spec[page]["sections"][sec]["items"]){std::string name=value;int target=-1;for(int p=0;p<native->numParams();++p)if(native->param(p).name==name)target=p;if(target<0){std::replace(name.begin(),name.end(),'_',' ');for(int p=0;p<native->numParams();++p)if(native->param(p).name==name)target=p;}mapped&=target>=0&&std::abs(native->getNormalised(id("ui_knob_"+std::to_string(slot)))-native->getNormalised(target))<1e-6;++slot;}
       if(argc>2){auto values=nlohmann::json::array();for(int p=0;p<native->numParams();++p)values.push_back({{"index",p},{"name",native->param(p).name},{"value",native->getNormalised(p)},{"display",native->displayText(p)}});snapshots[std::to_string(page)+"-"+std::to_string(sec)]=std::move(values);}
     }
   }
-  check(mapped&&sectionCount==150,"all 40 module views and 150 sections map Q-Links to visible controls");
+  check(mapped&&sectionCount==expectedSections,"all "+std::to_string(int(spec.size()))+" module views and "+std::to_string(expectedSections)+" sections map Q-Links to visible controls");
   if(argc>2){std::ofstream f(std::string(argv[2])+"-surface.json");f<<snapshots.dump();}
   native->set(id("ui_page"),8);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.37f);check(std::abs(native->getNormalised(cutoff)-.37f)<1e-6,"filter cutoff Q-Link writes the actual full-engine filter");
   native->set(id("ui_page"),15);native->setNormalised(id("ui_knob_0"),.4f);check(std::abs(native->getNormalised(native->controlIndex("env_6_attack"))-.4f)<1e-6,"Envelope 6 view edits Envelope 6 through Q-Link");
