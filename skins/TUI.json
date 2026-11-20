@@ -7776,7 +7776,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -7801,7 +7801,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -9696,7 +9696,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -9721,7 +9721,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -11016,7 +11016,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -11041,7 +11041,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -17255,6 +17255,38 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Oscillator graph",
+                                    "type": "osc-graph-0",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "Parameter 1838"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Children",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 1280 500",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1838"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "OSCILLATOR 1",
                                     "type": "Label",
                                     "data": {
@@ -17297,7 +17329,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -17322,7 +17354,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -17537,38 +17569,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "900 12 88 52"
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Oscillator graph",
-                                    "type": "osc-graph-0",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "Parameter 1838"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "0 0 1280 500",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1838"
-                                    ]
                                 }
                             },
                             {
@@ -24006,6 +24006,38 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Oscillator graph",
+                                    "type": "osc-graph-1",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "Parameter 1838"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Children",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 1280 500",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1838"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "OSCILLATOR 2",
                                     "type": "Label",
                                     "data": {
@@ -24048,7 +24080,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -24073,7 +24105,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -24288,38 +24320,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "900 12 88 52"
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Oscillator graph",
-                                    "type": "osc-graph-1",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "Parameter 1838"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "0 0 1280 500",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1838"
-                                    ]
                                 }
                             },
                             {
@@ -30757,6 +30757,38 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Oscillator graph",
+                                    "type": "osc-graph-2",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "Parameter 1838"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Children",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 1280 500",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1838"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "OSCILLATOR 3",
                                     "type": "Label",
                                     "data": {
@@ -30799,7 +30831,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -30824,7 +30856,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -31039,38 +31071,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "900 12 88 52"
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Oscillator graph",
-                                    "type": "osc-graph-2",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "Parameter 1838"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "0 0 1280 500",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1838"
-                                    ]
                                 }
                             },
                             {
@@ -33124,7 +33124,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -33149,7 +33149,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -34138,7 +34138,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -34163,7 +34163,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -35444,7 +35444,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -35469,7 +35469,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -36750,7 +36750,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -36775,7 +36775,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -37764,7 +37764,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -37789,7 +37789,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -46110,7 +46110,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -46135,7 +46135,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -47192,7 +47192,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -47217,7 +47217,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -48124,7 +48124,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -48149,7 +48149,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -49332,7 +49332,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -49357,7 +49357,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -50333,7 +50333,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -50358,7 +50358,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -51827,7 +51827,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -51852,7 +51852,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -52815,7 +52815,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -52840,7 +52840,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -54130,7 +54130,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -54155,7 +54155,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -56208,7 +56208,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -56233,7 +56233,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -57299,7 +57299,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -57324,7 +57324,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -58540,7 +58540,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -58565,7 +58565,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -79242,7 +79242,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -79267,7 +79267,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -80027,7 +80027,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -80052,7 +80052,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -80342,7 +80342,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -80367,7 +80367,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -87690,7 +87690,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -87715,7 +87715,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -88868,7 +88868,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.25",
+                                    "name": "VITALEON 0.3.26",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -88893,7 +88893,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.25]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.26]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -141962,7 +141962,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -141994,7 +141994,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142026,7 +142026,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142058,7 +142058,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142090,7 +142090,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142122,7 +142122,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142154,7 +142154,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142186,7 +142186,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142218,7 +142218,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142250,7 +142250,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142282,7 +142282,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142314,7 +142314,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142346,7 +142346,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142378,7 +142378,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142410,7 +142410,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142442,7 +142442,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142474,7 +142474,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142506,7 +142506,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142538,7 +142538,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142570,7 +142570,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142602,7 +142602,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142634,7 +142634,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142666,7 +142666,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142698,7 +142698,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142730,7 +142730,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142762,7 +142762,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142794,7 +142794,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
@@ -142826,7 +142826,7 @@
                             },
                             "bounds": {
                                 "version": 2,
-                                "acceptsHWFocus": "No",
+                                "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",

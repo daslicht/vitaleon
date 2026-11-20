@@ -497,7 +497,10 @@ for i,view in enumerate(VIEWS):
                 b[:]=[(k,f'{x} {y-64} {w} {h}' if k=='bounds' else v) for k,v in b]
             graph_key=f'osc-graph-{chart}'
             definitions.append(g.obj(('key',graph_key),('value',g.component_definition([],graph,'00000000'))))
-            children.append(g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','No','Hide','Always',[('Data',handle('UI Section'))],invalidating=[f'IndexedEnabling/0/32/'+handle('UI Section')]))
+            # Drawn before the section buttons below, so the buttons stay on top
+            # and keep their taps. A wrapper that holds focusable children and
+            # is shown/hidden uses "Children" (ui-reference 7.3), never "No".
+            children.insert(0,g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Section'))],invalidating=[f'IndexedEnabling/0/32/'+handle('UI Section')]))
         elif chart in ['lfo','curve']:
             curve_bars(children,24,140,960,190)
         elif chart=='mxtable':matrix_table(children)
@@ -554,7 +557,9 @@ for i,view in enumerate(VIEWS):
     condition=f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')
     # A hidden-on-invalid container needs a valid model of its own. Child
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).
-    all_children.append(g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','No','Hide','Always',[('Data',handle('UI Page'))],invalidating=[condition]))
+    # "Children": the page container itself takes no focus, but everything in
+    # it may. With "No" nothing on any page could be focused or tapped (7.3).
+    all_children.append(g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Page'))],invalidating=[condition]))
 for group,name in enumerate(GROUPS):all_children.append(nav_button(name,24+136*group,568,128,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
 
 # Touching a visible control selects the bank containing its live Q-Link proxy.

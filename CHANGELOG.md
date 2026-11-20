@@ -2,6 +2,12 @@
 
 Device results refer to an MPC Live II with MPC OS 3.10.1.
 
+## 0.3.26
+
+- Controls take the hardware focus again. Every page was wrapped in a container marked `acceptsHWFocus: "No"`, and the MPC gives nothing inside such a container any focus, so neither a touch nor the data wheel reached a control. The wrapper is `"Children"` now, which the SDK reference (7.3) describes for a panel that shows and hides its contents. This was wrong since the pages got their own wrapper, not only since 0.3.25.
+- The oscillator sub-tabs (SOUND, PHASE, UNISON, ...) can be tapped again. The graph container that 0.3.25 added covered the whole page and was drawn above them; it is drawn below them now.
+- No preset or bank file ships with the plugin: `Content/` holds the README files only. Replace the plugin folder instead of deleting it, or copy your own `Content/` back afterwards.
+
 ## 0.3.25
 
 - Every control answers the data wheel. A slot takes the hardware focus itself and its knob, fader or buttons do not, which is the pattern the SDK's own generator uses. Before, a value pair, a switch or a route amount could not be focused at all.
