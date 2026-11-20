@@ -723,6 +723,39 @@ def bind_native_handles(entries):
 for definition in definitions:bind_native_handles(dict(dict(definition)['value'])['componentsData'])
 for tab in tabs:bind_native_handles(dict(tab['componentDefinition'])['componentsData'])
 (root/'button-captions.json').write_text(json.dumps(caption_assets,indent=2),encoding='utf-8')
+# Force variant (0.3.27). The Force has no Q-Link sidebar over the right edge, so
+# the 1000 px safe area of the MPC layout leaves about 280 px of its screen black.
+# The variant is this same skin with every absolute x/w scaled about the left
+# margin out to 1256 px; slot internals scale with it and each Q-Link frame is
+# re-rendered at its new size. The firmware prefers "TUI - Force.json" over
+# "TUI.json" (ui-reference 8.4), so MPCs keep the untouched layout.
+FULL_RIGHT=1256
+K=(FULL_RIGHT-24)/(SCREEN_RIGHT-24)
+def stretch(entries,origin,limit):
+    undo=[]
+    for entry in entries:
+        bounds=dict(entry)['bounds'];old=dict(bounds)['bounds']
+        x,y,w,h=map(int,old.split())
+        if w>=1200:continue                      # page-wide containers stay full width
+        nx=origin+round((x-origin)*K);nw=max(1,round(w*K))
+        if nx+nw>limit:nw=max(1,limit-nx)
+        undo.append((bounds,old));bounds[:]=[(key,f'{nx} {y} {nw} {h}' if key=='bounds' else value) for key,value in bounds]
+        model=dict(dict(entry)['componentData']);data=dict(model)['data']
+        image=dict(data).get('image') if isinstance(data,dict) else None
+        if model['type']=='Image' and isinstance(image,str) and image.startswith('qframe-'):
+            undo.append((data,image));data['image']=frame_image(nw,h,image.rsplit('-',1)[-1].replace('.png',''))
+    return undo
+def unstretch(undo):
+    for target,old in undo:
+        if isinstance(target,list):target[:]=[(key,old if key=='bounds' else value) for key,value in target]
+        else:target['image']=old
+undo=[]
+for definition in definitions:
+    absolute=dict(definition)['key'].startswith(('view-','osc-graph-'))
+    undo+=stretch(dict(dict(definition)['value'])['componentsData'],24 if absolute else 0,FULL_RIGHT if absolute else round(1280*K))
+undo+=stretch(all_children,24,FULL_RIGHT)
+(skin/'TUI - Force.json').write_text(g.dump_json(tui)+'\n',encoding='utf-8')
+unstretch(undo)
 (skin/'TUI.json').write_text(g.dump_json(tui)+'\n',encoding='utf-8');(skin/'Q-Links.json').write_text(g.dump_json(qlinks)+'\n',encoding='utf-8')
-print('Generated',len(tabs),'native pages;',len(params),'parameters;',len(replacements),'choice labels')
+print('Generated',len(tabs),'native pages;',len(params),'parameters;',len(replacements),'choice labels; Force layout right edge',FULL_RIGHT)
 

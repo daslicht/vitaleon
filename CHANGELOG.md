@@ -2,6 +2,10 @@
 
 Device results refer to an MPC Live II with MPC OS 3.10.1.
 
+## 0.3.27
+
+- The Force gets its own skin, `Plugin Skins/TUI - Force.json`. The Force has no Q-Link sidebar over the right edge, so the MPC layout ends at x = 1000 and leaves a black strip; the Force layout scales every column, graph and frame out to x = 1256. The firmware prefers the product-specific file, so MPCs keep the untouched `TUI.json`.
+
 ## 0.3.26
 
 - Controls take the hardware focus again. Every page was wrapped in a container marked `acceptsHWFocus: "No"`, and the MPC gives nothing inside such a container any focus, so neither a touch nor the data wheel reached a control. The wrapper is `"Children"` now, which the SDK reference (7.3) describes for a panel that shows and hides its contents. This was wrong since the pages got their own wrapper, not only since 0.3.25.
