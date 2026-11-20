@@ -2,6 +2,12 @@
 
 Device results refer to an MPC Live II with MPC OS 3.10.1.
 
+## 0.3.31
+
+- The Force's own tab bar is the navigation now: the Force skin declares seven tabs (HOME, OSC, FILTER, ENV, LFO, FX, OTHER), so the firmware draws them along the bottom edge instead of one button named VITALEON, and the row of group buttons inside the skin is gone. The MPC skin keeps its single tab and footer, because its function-key row offers fewer keys.
+- The page inside a Force tab is a UI-only `Local` integer, which the firmware remembers per tab: each tab opens on its first page and returns to its last one.
+- `surface_states.py` and the checks understand the per-tab page counters and audit both tab layouts.
+
 ## 0.3.30
 
 - The Force skin draws no Q-Link bank frames. The Force has eight Q-Links in two banks, so its knobs address the eight visible slots of a page directly; a four-slot outline (matrix included) suggested a grouping the hardware does not have. MPCs keep their frames.

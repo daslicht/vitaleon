@@ -349,7 +349,7 @@ definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition
     ent('Effect state','Label',g.label_data('Value',COLORS['fx'],SLOT_FONT),(TOGGLE_W+8,28,SLOT_W-TOGGLE_W-8,52)),
 ],'00000000'))))
 pages=[]
-def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
+def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',raw=None):
     # Native-sized caption assets; no text widget ever covers a button.
     key=hashlib.sha256(f'{text}:{w}:{h}:{color}'.encode()).hexdigest()[:16]
     for state in ['off','on']:
@@ -361,7 +361,7 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
         while d.textlength(caption,font=font)>w-12 and size>13:size-=1;font=ImageFont.truetype(str(root/'fonts/Roboto-Regular.ttf'),size)
         assert d.textlength(caption,font=font)<=w-10,(caption,w)
         bb=d.textbbox((0,0),caption,font=font);d.text(((w-d.textlength(caption,font=font))/2,(h-(bb[3]-bb[1]))/2-bb[1]),caption,font=font,fill='#edf0f7');im.save(skin/filename)
-    data={'version':2,'onImage':f'nav-{key}-on.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
+    data={'version':2,'onImage':f'nav-{key}-on.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':raw or handle(param),'gestureBehaviour':'Instant'}
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),True)
 
 def add_library(c):
@@ -469,14 +469,30 @@ def cell_position(chart,section,slot):
         return col_x(slot-1),372
     row,col=divmod(slot,3);return col_x(col),166+190*row
 from surface_spec import DESTINATIONS
-all_children=[]
+# One native tab per group (0.3.31): the firmware draws HOME, OSC, FILTER, ENV,
+# LFO, FX and OTHER on its own tab bar at the bottom of the screen, so the skin no
+# longer needs the row of group buttons. The page inside a tab is a UI-only
+# 'Local' integer: Local values are remembered per page (ui-reference 7.4), so
+# each tab keeps its own last page and opens on its first page instead of on the
+# page that was last used in another tab.
+TREES={}
+def page_state(group,n):return f'Local/{max(2,n)}/page{group}'
 version=json.loads((project/'plugin.json').read_text())['version']
 for group,group_name in enumerate(GROUPS):
-    members=[(i,p) for i,p in enumerate(VIEWS) if p['group']==group and not p.get('hidden')]
-    width=(SCREEN_RIGHT-24-8*(len(members)-1))//len(members)
-    for slot,(i,p) in enumerate(members):
-        e=nav_button(p['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color'])
-        all_children.append(conditional(e,[f'IndexedEnabling/{group}/7/'+handle('UI Group')]))
+    # Every page of the group shares one page counter (hidden chooser pages
+    # included) so exactly one page of a tab is live at a time; only pages with a
+    # caption get a button.
+    every=[i for i,v in enumerate(VIEWS) if v['group']==group]
+    shown=[i for i in every if not VIEWS[i].get('hidden')]
+    width=(SCREEN_RIGHT-24-8*(len(shown)-1))//len(shown)
+    TREES[group]=[]
+    for slot,i in enumerate(shown):
+        if FORCE:
+            TREES[group].append(nav_button(VIEWS[i]['tab'],24+slot*(width+8),4,width,56,None,every.index(i),len(every),VIEWS[i]['color'],raw=page_state(group,len(every))))
+        else:
+            # The MPC keeps one native tab: the footer picks the group and the
+            # page row picks the page inside it.
+            TREES[group].append(conditional(nav_button(VIEWS[i]['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),VIEWS[i]['color']),['IndexedEnabling/'+str(group)+'/7/'+handle('UI Group')]))
 for i,view in enumerate(VIEWS):
     title=view['title'];chart=view['chart'];color=view['color'];sections=view['sections'];children=[]
     pages.append(dict(family=view['group'],sub=view['member'],title=title,items=[x for sec in sections for x in sec['items']],chart=chart,color=color,subtitle='',sections=sections))
@@ -581,14 +597,22 @@ for i,view in enumerate(VIEWS):
         b[:]=[(k,f'{x} {y-64} {w} {h}' if k=='bounds' else v) for k,v in b]
     key=f'view-{i}'
     definitions.append(g.obj(('key',key),('value',g.component_definition([],children,BG))))
-    condition=f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')
+    # Hidden pages (target chooser) still follow the plugin's 'UI Page' state, as
+    # the PICK buttons drive them; the visible pages of a tab follow its Local
+    # page integer. ENV/LFO share one proxy-backed view, so their tab needs no
+    # page condition at all.
+    tab_group=view['group']
+    every=[x for x,v in enumerate(VIEWS) if v['group']==tab_group]
+    data_handle=page_state(tab_group,len(every)) if FORCE else handle('UI Page')
+    if FORCE and tab_group in [3,4]:condition=None   # one shared proxy-backed view per tab
+    elif FORCE:condition=f'IndexedEnabling/{every.index(i)}/{len(every)}/'+data_handle
+    elif tab_group in [3,4]:condition=f'IndexedEnabling/{tab_group}/7/'+handle('UI Group')
+    else:condition=f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')
     # A hidden-on-invalid container needs a valid model of its own. Child
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).
     # "Children": the page container itself takes no focus, but everything in
     # it may. With "No" nothing on any page could be focused or tapped (7.3).
-    all_children.append(g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Page'))],invalidating=[condition]))
-FOOT_W=(SCREEN_RIGHT-72)//7;FOOT_STEP=FOOT_W+8
-for group,name in enumerate(GROUPS):all_children.append(nav_button(name,24+FOOT_STEP*group,568,FOOT_W,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
+    TREES[tab_group].append(g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',data_handle)],invalidating=[condition] if condition else []))
 
 # Touching a visible control selects the bank containing its live Q-Link proxy.
 for definition in definitions:
@@ -596,7 +620,17 @@ for definition in definitions:
     for action in value['actions']:
         a=dict(action)
         if a.get('handler')=='Q-Link':action[:]=[(k,'QTarget' if k=='handleName' else v) for k,v in action]
-tabs=[{'version':1,'tabName':'VITALEON','fnKeyIndex':0,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],all_children,BG),'qlinkBoundsData':[]}]
+if FORCE:
+    REACH=[e for group in range(len(GROUPS)) for e in TREES[group]]
+    tabs=[]
+else:
+    # Seven native tabs on the Force (its tab bar is touch); the MPC's function-key
+    # row offers few keys, so there the single tab and the footer stay as they were.
+    REACH=[e for group in range(len(GROUPS)) for e in TREES[group]]
+    FOOT_W=(SCREEN_RIGHT-72)//7;FOOT_STEP=FOOT_W+8
+    for group,name in enumerate(GROUPS):REACH.append(nav_button(name,24+FOOT_STEP*group,568,FOOT_W,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
+    tabs=[{'version':1,'tabName':'VITALEON','fnKeyIndex':0,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],REACH,BG),'qlinkBoundsData':[]}]
+if FORCE:tabs=[{'version':1,'tabName':name,'fnKeyIndex':group,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],TREES[group],BG),'qlinkBoundsData':[]} for group,name in enumerate(GROUPS)]
 q={}
 for slot in range(16):row,col=divmod(slot,4);q[f'Q-Link {13+col-row*4}']=index(f'UI Control {slot+1}')
 maps=[{'Tab':1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':q}]

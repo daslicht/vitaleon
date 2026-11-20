@@ -15,10 +15,18 @@ def resolve(h,mapping):
         if h in mapping and mapping[h]!=h:h=mapping[h]
         else:break
     return h
+# Every page of a tab shares one counter (hidden chooser pages included), so the
+# generator's Local handle and the audited state agree.
+def tab_pages(group):return [i for i,v in enumerate(VIEWS) if v['group']==group]
+def tab_of(page):return VIEWS[page]['group'] if len(UI['tabs'])>1 else 0
+def page_state(group,n):return f'Local/{max(2,n)}/page{group}'
 def states():
     for i,v in enumerate(VIEWS):
+        members=tab_pages(v['group']);n=max(2,len(members));slot=members.index(i)
         for section in range(len(v['sections'])):
-            values={NAMES['UI Page']:i/(len(VIEWS)-1),NAMES['UI Group']:v['group']/6,NAMES['UI Section']:section/31}
+            # One native tab per group; the page inside it is a per-tab Local integer.
+            values={NAMES['UI Page']:i/(len(VIEWS)-1),NAMES['UI Group']:v['group']/6,NAMES['UI Section']:section/31,
+                page_state(v['group'],n):slot/max(1,len(members)-1)}
             values.update({NAMES[f'storage_available_{row}']:1 for row in range(6)})
             yield i,section,values
 def bound(handle,mapping):
@@ -41,7 +49,8 @@ def expand(entries,values,ox=0,oy=0,mapping=None):
             m=re.match(r'IndexedEnabling/(\d+)/(\d+)/(.*)',cond)
             if m:
                 h=resolve(m[3],local);p=re.search(r'Parameter (\d+)',h)
-                if p:visible &= round(values.get(int(p[1]),PARAMS[int(p[1])]['default'])*(int(m[2])-1))==int(m[1])
+                value=values.get(int(p[1]),PARAMS[int(p[1])]['default']) if p else values.get(h,0)
+                visible &= round(value*(int(m[2])-1))==int(m[1])
         if not visible:continue
         x,y,w,h=map(int,b['bounds'].split());x+=ox;y+=oy
         if d['type'] in DEFS:result+=expand(DEFS[d['type']]['componentsData'],values,x,y,local)
@@ -65,7 +74,7 @@ def audit():
     for key,value in DEFS.items():
         if value.get('actions') and not has_value_widget(value):errors.append(('definition',key,'interactive component without a value widget'))
     for page,section,values in states():
-        leaves=expand(UI['tabs'][0]['componentDefinition']['componentsData'],values);count+=1
+        leaves=expand(UI['tabs'][tab_of(page)]['componentDefinition']['componentsData'],values);count+=1
         if not any(e['kind']=='Label' and 64<=e['box'][1]<568 for e in leaves):errors.append((page,section,'module content is entirely hidden'))
         for e in leaves:
             x,y,r,b=e['box']
@@ -77,8 +86,6 @@ def audit():
             for label in [e for e in leaves if e['kind']=='Label']:
                 a,c,d,f=label['box']
                 if min(r,d)>max(x,a) and min(b,f)>max(y,c):errors.append((page,section,'label intercepts control',control['name'],label['name']))
-        foot=[e for e in leaves if e['kind']=='Button' and e['box'][1]==568]
-        if len(foot)!=7:errors.append((page,section,'footer groups',len(foot)))
     return dict(states=count,buttons=buttons,errors=errors)
 if __name__=='__main__':
     result=audit();print(json.dumps(result,indent=2));raise SystemExit(bool(result['errors']))

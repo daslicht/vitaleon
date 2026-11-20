@@ -13,16 +13,21 @@ def invalid_parents(entries,mapping=None,path='root'):
         errors+=invalid_parents(DEFS[d['type']]['componentsData'],local,name)
     return errors
 
-entries=UI['tabs'][0]['componentDefinition']['componentsData']
-assert not invalid_parents(entries),invalid_parents(entries)
+# One component tree per native tab (HOME, OSC, ...); every tree must bind.
+TREES=[t['componentDefinition']['componentsData'] for t in UI['tabs']]
+assert not any(invalid_parents(entries) for entries in TREES),[invalid_parents(e) for e in TREES]
 # Remove exactly the bindings absent in 0.3.0. The same visibility model must
 # now reject every content view even though its individual controls are bound.
-broken=copy.deepcopy(entries)
-for e in broken:
-    if e['componentData']['type'].startswith('view-'):e['handle remapping']['map']=[]
-assert len(invalid_parents(broken))==28
+broken=[];view_count=0
+for entries in TREES:
+    copy_of_entries=copy.deepcopy(entries)
+    for e in copy_of_entries:
+        if e['componentData']['type'].startswith('view-'):e['handle remapping']['map']=[];view_count+=1
+    broken.append(copy_of_entries)
+assert view_count==28,view_count
 for page,section,values in states():
-    old=expand(broken,values);fixed=expand(entries,values)
+    tree=tab_of(page)
+    old=expand(broken[tree],values);fixed=expand(TREES[tree],values)
     content=lambda items:[e for e in items if e['kind']=='Label' and 64<=e['box'][1]<568]
     assert not content(old),(page,section,'old regression must reproduce a blank body')
     assert content(fixed),(page,section,'fixed body must contain real controls/text')

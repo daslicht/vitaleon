@@ -2,7 +2,8 @@
 from surface_states import *
 from PIL import Image
 skin=PROJECT/'skins'
-assert len(UI['tabs'])==1
+assert len(UI['tabs']) in (1,7)
+if len(UI['tabs'])==7:assert [t['tabName'] for t in UI['tabs']]==['HOME','OSC','FILTER','ENV','LFO','FX','OTHER']
 assert len(VIEWS)==40 and [sum(v['group']==g for v in VIEWS) for g in range(7)]==[4,4,2,6,8,10,6]
 assert all(len(v['sections'])<=32 and all(len(s['items'])<=16 for s in v['sections']) for v in VIEWS)
 replacement={x['key']:x['value'] for x in UI['replacementStrings']}
@@ -19,12 +20,14 @@ def image_size(name):
     if name not in image_cache:image_cache[name]=Image.open(skin/name).size
     return image_cache[name]
 def parameter(h,mapping):
-    h=resolve(h,mapping);m=re.search(r'Parameter (\d+)',h)
+    h=resolve(h,mapping)
+    if h.startswith('Local/'):return None          # UI-only page integer, not a parameter
+    m=re.search(r'Parameter (\d+)',h)
     assert m,('Unresolved native handle',h)
     n=int(m[1]);assert 0<=n<len(PARAMS) and n!=NAMES['Full Engine'];return n
 checked=0
 for page,section,values in states():
-    leaves=expand(UI['tabs'][0]['componentDefinition']['componentsData'],values);checked+=1
+    leaves=expand(UI['tabs'][tab_of(page)]['componentDefinition']['componentsData'],values);checked+=1
     for e in leaves:
         d=e['data'];kind=e['kind'];x,y,r,b=e['box'];w,h=r-x,b-y
         if kind=='Label':assert d['type']!='Text'
@@ -35,9 +38,10 @@ for page,section,values in states():
         if kind=='Button':
             assert w>=64 and h>=52,(e['name'],w,h)
             for name in ['onImage','offImage']:assert image_size(d[name])==(w,h)
+            if str(d['handleName']).startswith('Local/'):
+                assert d['numButtonsInGroup']>=2 and 0<=d['buttonId']<d['numButtonsInGroup'],(e['name'],d['handleName'])
             p=parameter(d['handleName'],e['mapping'])
             if p==NAMES['UI Page']:assert d['numButtonsInGroup']==40 and 0<=d['buttonId']<40
-            if p==NAMES['UI Group']:assert d['numButtonsInGroup']==7
         if kind=='Knob':
             assert image_size(d['filmStrip'])==(w,h*d['numFrames'])
             assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52),(300,56),(120,120),(372,64)],(e['name'],w,h)
@@ -49,4 +53,4 @@ for page,section,values in states():
     if page==24 and section==0:
         assert len([e for e in leaves if e['name']=='Effect switch'])==9,'FX overview must expose all nine effects'
 result=audit();assert not result['errors'],result['errors']
-print(f'PASS: 40 module views / {checked} states, seven footer groups, all nine FX, exact 16:9 oscillator graphs, native-size controls, complete bindings, Q-Link map, no control under the Q-Link sidebar and no label/control collisions')
+print(f'PASS: 40 module views / {checked} states in seven native tabs, all nine FX, exact 16:9 oscillator graphs, native-size controls, complete bindings, Q-Link map, no control under the Q-Link sidebar and no label/control collisions')

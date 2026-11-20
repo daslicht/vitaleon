@@ -7776,7 +7776,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -7801,7 +7801,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -9348,7 +9348,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -9373,7 +9373,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -10204,7 +10204,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -10229,7 +10229,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -16430,7 +16430,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -16455,7 +16455,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -22340,7 +22340,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -22365,7 +22365,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -28250,7 +28250,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -28275,7 +28275,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -29702,7 +29702,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -29727,7 +29727,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -30368,7 +30368,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -30393,7 +30393,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -31210,7 +31210,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -31235,7 +31235,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -32052,7 +32052,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -32077,7 +32077,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -32805,7 +32805,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -32830,7 +32830,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -40571,7 +40571,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -40596,7 +40596,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -41334,7 +41334,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -41359,7 +41359,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -42034,7 +42034,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -42059,7 +42059,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -42894,7 +42894,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -42919,7 +42919,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -43634,7 +43634,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -43659,7 +43659,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -44838,7 +44838,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -44863,7 +44863,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -45478,7 +45478,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -45503,7 +45503,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -46416,7 +46416,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -46441,7 +46441,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -47914,7 +47914,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -47939,7 +47939,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -48628,7 +48628,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -48653,7 +48653,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -49434,7 +49434,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -49459,7 +49459,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -69672,7 +69672,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -69697,7 +69697,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -70196,7 +70196,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -70221,7 +70221,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -70424,7 +70424,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -70449,7 +70449,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -77540,7 +77540,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -77565,7 +77565,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -78718,7 +78718,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "VITALEON 0.3.30",
+                                    "name": "VITALEON 0.3.31",
                                     "type": "Label",
                                     "data": {
                                         "version": 1,
@@ -78743,7 +78743,7 @@
                                     "map": [
                                         {
                                             "key": "BoundhandleName",
-                                            "value": "WithName[VITALEON 0.3.30]/Parameter 0"
+                                            "value": "WithName[VITALEON 0.3.31]/Parameter 0"
                                         }
                                     ]
                                 },
@@ -130362,7 +130362,7 @@
         "tabs": [
             {
                 "version": 1,
-                "tabName": "VITALEON",
+                "tabName": "HOME",
                 "fnKeyIndex": 0,
                 "fnKeySubIndex": 0,
                 "componentDefinition": {
@@ -130395,7 +130395,7 @@
                                     "onImage": "nav-80b491a71a346058-on.png",
                                     "offImage": "nav-80b491a71a346058-off.png",
                                     "buttonId": 0,
-                                    "numButtonsInGroup": 40,
+                                    "numButtonsInGroup": 4,
                                     "handleName": "BoundhandleName",
                                     "gestureBehaviour": "Instant"
                                 }
@@ -130405,20 +130405,17 @@
                                 "map": [
                                     {
                                         "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
                             "bounds": {
-                                "version": 2,
+                                "version": 1,
                                 "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
+                                "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "24 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/0/7/Parameter 1836"
-                                ]
+                                "bounds": "24 4 302 56"
                             }
                         },
                         {
@@ -130432,7 +130429,7 @@
                                     "onImage": "nav-f14bbe75bfeced05-on.png",
                                     "offImage": "nav-f14bbe75bfeced05-off.png",
                                     "buttonId": 1,
-                                    "numButtonsInGroup": 40,
+                                    "numButtonsInGroup": 4,
                                     "handleName": "BoundhandleName",
                                     "gestureBehaviour": "Instant"
                                 }
@@ -130442,20 +130439,17 @@
                                 "map": [
                                     {
                                         "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
                             "bounds": {
-                                "version": 2,
+                                "version": 1,
                                 "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
+                                "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "334 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/0/7/Parameter 1836"
-                                ]
+                                "bounds": "334 4 302 56"
                             }
                         },
                         {
@@ -130469,7 +130463,7 @@
                                     "onImage": "nav-2def685d105162a8-on.png",
                                     "offImage": "nav-2def685d105162a8-off.png",
                                     "buttonId": 2,
-                                    "numButtonsInGroup": 40,
+                                    "numButtonsInGroup": 4,
                                     "handleName": "BoundhandleName",
                                     "gestureBehaviour": "Instant"
                                 }
@@ -130479,20 +130473,17 @@
                                 "map": [
                                     {
                                         "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
                             "bounds": {
-                                "version": 2,
+                                "version": 1,
                                 "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
+                                "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "644 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/0/7/Parameter 1836"
-                                ]
+                                "bounds": "644 4 302 56"
                             }
                         },
                         {
@@ -130506,7 +130497,7 @@
                                     "onImage": "nav-0c9ab93ec4ed8693-on.png",
                                     "offImage": "nav-0c9ab93ec4ed8693-off.png",
                                     "buttonId": 3,
-                                    "numButtonsInGroup": 40,
+                                    "numButtonsInGroup": 4,
                                     "handleName": "BoundhandleName",
                                     "gestureBehaviour": "Instant"
                                 }
@@ -130516,1278 +130507,17 @@
                                 "map": [
                                     {
                                         "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
                             "bounds": {
-                                "version": 2,
+                                "version": 1,
                                 "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
+                                "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "954 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/0/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "OSC 1",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-5f14db8149006f69-on.png",
-                                    "offImage": "nav-5f14db8149006f69-off.png",
-                                    "buttonId": 4,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/1/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "OSC 2",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-9207017ccfa3eec3-on.png",
-                                    "offImage": "nav-9207017ccfa3eec3-off.png",
-                                    "buttonId": 5,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "334 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/1/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "OSC 3",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-c5ca5a2ff4005afd-on.png",
-                                    "offImage": "nav-c5ca5a2ff4005afd-off.png",
-                                    "buttonId": 6,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "644 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/1/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "SAMPLE",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-9292aebfd13e0ed4-on.png",
-                                    "offImage": "nav-9292aebfd13e0ed4-off.png",
-                                    "buttonId": 7,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "954 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/1/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "FILTER 1",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-0c777cbfa730d262-on.png",
-                                    "offImage": "nav-0c777cbfa730d262-off.png",
-                                    "buttonId": 8,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 4 612 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/2/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "FILTER 2",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-8490bee0cefb09c2-on.png",
-                                    "offImage": "nav-8490bee0cefb09c2-off.png",
-                                    "buttonId": 9,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "644 4 612 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/2/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "ENV 1",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-5631972400b3b03c-on.png",
-                                    "offImage": "nav-5631972400b3b03c-off.png",
-                                    "buttonId": 10,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 4 198 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "ENV 2",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-1ede83c5e4dde6a8-on.png",
-                                    "offImage": "nav-1ede83c5e4dde6a8-off.png",
-                                    "buttonId": 11,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "230 4 198 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "ENV 3",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-cdd6d80c793aa641-on.png",
-                                    "offImage": "nav-cdd6d80c793aa641-off.png",
-                                    "buttonId": 12,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "436 4 198 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "ENV 4",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-789d31548e01eba9-on.png",
-                                    "offImage": "nav-789d31548e01eba9-off.png",
-                                    "buttonId": 13,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "642 4 198 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "ENV 5",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-a72ee2620406d3bd-on.png",
-                                    "offImage": "nav-a72ee2620406d3bd-off.png",
-                                    "buttonId": 14,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "848 4 198 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "ENV 6",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-e7ae4cbbf3c3f1de-on.png",
-                                    "offImage": "nav-e7ae4cbbf3c3f1de-off.png",
-                                    "buttonId": 15,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "1054 4 198 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 1",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-77d8ccc1abce0def-on.png",
-                                    "offImage": "nav-77d8ccc1abce0def-off.png",
-                                    "buttonId": 16,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 2",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-fbd2d2e3939721f1-on.png",
-                                    "offImage": "nav-fbd2d2e3939721f1-off.png",
-                                    "buttonId": 17,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "179 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 3",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-05ee6b693f6a1d01-on.png",
-                                    "offImage": "nav-05ee6b693f6a1d01-off.png",
-                                    "buttonId": 18,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "334 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 4",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-11ce3637cb080e72-on.png",
-                                    "offImage": "nav-11ce3637cb080e72-off.png",
-                                    "buttonId": 19,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "489 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 5",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-6beacddaaadac081-on.png",
-                                    "offImage": "nav-6beacddaaadac081-off.png",
-                                    "buttonId": 20,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "644 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 6",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-66e19678063f1fc9-on.png",
-                                    "offImage": "nav-66e19678063f1fc9-off.png",
-                                    "buttonId": 21,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "799 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 7",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-2d8b061df7e06811-on.png",
-                                    "offImage": "nav-2d8b061df7e06811-off.png",
-                                    "buttonId": 22,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "954 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO 8",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-080f0ce0e37e9b3b-on.png",
-                                    "offImage": "nav-080f0ce0e37e9b3b-off.png",
-                                    "buttonId": 23,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "1109 4 147 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "OVERVIEW",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-7b316ac29f98c2af-on.png",
-                                    "offImage": "nav-7b316ac29f98c2af-off.png",
-                                    "buttonId": 24,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "DISTORT",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-77960c78d0bb05b7-on.png",
-                                    "offImage": "nav-77960c78d0bb05b7-off.png",
-                                    "buttonId": 25,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "148 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "CHORUS",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-11dccd78883fb9db-on.png",
-                                    "offImage": "nav-11dccd78883fb9db-off.png",
-                                    "buttonId": 26,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "272 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "FLANGER",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-b5d2cdaf12170b88-on.png",
-                                    "offImage": "nav-b5d2cdaf12170b88-off.png",
-                                    "buttonId": 27,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "396 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "PHASER",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-a0a5a437eed5ffa3-on.png",
-                                    "offImage": "nav-a0a5a437eed5ffa3-off.png",
-                                    "buttonId": 28,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "520 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "DELAY",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-9c42a582353e1a1e-on.png",
-                                    "offImage": "nav-9c42a582353e1a1e-off.png",
-                                    "buttonId": 29,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "644 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "REVERB",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-e2b5d20ce2482fb6-on.png",
-                                    "offImage": "nav-e2b5d20ce2482fb6-off.png",
-                                    "buttonId": 30,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "768 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "COMP",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-1df6889b543e2053-on.png",
-                                    "offImage": "nav-1df6889b543e2053-off.png",
-                                    "buttonId": 31,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "892 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "EQ",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-3267e553b3e4993e-on.png",
-                                    "offImage": "nav-3267e553b3e4993e-off.png",
-                                    "buttonId": 32,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "1016 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "FX FILTER",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-0bf6bc718a0a90c0-on.png",
-                                    "offImage": "nav-0bf6bc718a0a90c0-off.png",
-                                    "buttonId": 33,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "1140 4 116 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "MATRIX",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-b3df2af0c27759de-on.png",
-                                    "offImage": "nav-b3df2af0c27759de-off.png",
-                                    "buttonId": 34,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/6/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "RANDOM",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-eff07085b32494be-on.png",
-                                    "offImage": "nav-eff07085b32494be-off.png",
-                                    "buttonId": 35,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "334 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/6/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "EXPRESSION",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-e5a360f70ae5335a-on.png",
-                                    "offImage": "nav-e5a360f70ae5335a-off.png",
-                                    "buttonId": 36,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "644 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/6/7/Parameter 1836"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "MOD CURVE",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-de139640b4852b83-on.png",
-                                    "offImage": "nav-de139640b4852b83-off.png",
-                                    "buttonId": 37,
-                                    "numButtonsInGroup": 40,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1837"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "954 4 302 56",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/6/7/Parameter 1836"
-                                ]
+                                "bounds": "954 4 302 56"
                             }
                         },
                         {
@@ -131806,7 +130536,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
@@ -131818,7 +130548,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/0/40/Parameter 1837"
+                                    "IndexedEnabling/0/4/Local/4/page0"
                                 ]
                             }
                         },
@@ -131838,7 +130568,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
@@ -131850,7 +130580,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/1/40/Parameter 1837"
+                                    "IndexedEnabling/1/4/Local/4/page0"
                                 ]
                             }
                         },
@@ -131870,7 +130600,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
@@ -131882,7 +130612,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/2/40/Parameter 1837"
+                                    "IndexedEnabling/2/4/Local/4/page0"
                                 ]
                             }
                         },
@@ -131902,7 +130632,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page0"
                                     }
                                 ]
                             },
@@ -131914,8 +130644,172 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/40/Parameter 1837"
+                                    "IndexedEnabling/3/4/Local/4/page0"
                                 ]
+                            }
+                        }
+                    ]
+                },
+                "qlinkBoundsData": []
+            },
+            {
+                "version": 1,
+                "tabName": "OSC",
+                "fnKeyIndex": 1,
+                "fnKeySubIndex": 0,
+                "componentDefinition": {
+                    "version": 2,
+                    "actions": [],
+                    "backgroundData": {
+                        "version": 1,
+                        "focussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        },
+                        "unfocussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        }
+                    },
+                    "ignoreMousePresses": false,
+                    "disableCoarseDataWheel": false,
+                    "componentsData": [
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "OSC 1",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-5f14db8149006f69-on.png",
+                                    "offImage": "nav-5f14db8149006f69-off.png",
+                                    "buttonId": 0,
+                                    "numButtonsInGroup": 4,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/4/page1"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "24 4 302 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "OSC 2",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-9207017ccfa3eec3-on.png",
+                                    "offImage": "nav-9207017ccfa3eec3-off.png",
+                                    "buttonId": 1,
+                                    "numButtonsInGroup": 4,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/4/page1"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "334 4 302 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "OSC 3",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-c5ca5a2ff4005afd-on.png",
+                                    "offImage": "nav-c5ca5a2ff4005afd-off.png",
+                                    "buttonId": 2,
+                                    "numButtonsInGroup": 4,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/4/page1"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "644 4 302 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "SAMPLE",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-9292aebfd13e0ed4-on.png",
+                                    "offImage": "nav-9292aebfd13e0ed4-off.png",
+                                    "buttonId": 3,
+                                    "numButtonsInGroup": 4,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/4/page1"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "954 4 302 56"
                             }
                         },
                         {
@@ -131934,7 +130828,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page1"
                                     }
                                 ]
                             },
@@ -131946,7 +130840,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/40/Parameter 1837"
+                                    "IndexedEnabling/0/4/Local/4/page1"
                                 ]
                             }
                         },
@@ -131966,7 +130860,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page1"
                                     }
                                 ]
                             },
@@ -131978,7 +130872,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/40/Parameter 1837"
+                                    "IndexedEnabling/1/4/Local/4/page1"
                                 ]
                             }
                         },
@@ -131998,7 +130892,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page1"
                                     }
                                 ]
                             },
@@ -132010,7 +130904,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/6/40/Parameter 1837"
+                                    "IndexedEnabling/2/4/Local/4/page1"
                                 ]
                             }
                         },
@@ -132030,7 +130924,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/4/page1"
                                     }
                                 ]
                             },
@@ -132042,8 +130936,104 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/7/40/Parameter 1837"
+                                    "IndexedEnabling/3/4/Local/4/page1"
                                 ]
+                            }
+                        }
+                    ]
+                },
+                "qlinkBoundsData": []
+            },
+            {
+                "version": 1,
+                "tabName": "FILTER",
+                "fnKeyIndex": 2,
+                "fnKeySubIndex": 0,
+                "componentDefinition": {
+                    "version": 2,
+                    "actions": [],
+                    "backgroundData": {
+                        "version": 1,
+                        "focussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        },
+                        "unfocussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        }
+                    },
+                    "ignoreMousePresses": false,
+                    "disableCoarseDataWheel": false,
+                    "componentsData": [
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "FILTER 1",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-0c777cbfa730d262-on.png",
+                                    "offImage": "nav-0c777cbfa730d262-off.png",
+                                    "buttonId": 0,
+                                    "numButtonsInGroup": 2,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/2/page2"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "24 4 612 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "FILTER 2",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-8490bee0cefb09c2-on.png",
+                                    "offImage": "nav-8490bee0cefb09c2-off.png",
+                                    "buttonId": 1,
+                                    "numButtonsInGroup": 2,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/2/page2"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "644 4 612 56"
                             }
                         },
                         {
@@ -132062,7 +131052,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/2/page2"
                                     }
                                 ]
                             },
@@ -132074,7 +131064,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/8/40/Parameter 1837"
+                                    "IndexedEnabling/0/2/Local/2/page2"
                                 ]
                             }
                         },
@@ -132094,7 +131084,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/2/page2"
                                     }
                                 ]
                             },
@@ -132106,8 +131096,240 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/9/40/Parameter 1837"
+                                    "IndexedEnabling/1/2/Local/2/page2"
                                 ]
+                            }
+                        }
+                    ]
+                },
+                "qlinkBoundsData": []
+            },
+            {
+                "version": 1,
+                "tabName": "ENV",
+                "fnKeyIndex": 3,
+                "fnKeySubIndex": 0,
+                "componentDefinition": {
+                    "version": 2,
+                    "actions": [],
+                    "backgroundData": {
+                        "version": 1,
+                        "focussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        },
+                        "unfocussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        }
+                    },
+                    "ignoreMousePresses": false,
+                    "disableCoarseDataWheel": false,
+                    "componentsData": [
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "ENV 1",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-5631972400b3b03c-on.png",
+                                    "offImage": "nav-5631972400b3b03c-off.png",
+                                    "buttonId": 0,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page3"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "24 4 198 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "ENV 2",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-1ede83c5e4dde6a8-on.png",
+                                    "offImage": "nav-1ede83c5e4dde6a8-off.png",
+                                    "buttonId": 1,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page3"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "230 4 198 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "ENV 3",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-cdd6d80c793aa641-on.png",
+                                    "offImage": "nav-cdd6d80c793aa641-off.png",
+                                    "buttonId": 2,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page3"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "436 4 198 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "ENV 4",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-789d31548e01eba9-on.png",
+                                    "offImage": "nav-789d31548e01eba9-off.png",
+                                    "buttonId": 3,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page3"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "642 4 198 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "ENV 5",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-a72ee2620406d3bd-on.png",
+                                    "offImage": "nav-a72ee2620406d3bd-off.png",
+                                    "buttonId": 4,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page3"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "848 4 198 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "ENV 6",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-e7ae4cbbf3c3f1de-on.png",
+                                    "offImage": "nav-e7ae4cbbf3c3f1de-off.png",
+                                    "buttonId": 5,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page3"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "1054 4 198 56"
                             }
                         },
                         {
@@ -132126,20 +131348,317 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/6/page3"
                                     }
                                 ]
                             },
                             "bounds": {
-                                "version": 2,
+                                "version": 1,
                                 "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/7/Parameter 1836"
+                                "bounds": "0 64 1280 500"
+                            }
+                        }
+                    ]
+                },
+                "qlinkBoundsData": []
+            },
+            {
+                "version": 1,
+                "tabName": "LFO",
+                "fnKeyIndex": 4,
+                "fnKeySubIndex": 0,
+                "componentDefinition": {
+                    "version": 2,
+                    "actions": [],
+                    "backgroundData": {
+                        "version": 1,
+                        "focussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        },
+                        "unfocussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        }
+                    },
+                    "ignoreMousePresses": false,
+                    "disableCoarseDataWheel": false,
+                    "componentsData": [
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 1",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-77d8ccc1abce0def-on.png",
+                                    "offImage": "nav-77d8ccc1abce0def-off.png",
+                                    "buttonId": 0,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
                                 ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "24 4 147 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 2",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-fbd2d2e3939721f1-on.png",
+                                    "offImage": "nav-fbd2d2e3939721f1-off.png",
+                                    "buttonId": 1,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "179 4 147 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 3",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-05ee6b693f6a1d01-on.png",
+                                    "offImage": "nav-05ee6b693f6a1d01-off.png",
+                                    "buttonId": 2,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "334 4 147 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 4",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-11ce3637cb080e72-on.png",
+                                    "offImage": "nav-11ce3637cb080e72-off.png",
+                                    "buttonId": 3,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "489 4 147 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 5",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-6beacddaaadac081-on.png",
+                                    "offImage": "nav-6beacddaaadac081-off.png",
+                                    "buttonId": 4,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "644 4 147 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 6",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-66e19678063f1fc9-on.png",
+                                    "offImage": "nav-66e19678063f1fc9-off.png",
+                                    "buttonId": 5,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "799 4 147 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 7",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-2d8b061df7e06811-on.png",
+                                    "offImage": "nav-2d8b061df7e06811-off.png",
+                                    "buttonId": 6,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "954 4 147 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "LFO 8",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-080f0ce0e37e9b3b-on.png",
+                                    "offImage": "nav-080f0ce0e37e9b3b-off.png",
+                                    "buttonId": 7,
+                                    "numButtonsInGroup": 8,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/8/page4"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "1109 4 147 56"
                             }
                         },
                         {
@@ -132158,20 +131677,385 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/8/page4"
                                     }
                                 ]
                             },
                             "bounds": {
-                                "version": 2,
+                                "version": 1,
                                 "acceptsHWFocus": "Children",
                                 "showWhenDataModelInvalid": "Hide",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/7/Parameter 1836"
+                                "bounds": "0 64 1280 500"
+                            }
+                        }
+                    ]
+                },
+                "qlinkBoundsData": []
+            },
+            {
+                "version": 1,
+                "tabName": "FX",
+                "fnKeyIndex": 5,
+                "fnKeySubIndex": 0,
+                "componentDefinition": {
+                    "version": 2,
+                    "actions": [],
+                    "backgroundData": {
+                        "version": 1,
+                        "focussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        },
+                        "unfocussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        }
+                    },
+                    "ignoreMousePresses": false,
+                    "disableCoarseDataWheel": false,
+                    "componentsData": [
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "OVERVIEW",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-7b316ac29f98c2af-on.png",
+                                    "offImage": "nav-7b316ac29f98c2af-off.png",
+                                    "buttonId": 0,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
                                 ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "24 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "DISTORT",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-77960c78d0bb05b7-on.png",
+                                    "offImage": "nav-77960c78d0bb05b7-off.png",
+                                    "buttonId": 1,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "148 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "CHORUS",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-11dccd78883fb9db-on.png",
+                                    "offImage": "nav-11dccd78883fb9db-off.png",
+                                    "buttonId": 2,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "272 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "FLANGER",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-b5d2cdaf12170b88-on.png",
+                                    "offImage": "nav-b5d2cdaf12170b88-off.png",
+                                    "buttonId": 3,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "396 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "PHASER",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-a0a5a437eed5ffa3-on.png",
+                                    "offImage": "nav-a0a5a437eed5ffa3-off.png",
+                                    "buttonId": 4,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "520 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "DELAY",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-9c42a582353e1a1e-on.png",
+                                    "offImage": "nav-9c42a582353e1a1e-off.png",
+                                    "buttonId": 5,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "644 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "REVERB",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-e2b5d20ce2482fb6-on.png",
+                                    "offImage": "nav-e2b5d20ce2482fb6-off.png",
+                                    "buttonId": 6,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "768 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "COMP",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-1df6889b543e2053-on.png",
+                                    "offImage": "nav-1df6889b543e2053-off.png",
+                                    "buttonId": 7,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "892 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "EQ",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-3267e553b3e4993e-on.png",
+                                    "offImage": "nav-3267e553b3e4993e-off.png",
+                                    "buttonId": 8,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "1016 4 116 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "FX FILTER",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-0bf6bc718a0a90c0-on.png",
+                                    "offImage": "nav-0bf6bc718a0a90c0-off.png",
+                                    "buttonId": 9,
+                                    "numButtonsInGroup": 10,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/10/page5"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "1140 4 116 56"
                             }
                         },
                         {
@@ -132190,7 +132074,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132202,7 +132086,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/24/40/Parameter 1837"
+                                    "IndexedEnabling/0/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132222,7 +132106,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132234,7 +132118,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/25/40/Parameter 1837"
+                                    "IndexedEnabling/1/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132254,7 +132138,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132266,7 +132150,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/26/40/Parameter 1837"
+                                    "IndexedEnabling/2/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132286,7 +132170,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132298,7 +132182,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/27/40/Parameter 1837"
+                                    "IndexedEnabling/3/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132318,7 +132202,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132330,7 +132214,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/28/40/Parameter 1837"
+                                    "IndexedEnabling/4/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132350,7 +132234,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132362,7 +132246,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/29/40/Parameter 1837"
+                                    "IndexedEnabling/5/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132382,7 +132266,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132394,7 +132278,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/30/40/Parameter 1837"
+                                    "IndexedEnabling/6/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132414,7 +132298,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132426,7 +132310,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/31/40/Parameter 1837"
+                                    "IndexedEnabling/7/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132446,7 +132330,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132458,7 +132342,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/32/40/Parameter 1837"
+                                    "IndexedEnabling/8/10/Local/10/page5"
                                 ]
                             }
                         },
@@ -132478,7 +132362,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/10/page5"
                                     }
                                 ]
                             },
@@ -132490,8 +132374,172 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/33/40/Parameter 1837"
+                                    "IndexedEnabling/9/10/Local/10/page5"
                                 ]
+                            }
+                        }
+                    ]
+                },
+                "qlinkBoundsData": []
+            },
+            {
+                "version": 1,
+                "tabName": "OTHER",
+                "fnKeyIndex": 6,
+                "fnKeySubIndex": 0,
+                "componentDefinition": {
+                    "version": 2,
+                    "actions": [],
+                    "backgroundData": {
+                        "version": 1,
+                        "focussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        },
+                        "unfocussed": {
+                            "version": 1,
+                            "colour": "ff181a23",
+                            "image": ""
+                        }
+                    },
+                    "ignoreMousePresses": false,
+                    "disableCoarseDataWheel": false,
+                    "componentsData": [
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "MATRIX",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-b3df2af0c27759de-on.png",
+                                    "offImage": "nav-b3df2af0c27759de-off.png",
+                                    "buttonId": 0,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page6"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "24 4 302 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "RANDOM",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-eff07085b32494be-on.png",
+                                    "offImage": "nav-eff07085b32494be-off.png",
+                                    "buttonId": 1,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page6"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "334 4 302 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "EXPRESSION",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-e5a360f70ae5335a-on.png",
+                                    "offImage": "nav-e5a360f70ae5335a-off.png",
+                                    "buttonId": 2,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page6"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "644 4 302 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "MOD CURVE",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-de139640b4852b83-on.png",
+                                    "offImage": "nav-de139640b4852b83-off.png",
+                                    "buttonId": 3,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Local/6/page6"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "954 4 302 56"
                             }
                         },
                         {
@@ -132510,7 +132558,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/6/page6"
                                     }
                                 ]
                             },
@@ -132522,7 +132570,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/34/40/Parameter 1837"
+                                    "IndexedEnabling/0/6/Local/6/page6"
                                 ]
                             }
                         },
@@ -132542,7 +132590,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/6/page6"
                                     }
                                 ]
                             },
@@ -132554,7 +132602,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/35/40/Parameter 1837"
+                                    "IndexedEnabling/1/6/Local/6/page6"
                                 ]
                             }
                         },
@@ -132574,7 +132622,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/6/page6"
                                     }
                                 ]
                             },
@@ -132586,7 +132634,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/36/40/Parameter 1837"
+                                    "IndexedEnabling/2/6/Local/6/page6"
                                 ]
                             }
                         },
@@ -132606,7 +132654,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/6/page6"
                                     }
                                 ]
                             },
@@ -132618,7 +132666,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/37/40/Parameter 1837"
+                                    "IndexedEnabling/3/6/Local/6/page6"
                                 ]
                             }
                         },
@@ -132638,7 +132686,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/6/page6"
                                     }
                                 ]
                             },
@@ -132650,7 +132698,7 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/38/40/Parameter 1837"
+                                    "IndexedEnabling/4/6/Local/6/page6"
                                 ]
                             }
                         },
@@ -132670,7 +132718,7 @@
                                 "map": [
                                     {
                                         "key": "Data",
-                                        "value": "Parameter 1837"
+                                        "value": "Local/6/page6"
                                     }
                                 ]
                             },
@@ -132682,246 +132730,8 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/39/40/Parameter 1837"
+                                    "IndexedEnabling/5/6/Local/6/page6"
                                 ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "HOME",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-7618aeec7bf61eea-on.png",
-                                    "offImage": "nav-7618aeec7bf61eea-off.png",
-                                    "buttonId": 0,
-                                    "numButtonsInGroup": 7,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1836"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 568 169 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "OSC",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-7b0df32b554fa9ed-on.png",
-                                    "offImage": "nav-7b0df32b554fa9ed-off.png",
-                                    "buttonId": 1,
-                                    "numButtonsInGroup": 7,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1836"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "201 568 169 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "FILTER",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-35321c098d7e132d-on.png",
-                                    "offImage": "nav-35321c098d7e132d-off.png",
-                                    "buttonId": 2,
-                                    "numButtonsInGroup": 7,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1836"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "378 568 169 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "ENV",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-3e8d91d97562cef1-on.png",
-                                    "offImage": "nav-3e8d91d97562cef1-off.png",
-                                    "buttonId": 3,
-                                    "numButtonsInGroup": 7,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1836"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "555 568 169 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "LFO",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-7de7c4d348f47c88-on.png",
-                                    "offImage": "nav-7de7c4d348f47c88-off.png",
-                                    "buttonId": 4,
-                                    "numButtonsInGroup": 7,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1836"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "732 568 169 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "FX",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-7b8255dd34d0a729-on.png",
-                                    "offImage": "nav-7b8255dd34d0a729-off.png",
-                                    "buttonId": 5,
-                                    "numButtonsInGroup": 7,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1836"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "909 568 169 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "OTHER",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-e3ab13f0f623346d-on.png",
-                                    "offImage": "nav-e3ab13f0f623346d-off.png",
-                                    "buttonId": 6,
-                                    "numButtonsInGroup": 7,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1836"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "1086 568 169 56"
                             }
                         }
                     ]

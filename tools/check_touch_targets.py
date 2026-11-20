@@ -10,7 +10,7 @@ value widget, otherwise its tap has no value element to reach and the data
 wheel has nothing to turn.
 """
 from pathlib import Path
-import argparse,json,re
+import argparse,json,os,re
 
 def focus_findings(ui):
     """One focus stop per slot, the pattern of the SDK's own generator (5.2).
@@ -38,7 +38,7 @@ def focus_findings(ui):
 
 def audit(path):
     ui=json.loads(Path(path).read_text(encoding='utf-8'))['pageData']
-    if len(ui['tabs'])==1 and ui['tabs'][0]['tabName']=='VITALEON':
+    if ui['tabs'] and ui['tabs'][0]['tabName'] in ('HOME','VITALEON'):
         import surface_states
         previous=surface_states.UI;surface_states.UI=ui
         previous_defs=surface_states.DEFS;surface_states.DEFS={d['key']:d['value'] for d in ui['componentDefinitions']['localComponentDefinitions']}
@@ -71,7 +71,7 @@ def audit(path):
     return {'pages':len(ui['tabs']),'states':len(ui['tabs'])*2,'button_instances':button_count,'label_button_collisions':len(findings),'findings':findings}
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--skin',default=str(Path(__file__).resolve().parents[1]/'skins/TUI.json'));parser.add_argument('--json')
+    parser=argparse.ArgumentParser();    parser.add_argument('--skin',default=os.environ.get('VITALEON_SKIN',str(Path(__file__).resolve().parents[1]/'skins/TUI.json')));parser.add_argument('--json')
     args=parser.parse_args();result=audit(args.skin)
     if args.json:Path(args.json).write_text(json.dumps(result,indent=2),encoding='utf-8')
     safe=result.get('controls_outside_safe_area',0);empty=result.get('empty_interactive_slots',0);focus=result.get('slots_without_wheel_focus',0)
