@@ -382,6 +382,16 @@ int main(int argc,char** argv){
   // The sound parameter is announced once the control rests (0.3.23), not while it moves.
   for(int i=0;i<1000&&!native->testSlotsAtRest();++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
   check(native->testSlotsAtRest()&&automatedTarget.load()==native->controlIndex("lfo_8_frequency"),"Q-Link automation reports stable LFO 8 parameter rather than navigation proxy");
+  // The MOD tab hosts two groups on one Q-Link bank: a matrix knob write must
+  // stay on the matrix page instead of pulling the LFO page back.
+  native->set(id("ui_gpage_6"),0);native->set(id("ui_section"),0);
+  const int modPage=native->getInt(id("ui_page"));
+  check(native->getInt(id("ui_group"))==6&&modPage==34,"the OTHER group page shows the matrix");
+  native->setNormalised(id("ui_g4_slot_0"),.8f);
+  check(native->getInt(id("ui_page"))==modPage&&native->getInt(id("ui_group"))==6,"a MOD bank write keeps the matrix page");
+  native->set(id("ui_gpage_0"),1);const int homePage=native->getInt(id("ui_page"));
+  native->setNormalised(id("ui_g0_slot_0"),.5f);
+  check(native->getInt(id("ui_page"))==homePage,"a single-group tab keeps its own page");
   // 0.3.22: knobs and faders on screen are bound to their Q-Link slot, so the host moves
   // the control it wrote. 0.3.23: while a control moves, the plugin calls the host not
   // once (0.3.21 redrew the page on every change and all controls stuttered; 0.3.22 sent

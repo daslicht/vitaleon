@@ -130449,7 +130449,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "334 4 302 56"
+                                "bounds": "333 4 302 56"
                             }
                         },
                         {
@@ -130483,7 +130483,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "644 4 302 56"
+                                "bounds": "642 4 302 56"
                             }
                         },
                         {
@@ -130517,7 +130517,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "954 4 302 56"
+                                "bounds": "951 4 302 56"
                             }
                         },
                         {
@@ -130741,7 +130741,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "334 4 302 56"
+                                "bounds": "333 4 302 56"
                             }
                         },
                         {
@@ -130775,7 +130775,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "644 4 302 56"
+                                "bounds": "642 4 302 56"
                             }
                         },
                         {
@@ -130809,7 +130809,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "954 4 302 56"
+                                "bounds": "951 4 302 56"
                             }
                         },
                         {
@@ -131033,7 +131033,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "644 4 612 56"
+                                "bounds": "643 4 612 56"
                             }
                         },
                         {
@@ -131136,8 +131136,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-5631972400b3b03c-on.png",
-                                    "offImage": "nav-5631972400b3b03c-off.png",
+                                    "onImage": "nav-ddda67a7fc0cdc0c-on.png",
+                                    "offImage": "nav-ddda67a7fc0cdc0c-off.png",
                                     "buttonId": 0,
                                     "numButtonsInGroup": 6,
                                     "handleName": "BoundhandleName",
@@ -131159,7 +131159,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "24 4 198 56"
+                                "bounds": "24 4 199 56"
                             }
                         },
                         {
@@ -131170,8 +131170,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-1ede83c5e4dde6a8-on.png",
-                                    "offImage": "nav-1ede83c5e4dde6a8-off.png",
+                                    "onImage": "nav-09b2d05fb2e375e4-on.png",
+                                    "offImage": "nav-09b2d05fb2e375e4-off.png",
                                     "buttonId": 1,
                                     "numButtonsInGroup": 6,
                                     "handleName": "BoundhandleName",
@@ -131193,7 +131193,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "230 4 198 56"
+                                "bounds": "230 4 199 56"
                             }
                         },
                         {
@@ -131204,8 +131204,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-cdd6d80c793aa641-on.png",
-                                    "offImage": "nav-cdd6d80c793aa641-off.png",
+                                    "onImage": "nav-6296d50077d79880-on.png",
+                                    "offImage": "nav-6296d50077d79880-off.png",
                                     "buttonId": 2,
                                     "numButtonsInGroup": 6,
                                     "handleName": "BoundhandleName",
@@ -131227,7 +131227,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "436 4 198 56"
+                                "bounds": "436 4 199 56"
                             }
                         },
                         {
@@ -131238,8 +131238,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-789d31548e01eba9-on.png",
-                                    "offImage": "nav-789d31548e01eba9-off.png",
+                                    "onImage": "nav-54d35d1961604a84-on.png",
+                                    "offImage": "nav-54d35d1961604a84-off.png",
                                     "buttonId": 3,
                                     "numButtonsInGroup": 6,
                                     "handleName": "BoundhandleName",
@@ -131261,7 +131261,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "642 4 198 56"
+                                "bounds": "642 4 199 56"
                             }
                         },
                         {
@@ -131272,8 +131272,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-a72ee2620406d3bd-on.png",
-                                    "offImage": "nav-a72ee2620406d3bd-off.png",
+                                    "onImage": "nav-a2947cc02c564b20-on.png",
+                                    "offImage": "nav-a2947cc02c564b20-off.png",
                                     "buttonId": 4,
                                     "numButtonsInGroup": 6,
                                     "handleName": "BoundhandleName",
@@ -131295,7 +131295,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "848 4 198 56"
+                                "bounds": "848 4 199 56"
                             }
                         },
                         {
@@ -131306,8 +131306,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-e7ae4cbbf3c3f1de-on.png",
-                                    "offImage": "nav-e7ae4cbbf3c3f1de-off.png",
+                                    "onImage": "nav-b6bb78f63938a703-on.png",
+                                    "offImage": "nav-b6bb78f63938a703-off.png",
                                     "buttonId": 5,
                                     "numButtonsInGroup": 6,
                                     "handleName": "BoundhandleName",
@@ -131329,7 +131329,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "1054 4 198 56"
+                                "bounds": "1054 4 199 56"
                             }
                         },
                         {
@@ -131370,7 +131370,7 @@
             },
             {
                 "version": 1,
-                "tabName": "LFO",
+                "tabName": "MOD",
                 "fnKeyIndex": 4,
                 "fnKeySubIndex": 0,
                 "componentDefinition": {
@@ -131400,8 +131400,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-77d8ccc1abce0def-on.png",
-                                    "offImage": "nav-77d8ccc1abce0def-off.png",
+                                    "onImage": "nav-e6e0d7e209713325-on.png",
+                                    "offImage": "nav-e6e0d7e209713325-off.png",
                                     "buttonId": 0,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131423,7 +131423,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "24 4 147 56"
+                                "bounds": "24 4 96 56"
                             }
                         },
                         {
@@ -131434,8 +131434,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-fbd2d2e3939721f1-on.png",
-                                    "offImage": "nav-fbd2d2e3939721f1-off.png",
+                                    "onImage": "nav-85ed4802e55f8144-on.png",
+                                    "offImage": "nav-85ed4802e55f8144-off.png",
                                     "buttonId": 1,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131457,7 +131457,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "179 4 147 56"
+                                "bounds": "127 4 96 56"
                             }
                         },
                         {
@@ -131468,8 +131468,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-05ee6b693f6a1d01-on.png",
-                                    "offImage": "nav-05ee6b693f6a1d01-off.png",
+                                    "onImage": "nav-0f88c21d53310736-on.png",
+                                    "offImage": "nav-0f88c21d53310736-off.png",
                                     "buttonId": 2,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131491,7 +131491,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "334 4 147 56"
+                                "bounds": "230 4 96 56"
                             }
                         },
                         {
@@ -131502,8 +131502,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-11ce3637cb080e72-on.png",
-                                    "offImage": "nav-11ce3637cb080e72-off.png",
+                                    "onImage": "nav-c3c712cfc1febb96-on.png",
+                                    "offImage": "nav-c3c712cfc1febb96-off.png",
                                     "buttonId": 3,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131525,7 +131525,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "489 4 147 56"
+                                "bounds": "333 4 96 56"
                             }
                         },
                         {
@@ -131536,8 +131536,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-6beacddaaadac081-on.png",
-                                    "offImage": "nav-6beacddaaadac081-off.png",
+                                    "onImage": "nav-d79a60bfcbf249a0-on.png",
+                                    "offImage": "nav-d79a60bfcbf249a0-off.png",
                                     "buttonId": 4,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131559,7 +131559,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "644 4 147 56"
+                                "bounds": "436 4 96 56"
                             }
                         },
                         {
@@ -131570,8 +131570,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-66e19678063f1fc9-on.png",
-                                    "offImage": "nav-66e19678063f1fc9-off.png",
+                                    "onImage": "nav-51c24b8c4d695513-on.png",
+                                    "offImage": "nav-51c24b8c4d695513-off.png",
                                     "buttonId": 5,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131593,7 +131593,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "799 4 147 56"
+                                "bounds": "539 4 96 56"
                             }
                         },
                         {
@@ -131604,8 +131604,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-2d8b061df7e06811-on.png",
-                                    "offImage": "nav-2d8b061df7e06811-off.png",
+                                    "onImage": "nav-e04d4a3789da0fa2-on.png",
+                                    "offImage": "nav-e04d4a3789da0fa2-off.png",
                                     "buttonId": 6,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131627,7 +131627,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "954 4 147 56"
+                                "bounds": "642 4 96 56"
                             }
                         },
                         {
@@ -131638,8 +131638,8 @@
                                 "type": "Button",
                                 "data": {
                                     "version": 2,
-                                    "onImage": "nav-080f0ce0e37e9b3b-on.png",
-                                    "offImage": "nav-080f0ce0e37e9b3b-off.png",
+                                    "onImage": "nav-e8312c95e019f154-on.png",
+                                    "offImage": "nav-e8312c95e019f154-off.png",
                                     "buttonId": 7,
                                     "numButtonsInGroup": 8,
                                     "handleName": "BoundhandleName",
@@ -131661,7 +131661,143 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "1109 4 147 56"
+                                "bounds": "745 4 96 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "MATRIX",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-8cdc1405a244ce25-on.png",
+                                    "offImage": "nav-8cdc1405a244ce25-off.png",
+                                    "buttonId": 0,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "848 4 96 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "RANDOM",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-5fb8fccf6ac0e4ed-on.png",
+                                    "offImage": "nav-5fb8fccf6ac0e4ed-off.png",
+                                    "buttonId": 1,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "951 4 96 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "EXPR",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-5401cd15b77282f7-on.png",
+                                    "offImage": "nav-5401cd15b77282f7-off.png",
+                                    "buttonId": 2,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "1054 4 96 56"
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "CURVE",
+                                "type": "Button",
+                                "data": {
+                                    "version": 2,
+                                    "onImage": "nav-da69fc0cd7b301b1-on.png",
+                                    "offImage": "nav-da69fc0cd7b301b1-off.png",
+                                    "buttonId": 3,
+                                    "numButtonsInGroup": 6,
+                                    "handleName": "BoundhandleName",
+                                    "gestureBehaviour": "Instant"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "BoundhandleName",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 1,
+                                "acceptsHWFocus": "Yes",
+                                "showWhenDataModelInvalid": "Show",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "1157 4 96 56"
                             }
                         },
                         {
@@ -131692,7 +131828,206 @@
                                 "boundsType": "Absolute",
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/0/8/Parameter 1897"
+                                    "IndexedEnabling/0/8/Parameter 1897",
+                                    "IndexedEnabling/4/7/Parameter 1836"
+                                ]
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "Matrix",
+                                "type": "view-34",
+                                "data": {
+                                    "version": 1,
+                                    "handleName": "Data"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 2,
+                                "acceptsHWFocus": "Children",
+                                "showWhenDataModelInvalid": "Hide",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "0 64 1280 500",
+                                "additionalInvalidatingHandles": [
+                                    "IndexedEnabling/0/6/Parameter 1917",
+                                    "IndexedEnabling/6/7/Parameter 1836"
+                                ]
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "Random",
+                                "type": "view-35",
+                                "data": {
+                                    "version": 1,
+                                    "handleName": "Data"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 2,
+                                "acceptsHWFocus": "Children",
+                                "showWhenDataModelInvalid": "Hide",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "0 64 1280 500",
+                                "additionalInvalidatingHandles": [
+                                    "IndexedEnabling/1/6/Parameter 1917",
+                                    "IndexedEnabling/6/7/Parameter 1836"
+                                ]
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "Expression",
+                                "type": "view-36",
+                                "data": {
+                                    "version": 1,
+                                    "handleName": "Data"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 2,
+                                "acceptsHWFocus": "Children",
+                                "showWhenDataModelInvalid": "Hide",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "0 64 1280 500",
+                                "additionalInvalidatingHandles": [
+                                    "IndexedEnabling/2/6/Parameter 1917",
+                                    "IndexedEnabling/6/7/Parameter 1836"
+                                ]
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "Modulation curve",
+                                "type": "view-37",
+                                "data": {
+                                    "version": 1,
+                                    "handleName": "Data"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 2,
+                                "acceptsHWFocus": "Children",
+                                "showWhenDataModelInvalid": "Hide",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "0 64 1280 500",
+                                "additionalInvalidatingHandles": [
+                                    "IndexedEnabling/3/6/Parameter 1917",
+                                    "IndexedEnabling/6/7/Parameter 1836"
+                                ]
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "Target group",
+                                "type": "view-38",
+                                "data": {
+                                    "version": 1,
+                                    "handleName": "Data"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 2,
+                                "acceptsHWFocus": "Children",
+                                "showWhenDataModelInvalid": "Hide",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "0 64 1280 500",
+                                "additionalInvalidatingHandles": [
+                                    "IndexedEnabling/4/6/Parameter 1917",
+                                    "IndexedEnabling/6/7/Parameter 1836"
+                                ]
+                            }
+                        },
+                        {
+                            "version": 2,
+                            "componentData": {
+                                "version": 1,
+                                "name": "Target",
+                                "type": "view-39",
+                                "data": {
+                                    "version": 1,
+                                    "handleName": "Data"
+                                }
+                            },
+                            "handle remapping": {
+                                "version": 1,
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 1917"
+                                    }
+                                ]
+                            },
+                            "bounds": {
+                                "version": 2,
+                                "acceptsHWFocus": "Children",
+                                "showWhenDataModelInvalid": "Hide",
+                                "whenVisible": "Always",
+                                "boundsType": "Absolute",
+                                "bounds": "0 64 1280 500",
+                                "additionalInvalidatingHandles": [
+                                    "IndexedEnabling/5/6/Parameter 1917",
+                                    "IndexedEnabling/6/7/Parameter 1836"
                                 ]
                             }
                         }
@@ -131789,7 +132124,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "148 4 116 56"
+                                "bounds": "147 4 116 56"
                             }
                         },
                         {
@@ -131823,7 +132158,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "272 4 116 56"
+                                "bounds": "270 4 116 56"
                             }
                         },
                         {
@@ -131857,7 +132192,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "396 4 116 56"
+                                "bounds": "393 4 116 56"
                             }
                         },
                         {
@@ -131891,7 +132226,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "520 4 116 56"
+                                "bounds": "516 4 116 56"
                             }
                         },
                         {
@@ -131925,7 +132260,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "644 4 116 56"
+                                "bounds": "639 4 116 56"
                             }
                         },
                         {
@@ -131959,7 +132294,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "768 4 116 56"
+                                "bounds": "762 4 116 56"
                             }
                         },
                         {
@@ -131993,7 +132328,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "892 4 116 56"
+                                "bounds": "885 4 116 56"
                             }
                         },
                         {
@@ -132027,7 +132362,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "1016 4 116 56"
+                                "bounds": "1008 4 116 56"
                             }
                         },
                         {
@@ -132061,7 +132396,7 @@
                                 "showWhenDataModelInvalid": "Show",
                                 "whenVisible": "Always",
                                 "boundsType": "Absolute",
-                                "bounds": "1140 4 116 56"
+                                "bounds": "1131 4 116 56"
                             }
                         },
                         {
@@ -132381,362 +132716,6 @@
                                 "bounds": "0 64 1280 500",
                                 "additionalInvalidatingHandles": [
                                     "IndexedEnabling/9/10/Parameter 1907"
-                                ]
-                            }
-                        }
-                    ]
-                },
-                "qlinkBoundsData": []
-            },
-            {
-                "version": 1,
-                "tabName": "OTHER",
-                "fnKeyIndex": 6,
-                "fnKeySubIndex": 0,
-                "componentDefinition": {
-                    "version": 2,
-                    "actions": [],
-                    "backgroundData": {
-                        "version": 1,
-                        "focussed": {
-                            "version": 1,
-                            "colour": "ff181a23",
-                            "image": ""
-                        },
-                        "unfocussed": {
-                            "version": 1,
-                            "colour": "ff181a23",
-                            "image": ""
-                        }
-                    },
-                    "ignoreMousePresses": false,
-                    "disableCoarseDataWheel": false,
-                    "componentsData": [
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "MATRIX",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-b3df2af0c27759de-on.png",
-                                    "offImage": "nav-b3df2af0c27759de-off.png",
-                                    "buttonId": 0,
-                                    "numButtonsInGroup": 6,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "24 4 302 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "RANDOM",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-eff07085b32494be-on.png",
-                                    "offImage": "nav-eff07085b32494be-off.png",
-                                    "buttonId": 1,
-                                    "numButtonsInGroup": 6,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "334 4 302 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "EXPRESSION",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-e5a360f70ae5335a-on.png",
-                                    "offImage": "nav-e5a360f70ae5335a-off.png",
-                                    "buttonId": 2,
-                                    "numButtonsInGroup": 6,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "644 4 302 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "MOD CURVE",
-                                "type": "Button",
-                                "data": {
-                                    "version": 2,
-                                    "onImage": "nav-de139640b4852b83-on.png",
-                                    "offImage": "nav-de139640b4852b83-off.png",
-                                    "buttonId": 3,
-                                    "numButtonsInGroup": 6,
-                                    "handleName": "BoundhandleName",
-                                    "gestureBehaviour": "Instant"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "BoundhandleName",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 1,
-                                "acceptsHWFocus": "Yes",
-                                "showWhenDataModelInvalid": "Show",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "954 4 302 56"
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "Matrix",
-                                "type": "view-34",
-                                "data": {
-                                    "version": 1,
-                                    "handleName": "Data"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "Data",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Children",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/0/6/Parameter 1917"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "Random",
-                                "type": "view-35",
-                                "data": {
-                                    "version": 1,
-                                    "handleName": "Data"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "Data",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Children",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/1/6/Parameter 1917"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "Expression",
-                                "type": "view-36",
-                                "data": {
-                                    "version": 1,
-                                    "handleName": "Data"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "Data",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Children",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/2/6/Parameter 1917"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "Modulation curve",
-                                "type": "view-37",
-                                "data": {
-                                    "version": 1,
-                                    "handleName": "Data"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "Data",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Children",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/3/6/Parameter 1917"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "Target group",
-                                "type": "view-38",
-                                "data": {
-                                    "version": 1,
-                                    "handleName": "Data"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "Data",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Children",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/4/6/Parameter 1917"
-                                ]
-                            }
-                        },
-                        {
-                            "version": 2,
-                            "componentData": {
-                                "version": 1,
-                                "name": "Target",
-                                "type": "view-39",
-                                "data": {
-                                    "version": 1,
-                                    "handleName": "Data"
-                                }
-                            },
-                            "handle remapping": {
-                                "version": 1,
-                                "map": [
-                                    {
-                                        "key": "Data",
-                                        "value": "Parameter 1917"
-                                    }
-                                ]
-                            },
-                            "bounds": {
-                                "version": 2,
-                                "acceptsHWFocus": "Children",
-                                "showWhenDataModelInvalid": "Hide",
-                                "whenVisible": "Always",
-                                "boundsType": "Absolute",
-                                "bounds": "0 64 1280 500",
-                                "additionalInvalidatingHandles": [
-                                    "IndexedEnabling/5/6/Parameter 1917"
                                 ]
                             }
                         }

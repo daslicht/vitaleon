@@ -481,25 +481,31 @@ from surface_spec import DESTINATIONS
 all_children=[]
 version=json.loads((project/'plugin.json').read_text())['version']
 member_rows={};page_entries={}
-for group,group_name in enumerate(GROUPS):
-    all_pages=group_pages(group)
-    members=[(i,p) for i,p in enumerate(VIEWS) if p['group']==group and not p.get('hidden')]
-    width=(SCREEN_RIGHT-24-8*(len(members)-1))//len(members)
-    row=[]
-    for slot,(i,p) in enumerate(members):
-        if FORCE:
-            # The tab is chosen by the function key; this row is the member strip
-            # of that tab and stays visible for as long as the tab is open.
-            page_slot=all_pages.index(i)
+# Six tabs: LFO and OTHER share MOD, so no group ever needs its own pager.
+FORCE_TABS=[('HOME',[0]),('OSC',[1]),('FILTER',[2]),('ENV',[3]),('MOD',[4,6]),('FX',[5])] if FORCE else []
+SHORT_CAPTIONS={'EXPRESSION':'EXPR','MOD CURVE':'CURVE'}
+if FORCE:
+    for tab_name,groups in FORCE_TABS:
+        members=[(i,p) for grp in groups for i,p in enumerate(VIEWS) if p['group']==grp and not p.get('hidden')]
+        width=(SCREEN_RIGHT-24-7*(len(members)-1))//len(members)
+        row=[]
+        for slot,(i,p) in enumerate(members):
+            group=p['group'];all_pages=group_pages(group);page_slot=all_pages.index(i)
+            caption=SHORT_CAPTIONS.get(p['tab'].upper(),p['tab'])
+            x=24+slot*(width+7)
             if group in (3,4) and page_slot>0:
                 # ENV/LFO share one page; the strip selects the module inside it.
-                row.append(nav_button(p['tab'],24+slot*(width+8),4,width,56,'Env Select' if group==3 else 'LFO Select',page_slot,len(all_pages),p['color']))
+                row.append(nav_button(caption,x,4,width,56,'Env Select' if group==3 else 'LFO Select',page_slot,len(all_pages),p['color']))
             else:
-                row.append(nav_button(p['tab'],24+slot*(width+8),4,width,56,f'Group {group} Page',page_slot,len(all_pages),p['color']))
-        else:
-            row.append(conditional(nav_button(p['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color']),[f'IndexedEnabling/{group}/7/'+handle('UI Group')]))
-    member_rows[group]=row
-    if not FORCE:all_children.extend(row)
+                row.append(nav_button(caption,x,4,width,56,f'Group {group} Page',page_slot,len(all_pages),p['color']))
+        member_rows[tab_name]=row
+else:
+    for group,group_name in enumerate(GROUPS):
+        members=[(i,p) for i,p in enumerate(VIEWS) if p['group']==group and not p.get('hidden')]
+        width=(SCREEN_RIGHT-24-8*(len(members)-1))//len(members)
+        row=[conditional(nav_button(p['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color']),[f'IndexedEnabling/{group}/7/'+handle('UI Group')]) for slot,(i,p) in enumerate(members)]
+        member_rows[group]=row
+        all_children.extend(row)
 for i,view in enumerate(VIEWS):
     GROUP_SLOT=view['group'] if FORCE else None
     title=view['title'];chart=view['chart'];color=view['color'];sections=view['sections'];children=[]
@@ -608,13 +614,17 @@ for i,view in enumerate(VIEWS):
     if FORCE:
         # Hidden pages (LIBRARY, unused FX pages) still get a real slot; the
         # strip just does not show them, so they must not default to slot 0.
-        own=group_pages(view['group']);slot=own.index(i);condition=f'IndexedEnabling/{slot}/{len(own)}/'+group_page_handle(view['group'])
-    else:condition=f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')
+        own=group_pages(view['group']);slot=own.index(i)
+        conditions=[f'IndexedEnabling/{slot}/{len(own)}/'+group_page_handle(view['group'])]
+        if view['group'] in (4,6):
+            # LFO and OTHER share the MOD tab: only the touched group may show.
+            conditions.append(f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group'))
+    else:conditions=[f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')]
     # A hidden-on-invalid container needs a valid model of its own. Child
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).
     # "Children": the page container itself takes no focus, but everything in
     # it may. With "No" nothing on any page could be focused or tapped (7.3).
-    entry=g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',group_page_handle(view['group']) if FORCE else handle('UI Page'))],invalidating=[condition])
+    entry=g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',group_page_handle(view['group']) if FORCE else handle('UI Page'))],invalidating=conditions)
     if FORCE:page_entries.setdefault(view['group'],[]).append(entry)
     else:all_children.append(entry)
 FOOT_W=(SCREEN_RIGHT-72)//7;FOOT_STEP=FOOT_W+8
@@ -628,8 +638,10 @@ for definition in definitions:
         if a.get('handler')=='Q-Link':action[:]=[(k,'QTarget' if k=='handleName' else v) for k,v in action]
 if FORCE:
     tabs=[]
-    for group,group_name in enumerate(GROUPS):
-        tabs.append({'version':1,'tabName':group_name,'fnKeyIndex':group,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],member_rows[group]+page_entries.get(group,[]),BG),'qlinkBoundsData':[]})
+    for t,(tab_name,groups) in enumerate(FORCE_TABS):
+        children=list(member_rows[tab_name])
+        for grp in groups:children+=page_entries.get(grp,[])
+        tabs.append({'version':1,'tabName':tab_name,'fnKeyIndex':t,'fnKeySubIndex':0,'componentDefinition':g.component_definition([],children,BG),'qlinkBoundsData':[]})
 else:
     all_children.extend(e for group in range(len(GROUPS)) for e in page_entries.get(group,[]))
     all_children.extend(foot)
@@ -638,9 +650,11 @@ q={}
 for slot in range(16):row,col=divmod(slot,4);q[f'Q-Link {13+col-row*4}']=index(f'UI Control {slot+1}')
 if FORCE:
     maps=[]
-    for group in range(len(GROUPS)):
-        gm={f'Q-Link {slot+1}':index(f'Group {group} Slot {slot+1}') for slot in range(8)}
-        maps.append({'Tab':group+1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':gm})
+    for t,(tab_name,groups) in enumerate(FORCE_TABS):
+        # A tab owns one bank; the MOD tab uses the LFO bank for both groups.
+        bank=groups[0]
+        gm={f'Q-Link {slot+1}':index(f'Group {bank} Slot {slot+1}') for slot in range(8)}
+        maps.append({'Tab':t+1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':gm})
 else:maps=[{'Tab':1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':q}]
 replacements=[{'key':'Parameter '+str(p['index']),'value':p['choices']} for p in params if p['name']!='Full Engine' and len(p.get('choices',[]))>1]
 tui={'pageData':{'version':1,'componentDefinitions':{'version':2,'importFiles':[],'localComponentDefinitions':definitions},'replacementStrings':replacements,'info':{'version':1,'type':'CompleteDescription'},'tabs':tabs}}

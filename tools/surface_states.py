@@ -19,16 +19,21 @@ def resolve(h,mapping):
         if h in mapping and mapping[h]!=h:h=mapping[h]
         else:break
     return h
+def _kinds(tab):return [e['componentData']['type'] for e in tab['componentDefinition']['componentsData']]
 def tab_index(page):
+    # A tab can host two groups (LFO and OTHER share MOD), so find it by the
+    # page containers it carries, never by the group number alone.
     if not GROUP_MODEL:return 0
     for t,tab in enumerate(TABS):
-        if tab.get('fnKeyIndex')==VIEWS[page]['group']:return t
+        if f'view-{page}' in _kinds(tab):return t
+    own=[j for j,x in enumerate(VIEWS) if x['group']==VIEWS[page]['group']]
+    for t,tab in enumerate(TABS):
+        if any(f'view-{j}' in _kinds(tab) for j in own):return t
     return 0
 def rep_page(page):
     # ENV/LFO share one page per tab and pick the module with Env/LFO Select.
     if not GROUP_MODEL:return page
-    def has(p):return any(x['componentData']['type']==f'view-{p}' for x in TABS[tab_index(p)]['componentDefinition']['componentsData'])
-    if has(page):return page
+    if f'view-{page}' in _kinds(TABS[tab_index(page)]):return page
     return [j for j,x in enumerate(VIEWS) if x['group']==VIEWS[page]['group']][0]
 def tab_entries(page=0):return TABS[tab_index(rep_page(page))]['componentDefinition']['componentsData']
 def states():

@@ -67,6 +67,8 @@ inline bool Vitaleon::applySlot(int slot,float plain){
     slotEditMs_.store(nowMs(),std::memory_order_relaxed);
     return true;
 }
+// LFO and OTHER share the MOD tab, so one Q-Link bank serves both groups.
+static constexpr int kTabBank[7]={0,1,2,3,4,5,4};
 inline bool Vitaleon::navigationChanged(int index,float plain){
     if(uiGroup_<0)return false;
     if(index>=uiKnobs_&&index<uiKnobs_+16)return applySlot(index-uiKnobs_,plain);
@@ -79,7 +81,10 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
             publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();return true;}
         if(groupSlot_[g]>=0&&index>=groupSlot_[g]&&index<groupSlot_[g]+9){
             const int page=groupMemberPage(g,getInt(groupPage_[g]));
-            if(getInt(uiPage_)!=page||getInt(uiGroup_)!=g){
+            // Two groups on one tab share its bank: a write there must not pull
+            // the screen to the other group's remembered page.
+            const int visible=mpc::clamp(surfaceViews_[mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1)].group,0,6);
+            if(kTabBank[visible]!=kTabBank[g]&&(getInt(uiPage_)!=page||getInt(uiGroup_)!=g)){
                 std::lock_guard<std::mutex> lock(navigationMutex_);
                 publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();}
             return applySlot(index-groupSlot_[g],plain);}
@@ -112,9 +117,12 @@ inline void Vitaleon::refreshNavigation(){
         if(moving&&t.kind!=mpc::Param::Kind::Float&&t.toPlain(getNormalised(uiKnobs_+i))==get(target))continue;
         publishNormalised(uiKnobs_+i,getNormalised(target));}
     // The tab on screen shows the slots of its group; publish them alongside.
-    if(uiPage_>=0){const int g=surfaceViews_[mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1)].group;
-        if(g>=0&&g<7&&groupSlot_[g]>=0)for(int i=0;i<9;++i){const int target=uiTargets_[i].load();
-            publishNormalised(groupSlot_[g]+i,target<0?0.0f:getNormalised(target));}}
+    if(uiPage_>=0){const int g=mpc::clamp(surfaceViews_[mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1)].group,0,6);
+        // The tab owns the bank, not the group: MOD publishes into the LFO bank
+        // so its matrix knobs move the values the host actually reads.
+        const int bank=kTabBank[g];
+        if(groupSlot_[bank]>=0)for(int i=0;i<9;++i){const int target=uiTargets_[i].load();
+            publishNormalised(groupSlot_[bank]+i,target<0?0.0f:getNormalised(target));}}
 }
 // Service thread, no lock held. See slotAutomated_.
 inline void Vitaleon::flushSlotNotifications(){

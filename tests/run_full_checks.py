@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,subprocess,shutil,sys,os,json,zipfile
 parser=argparse.ArgumentParser();parser.add_argument('--presets',default='');args=parser.parse_args()
-project=Path(__file__).resolve().parents[1];sdk=project.parents[1];src=project/'src'
+project=Path(__file__).resolve().parents[1];sdk=Path(__import__('os').environ.get('MPC_SDK',str(project.parents[1])));src=project/'src'
 out=project/'build/full-checks';out.mkdir(parents=True,exist_ok=True)
 compiler=shutil.which('clang++') or shutil.which('g++')
 if not compiler:raise SystemExit('A C++17 clang++ or g++ compiler is required.')

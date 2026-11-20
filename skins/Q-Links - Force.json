@@ -96,21 +96,6 @@
                     "Q-Link 7": 1914,
                     "Q-Link 8": 1915
                 }
-            },
-            {
-                "Tab": 7,
-                "SubTab": 1,
-                "Bank Direction": "RowTopDown",
-                "Q-Links": {
-                    "Q-Link 1": 1918,
-                    "Q-Link 2": 1919,
-                    "Q-Link 3": 1920,
-                    "Q-Link 4": 1921,
-                    "Q-Link 5": 1922,
-                    "Q-Link 6": 1923,
-                    "Q-Link 7": 1924,
-                    "Q-Link 8": 1925
-                }
             }
         ]
     },
