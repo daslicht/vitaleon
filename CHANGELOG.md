@@ -1,12 +1,11 @@
 # Changelog
 
+## 0.3.32
+
+- 0.3.31 is reverted. The Force skin's seven native tabs never wrote `UI Page`, `UI Group` or `UI Section`, and the plugin derives its navigation from exactly those: `updateNavigation()` turns the current page and section into the parameter each of the 16 Q-Link slots edits and into the ENV/LFO selection. After a tab switch the knobs kept editing the previous page, and PICK/BACK did nothing. The native tab bar cannot replace the skin's navigation until the host tells the plugin which tab is shown, which the SDK does not offer.
+- The footer row of group buttons is back, so the 56 px band at the bottom of the Force screen is filled again.
+
 Device results refer to an MPC Live II with MPC OS 3.10.1.
-
-## 0.3.31
-
-- The Force's own tab bar is the navigation now: the Force skin declares seven tabs (HOME, OSC, FILTER, ENV, LFO, FX, OTHER), so the firmware draws them along the bottom edge instead of one button named VITALEON, and the row of group buttons inside the skin is gone. The MPC skin keeps its single tab and footer, because its function-key row offers fewer keys.
-- The page inside a Force tab is a UI-only `Local` integer, which the firmware remembers per tab: each tab opens on its first page and returns to its last one.
-- `surface_states.py` and the checks understand the per-tab page counters and audit both tab layouts.
 
 ## 0.3.30
 

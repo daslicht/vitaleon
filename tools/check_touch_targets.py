@@ -38,7 +38,7 @@ def focus_findings(ui):
 
 def audit(path):
     ui=json.loads(Path(path).read_text(encoding='utf-8'))['pageData']
-    if ui['tabs'] and ui['tabs'][0]['tabName'] in ('HOME','VITALEON'):
+    if len(ui['tabs'])==1 and ui['tabs'][0]['tabName']=='VITALEON':
         import surface_states
         previous=surface_states.UI;surface_states.UI=ui
         previous_defs=surface_states.DEFS;surface_states.DEFS={d['key']:d['value'] for d in ui['componentDefinitions']['localComponentDefinitions']}

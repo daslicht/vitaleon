@@ -16,9 +16,7 @@ def resolve(handle,chain):
             elif handle.endswith('/'+key):handle=handle[:-len(key)]+value
     return handle
 def target(handle,chain):
-    handle=resolve(handle,chain)
-    if 'Local/' in handle:return -1                 # UI-only page counter, not a parameter
-    m=re.search(r'Parameter (\d+)$',handle)
+    handle=resolve(handle,chain);m=re.search(r'Parameter (\d+)$',handle)
     assert m,('Unresolved handle',handle);return int(m[1])
 def walk(component,chain):
     for entry in component['componentsData']:
@@ -27,12 +25,10 @@ def walk(component,chain):
         for handle in entry['bounds'].get('additionalInvalidatingHandles',[]):
             for m in re.finditer(r'IndexedEnabling/(\d+)/(\d+)/',handle):
                 assert int(m[1])<int(m[2]),handle
-                index=target(handle,inner)
-                if index>=0:uses[index].add(('IndexedEnabling',int(m[2])))
+                uses[target(handle,inner)].add(('IndexedEnabling',int(m[2])))
         if model['type']=='Button':
             data=model['data'];assert 0<=data['buttonId']<max(data['numButtonsInGroup'],2),data
-            index=target(data['handleName'],inner)
-            if index>=0:uses[index].add(('Button',max(data['numButtonsInGroup'],2)))
+            uses[target(data['handleName'],inner)].add(('Button',max(data['numButtonsInGroup'],2)))
         if model['type'] in definitions:walk(definitions[model['type']],inner)
 for tab in page['tabs']:walk(tab['componentDefinition'],[])
 errors=[]
