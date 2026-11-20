@@ -17,6 +17,16 @@ inline void Vitaleon::createNavigation(){
     // Appended (index 1856): the Q-Link group of four last turned, 0 = slots 1-4.
     // The host does not tell a plugin which group its knobs are banked to.
     uiBank_=integer("ui_bank","UI Bank",3);
+    // Groups own their Q-Links (0.3.34): the Force tab bar gives every group its
+    // own Q-Links.json entry, so the knob that moves names its group and the
+    // plugin needs no page parameter from the skin to know what is on screen.
+    for(int g=0;g<7;++g){
+        auto p=mpc::intParam(("ui_gpage_"+std::to_string(g)).c_str(),("Group "+std::to_string(g)+" Page").c_str(),0,int(surfaceViews_.size())-1,0);p.automatable=false;groupPage_[g]=addParam(p);
+        for(int i=0;i<9;++i){
+            auto s=mpc::floatParam(("ui_g"+std::to_string(g)+"_slot_"+std::to_string(i)).c_str(),("Group "+std::to_string(g)+" Slot "+std::to_string(i+1)).c_str(),0,1,0);s.automatable=false;
+            const int at=addParam(s);if(i==0)groupSlot_[g]=at;
+        }
+    }
     updateNavigation();
 }
 inline void Vitaleon::updateNavigation(){
@@ -29,30 +39,44 @@ inline void Vitaleon::updateNavigation(){
     slotEditMs_.store(0,std::memory_order_relaxed); // other controls now: every slot shows its new target
     refreshProxies();browserDisplayDirty_.store(true);
 }
+inline bool Vitaleon::applySlot(int slot,float plain){
+    int target=uiTargets_[slot].load();if(target<0)return true;
+    // Record the stable sound parameter, never a page-dependent UI slot.
+    int automated=target;
+    if(target>=homeControls_&&target<homeControls_+7)automated=homeTarget(target-homeControls_);
+    if(target==homeFilter_)automated=controlIndex("filter_1_on");
+    if(target==advancedValue_)automated=advancedTargets_[getInt(advancedSelector_)];
+    if(target==effectType_)automated=effectOrder_;
+    for(const auto& bank:banks_)for(size_t k=0;k<bank.proxies.size();++k)if(target==bank.proxies[k])automated=bank.targets[mpc::clamp(getInt(bank.selector)-1,0,int(bank.targets.size())-1)][k];
+    // Knobs and faders on screen are bound to this very slot (0.3.22), so the
+    // host moves the control it wrote and nothing has to be redrawn.
+    const float before=get(target);
+    setNormalised(target,plain);
+    if(param(automated).automatable)slotAutomated_[size_t(slot)].store(automated,std::memory_order_relaxed);
+    // A switch or list on screen is bound to its own parameter: redraw it when it steps.
+    if(param(target).kind!=mpc::Param::Kind::Float&&get(target)!=before)slotStepped_.store(target,std::memory_order_relaxed);
+    const int bank=slot/4;
+    if(uiBank_>=0&&getInt(uiBank_)!=bank){publish(uiBank_,float(bank));bankChanged_.store(true,std::memory_order_relaxed);}
+    slotEditMs_.store(nowMs(),std::memory_order_relaxed);
+    return true;
+}
 inline bool Vitaleon::navigationChanged(int index,float plain){
     if(uiGroup_<0)return false;
-    if(index>=uiKnobs_&&index<uiKnobs_+16){
-        int target=uiTargets_[index-uiKnobs_].load();if(target<0)return true;
-        // Record the stable sound parameter, never a page-dependent UI slot.
-        int automated=target;
-        if(target>=homeControls_&&target<homeControls_+7)automated=homeTarget(target-homeControls_);
-        if(target==homeFilter_)automated=controlIndex("filter_1_on");
-        if(target==advancedValue_)automated=advancedTargets_[getInt(advancedSelector_)];
-        if(target==effectType_)automated=effectOrder_;
-        for(const auto& bank:banks_)for(size_t k=0;k<bank.proxies.size();++k)if(target==bank.proxies[k])automated=bank.targets[mpc::clamp(getInt(bank.selector)-1,0,int(bank.targets.size())-1)][k];
-        // Knobs and faders on screen are bound to this very slot (0.3.22), so the
-        // host moves the control it wrote and nothing has to be redrawn. Nothing here
-        // calls into the host (0.3.23); flushSlotNotifications does that afterwards.
-        const float before=get(target);
-        setNormalised(target,plain);
-        if(param(automated).automatable)slotAutomated_[size_t(index-uiKnobs_)].store(automated,std::memory_order_relaxed);
-        // A switch or list on screen is bound to its own parameter: redraw it when it steps.
-        if(param(target).kind!=mpc::Param::Kind::Float&&get(target)!=before)slotStepped_.store(target,std::memory_order_relaxed);
-        // The frame on screen marks the four controls of the knob group in use.
-        const int bank=(index-uiKnobs_)/4;
-        if(uiBank_>=0&&getInt(uiBank_)!=bank){publish(uiBank_,float(bank));bankChanged_.store(true,std::memory_order_relaxed);}
-        slotEditMs_.store(nowMs(),std::memory_order_relaxed);
-        return true;
+    if(index>=uiKnobs_&&index<uiKnobs_+16)return applySlot(index-uiKnobs_,plain);
+    // A group slot carries its group: the hardware knob that moved tells the plugin
+    // which tab is on screen, so no skin page state is involved.
+    for(int g=0;g<7;++g){
+        if(index==groupPage_[g]){
+            std::lock_guard<std::mutex> lock(navigationMutex_);
+            const int page=mpc::clamp(int(std::lround(plain)),0,int(surfaceViews_.size())-1);
+            publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();return true;}
+        if(groupSlot_[g]>=0&&index>=groupSlot_[g]&&index<groupSlot_[g]+9){
+            int page=mpc::clamp(getInt(groupPage_[g]),0,int(surfaceViews_.size())-1);
+            if(surfaceViews_[page].group!=g)for(int i=0;i<int(surfaceViews_.size());++i)if(surfaceViews_[i].group==g&&!surfaceViews_[i].hidden){page=i;break;}
+            if(getInt(uiPage_)!=page||getInt(uiGroup_)!=g){
+                std::lock_guard<std::mutex> lock(navigationMutex_);
+                publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();}
+            return applySlot(index-groupSlot_[g],plain);}
     }
     if(index==uiPick_){const int route=int(std::lround(plain));
         if(route>0&&matrixView_>=0&&getInt(uiPage_)==matrixView_){publish(uiPick_,0);set(routeSelect_,float(route));navigateTo(pickGroupView_,0);}
@@ -81,6 +105,10 @@ inline void Vitaleon::refreshNavigation(){
         const auto& t=param(target);
         if(moving&&t.kind!=mpc::Param::Kind::Float&&t.toPlain(getNormalised(uiKnobs_+i))==get(target))continue;
         publishNormalised(uiKnobs_+i,getNormalised(target));}
+    // The tab on screen shows the slots of its group; publish them alongside.
+    if(uiPage_>=0){const int g=surfaceViews_[mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1)].group;
+        if(g>=0&&g<7&&groupSlot_[g]>=0)for(int i=0;i<9;++i){const int target=uiTargets_[i].load();
+            publishNormalised(groupSlot_[g]+i,target<0?0.0f:getNormalised(target));}}
 }
 // Service thread, no lock held. See slotAutomated_.
 inline void Vitaleon::flushSlotNotifications(){
