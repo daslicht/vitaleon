@@ -426,9 +426,8 @@ def matrix_table(children):
         for row in range(8):
             route=page*8+row+1;y=148+row*52;knob=handle(f'UI Control {row+1}')
             cell=lambda key,param,x,w:g.entry(f'route {route}',key,{'version':1,'handleName':'Data'},f'{x} {y} {w} 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+handle(param)),('QTarget',knob)],invalidating=show)
-            if row%4==0:
-                fx,fw=(16,SCREEN_RIGHT-32) if FORCE else (288,216)
-                children.append(g.entry('Q-Link frame','Image',{'version':1,'colour':'0','image':frame_image(fw,216,'mod')},f'{fx} {y-4} {fw} 216','No','Hide','Always',invalidating=show+[f'IndexedEnabling/{row//4}/4/'+handle('UI Bank')]))
+            if row%4==0 and not FORCE:
+                children.append(g.entry('Q-Link frame','Image',{'version':1,'colour':'0','image':frame_image(216,216,'mod')},f'288 {y-4} 216 216','No','Hide','Always',invalidating=show+[f'IndexedEnabling/{row//4}/4/'+handle('UI Bank')]))
             children.append(conditional(label(f'{route:02d}',(24,y+4,32,44),MUTED,16),show))
             children.append(cell('mx-source',f'Route {route} Source',src,228))
             amount=g.entry(f'route {route}','mx-amount',{'version':1,'handleName':'Data'},f'{amt} {y} 208 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+knob),('Target',handle(f'modulation_{route}_amount')),('QTarget',knob)],invalidating=show)
@@ -562,8 +561,11 @@ for i,view in enumerate(VIEWS):
                     cell=control(name,caption,x,y,control_color,visible=[f'IndexedEnabling/{section}/32/'+handle('UI Section')],slot=slot)
                 dict(dict(cell)['handle remapping'])['map'].append(g.obj(('key','QTarget'),('value',handle(f'UI Control {slot+1}'))))
                 cells.append(cell)
-            # Frames first: they lie under the controls and take no touch.
-            children.extend(qlink_frames(cells,section,color));children.extend(cells)
+            # Frames first: they lie under the controls and take no touch. The Force
+            # has eight Q-Links in two banks, so its knobs address the eight visible
+            # slots directly; a four-slot bank outline would only mislead there.
+            if not FORCE:children.extend(qlink_frames(cells,section,color))
+            children.extend(cells)
         if chart=='home':
             # Below the second control row (ends at y = 512), like every page.
             children.append(label('Active bank',(24,520,140,24),MUTED,18))

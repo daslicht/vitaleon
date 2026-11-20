@@ -2,6 +2,10 @@
 
 Device results refer to an MPC Live II with MPC OS 3.10.1.
 
+## 0.3.30
+
+- The Force skin draws no Q-Link bank frames. The Force has eight Q-Links in two banks, so its knobs address the eight visible slots of a page directly; a four-slot outline (matrix included) suggested a grouping the hardware does not have. MPCs keep their frames.
+
 ## 0.3.29
 
 - The modulation matrix uses the Force width: source, amount and target columns and the PICK/BIP/STER/MUTE buttons spread to x = 1237.
