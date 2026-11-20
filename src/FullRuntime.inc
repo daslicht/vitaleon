@@ -408,15 +408,26 @@ inline void Vitaleon::updateDisplays(int frames){
     // Only a changed value of the graph that is on screen asks for a display update.
     bool changed=false;
     auto put=[&](int index,float value){if(getNormalised(index)!=value){publishNormalised(index,value);changed=true;}};
-    // Only the graph that is on screen is computed, 30 times a second at most.
+    // The control rate is 30 ticks a second at most.
     const auto& visible=surfaceViews_[size_t(mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1))];
     const bool curveVisible=visible.group==4||(visible.group==6&&visible.member==1);
+    // The Force tab bar is native: pressing a tab writes no parameter, so uiPage_
+    // can lag behind the screen (CHANGELOG 0.3.32). Writing the columns of the page
+    // the plugin believes visible alone left OSC 1 blank on its first visit and the
+    // OSC 2/3 graphs zeroed until their page was left and entered again. So the
+    // visible oscillator keeps the full rate and one further oscillator follows in
+    // rotation: every graph is current within about a tenth of a second, whichever
+    // tab the host shows and whichever table is selected.
+    int plot[2]={-1,-1};
+    if(visible.group==1&&visible.member>=1&&visible.member<=3)plot[0]=visible.member-1;
+    graphTurn_=(graphTurn_+1)%3;
+    if(plot[0]!=graphTurn_)plot[1]=graphTurn_;
     for(int o=0;o<3;++o){auto* t=engine_->getWavetable(o);float position=osc_[o].position->value();
         if(waveMonoSwitch_[o]->value()!=0)position=waveMono_[o]->buffer[0][0];
         if(wavePolySwitch_[o]->value()!=0&&engine_->getNumActiveVoices())position+=wavePoly_[o]->buffer[0][0];
         position=mpc::clamp(position,0.0f,float(t->numFrames()-1));int a=int(position),b=std::min(a+1,t->numFrames()-1);float blend=position-a;
         const float* wa=t->getBuffer(a);const float* wb=t->getBuffer(b);publishNormalised(wavePosition_[o],position/std::max(1,t->numFrames()-1));
-        if(!(visible.group==1&&visible.member==o+1))continue;
+        if(o!=plot[0]&&o!=plot[1])continue;
         for(int i=0;i<kWaveColumns;++i){int n=(i*(2048/kWaveColumns)+2048/kWaveColumns/2)%2048;float v=.5f+.5f*(wa[n]+blend*(wb[n]-wa[n]));
             put(waveColumn(o,i),std::round(mpc::clamp(v,0.0f,1.0f)*(kWaveLevels-1))/(kWaveLevels-1));}
     }

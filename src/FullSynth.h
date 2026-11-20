@@ -157,6 +157,7 @@ private:
     std::array<int,3> waveBankReadout_{};
     int curveBankReadout_=-1;
     std::array<int,3> wavePosition_{};
+    int graphTurn_=0; // audio thread: the oscillator whose graph the rotation refreshes
     int lfoReadout_=-1,modReadout_=-1,envReadout_=-1,curveReadout_=-1;
     int lfoPhaseReadout_=-1;
     std::array<vital::Output*,3> waveMono_{},wavePoly_{};

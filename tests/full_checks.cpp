@@ -481,6 +481,17 @@ int main(int argc,char** argv){
    native->set(frame,60.0f);for(int i=0;i<150;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
    int low=0,high=0;for(int c=0;c<128;++c)if(column(c)!=first[size_t(c)])(c<96?low:high)++;
    check(low>8&&high>2,"the oscillator graph is written in 128 columns across both readout blocks");
+   // Regression: the Force tab bar is native and writes no page (CHANGELOG 0.3.32),
+   // so the plugin can believe a different page is on screen. Every oscillator graph
+   // must still be current, or OSC 1 stays blank on its first visit and OSC 2/3 keep
+   // their zeroed columns until their page is left and entered again.
+   native->set(id("ui_page"),0);
+   for(int i=0;i<100;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
+   auto oscColumn=[&](int osc,int c){return native->getNormalised((c<96?id("display_wave_"+std::to_string(osc)+"_0"):id("display_wave_bank_"+std::to_string(osc)+"_0"))+c-(c<96?0:96));};
+   std::string spreads;
+   for(int o=0;o<3;++o){float lo=1,hi=0;for(int c=0;c<128;++c){const float v=oscColumn(o,c);lo=std::min(lo,v);hi=std::max(hi,v);}spreads+=" osc"+std::to_string(o+1)+"="+std::to_string(hi-lo);
+    check(hi-lo>0.25f,"oscillator "+std::to_string(o+1)+" graph is current while another page is on screen");}
+   std::cout<<"graph_spreads"<<spreads<<std::endl;
    check(!displayOnAudio.load(),"display updates never run on the audio callback");}
   check(native->testSplitActive()&&effect->initialDelay==128,"effect chain runs on the worker thread and the 128-sample latency is reported");
   // CPU guard: an overloaded engine steals voices instead of dropping out, and recovers.
