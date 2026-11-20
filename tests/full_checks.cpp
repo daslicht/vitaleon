@@ -415,12 +415,23 @@ int main(int argc,char** argv){
   // parameter: one coarse wheel click still moves it by one entry.
   {
     const int sel=id("preset_select");
-    native->setNormalised(sel,0.0f);native->setNormalised(sel,0.01f);
+    auto pause=[](){std::this_thread::sleep_for(std::chrono::milliseconds(30));};
+    native->setNormalised(sel,0.0f);pause();
+    native->setNormalised(sel,0.01f);
     check(native->getInt(sel)==1,"one data wheel click moves a run-time list by one entry");
-    native->setNormalised(sel,0.02f);native->setNormalised(sel,0.02f);
-    check(native->getInt(sel)==2,"a click the host reports twice still moves the list once");
-    native->setNormalised(sel,0.5f);
-    check(native->getInt(sel)>=4,"a jump in a run-time list stays absolute");
+    native->setNormalised(sel,0.01f);
+    check(native->getInt(sel)==1,"a click the host reports twice moves the list once");
+    pause();native->setNormalised(sel,0.02f);
+    check(native->getInt(sel)==2,"the next click moves the list again");
+    // A drag reports a stream of small changes: the list follows the position and
+    // must not step once per report.
+    native->setNormalised(sel,0.0f);pause();
+    native->setNormalised(sel,0.01f);native->setNormalised(sel,0.02f);native->setNormalised(sel,0.03f);native->setNormalised(sel,0.04f);
+    check(native->getInt(sel)==0,"a drag follows the position instead of one entry per report");
+    native->setNormalised(sel,0.22f);
+    check(native->getInt(sel)==2,"the drag keeps following the position");
+    native->setNormalised(sel,0.5f);pause();
+    check(native->getInt(sel)>=5,"a jump in a run-time list stays absolute");
     native->setNormalised(sel,0.0f);
   }
   // Each page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1.

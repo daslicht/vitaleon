@@ -122,8 +122,9 @@ private:
     bool navigationChanged(int index,float plain);
     void refreshNavigation();
     // Run-time list selectors: the wheel's coarse fraction moves one entry (listStep).
-    float listRaw_[6]{};int listIndex_[6]{};
-    bool listStep(int index,float plain);
+    float listRaw_[6]{};int listIndex_[6]{};long long listMs_[6]{};
+    void listStep(int index,float plain);
+    void publishList(int index,float plain); // sets a selector and its list cache
     struct LibraryBank {std::string name;std::vector<int> files;};
     std::vector<LibraryBank> libraryBanks_;
     int factoryProgramCount_=0; // 1 = the "Init" program of a plugin without sounds, else 0

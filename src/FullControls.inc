@@ -122,35 +122,48 @@ inline void Vitaleon::refreshProxies(){
     if(effectSlot_>=0){int order[9];vital::utils::decodeFloatToOrder(order,get(effectOrder_),9);publish(effectType_,float(order[getInt(effectSlot_)-1]));}
     refreshNavigation();
 }
-inline bool Vitaleon::listStep(int index,float plain){
+inline void Vitaleon::publishList(int index,float plain){
+    // A selector written by the plugin itself (preset load, library browsing) must
+    // move its cache too; publishNormalised alone sends no parameterChanged.
+    publishNormalised(index,param(index).toNormalised(plain));
+    int slot=-1;
+    for(int i=0;i<3;++i)if(index==tableSelect_[i])slot=i;
+    if(slot<0)slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
+    if(slot<0)return;
+    listIndex_[slot]=int(std::lround(plain));listRaw_[slot]=getNormalised(index);listMs_[slot]=0;
+}
+inline void Vitaleon::listStep(int index,float plain){
     // The lists of the file selectors are filled at run time, so a skin cannot name
     // their entries and the host turns them as continuous parameters: it moves 1/100
     // of the range per wheel click and ignores the parameter's own steps (host
     // contract; discrete steps come only from replacementStrings). With 33 tables a
     // click therefore moved 0.01 while one table is 1/32 of the range - two clicks
-    // for the first table, three for every later one. A coarse click now moves the
-    // list by one entry; a jump (preset, list change) stays absolute.
+    // for the first table, three for every later one. A click is one entry now, a
+    // drag or swipe keeps following the position, and a jump stays absolute.
     int slot=-1;
     for(int i=0;i<3;++i)if(index==tableSelect_[i])slot=i;
     if(slot<0)slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
-    if(slot<0)return false;
-    const float raw=getNormalised(index);
+    if(slot<0)return;
     const int last=std::max(0,int(param(index).max));
-    if(last==0){listRaw_[slot]=raw;listIndex_[slot]=0;return false;}
-    const float step=1.0f/float(last),delta=raw-listRaw_[slot];
+    const float raw=getNormalised(index),delta=raw-listRaw_[slot];
+    const long long now=nowMs();
+    // A drag or a swipe reports a continuous stream; a wheel click arrives alone.
+    const bool stream=now-listMs_[slot]<25;
+    listRaw_[slot]=raw;listMs_[slot]=now;
+    if(last==0)return;
+    const float step=1.0f/float(last);
+    // The same value reported again: the host's write already replaced the stored
+    // value with its own fraction, so put the entry back (it used to stay there and
+    // the list only moved on every second click).
+    if(std::fabs(delta)<step*.01f){publishNormalised(index,float(listIndex_[slot])*step);return;}
     int next=listIndex_[slot];
-    // The host reports one wheel click twice with the same value: the repeat must
-    // change nothing (it used to fall into the jump branch and take the step back,
-    // so every entry needed two clicks).
-    if(std::fabs(delta)>=step*0.01f){
-        // Anything smaller than half an entry is a wheel click and moves exactly one
-        // entry, whatever resolution the host turns the parameter with.
-        if(std::fabs(delta)<step*.5f)next+=(delta>0?1:-1);
-        else next=int(std::lround(plain)); // a jump: preset load, list change
-    }
-    listRaw_[slot]=raw;next=mpc::clamp(next,0,last);const bool changed=next!=listIndex_[slot];listIndex_[slot]=next;
+    if(!stream&&std::fabs(delta)<step*1.5f)next+=(delta>0?1:-1); // one click, one entry
+    else next=int(std::lround(plain));                        // drag, swipe or jump
+    listIndex_[slot]=next=mpc::clamp(next,0,last);
     publishNormalised(index,float(next)*step);
-    return changed;
+    // The host draws the value it was told last; without this it showed the entry
+    // only on the following click.
+    notifyHostParameterChanged(index);
 }
 inline void Vitaleon::parameterChanged(int index,float plain){
     if(!ready_)return;

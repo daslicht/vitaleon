@@ -472,7 +472,7 @@ inline void Vitaleon::programSelected(int index){
     if(index>=factoryProgramCount_&&index<factoryProgramCount_+int(filePrograms_.size())){
         int file=filePrograms_[index-factoryProgramCount_];
         {std::lock_guard<std::mutex> state(stateMutex_);stagedState_=Json();}
-        publish(presetSelect_,float(file));
+        publishList(presetSelect_,float(file));
         for(int bank=1;bank<int(libraryBanks_.size());++bank)if(libraryBanks_[bank].name==assets_[0][file].bank){publish(libraryBank_,float(bank));break;}
         publish(libraryPage_,0);refreshLibrary();
         pendingPreset_.store(file);

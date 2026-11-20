@@ -59,10 +59,10 @@ inline void Vitaleon::migrateOldControls(){
         osc("on",o<getInt(Oscillators)?1:0);osc("unison_voices",get(Unison));osc("unison_detune",std::sqrt(get(Detune)));
         osc("wave_frame",get(WavePos)*85);osc("spectral_morph_type",float(spectral[getInt(Spectral)]));osc("spectral_morph_amount",get(Warp));
         osc("destination",vital::constants::kFilter1);osc("level",.5f);osc("random_phase",.75f);osc("tune",o==0?0:(o==1?-.07f:.07f));
-        publish(tableSelect_[o],0);
+        publishList(tableSelect_[o],0);
     }
     for(const auto& route:routes_){publish(route.source,0);publish(route.destination,0);}
-    publish(presetSelect_,0);publish(sampleSelect_,0);publish(lfoShapeSelect_,0);publish(FullMode,1);
+    publishList(presetSelect_,0);publishList(sampleSelect_,0);publishList(lfoShapeSelect_,0);publish(FullMode,1);
     migrateOldTables_.store(true);programReset_.store(true);refreshProxies();
 }
 inline void Vitaleon::migrationTables(){
@@ -206,8 +206,8 @@ inline void Vitaleon::loadPreset(const Json& preset){
     // A preset brings its own tables, sample and LFO shapes. The file selectors go
     // back to "Built-in / current" so they never name a file that is no longer loaded
     // (seen on the Live II: table 14 chosen, factory sound loaded, selector still said 14).
-    for(int o=0;o<3;++o){publish(tableSelect_[o],0);lastTable_[o]=0;}
-    publish(sampleSelect_,0);lastSample_=0;publish(lfoShapeSelect_,0);lastShape_=0;
+    for(int o=0;o<3;++o){publishList(tableSelect_[o],0);lastTable_[o]=0;}
+    publishList(sampleSelect_,0);lastSample_=0;publishList(lfoShapeSelect_,0);lastShape_=0;
 }
 inline void Vitaleon::loadSelections(){
     for(int o=0;o<3;++o){int selection=getInt(tableSelect_[o]);if(selection==lastTable_[o])continue;lastTable_[o]=selection;if(!selection)continue;

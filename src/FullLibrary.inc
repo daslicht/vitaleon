@@ -86,7 +86,7 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         if(index!=libraryPage_)publish(libraryPage_,float(mpc::clamp(getInt(libraryPage_)+(index==libraryNext_?1:-1),0,libraryPageCount()-1)));
         refresh();return true;
     }
-    if(index>=libraryRows_&&index<libraryRows_+6){int file=libraryFile(index-libraryRows_);if(file)publish(presetSelect_,float(file));refresh();return true;}
+    if(index>=libraryRows_&&index<libraryRows_+6){int file=libraryFile(index-libraryRows_);if(file)publishList(presetSelect_,float(file));refresh();return true;}
     if(index==presetSelect_){refresh();return true;} // browsing never changes sound
     return false;
 }
