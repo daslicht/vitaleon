@@ -400,6 +400,17 @@ int main(int argc,char** argv){
   check(native->getInt(id("ui_page"))==34,"MOD Page 8 opens the matrix");
   native->set(id("ui_mod_page"),11);
   check(native->getInt(id("ui_page"))==37,"MOD Page 11 opens the modulation curve");
+  // A strip button is one step of its parameter (SDK ui-reference 6.4). With the
+  // page index space of every view (0..39) the four OSC buttons wrote step 13 and
+  // every OSC page, and every Q-Link slot on it, edited oscillator 1.
+  {const int g1=id("ui_gpage_1");check(native->param(g1).max==3,"the OSC strip has one step per page");
+   effect->setParameter(effect,g1,1.0f/3.0f);native->set(id("ui_section"),1);waitNative();
+   check(native->getInt(g1)==1&&native->getInt(id("ui_page"))==5,"pressing OSC 2 opens the Oscillator 2 page");
+   native->setNormalised(id("ui_g1_slot_0"),.3f);
+   check(std::abs(native->getNormalised(native->controlIndex("osc_2_phase"))-.3f)<1e-5,"the phase knob on OSC 2 edits oscillator 2, not oscillator 1");
+   effect->setParameter(effect,g1,0.0f);native->set(id("ui_section"),1);waitNative();
+   native->setNormalised(id("ui_g1_slot_0"),.7f);
+   check(std::abs(native->getNormalised(native->controlIndex("osc_1_phase"))-.7f)<1e-5,"the same phase knob follows the selected oscillator");}
   // 0.3.22: knobs and faders on screen are bound to their Q-Link slot, so the host moves
   // the control it wrote. 0.3.23: while a control moves, the plugin calls the host not
   // once (0.3.21 redrew the page on every change and all controls stuttered; 0.3.22 sent

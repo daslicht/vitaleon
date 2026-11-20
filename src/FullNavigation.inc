@@ -21,7 +21,13 @@ inline void Vitaleon::createNavigation(){
     // own Q-Links.json entry, so the knob that moves names its group and the
     // plugin needs no page parameter from the skin to know what is on screen.
     for(int g=0;g<7;++g){
-        auto p=mpc::intParam(("ui_gpage_"+std::to_string(g)).c_str(),("Group "+std::to_string(g)+" Page").c_str(),0,int(surfaceViews_.size())-1,0);p.automatable=false;groupPage_[g]=addParam(p);
+        // A strip button is one step of this parameter: the host quantises it
+        // into numButtonsInGroup steps (SDK ui-reference 6.4). With the page index
+        // space of every view (0..39) the four OSC buttons wrote step 13, so
+        // groupMemberPage() fell back to page 1 and every OSC page, and every
+        // Q-Link slot on it, edited oscillator 1 whatever the strip showed.
+        int pages=0;for(const auto& view:surfaceViews_)if(view.group==g)++pages;
+        auto p=mpc::intParam(("ui_gpage_"+std::to_string(g)).c_str(),("Group "+std::to_string(g)+" Page").c_str(),0,std::max(1,pages)-1,0);p.automatable=false;groupPage_[g]=addParam(p);
         for(int i=0;i<9;++i){
             auto s=mpc::floatParam(("ui_g"+std::to_string(g)+"_slot_"+std::to_string(i)).c_str(),("Group "+std::to_string(g)+" Slot "+std::to_string(i+1)).c_str(),0,1,0);s.automatable=false;
             const int at=addParam(s);if(i==0)groupSlot_[g]=at;
