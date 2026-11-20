@@ -493,11 +493,7 @@ if FORCE:
             group=p['group'];all_pages=group_pages(group);page_slot=all_pages.index(i)
             caption=SHORT_CAPTIONS.get(p['tab'].upper(),p['tab'])
             x=24+slot*(width+7)
-            if group in (3,4) and page_slot>0:
-                # ENV/LFO share one page; the strip selects the module inside it.
-                row.append(nav_button(caption,x,4,width,56,'Env Select' if group==3 else 'LFO Select',page_slot,len(all_pages),p['color']))
-            else:
-                row.append(nav_button(caption,x,4,width,56,f'Group {group} Page',page_slot,len(all_pages),p['color']))
+            row.append(nav_button(caption,x,4,width,56,f'Group {group} Page',page_slot,len(all_pages),p['color']))
         member_rows[tab_name]=row
 else:
     for group,group_name in enumerate(GROUPS):
@@ -512,7 +508,9 @@ for i,view in enumerate(VIEWS):
     pages.append(dict(family=view['group'],sub=view['member'],title=title,items=[x for sec in sections for x in sec['items']],chart=chart,color=color,subtitle='',sections=sections))
     # ENV/LFO instances share their actual proxy-backed graph/control view.
     # Do not instantiate eight copies of 384 graph segments on a small MPC.
-    if view['group'] in [3,4] and view['member']>1:continue
+    # The MPC reuses one proxy-backed page per module; the Force tab bar owns
+    # its pages, so every ENV/LFO button needs a page of its own there.
+    if not FORCE and view['group'] in [3,4] and view['member']>1:continue
     # Section buttons are right-aligned inside the content area, before the title
     # is placed, so the two never overlap (the caption is baked into the button).
     section_buttons=[]
