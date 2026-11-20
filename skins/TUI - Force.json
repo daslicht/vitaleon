@@ -8723,40 +8723,6 @@
                                     "boundsType": "Absolute",
                                     "bounds": "498 456 320 24"
                                 }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "LIBRARY",
-                                    "type": "Button",
-                                    "data": {
-                                        "version": 2,
-                                        "onImage": "nav-5cb8d9828007faaa-on.png",
-                                        "offImage": "nav-5cb8d9828007faaa-off.png",
-                                        "buttonId": 3,
-                                        "numButtonsInGroup": 4,
-                                        "handleName": "BoundhandleName",
-                                        "gestureBehaviour": "Instant"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "BoundhandleName",
-                                            "value": "Parameter 1857"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 1,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Show",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "1076 448 156 52"
-                                }
                             }
                         ]
                     }
@@ -188479,6 +188445,13 @@
                 "value": [
                     "Off",
                     "On"
+                ]
+            },
+            {
+                "key": "Parameter 1877",
+                "value": [
+                    "0",
+                    "1"
                 ]
             }
         ],

@@ -617,7 +617,10 @@ for i,view in enumerate(VIEWS):
             # Below the second control row (ends at y = 512), like every page.
             children.append(label('Active bank',(24,520,140,24),MUTED,18))
             for part in range(2):children.append(label('Bank',(168+part*330,520,320,24),COLORS['env'],18,value=f'active_bank_{part}'))
-            children.append(nav_button('LIBRARY',SCREEN_RIGHT-24-156,512,156,52,*page_nav(3)))
+            # The Force already carries the LIBRARY page in the HOME tab's strip,
+            # so its HOME page needs no second button. The MPC skin has no strip:
+            # there this button is the only way to the library.
+            if not FORCE:children.append(nav_button('LIBRARY',SCREEN_RIGHT-24-156,512,156,52,*page_nav(3)))
     else:add_library(children)
     if title=='Advanced' and __import__('os').environ.get('VITALEON_DIAG'):  # device diagnostic only
         children.append(label('DIAGNOSTIC: a test chord plays on every page except HOME',(24,352,1000,30),COLORS['mod'],20))
