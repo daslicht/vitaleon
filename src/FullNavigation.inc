@@ -7,6 +7,7 @@ inline void Vitaleon::createNavigation(){
     for(const auto& page:specification){SurfaceView view{page.at("group"),page.at("member"),{}};view.hidden=page.value("hidden",false);
         if(page.at("chart").is_string()){const std::string chart=page.at("chart");const int at=int(surfaceViews_.size());
             if(chart=="mxtable")matrixView_=at;else if(chart=="pickgroup")pickGroupView_=at;else if(chart=="picktarget")pickTargetView_=at;}for(const auto& section:page.at("sections")){std::vector<int> row;for(const auto& item:section.at("items"))row.push_back(find(item));view.sections.push_back(std::move(row));}if(rememberedPages_[view.group]<0&&!view.hidden)rememberedPages_[view.group]=int(surfaceViews_.size());surfaceViews_.push_back(std::move(view));}
+    rememberedSections_.assign(surfaceViews_.size(),0);
     auto integer=[&](const char* id,const char* name,int max){auto p=mpc::intParam(id,name,0,max,0);p.automatable=false;return addParam(p);};
     uiGroup_=integer("ui_group","UI Group",6);uiPage_=integer("ui_page","UI Page",int(surfaceViews_.size())-1);uiSection_=integer("ui_section","UI Section",31);
     uiKnobs_=numParams();for(int i=0;i<16;++i){auto id="ui_knob_"+std::to_string(i),name="UI Control "+std::to_string(i+1);auto p=mpc::floatParam(id.c_str(),name.c_str(),0,1,0);p.automatable=false;addParam(p);uiTargets_[i].store(-1);slotAutomated_[i].store(-1);}
@@ -41,6 +42,9 @@ inline void Vitaleon::createNavigation(){
 inline void Vitaleon::updateNavigation(){
     int page=mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1);const auto& v=surfaceViews_[page];publish(uiGroup_,float(v.group));if(!v.hidden)rememberedPages_[v.group]=page;
     int section=mpc::clamp(getInt(uiSection_),0,int(v.sections.size())-1);publish(uiSection_,float(section));
+    // A page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1 lands
+    // on PHASE again instead of jumping back to SOUND.
+    if(!v.hidden&&size_t(page)<rememberedSections_.size())rememberedSections_[size_t(page)]=section;
     if(v.group==3)publish(envSelect_,float(v.member));
     if(v.group==4){publish(lfoSelect_,float(v.member));publish(curveTarget_,0);curveSelectionChanged_.store(true);inspectCurve_.store(true);}
     if(v.group==6&&v.member==1){publish(curveTarget_,1);curveSelectionChanged_.store(true);inspectCurve_.store(true);}
@@ -95,7 +99,7 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
         const int k=mpc::clamp(int(std::lround(plain)),0,12);
         const int page=k<8?groupMemberPage(4,k):(k<12?groupMemberPage(6,k-8):groupMemberPage(6,0));
         std::lock_guard<std::mutex> lock(navigationMutex_);
-        publish(uiGroup_,float(surfaceViews_[page].group));publish(uiPage_,float(page));publish(uiSection_,0);
+        publish(uiGroup_,float(surfaceViews_[page].group));publish(uiPage_,float(page));publish(uiSection_,float(rememberedSections_[size_t(page)]));
         updateNavigation();return true;}
     if(index>=uiKnobs_&&index<uiKnobs_+16)return applySlot(index-uiKnobs_,plain);
     // A group slot carries its group: the hardware knob that moved tells the plugin
@@ -104,7 +108,7 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
         if(index==groupPage_[g]){
             std::lock_guard<std::mutex> lock(navigationMutex_);
             const int page=groupMemberPage(g,int(std::lround(plain)));
-            publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();return true;}
+            publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,float(rememberedSections_[size_t(page)]));updateNavigation();return true;}
         if(groupSlot_[g]>=0&&index>=groupSlot_[g]&&index<groupSlot_[g]+9){
             const int page=groupMemberPage(g,getInt(groupPage_[g]));
             // Two groups on one tab share its bank: a write there must not pull
@@ -112,7 +116,7 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
             const int visible=mpc::clamp(surfaceViews_[mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1)].group,0,6);
             if(kTabBank[visible]!=kTabBank[g]&&(getInt(uiPage_)!=page||getInt(uiGroup_)!=g)){
                 std::lock_guard<std::mutex> lock(navigationMutex_);
-                publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,0);updateNavigation();}
+                publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,float(rememberedSections_[size_t(page)]));updateNavigation();}
             return applySlot(index-groupSlot_[g],plain);}
     }
     if(index==uiPick_){const int route=int(std::lround(plain));
@@ -120,9 +124,10 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
         return true;}
     if(index!=uiGroup_&&index!=uiPage_&&index!=uiSection_)return false;
     std::lock_guard<std::mutex> lock(navigationMutex_);
-    if(index==uiGroup_){publish(uiPage_,float(rememberedPages_[mpc::clamp(int(std::lround(plain)),0,6)]));publish(uiSection_,0);}
+    if(index==uiGroup_){const int page=mpc::clamp(rememberedPages_[mpc::clamp(int(std::lround(plain)),0,6)],0,int(surfaceViews_.size())-1);publish(uiPage_,float(page));publish(uiSection_,float(rememberedSections_[size_t(page)]));}
     // Entering the matrix shows the page of the selected route.
-    else if(index==uiPage_)publish(uiSection_,getInt(uiPage_)==matrixView_?float((getInt(routeSelect_)-1)/8):0.0f);
+    else if(index==uiPage_){const int page=mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1);
+        publish(uiSection_,page==matrixView_?float((getInt(routeSelect_)-1)/8):float(rememberedSections_[size_t(page)]));}
     // Target picker step 1 -> 2: a group button sets the section, the entry view shows that group.
     else if(index==uiSection_&&pickGroupView_>=0&&getInt(uiPage_)==pickGroupView_&&std::lround(plain)>0)publish(uiPage_,float(pickTargetView_));
     updateNavigation();return true;

@@ -105,6 +105,7 @@ private:
     std::vector<SurfaceView> surfaceViews_;
     std::array<std::atomic<int>,16> uiTargets_{};
     std::array<int,7> rememberedPages_{};
+    std::vector<int> rememberedSections_; // the subtab each page was left on
     std::mutex navigationMutex_;
     void createStorage();
     bool storageChanged(int index);

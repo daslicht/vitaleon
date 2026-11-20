@@ -377,8 +377,8 @@ int main(int argc,char** argv){
   check(mapped&&sectionCount==expectedSections,"all "+std::to_string(int(spec.size()))+" module views and "+std::to_string(expectedSections)+" sections map Q-Links to visible controls");
   if(argc>2){std::ofstream f(std::string(argv[2])+"-surface.json");f<<snapshots.dump();}
   native->set(id("ui_page"),8);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.37f);check(std::abs(native->getNormalised(cutoff)-.37f)<1e-6,"filter cutoff Q-Link writes the actual full-engine filter");
-  native->set(id("ui_page"),15);native->setNormalised(id("ui_knob_0"),.4f);check(std::abs(native->getNormalised(native->controlIndex("env_6_attack"))-.4f)<1e-6,"Envelope 6 view edits Envelope 6 through Q-Link");
-  native->set(id("ui_page"),23);native->setNormalised(id("ui_knob_0"),.6f);check(std::abs(native->getNormalised(native->controlIndex("lfo_8_frequency"))-.6f)<1e-6,"LFO 8 view edits LFO 8 through Q-Link");
+  native->set(id("ui_page"),15);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.4f);check(std::abs(native->getNormalised(native->controlIndex("env_6_attack"))-.4f)<1e-6,"Envelope 6 view edits Envelope 6 through Q-Link");
+  native->set(id("ui_page"),23);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.6f);check(std::abs(native->getNormalised(native->controlIndex("lfo_8_frequency"))-.6f)<1e-6,"LFO 8 view edits LFO 8 through Q-Link");
   // The sound parameter is announced once the control rests (0.3.23), not while it moves.
   for(int i=0;i<1000&&!native->testSlotsAtRest();++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
   check(native->testSlotsAtRest()&&automatedTarget.load()==native->controlIndex("lfo_8_frequency"),"Q-Link automation reports stable LFO 8 parameter rather than navigation proxy");
@@ -411,6 +411,14 @@ int main(int argc,char** argv){
    effect->setParameter(effect,g1,0.0f);native->set(id("ui_section"),1);waitNative();
    native->setNormalised(id("ui_g1_slot_0"),.7f);
    check(std::abs(native->getNormalised(native->controlIndex("osc_1_phase"))-.7f)<1e-5,"the same phase knob follows the selected oscillator");}
+  // Each page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1.
+  native->set(id("ui_gpage_1"),0);native->set(id("ui_section"),1);
+  native->set(id("ui_gpage_1"),1);native->set(id("ui_section"),2);
+  native->set(id("ui_gpage_1"),0);
+  check(native->getInt(id("ui_section"))==1,"OSC 1 returns to the subtab it was left on");
+  native->set(id("ui_gpage_1"),1);
+  check(native->getInt(id("ui_section"))==2,"OSC 2 keeps its subtab too");
+  native->set(id("ui_gpage_1"),0);native->set(id("ui_section"),0);
   // 0.3.22: knobs and faders on screen are bound to their Q-Link slot, so the host moves
   // the control it wrote. 0.3.23: while a control moves, the plugin calls the host not
   // once (0.3.21 redrew the page on every change and all controls stuttered; 0.3.22 sent
