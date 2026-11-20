@@ -280,9 +280,20 @@ GROUP_SLOT=None
 def group_page_handle(group):return handle(f'Group {group} Page')
 def group_members(group):return [i for i,v in enumerate(VIEWS) if v['group']==group and not v.get('hidden')]
 def group_pages(group):return [i for i,v in enumerate(VIEWS) if v['group']==group]
+MOD_STEPS=13
+def mod_page_index(page):
+    # The MOD tab's one strip: LFO 1..8, MATRIX..CURVE, then the pickers. The
+    # index counts the group's visible members, the same way the plugin does.
+    v=VIEWS[page]
+    if v['group'] not in (4,6):return None
+    if v.get('hidden'):return 12
+    visible=[j for j,x in enumerate(VIEWS) if x['group']==v['group'] and not x.get('hidden')]
+    return (0 if v['group']==4 else 8)+visible.index(page)
 def page_nav(page):
     # Inside a tab bar the page parameter counts the pages of one group.
     if FORCE:
+        k=mod_page_index(page)
+        if k is not None and k<12:return 'MOD Page',k,MOD_STEPS
         own=group_pages(VIEWS[page]['group']);return f"Group {VIEWS[page]['group']} Page",own.index(page),len(own)
     return 'UI Page',page,len(VIEWS)
 def slot_data(title,name,slot):return [('Data','WithName['+title+']/'+handle((f'Group {GROUP_SLOT} Slot' if GROUP_SLOT is not None else 'UI Control')+f' {slot+1}')),('Target',handle(name))]
@@ -493,7 +504,11 @@ if FORCE:
             group=p['group'];all_pages=group_pages(group);page_slot=all_pages.index(i)
             caption=SHORT_CAPTIONS.get(p['tab'].upper(),p['tab'])
             x=24+slot*(width+7)
-            row.append(nav_button(caption,x,4,width,56,f'Group {group} Page',page_slot,len(all_pages),p['color']))
+            k=mod_page_index(i)
+            if k is not None and k<12:
+                row.append(nav_button(caption,x,4,width,56,'MOD Page',k,MOD_STEPS,p['color']))
+            else:
+                row.append(nav_button(caption,x,4,width,56,f'Group {group} Page',page_slot,len(all_pages),p['color']))
         member_rows[tab_name]=row
 else:
     for group,group_name in enumerate(GROUPS):
@@ -613,10 +628,13 @@ for i,view in enumerate(VIEWS):
         # Hidden pages (LIBRARY, unused FX pages) still get a real slot; the
         # strip just does not show them, so they must not default to slot 0.
         own=group_pages(view['group']);slot=own.index(i)
-        conditions=[f'IndexedEnabling/{slot}/{len(own)}/'+group_page_handle(view['group'])]
-        if view['group'] in (4,6):
-            # LFO and OTHER share the MOD tab: only the touched group may show.
-            conditions.append(f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group'))
+        k=mod_page_index(i)
+        if k is not None and k<12:
+            # LFO and OTHER share the MOD tab through one parameter, so exactly
+            # one of its pages is on screen and exactly one button is lit.
+            conditions=[f'IndexedEnabling/{k}/{MOD_STEPS}/'+handle('MOD Page')]
+        else:
+            conditions=[f'IndexedEnabling/{slot}/{len(own)}/'+group_page_handle(view['group'])]
     else:conditions=[f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')]
     # A hidden-on-invalid container needs a valid model of its own. Child
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).

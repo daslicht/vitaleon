@@ -27,6 +27,9 @@ inline void Vitaleon::createNavigation(){
             const int at=addParam(s);if(i==0)groupSlot_[g]=at;
         }
     }
+    // LFO and OTHER share the MOD tab, so its strip needs one parameter: a
+    // single value lights exactly one button and defaults to LFO 1.
+    {auto m=mpc::intParam("ui_mod_page","MOD Page",0,12,0);m.automatable=false;uiModPage_=addParam(m);}
     updateNavigation();
 }
 inline void Vitaleon::updateNavigation(){
@@ -35,6 +38,11 @@ inline void Vitaleon::updateNavigation(){
     if(v.group==3)publish(envSelect_,float(v.member));
     if(v.group==4){publish(lfoSelect_,float(v.member));publish(curveTarget_,0);curveSelectionChanged_.store(true);inspectCurve_.store(true);}
     if(v.group==6&&v.member==1){publish(curveTarget_,1);curveSelectionChanged_.store(true);inspectCurve_.store(true);}
+    // Mirror the strip so the tab bar shows exactly one selected subtab.
+    {int modPage=-1;
+     if(v.group==4)modPage=tabMemberIndex(page);
+     else if(v.group==6)modPage=v.hidden?12:8+tabMemberIndex(page);
+     if(modPage>=0&&uiModPage_>=0)publish(uiModPage_,float(modPage));}
     const auto& targets=v.sections[section];for(int i=0;i<16;++i)uiTargets_[i].store(i<int(targets.size())?targets[i]:-1);
     slotEditMs_.store(0,std::memory_order_relaxed); // other controls now: every slot shows its new target
     refreshProxies();browserDisplayDirty_.store(true);
@@ -45,6 +53,11 @@ inline int Vitaleon::groupMemberPage(int group,int member){
     for(int i=0;i<int(surfaceViews_.size());++i)if(surfaceViews_[i].group==group&&!surfaceViews_[i].hidden){
         if(first<0)first=i;if(k==member)return i;++k;}
     return first<0?0:first;
+}
+inline int Vitaleon::tabMemberIndex(int page){
+    const int group=surfaceViews_[page].group;int k=0;
+    for(int i=0;i<page;++i)if(surfaceViews_[i].group==group&&!surfaceViews_[i].hidden)++k;
+    return k;
 }
 inline bool Vitaleon::applySlot(int slot,float plain){
     int target=uiTargets_[slot].load();if(target<0)return true;
@@ -71,6 +84,13 @@ inline bool Vitaleon::applySlot(int slot,float plain){
 static constexpr int kTabBank[7]={0,1,2,3,4,5,4};
 inline bool Vitaleon::navigationChanged(int index,float plain){
     if(uiGroup_<0)return false;
+    if(index==uiModPage_){
+        // k < 8: LFO 1..8, k = 8..11: MATRIX, RANDOM, EXPR, CURVE.
+        const int k=mpc::clamp(int(std::lround(plain)),0,12);
+        const int page=k<8?groupMemberPage(4,k):(k<12?groupMemberPage(6,k-8):groupMemberPage(6,0));
+        std::lock_guard<std::mutex> lock(navigationMutex_);
+        publish(uiGroup_,float(surfaceViews_[page].group));publish(uiPage_,float(page));publish(uiSection_,0);
+        updateNavigation();return true;}
     if(index>=uiKnobs_&&index<uiKnobs_+16)return applySlot(index-uiKnobs_,plain);
     // A group slot carries its group: the hardware knob that moved tells the plugin
     // which tab is on screen, so no skin page state is involved.

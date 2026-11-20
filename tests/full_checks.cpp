@@ -392,6 +392,14 @@ int main(int argc,char** argv){
   native->set(id("ui_gpage_0"),1);const int homePage=native->getInt(id("ui_page"));
   native->setNormalised(id("ui_g0_slot_0"),.5f);
   check(native->getInt(id("ui_page"))==homePage,"a single-group tab keeps its own page");
+  // The MOD strip is one parameter, so it opens LFO 1 by default and only one
+  // subtab can be selected.
+  native->set(id("ui_mod_page"),0);
+  check(native->getInt(id("ui_page"))==16,"MOD Page 0 opens LFO 1");
+  native->set(id("ui_mod_page"),8);
+  check(native->getInt(id("ui_page"))==34,"MOD Page 8 opens the matrix");
+  native->set(id("ui_mod_page"),11);
+  check(native->getInt(id("ui_page"))==37,"MOD Page 11 opens the modulation curve");
   // 0.3.22: knobs and faders on screen are bound to their Q-Link slot, so the host moves
   // the control it wrote. 0.3.23: while a control moves, the plugin calls the host not
   // once (0.3.21 redrew the page on every change and all controls stuttered; 0.3.22 sent

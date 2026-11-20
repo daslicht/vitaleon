@@ -84,6 +84,7 @@ private:
     int storageCommands_=-1,storageRows_=-1,storagePath_=-1,storageStatus_=-1,storagePage_=-1,activeBankText_=-1;
     int storageAvailable_=-1;
     int uiGroup_=-1,uiPage_=-1,uiSection_=-1,uiKnobs_=-1,uiBank_=-1;
+    int uiModPage_=-1;  // the MOD tab's one strip: LFO 1..8, MATRIX..CURVE, picker
     int groupPage_[7]={-1,-1,-1,-1,-1,-1,-1},groupSlot_[7]={-1,-1,-1,-1,-1,-1,-1};
     // What the host still has to hear about the Q-Link slots (0.3.23). A moving control
     // must not call into the host: 0.3.22 sent audioMasterAutomate on every movement and
@@ -116,6 +117,7 @@ private:
     void updateNavigation();
     bool applySlot(int slot,float plain);
     int groupMemberPage(int group,int member);
+    int tabMemberIndex(int page);
     bool navigationChanged(int index,float plain);
     void refreshNavigation();
     struct LibraryBank {std::string name;std::vector<int> files;};

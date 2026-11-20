@@ -42,10 +42,11 @@ def states():
         for section in range(len(v['sections'])):
             values={NAMES['UI Page']:i/(len(VIEWS)-1),NAMES['UI Group']:v['group']/6,NAMES['UI Section']:section/31}
             if GROUP_MODEL:
-                # A shared ENV/LFO page stays on its own slot; the module is the
-                # selector, so the page parameter must not point at the member.
-                values[NAMES[f"Group {v['group']} Page"]]=own.index(rep_page(i))/max(1,len(own)-1)
-                if v['group'] in (3,4):values[NAMES['Env Select' if v['group']==3 else 'LFO Select']]=own.index(i)/max(1,len(own)-1)
+                values[NAMES[f"Group {v['group']} Page"]]=own.index(i)/max(1,len(own)-1)
+                if v['group'] in (4,6):
+                    vis=[j for j,x in enumerate(VIEWS) if x['group']==v['group'] and not x.get('hidden')]
+                    k=12 if v.get('hidden') else (0 if v['group']==4 else 8)+vis.index(i)
+                    values[NAMES['MOD Page']]=k/12
             values.update({NAMES[f'storage_available_{row}']:1 for row in range(6)})
             yield i,section,values
 def bound(handle,mapping):
