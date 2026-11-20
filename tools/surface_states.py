@@ -8,6 +8,10 @@ PROJECT=Path(__file__).resolve().parents[1]
 SKIN=os.environ.get('VITALEON_SKIN','skins/TUI.json')
 UI=json.loads((PROJECT/SKIN).read_text(encoding='utf-8'))['pageData']
 DEFS={d['key']:d['value'] for d in UI['componentDefinitions']['localComponentDefinitions']}
+TABS=UI['tabs']
+# A tab bar binds one tab per group, so pages of a group live in that tab and
+# the group page parameter counts members inside the group.
+GROUP_MODEL=len(TABS)>1
 PARAMS=json.loads((PROJECT/'build/params.json').read_text())['params']
 NAMES={p['name']:p['index'] for p in PARAMS}
 def resolve(h,mapping):
@@ -15,10 +19,28 @@ def resolve(h,mapping):
         if h in mapping and mapping[h]!=h:h=mapping[h]
         else:break
     return h
+def tab_index(page):
+    if not GROUP_MODEL:return 0
+    for t,tab in enumerate(TABS):
+        if tab.get('fnKeyIndex')==VIEWS[page]['group']:return t
+    return 0
+def rep_page(page):
+    # ENV/LFO share one page per tab and pick the module with Env/LFO Select.
+    if not GROUP_MODEL:return page
+    def has(p):return any(x['componentData']['type']==f'view-{p}' for x in TABS[tab_index(p)]['componentDefinition']['componentsData'])
+    if has(page):return page
+    return [j for j,x in enumerate(VIEWS) if x['group']==VIEWS[page]['group']][0]
+def tab_entries(page=0):return TABS[tab_index(rep_page(page))]['componentDefinition']['componentsData']
 def states():
     for i,v in enumerate(VIEWS):
+        own=[j for j,x in enumerate(VIEWS) if x['group']==v['group']]
         for section in range(len(v['sections'])):
             values={NAMES['UI Page']:i/(len(VIEWS)-1),NAMES['UI Group']:v['group']/6,NAMES['UI Section']:section/31}
+            if GROUP_MODEL:
+                # A shared ENV/LFO page stays on its own slot; the module is the
+                # selector, so the page parameter must not point at the member.
+                values[NAMES[f"Group {v['group']} Page"]]=own.index(rep_page(i))/max(1,len(own)-1)
+                if v['group'] in (3,4):values[NAMES['Env Select' if v['group']==3 else 'LFO Select']]=own.index(i)/max(1,len(own)-1)
             values.update({NAMES[f'storage_available_{row}']:1 for row in range(6)})
             yield i,section,values
 def bound(handle,mapping):
@@ -65,7 +87,7 @@ def audit():
     for key,value in DEFS.items():
         if value.get('actions') and not has_value_widget(value):errors.append(('definition',key,'interactive component without a value widget'))
     for page,section,values in states():
-        leaves=expand(UI['tabs'][0]['componentDefinition']['componentsData'],values);count+=1
+        leaves=expand(tab_entries(page),values);count+=1
         if not any(e['kind']=='Label' and 64<=e['box'][1]<568 for e in leaves):errors.append((page,section,'module content is entirely hidden'))
         for e in leaves:
             x,y,r,b=e['box']
@@ -77,8 +99,9 @@ def audit():
             for label in [e for e in leaves if e['kind']=='Label']:
                 a,c,d,f=label['box']
                 if min(r,d)>max(x,a) and min(b,f)>max(y,c):errors.append((page,section,'label intercepts control',control['name'],label['name']))
-        foot=[e for e in leaves if e['kind']=='Button' and e['box'][1]==568]
-        if len(foot)!=7:errors.append((page,section,'footer groups',len(foot)))
+        if not GROUP_MODEL:
+            foot=[e for e in leaves if e['kind']=='Button' and e['box'][1]==568]
+            if len(foot)!=7:errors.append((page,section,'footer groups',len(foot)))
     return dict(states=count,buttons=buttons,errors=errors)
 if __name__=='__main__':
     result=audit();print(json.dumps(result,indent=2));raise SystemExit(bool(result['errors']))

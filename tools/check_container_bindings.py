@@ -13,16 +13,23 @@ def invalid_parents(entries,mapping=None,path='root'):
         errors+=invalid_parents(DEFS[d['type']]['componentsData'],local,name)
     return errors
 
-entries=UI['tabs'][0]['componentDefinition']['componentsData']
+entries=tab_entries(0)
 assert not invalid_parents(entries),invalid_parents(entries)
 # Remove exactly the bindings absent in 0.3.0. The same visibility model must
 # now reject every content view even though its individual controls are bound.
 broken=copy.deepcopy(entries)
 for e in broken:
     if e['componentData']['type'].startswith('view-'):e['handle remapping']['map']=[]
-assert len(invalid_parents(broken))==28
+if GROUP_MODEL:
+    # Every tab must lose every view container it binds, not just the one tab
+    # the single-tab layout had.
+    assert len(invalid_parents(broken))==len([e for e in broken if e['componentData']['type'].startswith('view-')])
+else:assert len(invalid_parents(broken))==28
 for page,section,values in states():
-    old=expand(broken,values);fixed=expand(entries,values)
+    entries_p=tab_entries(page);broken_p=copy.deepcopy(entries_p)
+    for e in broken_p:
+        if e['componentData']['type'].startswith('view-'):e['handle remapping']['map']=[]
+    old=expand(broken_p,values);fixed=expand(entries_p,values)
     content=lambda items:[e for e in items if e['kind']=='Label' and 64<=e['box'][1]<568]
     assert not content(old),(page,section,'old regression must reproduce a blank body')
     assert content(fixed),(page,section,'fixed body must contain real controls/text')

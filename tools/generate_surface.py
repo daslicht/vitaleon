@@ -279,6 +279,12 @@ def qlink_frames(cells,section,color):
 GROUP_SLOT=None
 def group_page_handle(group):return handle(f'Group {group} Page')
 def group_members(group):return [i for i,v in enumerate(VIEWS) if v['group']==group and not v.get('hidden')]
+def group_pages(group):return [i for i,v in enumerate(VIEWS) if v['group']==group]
+def page_nav(page):
+    # Inside a tab bar the page parameter counts the pages of one group.
+    if FORCE:
+        own=group_pages(VIEWS[page]['group']);return f"Group {VIEWS[page]['group']} Page",own.index(page),len(own)
+    return 'UI Page',page,len(VIEWS)
 def slot_data(title,name,slot):return [('Data','WithName['+title+']/'+handle((f'Group {GROUP_SLOT} Slot' if GROUP_SLOT is not None else 'UI Control')+f' {slot+1}')),('Target',handle(name))]
 def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
     p=parameter(name);choices=p.get('choices',[])
@@ -442,14 +448,14 @@ def matrix_table(children):
             children.append(conditional(nav_button('MUTE',pick+3*pitch,y,64,52,f'modulation_{route}_bypass',color='fx'),show))
 def pick_groups(children):
     children.append(label('for route',(300,72,110,38),MUTED,24));children.append(label('Route',(410,72,100,38),COLORS['mod'],30,value='Route Select'))
-    children.append(nav_button('BACK',886,76,110,52,'UI Page',MATRIX_VIEW,len(VIEWS),'mod'))
+    children.append(nav_button('BACK',886,76,110,52,*page_nav(MATRIX_VIEW),'mod'))
     children.append(nav_button('NO TARGET',766,76,110,52,'Target',0,len(DESTINATIONS)+1,'fx'))
     # 26 target groups: six 156 px columns keep five rows inside the content area.
     for k,(name,_) in enumerate(TARGET_GROUPS):
         row,col=divmod(k,6);children.append(nav_button(name,24+col*164,150+row*68,156,60,'UI Section',k+1,32,'mod'))
 def pick_targets(children):
-    children.append(nav_button('BACK',886,76,110,52,'UI Page',MATRIX_VIEW,len(VIEWS),'mod'))
-    children.append(nav_button('GROUPS',766,76,110,52,'UI Page',GROUP_VIEW,len(VIEWS),'mod'))
+    children.append(nav_button('BACK',886,76,110,52,*page_nav(MATRIX_VIEW),'mod'))
+    children.append(nav_button('GROUPS',766,76,110,52,*page_nav(GROUP_VIEW),'mod'))
     for k,(name,items) in enumerate(TARGET_GROUPS):
         show=[f'IndexedEnabling/{k+1}/32/'+handle('UI Section')]
         children.append(conditional(label(name,(300,72,456,36),COLORS['mod'],26),show))
@@ -476,6 +482,7 @@ all_children=[]
 version=json.loads((project/'plugin.json').read_text())['version']
 member_rows={};page_entries={}
 for group,group_name in enumerate(GROUPS):
+    all_pages=group_pages(group)
     members=[(i,p) for i,p in enumerate(VIEWS) if p['group']==group and not p.get('hidden')]
     width=(SCREEN_RIGHT-24-8*(len(members)-1))//len(members)
     row=[]
@@ -483,7 +490,12 @@ for group,group_name in enumerate(GROUPS):
         if FORCE:
             # The tab is chosen by the function key; this row is the member strip
             # of that tab and stays visible for as long as the tab is open.
-            row.append(nav_button(p['tab'],24+slot*(width+8),4,width,56,('Group',group,'Page')[0]+f' {group} Page',slot,len(members),p['color']))
+            page_slot=all_pages.index(i)
+            if group in (3,4) and page_slot>0:
+                # ENV/LFO share one page; the strip selects the module inside it.
+                row.append(nav_button(p['tab'],24+slot*(width+8),4,width,56,'Env Select' if group==3 else 'LFO Select',page_slot,len(all_pages),p['color']))
+            else:
+                row.append(nav_button(p['tab'],24+slot*(width+8),4,width,56,f'Group {group} Page',page_slot,len(all_pages),p['color']))
         else:
             row.append(conditional(nav_button(p['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color']),[f'IndexedEnabling/{group}/7/'+handle('UI Group')]))
     member_rows[group]=row
@@ -582,7 +594,7 @@ for i,view in enumerate(VIEWS):
             # Below the second control row (ends at y = 512), like every page.
             children.append(label('Active bank',(24,520,140,24),MUTED,18))
             for part in range(2):children.append(label('Bank',(168+part*330,520,320,24),COLORS['env'],18,value=f'active_bank_{part}'))
-            children.append(nav_button('LIBRARY',SCREEN_RIGHT-24-156,512,156,52,'UI Page',3,len(VIEWS)))
+            children.append(nav_button('LIBRARY',SCREEN_RIGHT-24-156,512,156,52,*page_nav(3)))
     else:add_library(children)
     if title=='Advanced' and __import__('os').environ.get('VITALEON_DIAG'):  # device diagnostic only
         children.append(label('DIAGNOSTIC: a test chord plays on every page except HOME',(24,352,1000,30),COLORS['mod'],20))
@@ -594,7 +606,9 @@ for i,view in enumerate(VIEWS):
     key=f'view-{i}'
     definitions.append(g.obj(('key',key),('value',g.component_definition([],children,BG))))
     if FORCE:
-        own=group_members(view['group']);slot=own.index(i) if i in own else 0;condition=f'IndexedEnabling/{slot}/{len(own)}/'+group_page_handle(view['group'])
+        # Hidden pages (LIBRARY, unused FX pages) still get a real slot; the
+        # strip just does not show them, so they must not default to slot 0.
+        own=group_pages(view['group']);slot=own.index(i);condition=f'IndexedEnabling/{slot}/{len(own)}/'+group_page_handle(view['group'])
     else:condition=f'IndexedEnabling/{view["group"]}/7/'+handle('UI Group') if view['group'] in [3,4] else f'IndexedEnabling/{i}/{len(VIEWS)}/'+handle('UI Page')
     # A hidden-on-invalid container needs a valid model of its own. Child
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).

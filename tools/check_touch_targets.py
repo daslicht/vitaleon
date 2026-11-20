@@ -38,7 +38,11 @@ def focus_findings(ui):
 
 def audit(path):
     ui=json.loads(Path(path).read_text(encoding='utf-8'))['pageData']
-    if len(ui['tabs'])==1 and ui['tabs'][0]['tabName']=='VITALEON':
+    # Our own generated models (single tab or one tab per group) are audited by
+    # surface_states; the heuristic expander below is only for foreign skins.
+    import surface_states as _ss
+    ours=(len(ui['tabs'])==1 and ui['tabs'][0]['tabName']=='VITALEON') or (len(ui['tabs'])>1 and 'Group 0 Page' in _ss.NAMES)
+    if ours:
         import surface_states
         previous=surface_states.UI;surface_states.UI=ui
         previous_defs=surface_states.DEFS;surface_states.DEFS={d['key']:d['value'] for d in ui['componentDefinitions']['localComponentDefinitions']}
