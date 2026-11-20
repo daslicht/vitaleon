@@ -417,8 +417,8 @@ int main(int argc,char** argv){
     const int sel=id("preset_select");
     native->setNormalised(sel,0.0f);native->setNormalised(sel,0.01f);
     check(native->getInt(sel)==1,"one data wheel click moves a run-time list by one entry");
-    native->setNormalised(sel,0.02f);
-    check(native->getInt(sel)==2,"the next click moves the run-time list again");
+    native->setNormalised(sel,0.02f);native->setNormalised(sel,0.02f);
+    check(native->getInt(sel)==2,"a click the host reports twice still moves the list once");
     native->setNormalised(sel,0.5f);
     check(native->getInt(sel)>=4,"a jump in a run-time list stays absolute");
     native->setNormalised(sel,0.0f);

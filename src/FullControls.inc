@@ -139,10 +139,14 @@ inline bool Vitaleon::listStep(int index,float plain){
     if(last==0){listRaw_[slot]=raw;listIndex_[slot]=0;return false;}
     const float step=1.0f/float(last),delta=raw-listRaw_[slot];
     int next=listIndex_[slot];
-    if(std::fabs(raw-float(next)*step)>1e-6f){
-        // 1/100 coarse click; 1/128 and 1/64 hosts land in the same band.
-        const bool click=std::fabs(delta)>=0.006f&&std::fabs(delta)<0.017f&&std::fabs(delta)<step*.5f;
-        next=click?next+(delta>0?1:-1):int(std::lround(plain));
+    // The host reports one wheel click twice with the same value: the repeat must
+    // change nothing (it used to fall into the jump branch and take the step back,
+    // so every entry needed two clicks).
+    if(std::fabs(delta)>=step*0.01f){
+        // Anything smaller than half an entry is a wheel click and moves exactly one
+        // entry, whatever resolution the host turns the parameter with.
+        if(std::fabs(delta)<step*.5f)next+=(delta>0?1:-1);
+        else next=int(std::lround(plain)); // a jump: preset load, list change
     }
     listRaw_[slot]=raw;next=mpc::clamp(next,0,last);const bool changed=next!=listIndex_[slot];listIndex_[slot]=next;
     publishNormalised(index,float(next)*step);
