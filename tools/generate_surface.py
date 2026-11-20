@@ -76,6 +76,14 @@ for p in params:
         p['kind']='int';p['choices']=[]
 BG='ff181a23';PANEL='ff222531';LINE='ff353949';TEXT='ffedf0f7';MUTED='ffa0a7b7'
 COLORS={'osc':'ffbca3ff','env':'ff64d9ba','mod':'fff6bf66','fx':'ff7cb9e8'}
+# Hardware safe area (SDK ui-reference 1.4): the Q-Link sidebar covers the right
+# edge, roughly x >= 1025, as soon as a Q-Link is touched, and stays. Three
+# columns of 308 px at x = 24, 356, 688 end at x = 996, so every control stays
+# out of the sidebar and each column stays wide enough to read and to hit.
+SLOT_W,SLOT_H=308,156
+SLOT=f'0 0 {SLOT_W} {SLOT_H}'
+SCREEN_RIGHT=1000
+def col_x(col):return 24+332*col
 def handle(name):
     if name not in byname:
         if name.replace('_',' ') in byname:name=name.replace('_',' ')
@@ -159,19 +167,23 @@ definitions=[];segment_keys=set()
 MENU_OVERLAY={'osc':'menu overlay','env':'menu overlay','mod':'menu overlay dark','fx':'menu overlay light'}
 for color,accent in COLORS.items():
     for role in ['knob','bipolar','fader','toggle','menu','file']:
-        children=[g.entry('focus','Focus',g.focus_data(accent),'0 0 296 156','No','Show','WhenFocussed'),
-            ent('name','Label',g.label_data('Name',TEXT,25),(0,0,296,32))]
+        # One focus stop per slot, as in the SDK's own generator (ui-reference
+        # 5.2): the slot entry takes hardware focus and every child is 'No', so
+        # a tap anywhere in the cell focuses it and the data wheel edits its
+        # value (knob, fader, switch and choice cells alike).
+        children=[g.entry('focus','Focus',g.focus_data(accent),SLOT,'No','Show','WhenFocussed'),
+            ent('name','Label',g.label_data('Name',TEXT,22),(0,0,SLOT_W,26))]
         actions=g.control_actions('value overlay')
         if role in ['knob','bipolar']:
-            children.extend([ent('knob','Knob',g.knob_filmstrip_data(f'large-{color}-{role}.png',127,'Vertical'),(0,38,112,112)),
-                ent('value','Label',g.label_data('Value',accent,30),(128,66,168,48))])
+            children.extend([ent('knob','Knob',g.knob_filmstrip_data(f'large-{color}-{role}.png',127,'Vertical'),(4,28,112,112)),
+                ent('value','Label',g.label_data('Value',accent,22),(118,50,SLOT_W-118,64))])
             if role=='bipolar':actions=g.control_actions('bipolar overlay')
         elif role=='fader':
-            children.extend([ent('value','Label',g.label_data('Value',accent,30),(0,38,296,44)),
-                ent('fader','Knob',g.knob_filmstrip_data(f'large-{color}-fader.png',127,'Horizontal'),(0,96,280,56))])
+            children.extend([ent('value','Label',g.label_data('Value',accent,24),(0,24,SLOT_W,40)),
+                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader.png',127,'Horizontal'),(4,72,300,56))])
         elif role=='toggle':
-            children.extend([ent('switch','Button',g.button_data(f'large-{color}-on.png',f'large-{color}-off.png',1,1),(0,60,136,72)),
-                ent('state','Label',g.label_data('Value',accent,30),(156,68,140,48))])
+            children.extend([ent('switch','Button',g.button_data(f'large-{color}-on.png',f'large-{color}-off.png',1,1),(0,42,136,72)),
+                ent('state','Label',g.label_data('Value',accent,24),(140,54,SLOT_W-140,48))])
             actions=[g.action('Mouse Down','Q-Link','Data','')]
         elif role=='menu':
             # 0.3.9: exactly the slot the SDK's own generator uses for a choice with a
@@ -183,16 +195,16 @@ for color,accent in COLORS.items():
             # so it is an SDK/firmware limitation and is no longer used. A choice is
             # a Vitaleon-style fader that steps through its labels (drag, data wheel,
             # Q-Link) and opens the working KnobOverlay on double-tap, like any knob.
-            children.extend([ent('value','Label',g.label_data('Value',accent,30),(0,38,296,44)),
-                ent('fader','Knob',g.knob_filmstrip_data(f'large-{color}-fader.png',127,'Horizontal'),(0,96,280,56))])
+            children.extend([ent('value','Label',g.label_data('Value',accent,24),(0,24,SLOT_W,40)),
+                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader.png',127,'Horizontal'),(4,72,300,56))])
             actions=g.control_actions('value overlay')
         else:
             # 0.3.17: file selectors (wavetable, sample, LFO shape) were wheel-only.
             # They now carry the same fader as every other choice, so a table can be
             # chosen by touch; the data wheel and the double-tap overlay still work.
-            children.extend([ent('field','Image',{'version':1,'colour':PANEL,'image':''},(0,38,296,52)),
-                ent('value','Label',g.label_data('Value',accent,24),(10,40,276,48)),
-                ent('fader','Knob',g.knob_filmstrip_data(f'large-{color}-fader.png',127,'Horizontal'),(0,96,280,56))])
+            children.extend([ent('field','Image',{'version':1,'colour':PANEL,'image':''},(0,22,SLOT_W,46)),
+                ent('value','Label',g.label_data('Value',accent,20),(6,24,SLOT_W-12,42)),
+                ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader.png',127,'Horizontal'),(4,74,300,56))])
         definitions.append(g.obj(('key',role+'-'+color),('value',g.component_definition(actions,children,'00000000'))))
 definitions.append(g.obj(('key','value overlay'),('value',g.overlay_component('KnobOverlay',g.knob_overlay_data(),BG))))
 definitions.append(g.obj(('key','bipolar overlay'),('value',g.overlay_component('KnobOverlay',g.knob_overlay_data(True),BG))))
@@ -263,15 +275,15 @@ def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
     if 1<len(choices)<=4 and p['kind']!='bool':
         # Short enumerations are immediately tappable, not a rotary mode selector.
         role='segments';key='segments-'+str(p['index'])+'-'+color
-        children=[g.entry('focus','Focus',g.focus_data(COLORS[color]),'0 0 296 156','No','Show','WhenFocussed'),ent('name','Label',g.label_data('Name',TEXT,25),(0,0,296,32))]
+        children=[g.entry('focus','Focus',g.focus_data(COLORS[color]),SLOT,'No','Show','WhenFocussed'),ent('name','Label',g.label_data('Name',TEXT,22),(0,0,SLOT_W,26))]
         for n,choice in enumerate(choices):
-            px=(n%2)*152;py=44+(n//2)*56
-            children.append(ent('choice','Button',g.button_data(f'segment-choice-{color}-on.png',f'segment-choice-{color}-off.png',n,len(choices)),(px,py,144,52)))
+            px=4+(n%2)*152;py=30+(n//2)*58
+            children.append(ent('choice','Button',g.button_data(f'segment-choice-{color}-on.png',f'segment-choice-{color}-off.png',n,len(choices)),(px,py,148,52)))
             words=choice.split();lines=['']
             for word in words:
                 if len(lines[-1])+len(word)>12 and lines[-1]:lines.append(word)
                 else:lines[-1]=(lines[-1]+' '+word).strip()
-            for line,text in enumerate(lines[:2]):children.append(ent('choice text','Label',g.label_data('Text',TEXT,19,'horizontallyCentred verticallyCentred',text),(px+4,py+(4+line*22 if len(lines)>1 else 12),136,24)))
+            for line,text in enumerate(lines[:2]):children.append(ent('choice text','Label',g.label_data('Text',TEXT,18,'horizontallyCentred verticallyCentred',text),(px+4,py+(4+line*20 if len(lines)>1 else 10),140,24)))
         if key not in segment_keys:
             definitions.append(g.obj(('key',key),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],children,'00000000'))));segment_keys.add(key)
     else:key=role+'-'+color
@@ -282,7 +294,7 @@ def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
         elif name.startswith('macro_'):color='mod'
         key='home-'+role+'-'+color
     data=slot_data(title,name,slot) if slot is not None and role in ['knob','bipolar','fader'] else [('Data','WithName['+title+']/'+handle(name))]
-    return g.entry(title,key,{'version':1,'handleName':'Data'},f'{x} {y} '+('184 188' if compact else '296 156'),'Yes','Hide' if visible else 'Show','Always',data+([('Menu',handle(name))] if role=='menu' else []),invalidating=visible)
+    return g.entry(title,key,{'version':1,'handleName':'Data'},f'{x} {y} '+('184 188' if compact else f'{SLOT_W} {SLOT_H}'),'Yes','Hide' if visible else 'Show','Always',data+([('Menu',handle(name))] if role=='menu' else []),invalidating=visible)
 
 def home_browser(children):
     children.append(rect('browser divider',(800,96,1,516),LINE))
@@ -308,22 +320,17 @@ def envelope(children):
     for stage in ['delay','attack','hold','decay','sustain','release']:data[stage+'Handle']=handle('Env '+stage)
     for stage in ['attack','decay','release']:data[stage+'ShapeHandle']=handle('Env '+stage+'_power')
     data.update(forceHideShapeHandles=False,decayAndReleaseCurvesLinked=False,curveType='Exponential')
-    children.append(ent('editable envelope','Envelope',data,(32,100,944,164),True))
-    children.append(trace('Envelope output',(1000,100,248,164),'display_env_value','env'))
+    children.append(ent('editable envelope','Envelope',data,(24,100,728,164),True))
+    children.append(trace('Envelope output',(768,100,232,164),'display_env_value','env'))
 def pretty(k):
     words=k.replace('_',' ').replace('spectral morph','spectral').replace('distortion','warp').replace('unison voices','unison').replace('keytrack transpose','key transpose').replace('keytrack tune','key tune')
     return words.title()
 from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
 write_header()
 definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],[
-    ent('Effect name','Label',g.label_data('Name',TEXT,24),(0,0,376,30)),
-    ent('Effect switch','Button',g.button_data('large-fx-on.png','large-fx-off.png',1,1),(0,34,136,72)),
-    ent('Effect state','Label',g.label_data('Value',COLORS['fx'],26),(156,44,210,48)),
-],'00000000'))))
-definitions.append(g.obj(('key','wave-frame'),('value',g.component_definition(g.control_actions('value overlay'),[
-    ent('Frame name','Label',g.label_data('Name',TEXT,22),(0,0,120,28)),
-    ent('Frame value','Label',g.label_data('Value',COLORS['osc'],24),(144,0,152,28)),
-    ent('Frame slider','Knob',g.knob_filmstrip_data('large-osc-fader.png',127,'Horizontal'),(0,32,280,56)),
+    ent('Effect name','Label',g.label_data('Name',TEXT,22),(0,0,SLOT_W,28)),
+    ent('Effect switch','Button',g.button_data('large-fx-on.png','large-fx-off.png',1,1),(0,40,136,72)),
+    ent('Effect state','Label',g.label_data('Value',COLORS['fx'],24),(140,50,SLOT_W-140,48)),
 ],'00000000'))))
 pages=[]
 def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
@@ -335,8 +342,8 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
         im=Image.new('RGBA',(w,h),'#373045' if state=='on' else '#222531');d=ImageDraw.Draw(im)
         d.rectangle((0,0,w-1,h-1),outline='#'+(COLORS[color] if state=='on' else LINE)[2:],width=2 if state=='on' else 1)
         size=22;font=ImageFont.truetype(str(root/'fonts/Roboto-Regular.ttf'),size)
-        while d.textlength(caption,font=font)>w-12 and size>18:size-=1;font=ImageFont.truetype(str(root/'fonts/Roboto-Regular.ttf'),size)
-        assert d.textlength(caption,font=font)<=w-12,(caption,w)
+        while d.textlength(caption,font=font)>w-12 and size>13:size-=1;font=ImageFont.truetype(str(root/'fonts/Roboto-Regular.ttf'),size)
+        assert d.textlength(caption,font=font)<=w-10,(caption,w)
         bb=d.textbbox((0,0),caption,font=font);d.text(((w-d.textlength(caption,font=font))/2,(h-(bb[3]-bb[1]))/2-bb[1]),caption,font=font,fill='#edf0f7');im.save(skin/filename)
     data={'version':2,'onImage':f'nav-{key}-on.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),True)
@@ -345,18 +352,18 @@ def add_library(c):
     # 0.3.19 layout: place line, three commands, six rows of KIND | NAME | button.
     # A row offers OPEN for a drive, folder or bank and LOAD for a sound (state 1 / 2
     # of storage_available_N). REFRESH is gone: DRIVES rescans.
-    c.append(label('Directory',(24,76,900,26),MUTED,18,value='storage_path_0'))
-    for n,(caption,param,w) in enumerate([('DRIVES','Drives',156),('UP','Up Folder',156),('INSTALLED','Installed Banks',180)]):c.append(nav_button(caption,24+n*168,108,w,52,param))
-    c.append(label('Page',(716,112,260,36),MUTED,23,value='storage_page'))
-    c.append(nav_button('PREV',980,108,128,52,'Previous Files'));c.append(nav_button('NEXT',1120,108,128,52,'Next Files'))
+    c.append(label('Directory',(24,76,700,26),MUTED,18,value='storage_path_0'))
+    for n,(caption,param,w) in enumerate([('DRIVES','Drives',150),('UP','Up Folder',150),('INSTALLED','Installed Banks',190)]):c.append(nav_button(caption,[24,182,340][n],108,w,52,param))
+    c.append(label('Page',(560,112,190,36),MUTED,22,value='storage_page'))
+    c.append(nav_button('PREV',760,108,116,52,'Previous Files'));c.append(nav_button('NEXT',884,108,116,52,'Next Files'))
     for row in range(6):
         y=174+row*54;available=handle(f'storage_available_{row}')
-        c.append(rect('file separator',(24,y+51,1224,1),LINE))
-        c.append(label('File kind',(24,y+12,110,30),MUTED,18,value=f'storage_row_{row*2}'))
-        c.append(label('File name',(140,y+4,950,44),TEXT,24,value=f'storage_row_{row*2+1}'))
-        c.append(conditional(nav_button('OPEN',1116,y,132,52,f'Open Row {row+1}'),['IndexedEnabling/1/3/'+available]))
-        c.append(conditional(nav_button('LOAD',1116,y,132,52,f'Open Row {row+1}',color='env'),['IndexedEnabling/2/3/'+available]))
-    for part in range(4):c.append(label('Browser status',(24+part*308,512,304,26),COLORS['mod'],18,value=f'storage_status_{part}'))  # one reading line, like HOME
+        c.append(rect('file separator',(24,y+51,976,1),LINE))
+        c.append(label('File kind',(24,y+12,96,30),MUTED,18,value=f'storage_row_{row*2}'))
+        c.append(label('File name',(124,y+4,676,44),TEXT,24,value=f'storage_row_{row*2+1}'))
+        c.append(conditional(nav_button('OPEN',840,y,156,52,f'Open Row {row+1}'),['IndexedEnabling/1/3/'+available]))
+        c.append(conditional(nav_button('LOAD',840,y,156,52,f'Open Row {row+1}',color='env'),['IndexedEnabling/2/3/'+available]))
+    for part in range(4):c.append(label('Browser status',(24+part*244,512,236,26),COLORS['mod'],18,value=f'storage_status_{part}'))  # one reading line, like HOME
 
 # ---- Serum-style modulation matrix and its two-step target picker ------------
 MATRIX_VIEW=next(i for i,v in enumerate(VIEWS) if v['chart']=='mxtable')
@@ -373,60 +380,79 @@ def draw_fader(d,v):
     d.rounded_rectangle((4,22,116,30),radius=4,fill='#454c61');d.rounded_rectangle((4,22,4+round(v*112),30),radius=4,fill=MOD)
     x=4+round(v*112);d.rounded_rectangle((x-5,8,x+5,44),radius=3,fill='#edf0f7')
 def draw_bipolar(d,v):
-    d.rounded_rectangle((4,22,146,30),radius=4,fill='#454c61');x=4+round(v*142);mid=75
+    d.rounded_rectangle((4,22,116,30),radius=4,fill='#454c61');x=4+round(v*112);mid=60
     d.rectangle((min(x,mid),22,max(x,mid),30),fill=MOD);d.rectangle((mid,16,mid,36),fill='#a0a7b7');d.rounded_rectangle((x-5,8,x+5,44),radius=3,fill='#edf0f7')
-strip('mx-fader.png',(120,52),127,draw_fader);strip('mx-bipolar.png',(150,52),127,draw_bipolar)
+strip('mx-fader.png',(120,52),127,draw_fader);strip('mx-bipolar-120.png',(120,52),127,draw_bipolar)
+# Matrix cells: a value widget on every cell, so a tap and the data wheel always
+# reach the row (a label-only cell swallowed every touch, upstream PR #5).
 definitions.append(g.obj(('key','mx-source'),('value',g.component_definition(g.control_actions('value overlay'),[
-    g.entry('focus','Focus',g.focus_data(COLORS['mod']),'0 0 250 52','No','Show','WhenFocussed'),
-    ent('value','Label',g.label_data('Value',TEXT,21),(8,4,116,44)),
-    ent('fader','Knob',g.knob_filmstrip_data('mx-fader.png',127,'Horizontal'),(126,0,120,52))],'00000000'))))
+    g.entry('focus','Focus',g.focus_data(COLORS['mod']),'0 0 228 52','No','Show','WhenFocussed'),
+    ent('value','Label',g.label_data('Value',TEXT,18),(4,2,92,48)),
+    ent('fader','Knob',g.knob_filmstrip_data('mx-fader.png',127,'Horizontal'),(100,0,120,52))],'00000000'))))
 definitions.append(g.obj(('key','mx-amount'),('value',g.component_definition(g.control_actions('bipolar overlay'),[
-    g.entry('focus','Focus',g.focus_data(COLORS['mod']),'0 0 230 52','No','Show','WhenFocussed'),
-    ent('fader','Knob',g.knob_filmstrip_data('mx-bipolar.png',127,'Horizontal'),(0,0,150,52)),
-    ent('value','Label',g.label_data('Value',COLORS['mod'],21),(156,4,72,44))],'00000000'))))
+    g.entry('focus','Focus',g.focus_data(COLORS['mod']),'0 0 208 52','No','Show','WhenFocussed'),
+    ent('fader','Knob',g.knob_filmstrip_data('mx-bipolar-120.png',127,'Horizontal'),(0,0,120,52)),
+    ent('value','Label',g.label_data('Value',COLORS['mod'],18),(122,2,82,48))],'00000000'))))
 definitions.append(g.obj(('key','mx-target'),('value',g.component_definition(g.control_actions('value overlay'),[
-    g.entry('focus','Focus',g.focus_data(COLORS['mod']),'0 0 330 52','No','Show','WhenFocussed'),
-    ent('value','Label',g.label_data('Value',TEXT,21),(8,4,318,44))],'00000000'))))
+    g.entry('focus','Focus',g.focus_data(COLORS['mod']),'0 0 222 52','No','Show','WhenFocussed'),
+    ent('value','Label',g.label_data('Value',TEXT,18),(4,2,92,44)),
+    ent('fader','Knob',g.knob_filmstrip_data('mx-fader.png',127,'Horizontal'),(96,0,120,52))],'00000000'))))
 def matrix_table(children):
-    for x,text in [(68,'SOURCE'),(326,'AMOUNT'),(564,'TARGET')]:children.append(label(text,(x,128,200,20),MUTED,15))
+    for x,text in [(60,'SOURCE'),(292,'AMOUNT'),(504,'TARGET')]:children.append(label(text,(x,128,200,20),MUTED,15))
     for page in range(8):
         show=[f'IndexedEnabling/{page}/32/'+handle('UI Section')]
         for row in range(8):
             route=page*8+row+1;y=148+row*52;knob=handle(f'UI Control {row+1}')
             cell=lambda key,param,x,w:g.entry(f'route {route}',key,{'version':1,'handleName':'Data'},f'{x} {y} {w} 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+handle(param)),('QTarget',knob)],invalidating=show)
-            if row%4==0:children.append(g.entry('Q-Link frame','Image',{'version':1,'colour':'0','image':frame_image(238,216,'mod')},f'322 {y-4} 238 216','No','Hide','Always',invalidating=show+[f'IndexedEnabling/{row//4}/4/'+handle('UI Bank')]))
-            children.append(conditional(label(f'{route:02d}',(24,y+4,40,44),MUTED,20),show))
-            children.append(cell('mx-source',f'Route {route} Source',68,250))
-            amount=g.entry(f'route {route}','mx-amount',{'version':1,'handleName':'Data'},f'326 {y} 230 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+knob),('Target',handle(f'modulation_{route}_amount')),('QTarget',knob)],invalidating=show)
+            if row%4==0:children.append(g.entry('Q-Link frame','Image',{'version':1,'colour':'0','image':frame_image(216,216,'mod')},f'288 {y-4} 216 216','No','Hide','Always',invalidating=show+[f'IndexedEnabling/{row//4}/4/'+handle('UI Bank')]))
+            children.append(conditional(label(f'{route:02d}',(24,y+4,32,44),MUTED,16),show))
+            children.append(cell('mx-source',f'Route {route} Source',60,228))
+            amount=g.entry(f'route {route}','mx-amount',{'version':1,'handleName':'Data'},f'292 {y} 208 52','Yes','Hide','Always',[('Data','WithName[Route '+str(route)+']/'+knob),('Target',handle(f'modulation_{route}_amount')),('QTarget',knob)],invalidating=show)
             children.append(amount)
-            children.append(cell('mx-target',f'Route {route} Target',564,330))
-            children.append(conditional(nav_button('PICK',902,y,76,52,'UI Pick',route,65,'mod'),show))
-            children.append(conditional(nav_button('BIPOLAR',990,y,88,52,f'modulation_{route}_bipolar',color='mod'),show))
-            children.append(conditional(nav_button('STEREO',1082,y,82,52,f'modulation_{route}_stereo',color='mod'),show))
-            children.append(conditional(nav_button('MUTE',1168,y,80,52,f'modulation_{route}_bypass',color='fx'),show))
+            children.append(cell('mx-target',f'Route {route} Target',504,222))
+            children.append(conditional(nav_button('PICK',730,y,64,52,'UI Pick',route,65,'mod'),show))
+            children.append(conditional(nav_button('BIP',798,y,64,52,f'modulation_{route}_bipolar',color='mod'),show))
+            children.append(conditional(nav_button('STER',866,y,64,52,f'modulation_{route}_stereo',color='mod'),show))
+            children.append(conditional(nav_button('MUTE',934,y,64,52,f'modulation_{route}_bypass',color='fx'),show))
 def pick_groups(children):
-    children.append(label('for route',(470,72,110,38),MUTED,24));children.append(label('Route',(580,72,70,38),COLORS['mod'],30,value='Route Select'))
-    children.append(nav_button('BACK',1092,76,156,52,'UI Page',MATRIX_VIEW,len(VIEWS),'mod'))
-    children.append(nav_button('NO TARGET',924,76,156,52,'Target',0,len(DESTINATIONS)+1,'fx'))
+    children.append(label('for route',(300,72,110,38),MUTED,24));children.append(label('Route',(410,72,100,38),COLORS['mod'],30,value='Route Select'))
+    children.append(nav_button('BACK',886,76,110,52,'UI Page',MATRIX_VIEW,len(VIEWS),'mod'))
+    children.append(nav_button('NO TARGET',766,76,110,52,'Target',0,len(DESTINATIONS)+1,'fx'))
+    # 26 target groups: six 156 px columns keep five rows inside the content area.
     for k,(name,_) in enumerate(TARGET_GROUPS):
-        row,col=divmod(k,7);children.append(nav_button(name,24+col*176,150+row*68,168,60,'UI Section',k+1,32,'mod'))
+        row,col=divmod(k,6);children.append(nav_button(name,24+col*164,150+row*68,156,60,'UI Section',k+1,32,'mod'))
 def pick_targets(children):
-    children.append(nav_button('BACK',1092,76,156,52,'UI Page',MATRIX_VIEW,len(VIEWS),'mod'))
-    children.append(nav_button('GROUPS',924,76,156,52,'UI Page',GROUP_VIEW,len(VIEWS),'mod'))
+    children.append(nav_button('BACK',886,76,110,52,'UI Page',MATRIX_VIEW,len(VIEWS),'mod'))
+    children.append(nav_button('GROUPS',766,76,110,52,'UI Page',GROUP_VIEW,len(VIEWS),'mod'))
     for k,(name,items) in enumerate(TARGET_GROUPS):
         show=[f'IndexedEnabling/{k+1}/32/'+handle('UI Section')]
-        children.append(conditional(label(name,(470,72,440,38),COLORS['mod'],30),show))
+        children.append(conditional(label(name,(300,72,456,36),COLORS['mod'],26),show))
         for n,destination in enumerate(items):
+            # The picker lists destination names, it is not the Q-Link control
+            # grid: four 232 px columns keep a 32-entry group on one screen.
             row,col=divmod(n,4);caption=target_name(destination)
-            children.append(conditional(nav_button(caption,24+col*308,140+row*52,300,52,'Target',DESTINATIONS.index(destination)+1,len(DESTINATIONS)+1,'mod'),show))
+            children.append(conditional(nav_button(caption,24+248*col,140+row*52,232,52,'Target',DESTINATIONS.index(destination)+1,len(DESTINATIONS)+1,'mod'),show))
+# Three wide columns (308 px at x = 24, 356, 688): two rows of three fill the
+# content area, so a section carries at most six controls. The oscillator's
+# sound section shows its 16:9 graph in the first cell row and four controls.
+def cell_position(chart,section,slot):
+    if chart=='effects':
+        row,col=divmod(slot,3);return col_x(col),152+row*132
+    if chart in ['env','lfo','curve']:
+        assert slot<3,(chart,slot)
+        return col_x(slot),364
+    if isinstance(chart,int) and section==0:
+        if slot==0:return col_x(2),166
+        return col_x(slot-1),372
+    row,col=divmod(slot,3);return col_x(col),166+190*row
 from surface_spec import DESTINATIONS
 all_children=[]
 version=json.loads((project/'plugin.json').read_text())['version']
 for group,group_name in enumerate(GROUPS):
     members=[(i,p) for i,p in enumerate(VIEWS) if p['group']==group and not p.get('hidden')]
-    width=(1256-8*(len(members)-1))//len(members)
+    width=(SCREEN_RIGHT-24-8*(len(members)-1))//len(members)
     for slot,(i,p) in enumerate(members):
-        e=nav_button(p['tab'],12+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color'])
+        e=nav_button(p['tab'],24+slot*(width+8),4,width,56,'UI Page',i,len(VIEWS),p['color'])
         all_children.append(conditional(e,[f'IndexedEnabling/{group}/7/'+handle('UI Group')]))
 for i,view in enumerate(VIEWS):
     title=view['title'];chart=view['chart'];color=view['color'];sections=view['sections'];children=[]
@@ -434,26 +460,46 @@ for i,view in enumerate(VIEWS):
     # ENV/LFO instances share their actual proxy-backed graph/control view.
     # Do not instantiate eight copies of 384 graph segments on a small MPC.
     if view['group'] in [3,4] and view['member']>1:continue
+    # Section buttons are right-aligned inside the content area, before the title
+    # is placed, so the two never overlap (the caption is baked into the button).
+    section_buttons=[]
+    if chart!='library' and len(sections)>1 and chart!='picktarget':
+        end=696 if chart=='home' else SCREEN_RIGHT-4
+        wide=len(sections)<=4;button_w=124 if wide else 88;step=132 if wide else 96
+        for section,part in enumerate(sections):
+            section_buttons.append((part['title'],end-len(sections)*step+section*step,button_w))
+    title_room=min(440,section_buttons[0][1]-32) if section_buttons else (330 if chart=='mxtable' else 440)
     if chart!='library':
+        # Seven LFO sections need the top line for their buttons, so the module
+        # selector moves next to the version label on ENV/LFO pages.
         if view['group'] in [3,4]:
-            children.append(label('ENVELOPE' if view['group']==3 else 'LFO',(24,72,220,38),TEXT,30))
-            children.append(label('Selected module',(244,72,160,38),TEXT,30,value='Env Select' if view['group']==3 else 'LFO Select'))
-        else:children.append(label(title.upper() if chart not in ['pickgroup','picktarget'] else 'CHOOSE TARGET',(24,72,330 if chart=='mxtable' else 440,38),TEXT,30))
-        children.append(label('VITALEON '+version,(24,110,260,24),MUTED,17))
+            children.append(label('ENVELOPE' if view['group']==3 else 'LFO',(24,72,296,38),TEXT,30))
+        else:children.append(label(title.upper() if chart not in ['pickgroup','picktarget'] else 'CHOOSE TARGET',(24,72,title_room,38),TEXT,30))
+        children.append(label('VITALEON '+version,(24,110,150 if view['group'] in [3,4] else (min(260,section_buttons[0][1]-32) if section_buttons else 260),24),MUTED,17))
+        if view['group'] in [3,4]:
+            children.append(label('Selected module',(190,110,130,24),MUTED,20,value='Env Select' if view['group']==3 else 'LFO Select'))
         if chart=='home':
-            children.append(nav_button(('FILTER 1 OFF','FILTER 1 ON'),984,76,264,52,'Home Filter',color='fx'))
-            for part in range(4):children.append(label('Import status',(24+part*312,134,304,26),COLORS['mod'],18,value=f'display_load_text_{part}'))
-        if len(sections)>1 and chart!='picktarget':
-            # Up to four sections keep the wide buttons; more are packed right-aligned.
-            for section,part in enumerate(sections):
-                if len(sections)<=4:children.append(nav_button(part['title'],720+section*132,76,124,52,'UI Section',section,32,color))
-                else:children.append(nav_button(part['title'],1248-(len(sections)-section)*110+6,76,104,52,'UI Section',section,32,color))
+            children.append(nav_button(('FILTER 1 OFF','FILTER 1 ON'),700,76,296,52,'Home Filter',color='fx'))
+            for part in range(4):children.append(label('Import status',(24+part*244,134,236,26),COLORS['mod'],18,value=f'display_load_text_{part}'))
+        for section,(title_text,button_x,button_w) in enumerate(section_buttons):
+            children.append(nav_button(title_text,button_x,76,button_w,52,'UI Section',section,32,color))
         # Large graphs (user request): oscillator 560x315 (16:9), envelope and
-        # LFO/curve 240 px high with a single row of four controls below.
+        # LFO/curve 240 px high with a single row of three controls below.
         # 0.3.7 compromise after "too small" (0.3.5) and "way too big" (0.3.6).
-        if isinstance(chart,int):wave_bars(children,chart,32,140,384,216)
+        if isinstance(chart,int):
+            # Only the sound section shows the graph; the other sections use its
+            # two cell rows for six more controls. The graph sits in its own
+            # transparent container so one IndexedEnabling hides it as a whole
+            # (the bare grid rectangles carry no handle of their own).
+            graph=[];wave_bars(graph,chart,24,140,384,216)
+            for e in graph:
+                b=dict(e)['bounds'];x,y,w,h=map(int,dict(b)['bounds'].split())
+                b[:]=[(k,f'{x} {y-64} {w} {h}' if k=='bounds' else v) for k,v in b]
+            graph_key=f'osc-graph-{chart}'
+            definitions.append(g.obj(('key',graph_key),('value',g.component_definition([],graph,'00000000'))))
+            children.append(g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','No','Hide','Always',[('Data',handle('UI Section'))],invalidating=[f'IndexedEnabling/0/32/'+handle('UI Section')]))
         elif chart in ['lfo','curve']:
-            curve_bars(children,64,140,1152,190)
+            curve_bars(children,24,140,960,190)
         elif chart=='mxtable':matrix_table(children)
         elif chart=='pickgroup':pick_groups(children)
         elif chart=='picktarget':pick_targets(children)
@@ -462,15 +508,13 @@ for i,view in enumerate(VIEWS):
             # Preserve the editable stage controls, with space for the footer.
             for e in children:
                 d=dict(dict(e)['componentData']);b=dict(e)['bounds']
-                if d['type']=='Envelope':b[:]=[(k,'32 140 944 190' if k=='bounds' else v) for k,v in b]
-                if d['type']=='Plotter':b[:]=[(k,'1000 140 248 190' if k=='bounds' else v) for k,v in b]
+                if d['type']=='Envelope':b[:]=[(k,'24 140 728 190' if k=='bounds' else v) for k,v in b]
+                if d['type']=='Plotter':b[:]=[(k,'768 140 232 190' if k=='bounds' else v) for k,v in b]
         for section,part in enumerate(sections):
             if chart in ['mxtable','pickgroup','picktarget']:break
             cells=[]
             for slot,name in enumerate(part['items']):
-                row,col=divmod(slot,4);x=24+312*col;y=(228+168*row if chart not in [None,'home'] else 166+190*row)
-                if isinstance(chart,int) and slot:x,y=[(648,140),(960,140),(24,408),(336,408),(648,408),(960,408)][slot-1]
-                if chart in ['env','lfo','curve']:assert row==0,(title,part['title']);y=364
+                x,y=cell_position(chart,section,slot)
                 caption=pretty(name)
                 if view['group']==5:
                     for prefix in ['Compressor ','Chorus ','Delay ','Warp ','Eq ','Filter Fx ','Flanger ','Phaser ','Reverb ']:
@@ -478,11 +522,9 @@ for i,view in enumerate(VIEWS):
                 for prefix in ['Osc '+str(view['member'])+' ','Filter 1 ','Filter 2 ','Env ','Lfo ','Random ']:
                     if caption.startswith(prefix):caption=caption[len(prefix):]
                 caption=caption.replace('Spectral Amount','Spectral Amt').replace('Warp Amount','Warp Amount').replace('Unison Detune','Detune').replace('Smooth Interpolation','Smooth Frames').replace('Keytrack','Key Track').replace('Transpose Quantize','Pitch Quantize').replace('Lower Threshold','Lower Thresh.').replace('Upper Threshold','Upper Thresh.').replace('Dry Wet','Mix').replace('Home ','').replace('Macro Control','Macro')
-                if isinstance(chart,int) and slot==0:
-                    cell=g.entry('Frame','wave-frame',{'version':1,'handleName':'Data'},'648 304 296 88','Yes','Hide','Always',slot_data('Frame',name,slot),invalidating=[f'IndexedEnabling/{section}/32/'+handle('UI Section')])
-                elif chart=='effects' and section==0:
+                if chart=='effects' and section==0:
                     row,col=divmod(slot,3);caption=name[:-3].replace('_',' ').title()
-                    cell=g.entry(caption,'effect-toggle',{'version':1,'handleName':'Data'},f'{24+col*416} {152+row*132} 392 112','Yes','Hide','Always',[('Data','WithName['+caption+']/'+handle(name))],invalidating=[f'IndexedEnabling/{section}/32/'+handle('UI Section')])
+                    cell=g.entry(caption,'effect-toggle',{'version':1,'handleName':'Data'},f'{col_x(col)} {152+row*132} {SLOT_W} 112','Yes','Hide','Always',[('Data','WithName['+caption+']/'+handle(name))],invalidating=[f'IndexedEnabling/{section}/32/'+handle('UI Section')])
                 else:
                     control_color=color
                     if chart=='home':
@@ -495,9 +537,10 @@ for i,view in enumerate(VIEWS):
             # Frames first: they lie under the controls and take no touch.
             children.extend(qlink_frames(cells,section,color));children.extend(cells)
         if chart=='home':
-            children.append(label('Active bank',(24,532,140,24),MUTED,18))
-            for part in range(2):children.append(label('Bank',(168+part*360,532,354,24),COLORS['env'],18,value=f'active_bank_{part}'))
-            children.append(nav_button('LIBRARY',1092,508,156,52,'UI Page',3,len(VIEWS)))
+            # Below the second control row (ends at y = 512), like every page.
+            children.append(label('Active bank',(24,520,140,24),MUTED,18))
+            for part in range(2):children.append(label('Bank',(168+part*330,520,320,24),COLORS['env'],18,value=f'active_bank_{part}'))
+            children.append(nav_button('LIBRARY',840,512,156,52,'UI Page',3,len(VIEWS)))
     else:add_library(children)
     if title=='Advanced' and __import__('os').environ.get('VITALEON_DIAG'):  # device diagnostic only
         children.append(label('DIAGNOSTIC: a test chord plays on every page except HOME',(24,352,1000,30),COLORS['mod'],20))
@@ -512,7 +555,7 @@ for i,view in enumerate(VIEWS):
     # A hidden-on-invalid container needs a valid model of its own. Child
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).
     all_children.append(g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','No','Hide','Always',[('Data',handle('UI Page'))],invalidating=[condition]))
-for group,name in enumerate(GROUPS):all_children.append(nav_button(name,12+180*group,568,176,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
+for group,name in enumerate(GROUPS):all_children.append(nav_button(name,24+136*group,568,128,56,'UI Group',group,7,['env','osc','fx','env','mod','fx','mod'][group]))
 
 # Touching a visible control selects the bank containing its live Q-Link proxy.
 for definition in definitions:
@@ -577,13 +620,22 @@ for color,argb in COLORS.items():
         d.rounded_rectangle((x-18,16,x+18,96),radius=6,fill='#edf0f7')
         strip.paste(image.resize((280,56),Image.Resampling.LANCZOS),(0,i*56))
     strip.save(skin/f'large-{color}-fader.png')
+    # 300 px: the slot is 308 wide, so three columns end at x = 996.
+    strip=Image.new('RGBA',(300,56*127))
+    for i in range(127):
+        image=Image.new('RGBA',(600,112));d=ImageDraw.Draw(image);x=26+round(i*548/126)
+        d.rounded_rectangle((16,46,584,66),radius=10,fill='#454c61')
+        d.rounded_rectangle((16,46,max(36,x),66),radius=10,fill=rgb)
+        d.rounded_rectangle((x-18,16,x+18,96),radius=6,fill='#edf0f7')
+        strip.paste(image.resize((300,56),Image.Resampling.LANCZOS),(0,i*56))
+    strip.save(skin/f'compact-{color}-fader.png')
     for state in ['off','on']:
         img=Image.new('RGBA',(136,72));d=ImageDraw.Draw(img)
         d.rounded_rectangle((2,2,133,69),radius=34,fill=rgb if state=='on' else '#454c61')
         x=100 if state=='on' else 36;d.ellipse((x-25,11,x+25,61),fill='#181a23' if state=='on' else '#edf0f7')
         img.save(skin/f'large-{color}-{state}.png')
-        img=Image.new('RGBA',(144,52),('#373045' if state=='on' else '#222531'));d=ImageDraw.Draw(img)
-        d.rectangle((0,0,143,51),outline=rgb if state=='on' else '#454c61',width=2 if state=='on' else 1)
+        img=Image.new('RGBA',(148,52),('#373045' if state=='on' else '#222531'));d=ImageDraw.Draw(img)
+        d.rectangle((0,0,147,51),outline=rgb if state=='on' else '#454c61',width=2 if state=='on' else 1)
         img.save(skin/f'segment-choice-{color}-{state}.png')
     for bank in range(4):
         strip=Image.new('RGBA',(8,64*256))

@@ -2,6 +2,16 @@
 
 Device results refer to an MPC Live II with MPC OS 3.10.1.
 
+## 0.3.25
+
+- Every control answers the data wheel. A slot takes the hardware focus itself and its knob, fader or buttons do not, which is the pattern the SDK's own generator uses. Before, a value pair, a switch or a route amount could not be focused at all.
+- Slots are 308 by 156 px (was 296), in three columns at x 24, 356 and 688; the last one ends at 996, clear of the sidebar that starts at 1025. A fader is 300 by 56 px and a segment button 148 by 52 so that they fit this width.
+- A page holds at most six controls per section. Sections that held more continue with a second one (PLAY 2, EXPRESSION 2, ...) instead of squeezing a seventh control in.
+- The oscillator wave frame appears once, next to the oscillator graph on SOUND, and no longer sits in the OSC pages.
+- `tools/check_touch_targets.py` fails when a slot does not take the hardware focus, or when a knob, fader or button inside a slot does. The slot pattern of 0.3.23 gives 619 findings, this skin gives none.
+
+Not yet tried on a device.
+
 ## 0.3.24
 
 - The voice control ends at eight voices (was 32).

@@ -33,45 +33,51 @@ def _target_groups():
     return groups
 TARGET_GROUPS=_target_groups()
 def keys(prefix):return [c['id'] for c in CAT if c['id'].startswith(prefix)]
-def sections(first,rest,name='DETAILS'):
-    result=[('SOUND',first)];result += [(name if n==0 else name+' '+str(n//8+1),rest[n:n+8]) for n in range(0,len(rest),8)];return result
-add(0,'Home','HOME',[('PLAY',['Home Master','Voices','Home Cutoff','Home Resonance','Home Attack','Home Release','Home Unison','Home Detune']),('MACROS',['macro_control_1','macro_control_2','macro_control_3','macro_control_4'])],chart='home')
-add(0,'Voices','VOICES',[('PLAY',['Voices','voice_priority','voice_override','legato','portamento_time','portamento_force','portamento_scale','portamento_slope']),('EXPRESSION',['velocity_track','pitch_bend_range','mpe_enabled','Lower MPE Members','Upper MPE Members','oversampling','stereo_mode','stereo_routing'])],'env')
+def sections(items,name='DETAILS',size=6,first='SOUND'):
+    # Three wide columns hold six controls in two rows (0.3.25), so every
+    # section is chunked to that size: FIRST, NAME, NAME 2, ...
+    result=[(first,items[:size])]
+    for n in range(size,len(items),size):
+        part=n//size
+        result.append((name if part==1 else name+' '+str(part),items[n:n+size]))
+    return result
+add(0,'Home','HOME',[('PLAY',['Home Master','Voices','Home Cutoff','Home Resonance','Home Attack','Home Release']),('PLAY 2',['Home Unison','Home Detune']),('MACROS',['macro_control_1','macro_control_2','macro_control_3','macro_control_4'])],chart='home')
+add(0,'Voices','VOICES',[('PLAY',['Voices','voice_priority','voice_override','legato','portamento_time','portamento_force']),('PLAY 2',['portamento_scale','portamento_slope']),('EXPRESSION',['velocity_track','pitch_bend_range','mpe_enabled','Lower MPE Members','Upper MPE Members','oversampling']),('EXPRESSION 2',['stereo_mode','stereo_routing'])],'env')
 add(0,'Advanced','ADVANCED',[('PARAMETERS',['Parameter','Value','Live Graphics'])])
 add(0,'Library','LIBRARY',[('BANKS',[])],chart='library')
 for o in range(1,4):
-    # Medium 16:9 graph top-left, two controls and the frame slider beside it,
-    # a full row of four below: up to six controls per section (0.3.7 compromise).
-    p=f'osc_{o}_';parts=[('SOUND',['level','on',f'Osc {o} Table','pan','transpose','tune']),
+    # Medium 16:9 graph top-left with four controls around it, six controls in
+    # the other sections (0.3.25: three wide columns, two rows).
+    p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','on',f'Osc {o} Table']),
         ('PHASE',['phase','random_phase','transpose_quantize','midi_track','smooth_interpolation','destination']),
         ('UNISON',['unison_voices','unison_detune','unison_blend','stereo_spread','stack_style','detune_power']),
-        ('SPREAD',['detune_range','frame_spread','spectral_unison']),
+        ('SPREAD',['pan','transpose','tune','detune_range','frame_spread','spectral_unison']),
         ('WARP',['distortion_type','distortion_amount','distortion_spread','distortion_phase']),
         ('SPECTRAL',['spectral_morph_type','spectral_morph_amount','spectral_morph_spread'])]
-    parts=[(name,[p+'wave_frame']+[k if k.startswith('Osc ') else p+k for k in items]) for name,items in parts]
+    parts=[(name,[k if k.startswith('Osc ') else p+k for k in items]) for name,items in parts]
     assert set(keys(p))-{p+'view_2d'}=={k for _,items in parts for k in items}-{f'Osc {o} Table'}
     add(1,f'Oscillator {o}',f'OSC {o}',parts,chart=o-1,member=o)
-add(1,'Sample','SAMPLE',[('PLAY',['Sample File','sample_on','sample_level','sample_pan','sample_transpose','sample_tune','sample_loop','sample_bounce']),('ROUTING',['sample_keytrack','sample_random_phase','sample_destination','sample_transpose_quantize'])])
+add(1,'Sample','SAMPLE',[('PLAY',['Sample File','sample_on','sample_level','sample_pan','sample_transpose','sample_tune']),('PLAY 2',['sample_loop','sample_bounce']),('ROUTING',['sample_keytrack','sample_random_phase','sample_destination','sample_transpose_quantize'])])
 for f in range(1,3):
     p=f'filter_{f}_';main=[p+k for k in ['cutoff','resonance','drive','mix','on','model','style','blend']]
-    add(2,f'Filter {f}',f'FILTER {f}',sections(main,[k for k in keys(p) if k not in main],'ROUTING'),'fx')
-for e in range(1,7):add(3,f'Envelope {e}',f'ENV {e}',[('ADSR',['Env attack','Env decay','Env sustain','Env release']),('TIME',['Env delay','Env hold']),('CURVE',['Env attack_power','Env decay_power','Env release_power'])],'env','env',e)
-for l in range(1,9):add(4,f'LFO {l}',f'LFO {l}',[('TIMING',['LFO frequency','LFO sync','LFO tempo','LFO sync_type']),('PHASE',['LFO phase','LFO stereo','LFO delay_time','LFO fade_time']),('SHAPE',['LFO Shape','LFO File','Smooth Curve','Point Count']),('POINT',['Point','Point Time','Point Level','Point Curve']),('SMOOTH',['LFO smooth_mode','LFO smooth_time','LFO keytrack_transpose','LFO keytrack_tune'])],'mod','lfo',l)
+    add(2,f'Filter {f}',f'FILTER {f}',sections(main+[k for k in keys(p) if k not in main],'ROUTING'),'fx')
+for e in range(1,7):add(3,f'Envelope {e}',f'ENV {e}',[('ADSR',['Env attack','Env decay','Env sustain']),('TIME',['Env release','Env delay','Env hold']),('CURVE',['Env attack_power','Env decay_power','Env release_power'])],'env','env',e)
+for l in range(1,9):add(4,f'LFO {l}',f'LFO {l}',[('TIMING',['LFO frequency','LFO sync','LFO tempo']),('SYNC',['LFO sync_type','LFO phase','LFO stereo']),('DELAY',['LFO delay_time','LFO fade_time','LFO Shape']),('SHAPE',['LFO File','Smooth Curve','Point Count']),('POINT',['Point','Point Time','Point Level']),('POINT 2',['Point Curve','LFO smooth_mode','LFO smooth_time']),('KEYTRACK',['LFO keytrack_transpose','LFO keytrack_tune'])],'mod','lfo',l)
 effects=['distortion','chorus','flanger','phaser','delay','reverb','compressor','eq','filter_fx']
 add(5,'Effects overview','OVERVIEW',[('EFFECTS',[e+'_on' for e in effects]),('ORDER',['FX Position','FX At Position'])],'fx',chart='effects')
 for effect in effects:
     titles={'filter_fx':'FX FILTER','compressor':'COMP','distortion':'DISTORT'}
     k=keys(effect+'_');priority=[effect+'_'+x for x in ['on','dry_wet','mix','type','drive','frequency','feedback','decay_time','size','cutoff','resonance'] if effect+'_'+x in k]
     ordered=priority+[x for x in k if x not in priority]
-    add(5,effect.replace('_',' ').title(),titles.get(effect,effect.upper()),[(['MAIN','TONE','BANDS'][n//8],ordered[n:n+8]) for n in range(0,len(ordered),8)],'fx')
+    add(5,effect.replace('_',' ').title(),titles.get(effect,effect.upper()),[(['MAIN','TONE','BANDS','MORE'][min(n//6,3)],ordered[n:n+6]) for n in range(0,len(ordered),6)],'fx')
 # Serum-style table (user request): eight routes per page, source - amount - target.
 # The Q-Links of a page are the eight amounts.
 add(6,'Matrix','MATRIX',[(f'{page*8+1}-{page*8+8}',[f'modulation_{route}_amount' for route in range(page*8+1,page*8+9)]) for page in range(8)],'mod','mxtable',1)
-add(6,'Random','RANDOM',[('TIMING',['Random Select']+['Random '+k for k in ['frequency','sync','tempo','style','stereo','sync_type']]),('TUNING',['Random keytrack_transpose','Random keytrack_tune'])],'mod')
+add(6,'Random','RANDOM',[('TIMING',['Random Select']+['Random '+k for k in ['frequency','sync','tempo','style','stereo']]),('TUNING',['Random sync_type','Random keytrack_transpose','Random keytrack_tune'])],'mod')
 add(6,'Expression','EXPRESSION',[('PERFORM',['mod_wheel','pitch_wheel','voice_amplitude'])],'mod')
 # No separate routing page: each of its controls already lives in its own
 # module (OSC > PHASE, SAMPLE > ROUTING, FILTER, FX FILTER, VOICES).
-add(6,'Modulation curve','MOD CURVE',[('CURVE',['Route Select','Curve','Point Count','Smooth Curve']),('POINT',['Point','Point Time','Point Level','Point Curve'])],'mod','curve',1)
+add(6,'Modulation curve','MOD CURVE',[('CURVE',['Route Select','Curve','Point Count']),('POINT',['Point','Point Time','Point Level']),('POINT 2',['Point Curve','Smooth Curve'])],'mod','curve',1)
 # Hidden helper views of the target picker; reached only through the matrix.
 add(6,'Target group','',[('GROUPS',[])],'mod','pickgroup',hidden=True)
 add(6,'Target','',[('-',[])]+[(name,[]) for name,_ in TARGET_GROUPS],'mod','picktarget',hidden=True)

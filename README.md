@@ -15,7 +15,7 @@ Vitaleon runs the sound engine of Matt Tytel's Vital 1.0.6 (GPLv3) inside the MP
 
 ## Status
 
-Version 0.3.24. This is a young project.
+Version 0.3.25. This is a young project.
 
 | | |
 |---|---|

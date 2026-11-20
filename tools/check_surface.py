@@ -40,8 +40,8 @@ for page,section,values in states():
             if p==NAMES['UI Group']:assert d['numButtonsInGroup']==7
         if kind=='Knob':
             assert image_size(d['filmStrip'])==(w,h*d['numFrames'])
-            assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52)],(e['name'],w,h)
-    if VIEWS[page]['group']==1 and isinstance(VIEWS[page]['chart'],int):
+            assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52),(300,56)],(e['name'],w,h)
+    if VIEWS[page]['group']==1 and isinstance(VIEWS[page]['chart'],int) and section==0:
         segments=[e for e in leaves if e['name'].startswith('wave column')]
         left=min(e['box'][0] for e in segments);right=max(e['box'][2] for e in segments)
         top=min(e['box'][1] for e in segments);bottom=max(e['box'][3] for e in segments)
@@ -49,4 +49,4 @@ for page,section,values in states():
     if page==24 and section==0:
         assert len([e for e in leaves if e['name']=='Effect switch'])==9,'FX overview must expose all nine effects'
 result=audit();assert not result['errors'],result['errors']
-print(f'PASS: 40 module views / {checked} states, seven footer groups, all nine FX, exact 16:9 oscillator graphs, native-size controls, complete bindings, Q-Link map and no label/button collisions')
+print(f'PASS: 40 module views / {checked} states, seven footer groups, all nine FX, exact 16:9 oscillator graphs, native-size controls, complete bindings, Q-Link map, no control under the Q-Link sidebar and no label/control collisions')

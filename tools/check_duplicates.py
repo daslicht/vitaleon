@@ -10,7 +10,7 @@ for v in VIEWS:
     for s in v['sections']:
         for item in s['items']:use[alias.get(item,item)].append((v['title'],s['title'],v['chart']))
 def allowed(key,places):
-    rest=[p for p in places if not (p[0]=='Home' and p[1]=='PLAY')]           # HOME shortcuts
+    rest=[p for p in places if not (p[0]=='Home' and p[1].startswith('PLAY'))]  # HOME shortcuts
     if key.endswith('_wave_frame'):return len({p[0] for p in rest})==1          # slider under each graph
     if key.endswith('_on'):rest=[p for p in rest if p[2]!='effects']            # FX overview switches
     if key in ['Point','Point Count','Point Time','Point Level','Point Curve','Smooth Curve','Route Select']:return len(rest)<=2
