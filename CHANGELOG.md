@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.33
+
+- Envelope times reach 10 s instead of 2.38 s (attack, decay, release) and 1.41 s (delay, hold). Saved projects keep their times: the plugin state stores the plain seconds next to the normalised value and uses them whenever a range changed.
+- The six time controls of each envelope follow Vital's quartic curve, so the short times sit under the first part of the knob travel instead of the first four percent. The ENV proxies and the HOME Attack/Release knobs share that curve because they copy the engine parameters.
+
 ## 0.3.32
 
 - 0.3.31 is reverted. The Force skin's seven native tabs never wrote `UI Page`, `UI Group` or `UI Section`, and the plugin derives its navigation from exactly those: `updateNavigation()` turns the current page and section into the parameter each of the 16 Q-Link slots edits and into the ENV/LFO selection. After a tab switch the knobs kept editing the previous page, and PICK/BACK did nothing. The native tab bar cannot replace the skin's navigation until the host tells the plugin which tab is shown, which the SDK does not offer.

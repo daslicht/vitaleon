@@ -11,6 +11,10 @@ inline void Vitaleon::createControls(){
         for(auto& ch:name)if(ch=='_')ch=' ';
         float lo=c["min"],hi=c["max"],def=c["default"];
         mpc::Param p=mpc::floatParam(id.c_str(),name.c_str(),lo,hi,def);
+        // Vital declares the envelope times (scale 4 = kQuartic) with a quartic display
+        // curve. Mirroring it on the host parameter puts the short times under the
+        // first part of the travel instead of the first four percent.
+        if(c["scale"].get<int>()==4)p.skew=0.25f;
         if(c["scale"].get<int>()==vital::ValueDetails::kIndexed){
             p=mpc::intParam(id.c_str(),name.c_str(),int(lo),int(hi),int(def));
             if(lo==0&&hi==1)p=mpc::boolParam(id.c_str(),name.c_str(),def!=0);
