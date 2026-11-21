@@ -34,13 +34,11 @@ inline void Vitaleon::createControls(){
         routes_[i].destination=addParam(mpc::choiceParam((pre+"_destination").c_str(),(name+" Target").c_str(),destinations_));
     }
     scanAssets();
-    auto selector=[&](const char* id,const char* name,const std::vector<Asset>& files,int range=-1){
+    auto selector=[&](const char* id,const char* name,const std::vector<Asset>& files){
         // File selection is session-local; project state embeds the actual assets.
-        // A table selector keeps a wide range: RELOAD may add files while it runs.
-        auto p=mpc::intParam(id,name,0,range>=0?range:int(files.size())-1,0);p.automatable=false;return addParam(p);
+        auto p=mpc::intParam(id,name,0,int(files.size())-1,0);p.automatable=false;return addParam(p);
     };
     presetSelect_=selector("preset_select","Preset",assets_[0]);
-    for(int i=0;i<3;++i){std::string id="table_"+std::to_string(i+1);tableSelect_[i]=selector(id.c_str(),("Osc "+std::to_string(i+1)+" Table").c_str(),assets_[1],4095);}
     sampleSelect_=selector("sample_select","Sample File",assets_[2]);
     lfoShapeSelect_=selector("lfo_file","LFO File",assets_[3]);
     loadStatus_=addParam(mpc::intParam("load_status","Load Status",0,2,0));
@@ -200,7 +198,6 @@ inline void Vitaleon::parameterChanged(int index,float plain){
        index==curveTarget_||index==routeSelect_||index==pointSelect_||index==lfoSelect_||index==pointCount_||index==pointX_||index==pointY_||index==pointCurve_||index==lfoShape_||index==lfoSmooth_){
         if(index==curveTarget_||index==routeSelect_||index==pointSelect_||index==lfoSelect_)curveSelectionChanged_.store(true);
         requestService();return;}
-    for(int p:tableSelect_)if(index==p){requestService();return;}
     for(const auto& r:routes_)if(index==r.source||index==r.destination){requestService();return;}
 }
 inline bool Vitaleon::formatValue(int index,float plain,std::string& out){
@@ -216,17 +213,10 @@ inline bool Vitaleon::formatValue(int index,float plain,std::string& out){
     for(const auto& b:banks_)for(size_t i=0;i<b.proxies.size();++i)if(index==b.proxies[i])return formatValue(b.targets[mpc::clamp(getInt(b.selector)-1,0,int(b.targets.size())-1)][i],plain,out);
     if(index==advancedValue_){int target=advancedTargets_[getInt(advancedSelector_)];out=displayText(target);return true;}
     auto fileLabel=[&](int group){
-        if(group==1){
-            std::lock_guard<std::mutex> tables(tableMutex_);
-            if(assets_[1].empty()){out="Built-in / current";return true;}
-            const int n=mpc::clamp(int(plain),0,int(assets_[1].size())-1);const auto& asset=assets_[1][n];
-            out=n?std::filesystem::path(asset.entry.empty()?asset.path:asset.entry).stem().string():asset.label;return true;
-        }
         const int n=mpc::clamp(int(plain),0,int(assets_[group].size())-1);const auto& asset=assets_[group][n];
         out=n?std::filesystem::path(asset.entry.empty()?asset.path:asset.entry).stem().string():asset.label;return true;};
 
     if(index==presetSelect_)return fileLabel(0);if(index==sampleSelect_)return fileLabel(2);if(index==lfoShapeSelect_)return fileLabel(3);
-    for(int p:tableSelect_)if(index==p)return fileLabel(1);
     if(index==loadStatus_){std::lock_guard<std::mutex> lock(stateMutex_);out=pendingPreset_.load()>=0?"Load requested...":loadMessage_;return true;}
     if(index>=loadText_&&index<loadText_+4){
         std::lock_guard<std::mutex> lock(stateMutex_);const std::string message=pendingPreset_.load()>=0?"Load requested...":loadMessage_;size_t start=0,end=0;

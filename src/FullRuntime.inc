@@ -282,7 +282,7 @@ inline void Vitaleon::serviceChanges(bool rebuild){
             for(int i=0;i<64;++i)engine_->getModulationBank().atIndex(i)->modulation_processor->lineMapGenerator()->initLinear();
             curveSelectionChanged_.store(true);
         }
-        if(!stagedState_.is_null()){restoreAssets(stagedState_);stagedState_=Json();lastPreset_=getInt(presetSelect_);lastSample_=getInt(sampleSelect_);lastShape_=getInt(lfoShapeSelect_);for(int i=0;i<3;++i)lastTable_[i]=getInt(tableSelect_[i]);}
+        if(!stagedState_.is_null()){restoreAssets(stagedState_);stagedState_=Json();lastPreset_=getInt(presetSelect_);lastSample_=getInt(sampleSelect_);lastShape_=getInt(lfoShapeSelect_);for(int i=0;i<3;++i)lastTable_[i]=tableSelection_[i];}
         loadSelections();editLfo();syncFullControls(true,true);connectRoutes();captureAssets();
     }
     engine_->checkOversampling();warmGraph();refreshProxies();
@@ -465,6 +465,13 @@ inline void Vitaleon::stateRestored(uint32_t count,bool){
     if(count<=Count||!getBool(FullMode)){
         migrateOldControls();std::lock_guard<std::mutex> state(stateMutex_);stagedState_=Json();
         loadedName_="Converted project";publishLoadedName();loadMessage_="Previous project converted.";setLoadStatus(0);
+    }
+    // The cursor lives in a host parameter (the wheel and the cursor knob write
+    // it), so a restored project also restores the mark and the page it was on.
+    if(tableViewCursor_>=0){
+        tableRaw_=getNormalised(tableViewCursor_);
+        tableCursor_=int(std::lround(double(tableRaw_)*double(std::max(0,tableCount()-1))));
+        tablePage_=tableCursor_/kTableRows;tableMs_=0;tableTravel_=0;
     }
     refreshLibrary();requestService();
     {std::lock_guard<std::mutex> nav(navigationMutex_);updateNavigation();}

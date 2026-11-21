@@ -5498,6312 +5498,6288 @@
  {
   "display": "Built-in / current",
   "index": 916,
-  "name": "Osc 1 Table",
-  "value": 0.0
- },
- {
-  "display": "Built-in / current",
-  "index": 917,
-  "name": "Osc 2 Table",
-  "value": 0.0
- },
- {
-  "display": "Built-in / current",
-  "index": 918,
-  "name": "Osc 3 Table",
-  "value": 0.0
- },
- {
-  "display": "Built-in / current",
-  "index": 919,
   "name": "Sample File",
   "value": 0.0
  },
  {
   "display": "Built-in / current",
-  "index": 920,
+  "index": 917,
   "name": "LFO File",
   "value": 0.0
  },
  {
   "display": "No user sounds. Add banks to Content/Banks, then reopen plugin.",
-  "index": 921,
+  "index": 918,
   "name": "Load Status",
   "value": 0.0
  },
  {
   "display": "On",
-  "index": 922,
+  "index": 919,
   "name": "Live Graphics",
   "value": 1.0
  },
  {
   "display": "1",
-  "index": 923,
+  "index": 920,
   "name": "Env Select",
   "value": 0.0
  },
  {
   "display": "0 ms",
-  "index": 924,
+  "index": 921,
   "name": "Env delay",
   "value": 0.0
  },
  {
   "display": "0.5 ms",
-  "index": 925,
+  "index": 922,
   "name": "Env attack",
   "value": 0.5007121562957764
  },
  {
   "display": "0 ms",
-  "index": 926,
+  "index": 923,
   "name": "Env hold",
   "value": 0.0
  },
  {
   "display": "1 s",
-  "index": 927,
+  "index": 924,
   "name": "Env decay",
   "value": 0.8052446842193604
  },
  {
   "display": "1",
-  "index": 928,
+  "index": 925,
   "name": "Env sustain",
   "value": 1.0
  },
  {
   "display": "89.9 ms",
-  "index": 929,
+  "index": 926,
   "name": "Env release",
   "value": 0.6926976442337036
  },
  {
   "display": "0",
-  "index": 930,
+  "index": 927,
   "name": "Env attack_power",
   "value": 0.5
  },
  {
   "display": "-2",
-  "index": 931,
+  "index": 928,
   "name": "Env decay_power",
   "value": 0.44999998807907104
  },
  {
   "display": "-2",
-  "index": 932,
+  "index": 929,
   "name": "Env release_power",
   "value": 0.44999998807907104
  },
  {
   "display": "1",
-  "index": 933,
+  "index": 930,
   "name": "LFO Select",
   "value": 0.0
  },
  {
   "display": "500 ms",
-  "index": 934,
+  "index": 931,
   "name": "LFO frequency",
   "value": 0.5
  },
  {
   "display": "Tempo",
-  "index": 935,
+  "index": 932,
   "name": "LFO sync",
   "value": 0.25
  },
  {
   "display": "1/2",
-  "index": 936,
+  "index": 933,
   "name": "LFO tempo",
   "value": 0.5833333134651184
  },
  {
   "display": "Trigger",
-  "index": 937,
+  "index": 934,
   "name": "LFO sync_type",
   "value": 0.0
  },
  {
   "display": "0 ms",
-  "index": 938,
+  "index": 935,
   "name": "LFO delay_time",
   "value": 0.0
  },
  {
   "display": "0 ms",
-  "index": 939,
+  "index": 936,
   "name": "LFO fade_time",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 940,
+  "index": 937,
   "name": "LFO phase",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 941,
+  "index": 938,
   "name": "LFO stereo",
   "value": 0.5
  },
  {
   "display": "On",
-  "index": 942,
+  "index": 939,
   "name": "LFO smooth_mode",
   "value": 1.0
  },
  {
   "display": "5.52 ms",
-  "index": 943,
+  "index": 940,
   "name": "LFO smooth_time",
   "value": 0.1785714328289032
  },
  {
   "display": "-12",
-  "index": 944,
+  "index": 941,
   "name": "LFO keytrack_transpose",
   "value": 0.5
  },
  {
   "display": "0",
-  "index": 945,
+  "index": 942,
   "name": "LFO keytrack_tune",
   "value": 0.5
  },
  {
   "display": "1",
-  "index": 946,
+  "index": 943,
   "name": "Random Select",
   "value": 0.0
  },
  {
   "display": "500 ms",
-  "index": 947,
+  "index": 944,
   "name": "Random frequency",
   "value": 0.5
  },
  {
   "display": "Tempo",
-  "index": 948,
+  "index": 945,
   "name": "Random sync",
   "value": 0.25
  },
  {
   "display": "1/4",
-  "index": 949,
+  "index": 946,
   "name": "Random tempo",
   "value": 0.6666666865348816
  },
  {
   "display": "Perlin",
-  "index": 950,
+  "index": 947,
   "name": "Random style",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 951,
+  "index": 948,
   "name": "Random stereo",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 952,
+  "index": 949,
   "name": "Random sync_type",
   "value": 0.0
  },
  {
   "display": "-12",
-  "index": 953,
+  "index": 950,
   "name": "Random keytrack_transpose",
   "value": 0.5
  },
  {
   "display": "0",
-  "index": 954,
+  "index": 951,
   "name": "Random keytrack_tune",
   "value": 0.5
  },
  {
   "display": "1",
-  "index": 955,
+  "index": 952,
   "name": "Route Select",
   "value": 0.0
  },
  {
   "display": "None",
-  "index": 956,
+  "index": 953,
   "name": "Source",
   "value": 0.0
  },
  {
   "display": "None",
-  "index": 957,
+  "index": 954,
   "name": "Target",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 958,
+  "index": 955,
   "name": "Amount",
   "value": 0.5
  },
  {
   "display": "Off",
-  "index": 959,
+  "index": 956,
   "name": "Bipolar",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 960,
+  "index": 957,
   "name": "Stereo",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 961,
+  "index": 958,
   "name": "Bypass",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 962,
+  "index": 959,
   "name": "Curve",
   "value": 0.5
  },
  {
   "display": "Custom",
-  "index": 963,
+  "index": 960,
   "name": "LFO Shape",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 964,
+  "index": 961,
   "name": "Smooth Curve",
   "value": 0.0
  },
  {
   "display": "1",
-  "index": 965,
+  "index": 962,
   "name": "Point",
   "value": 0.0
  },
  {
   "display": "3",
-  "index": 966,
+  "index": 963,
   "name": "Point Count",
   "value": 0.010204081423580647
  },
  {
   "display": "0.00",
-  "index": 967,
+  "index": 964,
   "name": "Point Time",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 968,
+  "index": 965,
   "name": "Point Level",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 969,
+  "index": 966,
   "name": "Point Curve",
   "value": 0.5
  },
  {
   "display": "0.00",
-  "index": 970,
+  "index": 967,
   "name": "display_position_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 971,
+  "index": 968,
   "name": "display_wave_0_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 972,
+  "index": 969,
   "name": "display_wave_0_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 973,
+  "index": 970,
   "name": "display_wave_0_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 974,
+  "index": 971,
   "name": "display_wave_0_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 975,
+  "index": 972,
   "name": "display_wave_0_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 976,
+  "index": 973,
   "name": "display_wave_0_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 977,
+  "index": 974,
   "name": "display_wave_0_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 978,
+  "index": 975,
   "name": "display_wave_0_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 979,
+  "index": 976,
   "name": "display_wave_0_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 980,
+  "index": 977,
   "name": "display_wave_0_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 981,
+  "index": 978,
   "name": "display_wave_0_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 982,
+  "index": 979,
   "name": "display_wave_0_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 983,
+  "index": 980,
   "name": "display_wave_0_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 984,
+  "index": 981,
   "name": "display_wave_0_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 985,
+  "index": 982,
   "name": "display_wave_0_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 986,
+  "index": 983,
   "name": "display_wave_0_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 987,
+  "index": 984,
   "name": "display_wave_0_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 988,
+  "index": 985,
   "name": "display_wave_0_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 989,
+  "index": 986,
   "name": "display_wave_0_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 990,
+  "index": 987,
   "name": "display_wave_0_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 991,
+  "index": 988,
   "name": "display_wave_0_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 992,
+  "index": 989,
   "name": "display_wave_0_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 993,
+  "index": 990,
   "name": "display_wave_0_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 994,
+  "index": 991,
   "name": "display_wave_0_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 995,
+  "index": 992,
   "name": "display_wave_0_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 996,
+  "index": 993,
   "name": "display_wave_0_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 997,
+  "index": 994,
   "name": "display_wave_0_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 998,
+  "index": 995,
   "name": "display_wave_0_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 999,
+  "index": 996,
   "name": "display_wave_0_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1000,
+  "index": 997,
   "name": "display_wave_0_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1001,
+  "index": 998,
   "name": "display_wave_0_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1002,
+  "index": 999,
   "name": "display_wave_0_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1003,
+  "index": 1000,
   "name": "display_wave_0_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1004,
+  "index": 1001,
   "name": "display_wave_0_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1005,
+  "index": 1002,
   "name": "display_wave_0_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1006,
+  "index": 1003,
   "name": "display_wave_0_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1007,
+  "index": 1004,
   "name": "display_wave_0_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1008,
+  "index": 1005,
   "name": "display_wave_0_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1009,
+  "index": 1006,
   "name": "display_wave_0_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1010,
+  "index": 1007,
   "name": "display_wave_0_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1011,
+  "index": 1008,
   "name": "display_wave_0_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1012,
+  "index": 1009,
   "name": "display_wave_0_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1013,
+  "index": 1010,
   "name": "display_wave_0_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1014,
+  "index": 1011,
   "name": "display_wave_0_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1015,
+  "index": 1012,
   "name": "display_wave_0_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1016,
+  "index": 1013,
   "name": "display_wave_0_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1017,
+  "index": 1014,
   "name": "display_wave_0_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1018,
+  "index": 1015,
   "name": "display_wave_0_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1019,
+  "index": 1016,
   "name": "display_wave_0_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1020,
+  "index": 1017,
   "name": "display_wave_0_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1021,
+  "index": 1018,
   "name": "display_wave_0_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1022,
+  "index": 1019,
   "name": "display_wave_0_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1023,
+  "index": 1020,
   "name": "display_wave_0_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1024,
+  "index": 1021,
   "name": "display_wave_0_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1025,
+  "index": 1022,
   "name": "display_wave_0_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1026,
+  "index": 1023,
   "name": "display_wave_0_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1027,
+  "index": 1024,
   "name": "display_wave_0_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1028,
+  "index": 1025,
   "name": "display_wave_0_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1029,
+  "index": 1026,
   "name": "display_wave_0_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1030,
+  "index": 1027,
   "name": "display_wave_0_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1031,
+  "index": 1028,
   "name": "display_wave_0_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1032,
+  "index": 1029,
   "name": "display_wave_0_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1033,
+  "index": 1030,
   "name": "display_wave_0_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1034,
+  "index": 1031,
   "name": "display_wave_0_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1035,
+  "index": 1032,
   "name": "display_wave_0_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1036,
+  "index": 1033,
   "name": "display_wave_0_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1037,
+  "index": 1034,
   "name": "display_wave_0_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1038,
+  "index": 1035,
   "name": "display_wave_0_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1039,
+  "index": 1036,
   "name": "display_wave_0_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1040,
+  "index": 1037,
   "name": "display_wave_0_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1041,
+  "index": 1038,
   "name": "display_wave_0_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1042,
+  "index": 1039,
   "name": "display_wave_0_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1043,
+  "index": 1040,
   "name": "display_wave_0_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1044,
+  "index": 1041,
   "name": "display_wave_0_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1045,
+  "index": 1042,
   "name": "display_wave_0_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1046,
+  "index": 1043,
   "name": "display_wave_0_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1047,
+  "index": 1044,
   "name": "display_wave_0_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1048,
+  "index": 1045,
   "name": "display_wave_0_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1049,
+  "index": 1046,
   "name": "display_wave_0_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1050,
+  "index": 1047,
   "name": "display_wave_0_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1051,
+  "index": 1048,
   "name": "display_wave_0_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1052,
+  "index": 1049,
   "name": "display_wave_0_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1053,
+  "index": 1050,
   "name": "display_wave_0_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1054,
+  "index": 1051,
   "name": "display_wave_0_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1055,
+  "index": 1052,
   "name": "display_wave_0_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1056,
+  "index": 1053,
   "name": "display_wave_0_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1057,
+  "index": 1054,
   "name": "display_wave_0_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1058,
+  "index": 1055,
   "name": "display_wave_0_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1059,
+  "index": 1056,
   "name": "display_wave_0_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1060,
+  "index": 1057,
   "name": "display_wave_0_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1061,
+  "index": 1058,
   "name": "display_wave_0_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1062,
+  "index": 1059,
   "name": "display_wave_0_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1063,
+  "index": 1060,
   "name": "display_wave_0_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1064,
+  "index": 1061,
   "name": "display_wave_0_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1065,
+  "index": 1062,
   "name": "display_wave_0_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1066,
+  "index": 1063,
   "name": "display_wave_0_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1067,
+  "index": 1064,
   "name": "display_position_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1068,
+  "index": 1065,
   "name": "display_wave_1_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1069,
+  "index": 1066,
   "name": "display_wave_1_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1070,
+  "index": 1067,
   "name": "display_wave_1_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1071,
+  "index": 1068,
   "name": "display_wave_1_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1072,
+  "index": 1069,
   "name": "display_wave_1_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1073,
+  "index": 1070,
   "name": "display_wave_1_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1074,
+  "index": 1071,
   "name": "display_wave_1_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1075,
+  "index": 1072,
   "name": "display_wave_1_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1076,
+  "index": 1073,
   "name": "display_wave_1_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1077,
+  "index": 1074,
   "name": "display_wave_1_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1078,
+  "index": 1075,
   "name": "display_wave_1_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1079,
+  "index": 1076,
   "name": "display_wave_1_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1080,
+  "index": 1077,
   "name": "display_wave_1_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1081,
+  "index": 1078,
   "name": "display_wave_1_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1082,
+  "index": 1079,
   "name": "display_wave_1_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1083,
+  "index": 1080,
   "name": "display_wave_1_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1084,
+  "index": 1081,
   "name": "display_wave_1_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1085,
+  "index": 1082,
   "name": "display_wave_1_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1086,
+  "index": 1083,
   "name": "display_wave_1_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1087,
+  "index": 1084,
   "name": "display_wave_1_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1088,
+  "index": 1085,
   "name": "display_wave_1_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1089,
+  "index": 1086,
   "name": "display_wave_1_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1090,
+  "index": 1087,
   "name": "display_wave_1_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1091,
+  "index": 1088,
   "name": "display_wave_1_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1092,
+  "index": 1089,
   "name": "display_wave_1_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1093,
+  "index": 1090,
   "name": "display_wave_1_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1094,
+  "index": 1091,
   "name": "display_wave_1_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1095,
+  "index": 1092,
   "name": "display_wave_1_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1096,
+  "index": 1093,
   "name": "display_wave_1_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1097,
+  "index": 1094,
   "name": "display_wave_1_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1098,
+  "index": 1095,
   "name": "display_wave_1_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1099,
+  "index": 1096,
   "name": "display_wave_1_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1100,
+  "index": 1097,
   "name": "display_wave_1_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1101,
+  "index": 1098,
   "name": "display_wave_1_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1102,
+  "index": 1099,
   "name": "display_wave_1_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1103,
+  "index": 1100,
   "name": "display_wave_1_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1104,
+  "index": 1101,
   "name": "display_wave_1_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1105,
+  "index": 1102,
   "name": "display_wave_1_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1106,
+  "index": 1103,
   "name": "display_wave_1_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1107,
+  "index": 1104,
   "name": "display_wave_1_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1108,
+  "index": 1105,
   "name": "display_wave_1_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1109,
+  "index": 1106,
   "name": "display_wave_1_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1110,
+  "index": 1107,
   "name": "display_wave_1_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1111,
+  "index": 1108,
   "name": "display_wave_1_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1112,
+  "index": 1109,
   "name": "display_wave_1_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1113,
+  "index": 1110,
   "name": "display_wave_1_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1114,
+  "index": 1111,
   "name": "display_wave_1_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1115,
+  "index": 1112,
   "name": "display_wave_1_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1116,
+  "index": 1113,
   "name": "display_wave_1_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1117,
+  "index": 1114,
   "name": "display_wave_1_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1118,
+  "index": 1115,
   "name": "display_wave_1_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1119,
+  "index": 1116,
   "name": "display_wave_1_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1120,
+  "index": 1117,
   "name": "display_wave_1_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1121,
+  "index": 1118,
   "name": "display_wave_1_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1122,
+  "index": 1119,
   "name": "display_wave_1_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1123,
+  "index": 1120,
   "name": "display_wave_1_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1124,
+  "index": 1121,
   "name": "display_wave_1_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1125,
+  "index": 1122,
   "name": "display_wave_1_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1126,
+  "index": 1123,
   "name": "display_wave_1_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1127,
+  "index": 1124,
   "name": "display_wave_1_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1128,
+  "index": 1125,
   "name": "display_wave_1_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1129,
+  "index": 1126,
   "name": "display_wave_1_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1130,
+  "index": 1127,
   "name": "display_wave_1_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1131,
+  "index": 1128,
   "name": "display_wave_1_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1132,
+  "index": 1129,
   "name": "display_wave_1_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1133,
+  "index": 1130,
   "name": "display_wave_1_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1134,
+  "index": 1131,
   "name": "display_wave_1_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1135,
+  "index": 1132,
   "name": "display_wave_1_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1136,
+  "index": 1133,
   "name": "display_wave_1_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1137,
+  "index": 1134,
   "name": "display_wave_1_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1138,
+  "index": 1135,
   "name": "display_wave_1_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1139,
+  "index": 1136,
   "name": "display_wave_1_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1140,
+  "index": 1137,
   "name": "display_wave_1_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1141,
+  "index": 1138,
   "name": "display_wave_1_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1142,
+  "index": 1139,
   "name": "display_wave_1_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1143,
+  "index": 1140,
   "name": "display_wave_1_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1144,
+  "index": 1141,
   "name": "display_wave_1_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1145,
+  "index": 1142,
   "name": "display_wave_1_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1146,
+  "index": 1143,
   "name": "display_wave_1_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1147,
+  "index": 1144,
   "name": "display_wave_1_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1148,
+  "index": 1145,
   "name": "display_wave_1_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1149,
+  "index": 1146,
   "name": "display_wave_1_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1150,
+  "index": 1147,
   "name": "display_wave_1_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1151,
+  "index": 1148,
   "name": "display_wave_1_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1152,
+  "index": 1149,
   "name": "display_wave_1_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1153,
+  "index": 1150,
   "name": "display_wave_1_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1154,
+  "index": 1151,
   "name": "display_wave_1_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1155,
+  "index": 1152,
   "name": "display_wave_1_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1156,
+  "index": 1153,
   "name": "display_wave_1_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1157,
+  "index": 1154,
   "name": "display_wave_1_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1158,
+  "index": 1155,
   "name": "display_wave_1_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1159,
+  "index": 1156,
   "name": "display_wave_1_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1160,
+  "index": 1157,
   "name": "display_wave_1_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1161,
+  "index": 1158,
   "name": "display_wave_1_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1162,
+  "index": 1159,
   "name": "display_wave_1_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1163,
+  "index": 1160,
   "name": "display_wave_1_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1164,
+  "index": 1161,
   "name": "display_position_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1165,
+  "index": 1162,
   "name": "display_wave_2_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1166,
+  "index": 1163,
   "name": "display_wave_2_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1167,
+  "index": 1164,
   "name": "display_wave_2_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1168,
+  "index": 1165,
   "name": "display_wave_2_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1169,
+  "index": 1166,
   "name": "display_wave_2_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1170,
+  "index": 1167,
   "name": "display_wave_2_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1171,
+  "index": 1168,
   "name": "display_wave_2_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1172,
+  "index": 1169,
   "name": "display_wave_2_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1173,
+  "index": 1170,
   "name": "display_wave_2_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1174,
+  "index": 1171,
   "name": "display_wave_2_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1175,
+  "index": 1172,
   "name": "display_wave_2_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1176,
+  "index": 1173,
   "name": "display_wave_2_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1177,
+  "index": 1174,
   "name": "display_wave_2_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1178,
+  "index": 1175,
   "name": "display_wave_2_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1179,
+  "index": 1176,
   "name": "display_wave_2_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1180,
+  "index": 1177,
   "name": "display_wave_2_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1181,
+  "index": 1178,
   "name": "display_wave_2_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1182,
+  "index": 1179,
   "name": "display_wave_2_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1183,
+  "index": 1180,
   "name": "display_wave_2_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1184,
+  "index": 1181,
   "name": "display_wave_2_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1185,
+  "index": 1182,
   "name": "display_wave_2_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1186,
+  "index": 1183,
   "name": "display_wave_2_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1187,
+  "index": 1184,
   "name": "display_wave_2_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1188,
+  "index": 1185,
   "name": "display_wave_2_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1189,
+  "index": 1186,
   "name": "display_wave_2_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1190,
+  "index": 1187,
   "name": "display_wave_2_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1191,
+  "index": 1188,
   "name": "display_wave_2_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1192,
+  "index": 1189,
   "name": "display_wave_2_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1193,
+  "index": 1190,
   "name": "display_wave_2_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1194,
+  "index": 1191,
   "name": "display_wave_2_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1195,
+  "index": 1192,
   "name": "display_wave_2_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1196,
+  "index": 1193,
   "name": "display_wave_2_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1197,
+  "index": 1194,
   "name": "display_wave_2_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1198,
+  "index": 1195,
   "name": "display_wave_2_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1199,
+  "index": 1196,
   "name": "display_wave_2_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1200,
+  "index": 1197,
   "name": "display_wave_2_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1201,
+  "index": 1198,
   "name": "display_wave_2_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1202,
+  "index": 1199,
   "name": "display_wave_2_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1203,
+  "index": 1200,
   "name": "display_wave_2_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1204,
+  "index": 1201,
   "name": "display_wave_2_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1205,
+  "index": 1202,
   "name": "display_wave_2_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1206,
+  "index": 1203,
   "name": "display_wave_2_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1207,
+  "index": 1204,
   "name": "display_wave_2_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1208,
+  "index": 1205,
   "name": "display_wave_2_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1209,
+  "index": 1206,
   "name": "display_wave_2_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1210,
+  "index": 1207,
   "name": "display_wave_2_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1211,
+  "index": 1208,
   "name": "display_wave_2_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1212,
+  "index": 1209,
   "name": "display_wave_2_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1213,
+  "index": 1210,
   "name": "display_wave_2_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1214,
+  "index": 1211,
   "name": "display_wave_2_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1215,
+  "index": 1212,
   "name": "display_wave_2_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1216,
+  "index": 1213,
   "name": "display_wave_2_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1217,
+  "index": 1214,
   "name": "display_wave_2_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1218,
+  "index": 1215,
   "name": "display_wave_2_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1219,
+  "index": 1216,
   "name": "display_wave_2_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1220,
+  "index": 1217,
   "name": "display_wave_2_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1221,
+  "index": 1218,
   "name": "display_wave_2_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1222,
+  "index": 1219,
   "name": "display_wave_2_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1223,
+  "index": 1220,
   "name": "display_wave_2_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1224,
+  "index": 1221,
   "name": "display_wave_2_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1225,
+  "index": 1222,
   "name": "display_wave_2_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1226,
+  "index": 1223,
   "name": "display_wave_2_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1227,
+  "index": 1224,
   "name": "display_wave_2_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1228,
+  "index": 1225,
   "name": "display_wave_2_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1229,
+  "index": 1226,
   "name": "display_wave_2_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1230,
+  "index": 1227,
   "name": "display_wave_2_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1231,
+  "index": 1228,
   "name": "display_wave_2_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1232,
+  "index": 1229,
   "name": "display_wave_2_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1233,
+  "index": 1230,
   "name": "display_wave_2_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1234,
+  "index": 1231,
   "name": "display_wave_2_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1235,
+  "index": 1232,
   "name": "display_wave_2_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1236,
+  "index": 1233,
   "name": "display_wave_2_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1237,
+  "index": 1234,
   "name": "display_wave_2_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1238,
+  "index": 1235,
   "name": "display_wave_2_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1239,
+  "index": 1236,
   "name": "display_wave_2_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1240,
+  "index": 1237,
   "name": "display_wave_2_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1241,
+  "index": 1238,
   "name": "display_wave_2_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1242,
+  "index": 1239,
   "name": "display_wave_2_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1243,
+  "index": 1240,
   "name": "display_wave_2_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1244,
+  "index": 1241,
   "name": "display_wave_2_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1245,
+  "index": 1242,
   "name": "display_wave_2_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1246,
+  "index": 1243,
   "name": "display_wave_2_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1247,
+  "index": 1244,
   "name": "display_wave_2_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1248,
+  "index": 1245,
   "name": "display_wave_2_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1249,
+  "index": 1246,
   "name": "display_wave_2_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1250,
+  "index": 1247,
   "name": "display_wave_2_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1251,
+  "index": 1248,
   "name": "display_wave_2_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1252,
+  "index": 1249,
   "name": "display_wave_2_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1253,
+  "index": 1250,
   "name": "display_wave_2_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1254,
+  "index": 1251,
   "name": "display_wave_2_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1255,
+  "index": 1252,
   "name": "display_wave_2_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1256,
+  "index": 1253,
   "name": "display_wave_2_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1257,
+  "index": 1254,
   "name": "display_wave_2_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1258,
+  "index": 1255,
   "name": "display_wave_2_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1259,
+  "index": 1256,
   "name": "display_wave_2_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1260,
+  "index": 1257,
   "name": "display_wave_2_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1261,
+  "index": 1258,
   "name": "display_lfo_curve_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1262,
+  "index": 1259,
   "name": "display_lfo_curve_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1263,
+  "index": 1260,
   "name": "display_lfo_curve_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1264,
+  "index": 1261,
   "name": "display_lfo_curve_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1265,
+  "index": 1262,
   "name": "display_lfo_curve_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1266,
+  "index": 1263,
   "name": "display_lfo_curve_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1267,
+  "index": 1264,
   "name": "display_lfo_curve_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1268,
+  "index": 1265,
   "name": "display_lfo_curve_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1269,
+  "index": 1266,
   "name": "display_lfo_curve_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1270,
+  "index": 1267,
   "name": "display_lfo_curve_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1271,
+  "index": 1268,
   "name": "display_lfo_curve_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1272,
+  "index": 1269,
   "name": "display_lfo_curve_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1273,
+  "index": 1270,
   "name": "display_lfo_curve_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1274,
+  "index": 1271,
   "name": "display_lfo_curve_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1275,
+  "index": 1272,
   "name": "display_lfo_curve_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1276,
+  "index": 1273,
   "name": "display_lfo_curve_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1277,
+  "index": 1274,
   "name": "display_lfo_curve_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1278,
+  "index": 1275,
   "name": "display_lfo_curve_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1279,
+  "index": 1276,
   "name": "display_lfo_curve_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1280,
+  "index": 1277,
   "name": "display_lfo_curve_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1281,
+  "index": 1278,
   "name": "display_lfo_curve_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1282,
+  "index": 1279,
   "name": "display_lfo_curve_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1283,
+  "index": 1280,
   "name": "display_lfo_curve_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1284,
+  "index": 1281,
   "name": "display_lfo_curve_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1285,
+  "index": 1282,
   "name": "display_lfo_curve_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1286,
+  "index": 1283,
   "name": "display_lfo_curve_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1287,
+  "index": 1284,
   "name": "display_lfo_curve_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1288,
+  "index": 1285,
   "name": "display_lfo_curve_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1289,
+  "index": 1286,
   "name": "display_lfo_curve_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1290,
+  "index": 1287,
   "name": "display_lfo_curve_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1291,
+  "index": 1288,
   "name": "display_lfo_curve_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1292,
+  "index": 1289,
   "name": "display_lfo_curve_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1293,
+  "index": 1290,
   "name": "display_lfo_curve_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1294,
+  "index": 1291,
   "name": "display_lfo_curve_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1295,
+  "index": 1292,
   "name": "display_lfo_curve_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1296,
+  "index": 1293,
   "name": "display_lfo_curve_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1297,
+  "index": 1294,
   "name": "display_lfo_curve_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1298,
+  "index": 1295,
   "name": "display_lfo_curve_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1299,
+  "index": 1296,
   "name": "display_lfo_curve_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1300,
+  "index": 1297,
   "name": "display_lfo_curve_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1301,
+  "index": 1298,
   "name": "display_lfo_curve_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1302,
+  "index": 1299,
   "name": "display_lfo_curve_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1303,
+  "index": 1300,
   "name": "display_lfo_curve_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1304,
+  "index": 1301,
   "name": "display_lfo_curve_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1305,
+  "index": 1302,
   "name": "display_lfo_curve_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1306,
+  "index": 1303,
   "name": "display_lfo_curve_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1307,
+  "index": 1304,
   "name": "display_lfo_curve_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1308,
+  "index": 1305,
   "name": "display_lfo_curve_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1309,
+  "index": 1306,
   "name": "display_lfo_curve_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1310,
+  "index": 1307,
   "name": "display_lfo_curve_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1311,
+  "index": 1308,
   "name": "display_lfo_curve_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1312,
+  "index": 1309,
   "name": "display_lfo_curve_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1313,
+  "index": 1310,
   "name": "display_lfo_curve_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1314,
+  "index": 1311,
   "name": "display_lfo_curve_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1315,
+  "index": 1312,
   "name": "display_lfo_curve_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1316,
+  "index": 1313,
   "name": "display_lfo_curve_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1317,
+  "index": 1314,
   "name": "display_lfo_curve_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1318,
+  "index": 1315,
   "name": "display_lfo_curve_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1319,
+  "index": 1316,
   "name": "display_lfo_curve_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1320,
+  "index": 1317,
   "name": "display_lfo_curve_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1321,
+  "index": 1318,
   "name": "display_lfo_curve_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1322,
+  "index": 1319,
   "name": "display_lfo_curve_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1323,
+  "index": 1320,
   "name": "display_lfo_curve_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1324,
+  "index": 1321,
   "name": "display_lfo_curve_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1325,
+  "index": 1322,
   "name": "display_lfo_curve_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1326,
+  "index": 1323,
   "name": "display_lfo_curve_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1327,
+  "index": 1324,
   "name": "display_lfo_curve_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1328,
+  "index": 1325,
   "name": "display_lfo_curve_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1329,
+  "index": 1326,
   "name": "display_lfo_curve_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1330,
+  "index": 1327,
   "name": "display_lfo_curve_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1331,
+  "index": 1328,
   "name": "display_lfo_curve_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1332,
+  "index": 1329,
   "name": "display_lfo_curve_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1333,
+  "index": 1330,
   "name": "display_lfo_curve_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1334,
+  "index": 1331,
   "name": "display_lfo_curve_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1335,
+  "index": 1332,
   "name": "display_lfo_curve_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1336,
+  "index": 1333,
   "name": "display_lfo_curve_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1337,
+  "index": 1334,
   "name": "display_lfo_curve_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1338,
+  "index": 1335,
   "name": "display_lfo_curve_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1339,
+  "index": 1336,
   "name": "display_lfo_curve_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1340,
+  "index": 1337,
   "name": "display_lfo_curve_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1341,
+  "index": 1338,
   "name": "display_lfo_curve_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1342,
+  "index": 1339,
   "name": "display_lfo_curve_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1343,
+  "index": 1340,
   "name": "display_lfo_curve_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1344,
+  "index": 1341,
   "name": "display_lfo_curve_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1345,
+  "index": 1342,
   "name": "display_lfo_curve_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1346,
+  "index": 1343,
   "name": "display_lfo_curve_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1347,
+  "index": 1344,
   "name": "display_lfo_curve_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1348,
+  "index": 1345,
   "name": "display_lfo_curve_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1349,
+  "index": 1346,
   "name": "display_lfo_curve_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1350,
+  "index": 1347,
   "name": "display_lfo_curve_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1351,
+  "index": 1348,
   "name": "display_lfo_curve_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1352,
+  "index": 1349,
   "name": "display_lfo_curve_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1353,
+  "index": 1350,
   "name": "display_lfo_curve_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1354,
+  "index": 1351,
   "name": "display_lfo_curve_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1355,
+  "index": 1352,
   "name": "display_lfo_curve_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1356,
+  "index": 1353,
   "name": "display_lfo_curve_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1357,
+  "index": 1354,
   "name": "display_lfo_value",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1358,
+  "index": 1355,
   "name": "display_mod_value",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1359,
+  "index": 1356,
   "name": "display_env_value",
   "value": 0.0
  },
  {
   "display": "bypass",
-  "index": 1360,
+  "index": 1357,
   "name": "Parameter",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1361,
+  "index": 1358,
   "name": "Value",
   "value": 0.0
  },
  {
   "display": "Selected LFO",
-  "index": 1362,
+  "index": 1359,
   "name": "Curve Target",
   "value": 0.0
  },
  {
   "display": "1",
-  "index": 1363,
+  "index": 1360,
   "name": "FX Position",
   "value": 0.0
  },
  {
   "display": "Chorus",
-  "index": 1364,
+  "index": 1361,
   "name": "FX At Position",
   "value": 0.0
  },
  {
   "display": "15",
-  "index": 1365,
+  "index": 1362,
   "name": "Lower MPE Members",
   "value": 1.0
  },
  {
   "display": "0",
-  "index": 1366,
+  "index": 1363,
   "name": "Upper MPE Members",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1367,
+  "index": 1364,
   "name": "display_wave_bank_0_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1368,
+  "index": 1365,
   "name": "display_wave_bank_0_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1369,
+  "index": 1366,
   "name": "display_wave_bank_0_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1370,
+  "index": 1367,
   "name": "display_wave_bank_0_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1371,
+  "index": 1368,
   "name": "display_wave_bank_0_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1372,
+  "index": 1369,
   "name": "display_wave_bank_0_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1373,
+  "index": 1370,
   "name": "display_wave_bank_0_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1374,
+  "index": 1371,
   "name": "display_wave_bank_0_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1375,
+  "index": 1372,
   "name": "display_wave_bank_0_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1376,
+  "index": 1373,
   "name": "display_wave_bank_0_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1377,
+  "index": 1374,
   "name": "display_wave_bank_0_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1378,
+  "index": 1375,
   "name": "display_wave_bank_0_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1379,
+  "index": 1376,
   "name": "display_wave_bank_0_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1380,
+  "index": 1377,
   "name": "display_wave_bank_0_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1381,
+  "index": 1378,
   "name": "display_wave_bank_0_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1382,
+  "index": 1379,
   "name": "display_wave_bank_0_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1383,
+  "index": 1380,
   "name": "display_wave_bank_0_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1384,
+  "index": 1381,
   "name": "display_wave_bank_0_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1385,
+  "index": 1382,
   "name": "display_wave_bank_0_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1386,
+  "index": 1383,
   "name": "display_wave_bank_0_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1387,
+  "index": 1384,
   "name": "display_wave_bank_0_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1388,
+  "index": 1385,
   "name": "display_wave_bank_0_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1389,
+  "index": 1386,
   "name": "display_wave_bank_0_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1390,
+  "index": 1387,
   "name": "display_wave_bank_0_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1391,
+  "index": 1388,
   "name": "display_wave_bank_0_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1392,
+  "index": 1389,
   "name": "display_wave_bank_0_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1393,
+  "index": 1390,
   "name": "display_wave_bank_0_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1394,
+  "index": 1391,
   "name": "display_wave_bank_0_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1395,
+  "index": 1392,
   "name": "display_wave_bank_0_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1396,
+  "index": 1393,
   "name": "display_wave_bank_0_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1397,
+  "index": 1394,
   "name": "display_wave_bank_0_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1398,
+  "index": 1395,
   "name": "display_wave_bank_0_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1399,
+  "index": 1396,
   "name": "display_wave_bank_0_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1400,
+  "index": 1397,
   "name": "display_wave_bank_0_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1401,
+  "index": 1398,
   "name": "display_wave_bank_0_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1402,
+  "index": 1399,
   "name": "display_wave_bank_0_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1403,
+  "index": 1400,
   "name": "display_wave_bank_0_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1404,
+  "index": 1401,
   "name": "display_wave_bank_0_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1405,
+  "index": 1402,
   "name": "display_wave_bank_0_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1406,
+  "index": 1403,
   "name": "display_wave_bank_0_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1407,
+  "index": 1404,
   "name": "display_wave_bank_0_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1408,
+  "index": 1405,
   "name": "display_wave_bank_0_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1409,
+  "index": 1406,
   "name": "display_wave_bank_0_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1410,
+  "index": 1407,
   "name": "display_wave_bank_0_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1411,
+  "index": 1408,
   "name": "display_wave_bank_0_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1412,
+  "index": 1409,
   "name": "display_wave_bank_0_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1413,
+  "index": 1410,
   "name": "display_wave_bank_0_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1414,
+  "index": 1411,
   "name": "display_wave_bank_0_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1415,
+  "index": 1412,
   "name": "display_wave_bank_0_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1416,
+  "index": 1413,
   "name": "display_wave_bank_0_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1417,
+  "index": 1414,
   "name": "display_wave_bank_0_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1418,
+  "index": 1415,
   "name": "display_wave_bank_0_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1419,
+  "index": 1416,
   "name": "display_wave_bank_0_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1420,
+  "index": 1417,
   "name": "display_wave_bank_0_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1421,
+  "index": 1418,
   "name": "display_wave_bank_0_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1422,
+  "index": 1419,
   "name": "display_wave_bank_0_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1423,
+  "index": 1420,
   "name": "display_wave_bank_0_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1424,
+  "index": 1421,
   "name": "display_wave_bank_0_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1425,
+  "index": 1422,
   "name": "display_wave_bank_0_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1426,
+  "index": 1423,
   "name": "display_wave_bank_0_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1427,
+  "index": 1424,
   "name": "display_wave_bank_0_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1428,
+  "index": 1425,
   "name": "display_wave_bank_0_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1429,
+  "index": 1426,
   "name": "display_wave_bank_0_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1430,
+  "index": 1427,
   "name": "display_wave_bank_0_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1431,
+  "index": 1428,
   "name": "display_wave_bank_0_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1432,
+  "index": 1429,
   "name": "display_wave_bank_0_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1433,
+  "index": 1430,
   "name": "display_wave_bank_0_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1434,
+  "index": 1431,
   "name": "display_wave_bank_0_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1435,
+  "index": 1432,
   "name": "display_wave_bank_0_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1436,
+  "index": 1433,
   "name": "display_wave_bank_0_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1437,
+  "index": 1434,
   "name": "display_wave_bank_0_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1438,
+  "index": 1435,
   "name": "display_wave_bank_0_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1439,
+  "index": 1436,
   "name": "display_wave_bank_0_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1440,
+  "index": 1437,
   "name": "display_wave_bank_0_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1441,
+  "index": 1438,
   "name": "display_wave_bank_0_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1442,
+  "index": 1439,
   "name": "display_wave_bank_0_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1443,
+  "index": 1440,
   "name": "display_wave_bank_0_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1444,
+  "index": 1441,
   "name": "display_wave_bank_0_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1445,
+  "index": 1442,
   "name": "display_wave_bank_0_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1446,
+  "index": 1443,
   "name": "display_wave_bank_0_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1447,
+  "index": 1444,
   "name": "display_wave_bank_0_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1448,
+  "index": 1445,
   "name": "display_wave_bank_0_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1449,
+  "index": 1446,
   "name": "display_wave_bank_0_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1450,
+  "index": 1447,
   "name": "display_wave_bank_0_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1451,
+  "index": 1448,
   "name": "display_wave_bank_0_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1452,
+  "index": 1449,
   "name": "display_wave_bank_0_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1453,
+  "index": 1450,
   "name": "display_wave_bank_0_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1454,
+  "index": 1451,
   "name": "display_wave_bank_0_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1455,
+  "index": 1452,
   "name": "display_wave_bank_0_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1456,
+  "index": 1453,
   "name": "display_wave_bank_0_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1457,
+  "index": 1454,
   "name": "display_wave_bank_0_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1458,
+  "index": 1455,
   "name": "display_wave_bank_0_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1459,
+  "index": 1456,
   "name": "display_wave_bank_0_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1460,
+  "index": 1457,
   "name": "display_wave_bank_0_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1461,
+  "index": 1458,
   "name": "display_wave_bank_0_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1462,
+  "index": 1459,
   "name": "display_wave_bank_0_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1463,
+  "index": 1460,
   "name": "display_wave_bank_1_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1464,
+  "index": 1461,
   "name": "display_wave_bank_1_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1465,
+  "index": 1462,
   "name": "display_wave_bank_1_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1466,
+  "index": 1463,
   "name": "display_wave_bank_1_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1467,
+  "index": 1464,
   "name": "display_wave_bank_1_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1468,
+  "index": 1465,
   "name": "display_wave_bank_1_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1469,
+  "index": 1466,
   "name": "display_wave_bank_1_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1470,
+  "index": 1467,
   "name": "display_wave_bank_1_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1471,
+  "index": 1468,
   "name": "display_wave_bank_1_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1472,
+  "index": 1469,
   "name": "display_wave_bank_1_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1473,
+  "index": 1470,
   "name": "display_wave_bank_1_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1474,
+  "index": 1471,
   "name": "display_wave_bank_1_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1475,
+  "index": 1472,
   "name": "display_wave_bank_1_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1476,
+  "index": 1473,
   "name": "display_wave_bank_1_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1477,
+  "index": 1474,
   "name": "display_wave_bank_1_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1478,
+  "index": 1475,
   "name": "display_wave_bank_1_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1479,
+  "index": 1476,
   "name": "display_wave_bank_1_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1480,
+  "index": 1477,
   "name": "display_wave_bank_1_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1481,
+  "index": 1478,
   "name": "display_wave_bank_1_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1482,
+  "index": 1479,
   "name": "display_wave_bank_1_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1483,
+  "index": 1480,
   "name": "display_wave_bank_1_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1484,
+  "index": 1481,
   "name": "display_wave_bank_1_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1485,
+  "index": 1482,
   "name": "display_wave_bank_1_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1486,
+  "index": 1483,
   "name": "display_wave_bank_1_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1487,
+  "index": 1484,
   "name": "display_wave_bank_1_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1488,
+  "index": 1485,
   "name": "display_wave_bank_1_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1489,
+  "index": 1486,
   "name": "display_wave_bank_1_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1490,
+  "index": 1487,
   "name": "display_wave_bank_1_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1491,
+  "index": 1488,
   "name": "display_wave_bank_1_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1492,
+  "index": 1489,
   "name": "display_wave_bank_1_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1493,
+  "index": 1490,
   "name": "display_wave_bank_1_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1494,
+  "index": 1491,
   "name": "display_wave_bank_1_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1495,
+  "index": 1492,
   "name": "display_wave_bank_1_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1496,
+  "index": 1493,
   "name": "display_wave_bank_1_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1497,
+  "index": 1494,
   "name": "display_wave_bank_1_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1498,
+  "index": 1495,
   "name": "display_wave_bank_1_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1499,
+  "index": 1496,
   "name": "display_wave_bank_1_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1500,
+  "index": 1497,
   "name": "display_wave_bank_1_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1501,
+  "index": 1498,
   "name": "display_wave_bank_1_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1502,
+  "index": 1499,
   "name": "display_wave_bank_1_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1503,
+  "index": 1500,
   "name": "display_wave_bank_1_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1504,
+  "index": 1501,
   "name": "display_wave_bank_1_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1505,
+  "index": 1502,
   "name": "display_wave_bank_1_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1506,
+  "index": 1503,
   "name": "display_wave_bank_1_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1507,
+  "index": 1504,
   "name": "display_wave_bank_1_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1508,
+  "index": 1505,
   "name": "display_wave_bank_1_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1509,
+  "index": 1506,
   "name": "display_wave_bank_1_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1510,
+  "index": 1507,
   "name": "display_wave_bank_1_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1511,
+  "index": 1508,
   "name": "display_wave_bank_1_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1512,
+  "index": 1509,
   "name": "display_wave_bank_1_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1513,
+  "index": 1510,
   "name": "display_wave_bank_1_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1514,
+  "index": 1511,
   "name": "display_wave_bank_1_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1515,
+  "index": 1512,
   "name": "display_wave_bank_1_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1516,
+  "index": 1513,
   "name": "display_wave_bank_1_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1517,
+  "index": 1514,
   "name": "display_wave_bank_1_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1518,
+  "index": 1515,
   "name": "display_wave_bank_1_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1519,
+  "index": 1516,
   "name": "display_wave_bank_1_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1520,
+  "index": 1517,
   "name": "display_wave_bank_1_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1521,
+  "index": 1518,
   "name": "display_wave_bank_1_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1522,
+  "index": 1519,
   "name": "display_wave_bank_1_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1523,
+  "index": 1520,
   "name": "display_wave_bank_1_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1524,
+  "index": 1521,
   "name": "display_wave_bank_1_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1525,
+  "index": 1522,
   "name": "display_wave_bank_1_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1526,
+  "index": 1523,
   "name": "display_wave_bank_1_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1527,
+  "index": 1524,
   "name": "display_wave_bank_1_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1528,
+  "index": 1525,
   "name": "display_wave_bank_1_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1529,
+  "index": 1526,
   "name": "display_wave_bank_1_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1530,
+  "index": 1527,
   "name": "display_wave_bank_1_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1531,
+  "index": 1528,
   "name": "display_wave_bank_1_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1532,
+  "index": 1529,
   "name": "display_wave_bank_1_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1533,
+  "index": 1530,
   "name": "display_wave_bank_1_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1534,
+  "index": 1531,
   "name": "display_wave_bank_1_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1535,
+  "index": 1532,
   "name": "display_wave_bank_1_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1536,
+  "index": 1533,
   "name": "display_wave_bank_1_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1537,
+  "index": 1534,
   "name": "display_wave_bank_1_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1538,
+  "index": 1535,
   "name": "display_wave_bank_1_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1539,
+  "index": 1536,
   "name": "display_wave_bank_1_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1540,
+  "index": 1537,
   "name": "display_wave_bank_1_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1541,
+  "index": 1538,
   "name": "display_wave_bank_1_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1542,
+  "index": 1539,
   "name": "display_wave_bank_1_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1543,
+  "index": 1540,
   "name": "display_wave_bank_1_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1544,
+  "index": 1541,
   "name": "display_wave_bank_1_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1545,
+  "index": 1542,
   "name": "display_wave_bank_1_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1546,
+  "index": 1543,
   "name": "display_wave_bank_1_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1547,
+  "index": 1544,
   "name": "display_wave_bank_1_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1548,
+  "index": 1545,
   "name": "display_wave_bank_1_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1549,
+  "index": 1546,
   "name": "display_wave_bank_1_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1550,
+  "index": 1547,
   "name": "display_wave_bank_1_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1551,
+  "index": 1548,
   "name": "display_wave_bank_1_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1552,
+  "index": 1549,
   "name": "display_wave_bank_1_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1553,
+  "index": 1550,
   "name": "display_wave_bank_1_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1554,
+  "index": 1551,
   "name": "display_wave_bank_1_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1555,
+  "index": 1552,
   "name": "display_wave_bank_1_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1556,
+  "index": 1553,
   "name": "display_wave_bank_1_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1557,
+  "index": 1554,
   "name": "display_wave_bank_1_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1558,
+  "index": 1555,
   "name": "display_wave_bank_1_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1559,
+  "index": 1556,
   "name": "display_wave_bank_2_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1560,
+  "index": 1557,
   "name": "display_wave_bank_2_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1561,
+  "index": 1558,
   "name": "display_wave_bank_2_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1562,
+  "index": 1559,
   "name": "display_wave_bank_2_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1563,
+  "index": 1560,
   "name": "display_wave_bank_2_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1564,
+  "index": 1561,
   "name": "display_wave_bank_2_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1565,
+  "index": 1562,
   "name": "display_wave_bank_2_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1566,
+  "index": 1563,
   "name": "display_wave_bank_2_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1567,
+  "index": 1564,
   "name": "display_wave_bank_2_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1568,
+  "index": 1565,
   "name": "display_wave_bank_2_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1569,
+  "index": 1566,
   "name": "display_wave_bank_2_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1570,
+  "index": 1567,
   "name": "display_wave_bank_2_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1571,
+  "index": 1568,
   "name": "display_wave_bank_2_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1572,
+  "index": 1569,
   "name": "display_wave_bank_2_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1573,
+  "index": 1570,
   "name": "display_wave_bank_2_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1574,
+  "index": 1571,
   "name": "display_wave_bank_2_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1575,
+  "index": 1572,
   "name": "display_wave_bank_2_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1576,
+  "index": 1573,
   "name": "display_wave_bank_2_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1577,
+  "index": 1574,
   "name": "display_wave_bank_2_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1578,
+  "index": 1575,
   "name": "display_wave_bank_2_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1579,
+  "index": 1576,
   "name": "display_wave_bank_2_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1580,
+  "index": 1577,
   "name": "display_wave_bank_2_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1581,
+  "index": 1578,
   "name": "display_wave_bank_2_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1582,
+  "index": 1579,
   "name": "display_wave_bank_2_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1583,
+  "index": 1580,
   "name": "display_wave_bank_2_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1584,
+  "index": 1581,
   "name": "display_wave_bank_2_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1585,
+  "index": 1582,
   "name": "display_wave_bank_2_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1586,
+  "index": 1583,
   "name": "display_wave_bank_2_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1587,
+  "index": 1584,
   "name": "display_wave_bank_2_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1588,
+  "index": 1585,
   "name": "display_wave_bank_2_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1589,
+  "index": 1586,
   "name": "display_wave_bank_2_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1590,
+  "index": 1587,
   "name": "display_wave_bank_2_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1591,
+  "index": 1588,
   "name": "display_wave_bank_2_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1592,
+  "index": 1589,
   "name": "display_wave_bank_2_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1593,
+  "index": 1590,
   "name": "display_wave_bank_2_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1594,
+  "index": 1591,
   "name": "display_wave_bank_2_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1595,
+  "index": 1592,
   "name": "display_wave_bank_2_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1596,
+  "index": 1593,
   "name": "display_wave_bank_2_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1597,
+  "index": 1594,
   "name": "display_wave_bank_2_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1598,
+  "index": 1595,
   "name": "display_wave_bank_2_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1599,
+  "index": 1596,
   "name": "display_wave_bank_2_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1600,
+  "index": 1597,
   "name": "display_wave_bank_2_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1601,
+  "index": 1598,
   "name": "display_wave_bank_2_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1602,
+  "index": 1599,
   "name": "display_wave_bank_2_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1603,
+  "index": 1600,
   "name": "display_wave_bank_2_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1604,
+  "index": 1601,
   "name": "display_wave_bank_2_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1605,
+  "index": 1602,
   "name": "display_wave_bank_2_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1606,
+  "index": 1603,
   "name": "display_wave_bank_2_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1607,
+  "index": 1604,
   "name": "display_wave_bank_2_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1608,
+  "index": 1605,
   "name": "display_wave_bank_2_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1609,
+  "index": 1606,
   "name": "display_wave_bank_2_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1610,
+  "index": 1607,
   "name": "display_wave_bank_2_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1611,
+  "index": 1608,
   "name": "display_wave_bank_2_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1612,
+  "index": 1609,
   "name": "display_wave_bank_2_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1613,
+  "index": 1610,
   "name": "display_wave_bank_2_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1614,
+  "index": 1611,
   "name": "display_wave_bank_2_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1615,
+  "index": 1612,
   "name": "display_wave_bank_2_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1616,
+  "index": 1613,
   "name": "display_wave_bank_2_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1617,
+  "index": 1614,
   "name": "display_wave_bank_2_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1618,
+  "index": 1615,
   "name": "display_wave_bank_2_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1619,
+  "index": 1616,
   "name": "display_wave_bank_2_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1620,
+  "index": 1617,
   "name": "display_wave_bank_2_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1621,
+  "index": 1618,
   "name": "display_wave_bank_2_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1622,
+  "index": 1619,
   "name": "display_wave_bank_2_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1623,
+  "index": 1620,
   "name": "display_wave_bank_2_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1624,
+  "index": 1621,
   "name": "display_wave_bank_2_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1625,
+  "index": 1622,
   "name": "display_wave_bank_2_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1626,
+  "index": 1623,
   "name": "display_wave_bank_2_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1627,
+  "index": 1624,
   "name": "display_wave_bank_2_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1628,
+  "index": 1625,
   "name": "display_wave_bank_2_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1629,
+  "index": 1626,
   "name": "display_wave_bank_2_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1630,
+  "index": 1627,
   "name": "display_wave_bank_2_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1631,
+  "index": 1628,
   "name": "display_wave_bank_2_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1632,
+  "index": 1629,
   "name": "display_wave_bank_2_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1633,
+  "index": 1630,
   "name": "display_wave_bank_2_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1634,
+  "index": 1631,
   "name": "display_wave_bank_2_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1635,
+  "index": 1632,
   "name": "display_wave_bank_2_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1636,
+  "index": 1633,
   "name": "display_wave_bank_2_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1637,
+  "index": 1634,
   "name": "display_wave_bank_2_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1638,
+  "index": 1635,
   "name": "display_wave_bank_2_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1639,
+  "index": 1636,
   "name": "display_wave_bank_2_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1640,
+  "index": 1637,
   "name": "display_wave_bank_2_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1641,
+  "index": 1638,
   "name": "display_wave_bank_2_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1642,
+  "index": 1639,
   "name": "display_wave_bank_2_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1643,
+  "index": 1640,
   "name": "display_wave_bank_2_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1644,
+  "index": 1641,
   "name": "display_wave_bank_2_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1645,
+  "index": 1642,
   "name": "display_wave_bank_2_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1646,
+  "index": 1643,
   "name": "display_wave_bank_2_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1647,
+  "index": 1644,
   "name": "display_wave_bank_2_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1648,
+  "index": 1645,
   "name": "display_wave_bank_2_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1649,
+  "index": 1646,
   "name": "display_wave_bank_2_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1650,
+  "index": 1647,
   "name": "display_wave_bank_2_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1651,
+  "index": 1648,
   "name": "display_wave_bank_2_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1652,
+  "index": 1649,
   "name": "display_wave_bank_2_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1653,
+  "index": 1650,
   "name": "display_wave_bank_2_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1654,
+  "index": 1651,
   "name": "display_wave_bank_2_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1655,
+  "index": 1652,
   "name": "display_lfo_bank_0",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1656,
+  "index": 1653,
   "name": "display_lfo_bank_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1657,
+  "index": 1654,
   "name": "display_lfo_bank_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1658,
+  "index": 1655,
   "name": "display_lfo_bank_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1659,
+  "index": 1656,
   "name": "display_lfo_bank_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1660,
+  "index": 1657,
   "name": "display_lfo_bank_5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1661,
+  "index": 1658,
   "name": "display_lfo_bank_6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1662,
+  "index": 1659,
   "name": "display_lfo_bank_7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1663,
+  "index": 1660,
   "name": "display_lfo_bank_8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1664,
+  "index": 1661,
   "name": "display_lfo_bank_9",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1665,
+  "index": 1662,
   "name": "display_lfo_bank_10",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1666,
+  "index": 1663,
   "name": "display_lfo_bank_11",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1667,
+  "index": 1664,
   "name": "display_lfo_bank_12",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1668,
+  "index": 1665,
   "name": "display_lfo_bank_13",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1669,
+  "index": 1666,
   "name": "display_lfo_bank_14",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1670,
+  "index": 1667,
   "name": "display_lfo_bank_15",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1671,
+  "index": 1668,
   "name": "display_lfo_bank_16",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1672,
+  "index": 1669,
   "name": "display_lfo_bank_17",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1673,
+  "index": 1670,
   "name": "display_lfo_bank_18",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1674,
+  "index": 1671,
   "name": "display_lfo_bank_19",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1675,
+  "index": 1672,
   "name": "display_lfo_bank_20",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1676,
+  "index": 1673,
   "name": "display_lfo_bank_21",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1677,
+  "index": 1674,
   "name": "display_lfo_bank_22",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1678,
+  "index": 1675,
   "name": "display_lfo_bank_23",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1679,
+  "index": 1676,
   "name": "display_lfo_bank_24",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1680,
+  "index": 1677,
   "name": "display_lfo_bank_25",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1681,
+  "index": 1678,
   "name": "display_lfo_bank_26",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1682,
+  "index": 1679,
   "name": "display_lfo_bank_27",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1683,
+  "index": 1680,
   "name": "display_lfo_bank_28",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1684,
+  "index": 1681,
   "name": "display_lfo_bank_29",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1685,
+  "index": 1682,
   "name": "display_lfo_bank_30",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1686,
+  "index": 1683,
   "name": "display_lfo_bank_31",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1687,
+  "index": 1684,
   "name": "display_lfo_bank_32",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1688,
+  "index": 1685,
   "name": "display_lfo_bank_33",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1689,
+  "index": 1686,
   "name": "display_lfo_bank_34",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1690,
+  "index": 1687,
   "name": "display_lfo_bank_35",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1691,
+  "index": 1688,
   "name": "display_lfo_bank_36",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1692,
+  "index": 1689,
   "name": "display_lfo_bank_37",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1693,
+  "index": 1690,
   "name": "display_lfo_bank_38",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1694,
+  "index": 1691,
   "name": "display_lfo_bank_39",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1695,
+  "index": 1692,
   "name": "display_lfo_bank_40",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1696,
+  "index": 1693,
   "name": "display_lfo_bank_41",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1697,
+  "index": 1694,
   "name": "display_lfo_bank_42",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1698,
+  "index": 1695,
   "name": "display_lfo_bank_43",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1699,
+  "index": 1696,
   "name": "display_lfo_bank_44",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1700,
+  "index": 1697,
   "name": "display_lfo_bank_45",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1701,
+  "index": 1698,
   "name": "display_lfo_bank_46",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1702,
+  "index": 1699,
   "name": "display_lfo_bank_47",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1703,
+  "index": 1700,
   "name": "display_lfo_bank_48",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1704,
+  "index": 1701,
   "name": "display_lfo_bank_49",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1705,
+  "index": 1702,
   "name": "display_lfo_bank_50",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1706,
+  "index": 1703,
   "name": "display_lfo_bank_51",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1707,
+  "index": 1704,
   "name": "display_lfo_bank_52",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1708,
+  "index": 1705,
   "name": "display_lfo_bank_53",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1709,
+  "index": 1706,
   "name": "display_lfo_bank_54",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1710,
+  "index": 1707,
   "name": "display_lfo_bank_55",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1711,
+  "index": 1708,
   "name": "display_lfo_bank_56",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1712,
+  "index": 1709,
   "name": "display_lfo_bank_57",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1713,
+  "index": 1710,
   "name": "display_lfo_bank_58",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1714,
+  "index": 1711,
   "name": "display_lfo_bank_59",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1715,
+  "index": 1712,
   "name": "display_lfo_bank_60",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1716,
+  "index": 1713,
   "name": "display_lfo_bank_61",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1717,
+  "index": 1714,
   "name": "display_lfo_bank_62",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1718,
+  "index": 1715,
   "name": "display_lfo_bank_63",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1719,
+  "index": 1716,
   "name": "display_lfo_bank_64",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1720,
+  "index": 1717,
   "name": "display_lfo_bank_65",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1721,
+  "index": 1718,
   "name": "display_lfo_bank_66",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1722,
+  "index": 1719,
   "name": "display_lfo_bank_67",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1723,
+  "index": 1720,
   "name": "display_lfo_bank_68",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1724,
+  "index": 1721,
   "name": "display_lfo_bank_69",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1725,
+  "index": 1722,
   "name": "display_lfo_bank_70",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1726,
+  "index": 1723,
   "name": "display_lfo_bank_71",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1727,
+  "index": 1724,
   "name": "display_lfo_bank_72",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1728,
+  "index": 1725,
   "name": "display_lfo_bank_73",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1729,
+  "index": 1726,
   "name": "display_lfo_bank_74",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1730,
+  "index": 1727,
   "name": "display_lfo_bank_75",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1731,
+  "index": 1728,
   "name": "display_lfo_bank_76",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1732,
+  "index": 1729,
   "name": "display_lfo_bank_77",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1733,
+  "index": 1730,
   "name": "display_lfo_bank_78",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1734,
+  "index": 1731,
   "name": "display_lfo_bank_79",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1735,
+  "index": 1732,
   "name": "display_lfo_bank_80",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1736,
+  "index": 1733,
   "name": "display_lfo_bank_81",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1737,
+  "index": 1734,
   "name": "display_lfo_bank_82",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1738,
+  "index": 1735,
   "name": "display_lfo_bank_83",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1739,
+  "index": 1736,
   "name": "display_lfo_bank_84",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1740,
+  "index": 1737,
   "name": "display_lfo_bank_85",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1741,
+  "index": 1738,
   "name": "display_lfo_bank_86",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1742,
+  "index": 1739,
   "name": "display_lfo_bank_87",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1743,
+  "index": 1740,
   "name": "display_lfo_bank_88",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1744,
+  "index": 1741,
   "name": "display_lfo_bank_89",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1745,
+  "index": 1742,
   "name": "display_lfo_bank_90",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1746,
+  "index": 1743,
   "name": "display_lfo_bank_91",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1747,
+  "index": 1744,
   "name": "display_lfo_bank_92",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1748,
+  "index": 1745,
   "name": "display_lfo_bank_93",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1749,
+  "index": 1746,
   "name": "display_lfo_bank_94",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1750,
+  "index": 1747,
   "name": "display_lfo_bank_95",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1751,
+  "index": 1748,
   "name": "display_lfo_phase",
   "value": 0.0
  },
  {
   "display": "No user sounds. Add banks to ",
-  "index": 1752,
+  "index": 1749,
   "name": "display_load_text_0",
   "value": 0.6591076254844666
  },
  {
   "display": "Content/Banks, then reopen ",
-  "index": 1753,
+  "index": 1750,
   "name": "display_load_text_1",
   "value": 0.6591076254844666
  },
  {
   "display": "plugin.",
-  "index": 1754,
+  "index": 1751,
   "name": "display_load_text_2",
   "value": 0.6591076254844666
  },
  {
   "display": "",
-  "index": 1755,
+  "index": 1752,
   "name": "display_load_text_3",
   "value": 0.6591076254844666
  },
  {
   "display": "0",
-  "index": 1756,
+  "index": 1753,
   "name": "Library Bank",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1757,
+  "index": 1754,
   "name": "Library Page",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1758,
+  "index": 1755,
   "name": "Load Preset",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1759,
+  "index": 1756,
   "name": "Previous Page",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1760,
+  "index": 1757,
   "name": "Next Page",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1761,
+  "index": 1758,
   "name": "Previous Bank",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1762,
+  "index": 1759,
   "name": "Next Bank",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1763,
+  "index": 1760,
   "name": "library_row_0",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1764,
+  "index": 1761,
   "name": "library_row_1",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1765,
+  "index": 1762,
   "name": "library_row_2",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1766,
+  "index": 1763,
   "name": "library_row_3",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1767,
+  "index": 1764,
   "name": "library_row_4",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1768,
+  "index": 1765,
   "name": "library_row_5",
   "value": 0.0
  },
  {
   "display": "No presets in this bank",
-  "index": 1769,
+  "index": 1766,
   "name": "library_name_0",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1770,
+  "index": 1767,
   "name": "library_name_1",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1771,
+  "index": 1768,
   "name": "library_name_2",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1772,
+  "index": 1769,
   "name": "library_name_3",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1773,
+  "index": 1770,
   "name": "library_name_4",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1774,
+  "index": 1771,
   "name": "library_name_5",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1775,
+  "index": 1772,
   "name": "library_name_6",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1776,
+  "index": 1773,
   "name": "library_name_7",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1777,
+  "index": 1774,
   "name": "library_name_8",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1778,
+  "index": 1775,
   "name": "library_name_9",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1779,
+  "index": 1776,
   "name": "library_name_10",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1780,
+  "index": 1777,
   "name": "library_name_11",
   "value": 0.0
  },
  {
   "display": "All presets",
-  "index": 1781,
+  "index": 1778,
   "name": "library_bank_text_0",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1782,
+  "index": 1779,
   "name": "library_bank_text_1",
   "value": 0.0
  },
  {
   "display": "Select a sound in the list",
-  "index": 1783,
+  "index": 1780,
   "name": "library_selected_0",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1784,
+  "index": 1781,
   "name": "library_selected_1",
   "value": 0.0
  },
  {
   "display": "Built-in / current",
-  "index": 1785,
+  "index": 1782,
   "name": "library_loaded_0",
   "value": 0.12740498781204224
  },
  {
   "display": "",
-  "index": 1786,
+  "index": 1783,
   "name": "library_loaded_1",
   "value": 0.12740498781204224
  },
  {
   "display": "0 installed sounds",
-  "index": 1787,
+  "index": 1784,
   "name": "library_page_text",
   "value": 0.0
  },
  {
   "display": "-24dB",
-  "index": 1788,
+  "index": 1785,
   "name": "Home Master",
   "value": 0.42381584644317627
  },
  {
   "display": "262 Hz",
-  "index": 1789,
+  "index": 1786,
   "name": "Home Cutoff",
   "value": 0.40625
  },
  {
   "display": "50%",
-  "index": 1790,
+  "index": 1787,
   "name": "Home Resonance",
   "value": 0.5
  },
  {
   "display": "0.5 ms",
-  "index": 1791,
+  "index": 1788,
   "name": "Home Attack",
   "value": 0.5007121562957764
  },
  {
   "display": "89.9 ms",
-  "index": 1792,
+  "index": 1789,
   "name": "Home Release",
   "value": 0.6926976442337036
  },
  {
   "display": "1",
-  "index": 1793,
+  "index": 1790,
   "name": "Home Unison",
   "value": 0.0
  },
  {
   "display": "20%",
-  "index": 1794,
+  "index": 1791,
   "name": "Home Detune",
   "value": 0.4472135901451111
  },
  {
   "display": "Off",
-  "index": 1795,
+  "index": 1792,
   "name": "Home Filter",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1796,
+  "index": 1793,
   "name": "Drives",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1797,
+  "index": 1794,
   "name": "Up Folder",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1798,
+  "index": 1795,
   "name": "Refresh Drives",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1799,
+  "index": 1796,
   "name": "Previous Files",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1800,
+  "index": 1797,
   "name": "Next Files",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1801,
+  "index": 1798,
   "name": "Installed Banks",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1802,
+  "index": 1799,
   "name": "Open Row 1",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1803,
+  "index": 1800,
   "name": "Open Row 2",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1804,
+  "index": 1801,
   "name": "Open Row 3",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1805,
+  "index": 1802,
   "name": "Open Row 4",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1806,
+  "index": 1803,
   "name": "Open Row 5",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1807,
+  "index": 1804,
   "name": "Open Row 6",
   "value": 0.0
  },
  {
   "display": "DRIVE",
-  "index": 1808,
+  "index": 1805,
   "name": "storage_row_0",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "Plugin Content",
-  "index": 1809,
+  "index": 1806,
   "name": "storage_row_1",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1810,
+  "index": 1807,
   "name": "storage_row_2",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1811,
+  "index": 1808,
   "name": "storage_row_3",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1812,
+  "index": 1809,
   "name": "storage_row_4",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1813,
+  "index": 1810,
   "name": "storage_row_5",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1814,
+  "index": 1811,
   "name": "storage_row_6",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1815,
+  "index": 1812,
   "name": "storage_row_7",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1816,
+  "index": 1813,
   "name": "storage_row_8",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1817,
+  "index": 1814,
   "name": "storage_row_9",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1818,
+  "index": 1815,
   "name": "storage_row_10",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1819,
+  "index": 1816,
   "name": "storage_row_11",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "Drives",
-  "index": 1820,
+  "index": 1817,
   "name": "storage_path_0",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1821,
+  "index": 1818,
   "name": "storage_path_1",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1822,
+  "index": 1819,
   "name": "storage_path_2",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "No user sounds. Add banks to ",
-  "index": 1823,
+  "index": 1820,
   "name": "storage_status_0",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "Content/Banks, then reopen ",
-  "index": 1824,
+  "index": 1821,
   "name": "storage_status_1",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "plugin.",
-  "index": 1825,
+  "index": 1822,
   "name": "storage_status_2",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1826,
+  "index": 1823,
   "name": "storage_status_3",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "1 / 1 - 1 items",
-  "index": 1827,
+  "index": 1824,
   "name": "storage_page",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "All installed banks",
-  "index": 1828,
+  "index": 1825,
   "name": "active_bank_0",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "",
-  "index": 1829,
+  "index": 1826,
   "name": "active_bank_1",
   "value": 1.2499999968440534e-07
  },
  {
   "display": "0.50",
-  "index": 1830,
+  "index": 1827,
   "name": "storage_available_0",
   "value": 0.5
  },
  {
   "display": "0.00",
-  "index": 1831,
+  "index": 1828,
   "name": "storage_available_1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1832,
+  "index": 1829,
   "name": "storage_available_2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1833,
+  "index": 1830,
   "name": "storage_available_3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1834,
+  "index": 1831,
   "name": "storage_available_4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1835,
+  "index": 1832,
   "name": "storage_available_5",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1836,
+  "index": 1833,
   "name": "Table Oscillator",
   "value": 0.0
  },
  {
-  "display": "0",
-  "index": 1837,
-  "name": "Table Page",
-  "value": 0.0
- },
- {
   "display": "0.00",
-  "index": 1838,
+  "index": 1834,
   "name": "Table Cursor",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1839,
+  "index": 1835,
   "name": "Open Osc 1 Table",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1840,
+  "index": 1836,
   "name": "Open Osc 2 Table",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1841,
+  "index": 1837,
   "name": "Open Osc 3 Table",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1842,
+  "index": 1838,
   "name": "Table Previous Page",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1843,
+  "index": 1839,
   "name": "Table Next Page",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1844,
+  "index": 1840,
   "name": "Table Reload",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1845,
+  "index": 1841,
   "name": "Table Built-in",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1846,
+  "index": 1842,
   "name": "Select Table Row 1",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1847,
+  "index": 1843,
   "name": "Select Table Row 2",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1848,
+  "index": 1844,
   "name": "Select Table Row 3",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1849,
+  "index": 1845,
   "name": "Select Table Row 4",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1850,
+  "index": 1846,
   "name": "Select Table Row 5",
   "value": 0.0
  },
  {
   "display": "Off",
-  "index": 1851,
+  "index": 1847,
   "name": "Select Table Row 6",
   "value": 0.0
  },
  {
   "display": ">",
-  "index": 1852,
+  "index": 1848,
   "name": "table_row_0_state",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1853,
+  "index": 1849,
   "name": "table_row_1_state",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1854,
+  "index": 1850,
   "name": "table_row_2_state",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1855,
+  "index": 1851,
   "name": "table_row_3_state",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1856,
+  "index": 1852,
   "name": "table_row_4_state",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1857,
+  "index": 1853,
   "name": "table_row_5_state",
   "value": 0.0
  },
  {
   "display": "Built-in / current",
-  "index": 1858,
+  "index": 1854,
   "name": "table_row_0_name",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1859,
+  "index": 1855,
   "name": "table_row_1_name",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1860,
+  "index": 1856,
   "name": "table_row_2_name",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1861,
+  "index": 1857,
   "name": "table_row_3_name",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1862,
+  "index": 1858,
   "name": "table_row_4_name",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1863,
+  "index": 1859,
   "name": "table_row_5_name",
   "value": 0.0
  },
  {
   "display": "Built-in",
-  "index": 1864,
+  "index": 1860,
   "name": "table_row_0_folder",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1865,
+  "index": 1861,
   "name": "table_row_1_folder",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1866,
+  "index": 1862,
   "name": "table_row_2_folder",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1867,
+  "index": 1863,
   "name": "table_row_3_folder",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1868,
+  "index": 1864,
   "name": "table_row_4_folder",
   "value": 0.0
  },
  {
   "display": "",
-  "index": 1869,
+  "index": 1865,
   "name": "table_row_5_folder",
   "value": 0.0
  },
  {
   "display": "Page 1/1  1/1",
-  "index": 1870,
+  "index": 1866,
   "name": "table_position",
   "value": 0.0
  },
  {
   "display": "No user sounds. Add banks to ",
-  "index": 1871,
+  "index": 1867,
   "name": "table_status_0",
   "value": 0.0
  },
  {
   "display": "Content/Banks, then reopen ",
-  "index": 1872,
+  "index": 1868,
   "name": "table_status_1",
   "value": 0.0
  },
  {
   "display": "Built-in / current",
-  "index": 1873,
+  "index": 1869,
   "name": "display_table_name_1",
   "value": 0.0
  },
  {
   "display": "Built-in / current",
-  "index": 1874,
+  "index": 1870,
   "name": "display_table_name_2",
   "value": 0.0
  },
  {
   "display": "Built-in / current",
-  "index": 1875,
+  "index": 1871,
   "name": "display_table_name_3",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1876,
+  "index": 1872,
   "name": "UI Group",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1877,
+  "index": 1873,
   "name": "UI Page",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1878,
+  "index": 1874,
   "name": "UI Section",
   "value": 0.0
  },
  {
   "display": "-24dB",
-  "index": 1879,
+  "index": 1875,
   "name": "UI Control 1",
   "value": 0.42381584644317627
  },
  {
   "display": "4",
-  "index": 1880,
+  "index": 1876,
   "name": "UI Control 2",
   "value": 0.4285714328289032
  },
  {
   "display": "262 Hz",
-  "index": 1881,
+  "index": 1877,
   "name": "UI Control 3",
   "value": 0.40625
  },
  {
   "display": "50%",
-  "index": 1882,
+  "index": 1878,
   "name": "UI Control 4",
   "value": 0.5
  },
  {
   "display": "0.5 ms",
-  "index": 1883,
+  "index": 1879,
   "name": "UI Control 5",
   "value": 0.5007121562957764
  },
  {
   "display": "89.9 ms",
-  "index": 1884,
+  "index": 1880,
   "name": "UI Control 6",
   "value": 0.6926976442337036
  },
  {
   "display": "Unused",
-  "index": 1885,
+  "index": 1881,
   "name": "UI Control 7",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1886,
+  "index": 1882,
   "name": "UI Control 8",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1887,
+  "index": 1883,
   "name": "UI Control 9",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1888,
+  "index": 1884,
   "name": "UI Control 10",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1889,
+  "index": 1885,
   "name": "UI Control 11",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1890,
+  "index": 1886,
   "name": "UI Control 12",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1891,
+  "index": 1887,
   "name": "UI Control 13",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1892,
+  "index": 1888,
   "name": "UI Control 14",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1893,
+  "index": 1889,
   "name": "UI Control 15",
   "value": 0.0
  },
  {
   "display": "Unused",
-  "index": 1894,
+  "index": 1890,
   "name": "UI Control 16",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1895,
+  "index": 1891,
   "name": "UI Pick",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1896,
+  "index": 1892,
   "name": "UI Bank",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1897,
+  "index": 1893,
   "name": "Group 0 Page",
   "value": 0.0
  },
  {
   "display": "0.42",
-  "index": 1898,
+  "index": 1894,
   "name": "Group 0 Slot 1",
   "value": 0.42381584644317627
  },
  {
   "display": "0.43",
-  "index": 1899,
+  "index": 1895,
   "name": "Group 0 Slot 2",
   "value": 0.4285714328289032
  },
  {
   "display": "0.41",
-  "index": 1900,
+  "index": 1896,
   "name": "Group 0 Slot 3",
   "value": 0.40625
  },
  {
   "display": "0.50",
-  "index": 1901,
+  "index": 1897,
   "name": "Group 0 Slot 4",
   "value": 0.5
  },
  {
   "display": "0.50",
-  "index": 1902,
+  "index": 1898,
   "name": "Group 0 Slot 5",
   "value": 0.5007121562957764
  },
  {
   "display": "0.69",
-  "index": 1903,
+  "index": 1899,
   "name": "Group 0 Slot 6",
   "value": 0.6926976442337036
  },
  {
   "display": "0.00",
-  "index": 1904,
+  "index": 1900,
   "name": "Group 0 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1905,
+  "index": 1901,
   "name": "Group 0 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1906,
+  "index": 1902,
   "name": "Group 0 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1907,
+  "index": 1903,
   "name": "Group 1 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1908,
+  "index": 1904,
   "name": "Group 1 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1909,
+  "index": 1905,
   "name": "Group 1 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1910,
+  "index": 1906,
   "name": "Group 1 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1911,
+  "index": 1907,
   "name": "Group 1 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1912,
+  "index": 1908,
   "name": "Group 1 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1913,
+  "index": 1909,
   "name": "Group 1 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1914,
+  "index": 1910,
   "name": "Group 1 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1915,
+  "index": 1911,
   "name": "Group 1 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1916,
+  "index": 1912,
   "name": "Group 1 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1917,
+  "index": 1913,
   "name": "Group 2 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1918,
+  "index": 1914,
   "name": "Group 2 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1919,
+  "index": 1915,
   "name": "Group 2 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1920,
+  "index": 1916,
   "name": "Group 2 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1921,
+  "index": 1917,
   "name": "Group 2 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1922,
+  "index": 1918,
   "name": "Group 2 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1923,
+  "index": 1919,
   "name": "Group 2 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1924,
+  "index": 1920,
   "name": "Group 2 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1925,
+  "index": 1921,
   "name": "Group 2 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1926,
+  "index": 1922,
   "name": "Group 2 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1927,
+  "index": 1923,
   "name": "Group 3 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1928,
+  "index": 1924,
   "name": "Group 3 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1929,
+  "index": 1925,
   "name": "Group 3 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1930,
+  "index": 1926,
   "name": "Group 3 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1931,
+  "index": 1927,
   "name": "Group 3 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1932,
+  "index": 1928,
   "name": "Group 3 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1933,
+  "index": 1929,
   "name": "Group 3 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1934,
+  "index": 1930,
   "name": "Group 3 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1935,
+  "index": 1931,
   "name": "Group 3 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1936,
+  "index": 1932,
   "name": "Group 3 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1937,
+  "index": 1933,
   "name": "Group 4 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1938,
+  "index": 1934,
   "name": "Group 4 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1939,
+  "index": 1935,
   "name": "Group 4 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1940,
+  "index": 1936,
   "name": "Group 4 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1941,
+  "index": 1937,
   "name": "Group 4 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1942,
+  "index": 1938,
   "name": "Group 4 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1943,
+  "index": 1939,
   "name": "Group 4 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1944,
+  "index": 1940,
   "name": "Group 4 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1945,
+  "index": 1941,
   "name": "Group 4 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1946,
+  "index": 1942,
   "name": "Group 4 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1947,
+  "index": 1943,
   "name": "Group 5 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1948,
+  "index": 1944,
   "name": "Group 5 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1949,
+  "index": 1945,
   "name": "Group 5 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1950,
+  "index": 1946,
   "name": "Group 5 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1951,
+  "index": 1947,
   "name": "Group 5 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1952,
+  "index": 1948,
   "name": "Group 5 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1953,
+  "index": 1949,
   "name": "Group 5 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1954,
+  "index": 1950,
   "name": "Group 5 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1955,
+  "index": 1951,
   "name": "Group 5 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1956,
+  "index": 1952,
   "name": "Group 5 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1957,
+  "index": 1953,
   "name": "Group 6 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1958,
+  "index": 1954,
   "name": "Group 6 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1959,
+  "index": 1955,
   "name": "Group 6 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1960,
+  "index": 1956,
   "name": "Group 6 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1961,
+  "index": 1957,
   "name": "Group 6 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1962,
+  "index": 1958,
   "name": "Group 6 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1963,
+  "index": 1959,
   "name": "Group 6 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1964,
+  "index": 1960,
   "name": "Group 6 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1965,
+  "index": 1961,
   "name": "Group 6 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
-  "index": 1966,
+  "index": 1962,
   "name": "Group 6 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1967,
+  "index": 1963,
   "name": "MOD Page",
   "value": 0.0
  }

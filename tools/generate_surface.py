@@ -130,6 +130,9 @@ def graph(children,base,x=32,y=104,w=1216,h=156,color='osc'):
         children.append(g.entry('LFO playhead','Image',data,f'{x} {y} {w} {h}','No','Hide','Always',invalidating=['IndexedEnabling/0/2/'+handle('Curve Target')]))
 GRAPH=dict((k,int(v)) for k,v in re.findall(r'(kWaveColumns|kWaveLevels|kCurveColumns|kCurveLevels)=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')))
 assert len(GRAPH)==4,GRAPH
+# The plugin pages the table list by kTableRows, so the layout must use the same
+# number: a second copy here would silently offset every page after the first.
+TABLE_ROWS=int(re.search(r'kTableRows=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
 def wave_bars(children,chart,x,y,w,h):
     # 0.3.18: 128 columns of 3 px and 108 levels (was 64 x 64, which looked blocky).
     # The number of columns no longer costs host notifications: the plugin asks
@@ -384,7 +387,6 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
     data={'version':2,'onImage':f'nav-{key}-on.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),True)
 
-TABLE_ROWS=6  # the native button minimum is 52 px high and 52 px is one row step
 def add_table(c):
     # 0.3.35: the wavetable list as its own view. Every name is a readout (the
     # Content folder is indexed at run time), so no label list is generated. The
@@ -403,6 +405,9 @@ def add_table(c):
         c.append(label('Table name',(56,y+18,SCREEN_RIGHT-24-132-56-16,24),TEXT,22,value=f'table_row_{row}_name'))
         c.append(nav_button('LOAD',SCREEN_RIGHT-24-132,y,132,52,f'Select Table Row {row+1}',0,1,'env'))
     fy=top+rows*step+8
+    # The tab content area is 628 px high (SDK ui-reference 1.4); a row added
+    # here without room would be drawn off the screen instead of failing.
+    assert fy+52<=628,(TABLE_ROWS,'table rows do not fit the content area')
     c.append(nav_button('PREV',24,fy,120,52,'Table Previous Page',0))
     c.append(nav_button('NEXT',152,fy,120,52,'Table Next Page',0))
     c.append(nav_button('RELOAD',280,fy,150,52,'Table Reload',0))

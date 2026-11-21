@@ -439,11 +439,11 @@ int main(int argc,char** argv){
   // 0.3.35 table picker: its own view. The wheel moves one cursor entry per click
   // and the entry loads when the wheel rests; a row button loads at once.
   {
-    const int open=id("table_open_1"),cursor=id("table_view_cursor"),table=id("table_1");
+    const int open=id("table_open_1"),cursor=id("table_view_cursor");
     const int view=native->testTablePageView();
     auto idle=[&](int blocks){for(int i=0;i<blocks;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}};
     auto click=[&]{std::this_thread::sleep_for(std::chrono::milliseconds(30));native->setNormalised(cursor,native->getNormalised(cursor)+0.01f);};
-    auto loaded=[&](int entry){for(int i=0;i<400&&native->getInt(table)!=entry;++i)idle(1);return native->getInt(table)==entry;};
+    auto loaded=[&](int entry){for(int i=0;i<400&&native->testTableSelection(0)!=entry;++i)idle(1);return native->testTableSelection(0)==entry;};
     // The fixture ships no wavetables, so the view is tested against ten small ones.
     auto writeTable=[&](const std::filesystem::path& path){
       std::vector<uint8_t> bytes;auto put32=[&](uint32_t v){for(int i=0;i<4;++i)bytes.push_back(uint8_t(v>>(8*i)));};
@@ -472,9 +472,9 @@ int main(int argc,char** argv){
     check(native->testTableCursor()==4,"a quick spin moves the cursor once per click");
     check(loaded(4),"a quick spin loads only the table it lands on");
     native->set(id("table_row_2"),1);waitNative();
-    check(native->getInt(table)==2&&native->testTableCursor()==2,"a row button loads that table at once");
+    check(native->testTableSelection(0)==2&&native->testTableCursor()==2,"a row button loads that table at once");
     native->set(id("table_command_1"),1);waitNative();
-    check(native->getInt(id("table_view_page"))==1&&!native->displayText(id("table_row_0_name")).empty(),"NEXT shows the next page of tables");
+    check(native->testTablePage()==1&&!native->displayText(id("table_row_0_name")).empty(),"NEXT shows the next page of tables");
     const int before=native->testTableCount();
     writeTable(folder/"Test Reload.wav");
     native->set(id("table_command_2"),1);waitNative();
@@ -482,7 +482,7 @@ int main(int argc,char** argv){
     std::filesystem::remove_all(folder);native->set(id("table_command_2"),1);waitNative();
     check(native->testTableCount()==1,"RELOAD drops tables that were removed again");
     native->set(id("table_command_3"),1);waitNative();
-    check(native->getInt(table)==0&&native->testTableCursor()==0&&native->getInt(id("table_view_page"))==0,"BUILT-IN returns to the built-in table");
+    check(native->testTableSelection(0)==0&&native->testTableCursor()==0&&native->testTablePage()==0,"BUILT-IN returns to the built-in table");
   }
   // Each page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1.
   native->set(id("ui_gpage_1"),0);native->set(id("ui_section"),1);

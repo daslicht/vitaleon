@@ -62,6 +62,8 @@ public:
     int testTableCount(){return tableCount();}
     int testTableCursor()const{return tableCursor_;}
     int testTablePageView()const{return tablePageView_;}
+    int testTablePage()const{return tablePage_;}
+    int testTableSelection(int oscillator)const{return tableSelection_[size_t(oscillator)];}
     // The Init sound (every control at its default), as the "Init" program selects it.
     void testInit(){beginStateTransaction(true);for(size_t k=0;k<initValues_.size();++k)restoreParameter(int(k),param(int(k)).toNormalised(initValues_[k]));selectInit();endStateTransaction(true);reset();}
     // Engine checks start from the Init state instead of the first installed sound.
@@ -129,10 +131,13 @@ private:
     void listStep(int index,float plain);
     void publishList(int index,float plain); // sets a selector and its list cache
     // Table picker (0.3.35): the wheel moves a cursor, the entry loads at rest.
+    // tools/generate_surface.py reads this number to lay out the same page.
+    static constexpr int kTableRows=6;
     int tablePageView_=-1;
     int tableOpen_=-1,tableCommands_=-1,tableRows_=-1,tableRowStates_=-1,tableRowNames_=-1,tableRowFolders_=-1,tablePosition_=-1,tableStatus_=-1,tableNameReadout_=-1;
-    int tableViewTarget_=-1,tableViewCursor_=-1,tableViewPage_=-1;
-    int tableCursor_=0;float tableRaw_=0;long long tableMs_=0;float tableTravel_=0;
+    int tableViewTarget_=-1,tableViewCursor_=-1;
+    int tableCursor_=0,tablePage_=0;float tableRaw_=0;long long tableMs_=0;float tableTravel_=0;
+    std::array<int,3> tableSelection_{}; // which file each oscillator plays, not a host parameter
     std::atomic<long long> tableLoadDue_{0};
     std::atomic<int> tableLoadSlot_{-1};
     std::mutex tableMutex_; // guards assets_[1]: RELOAD may swap it while the host reads
@@ -173,7 +178,6 @@ private:
     std::vector<std::string> sources_,destinations_;
     std::vector<vital::Output*> sourceOutputs_;
     std::array<std::vector<Asset>,4> assets_; // presets, tables, samples, LFO shapes
-    std::array<int,3> tableSelect_{};
     int presetSelect_=-1,sampleSelect_=-1,lfoShapeSelect_=-1,loadStatus_=-1;
     int loadText_=-1;
     int lfoSelect_=-1,envSelect_=-1,routeSelect_=-1;
