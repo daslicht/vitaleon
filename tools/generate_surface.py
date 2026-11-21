@@ -546,8 +546,9 @@ def add_table(c):
         # Labels, not value widgets: a Knob bound to a readout draws no text. They are
         # named 'Row text ...' so the caption baker leaves them alone: the transparent
         # row button is emitted after them, so it is the widget on top and takes the tap.
-        c.append(conditional(label('Row text folder',(x+6,y+6,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
-        c.append(conditional(label('Row text name',(x+6,y+28,text_w,26),TEXT,20,value=f'table_row_{row}_name'),show))
+        # Text centred in the taller row: folder line, then the name.
+        c.append(conditional(label('Row text folder',(x+6,y+12,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
+        c.append(conditional(label('Row text name',(x+6,y+34,text_w,26),TEXT,20,value=f'table_row_{row}_name'),show))
         # buttonId 1 of 2: at rest the handle reads 0, so the host sees this row as
         # unselected and writes it on the first press instead of finding it chosen.
         c.append(conditional(ent('Table row','Button',{'version':2,'onImage':blank,'offImage':blank,'buttonId':1,'numButtonsInGroup':2,'handleName':handle(f'Select Table Row {row+1}'),'gestureBehaviour':'Instant'},(x,y,w,row_h),False),show))
