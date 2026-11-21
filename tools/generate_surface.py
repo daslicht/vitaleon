@@ -530,24 +530,28 @@ def add_table(c):
     # because it is the only way to pick up newly copied tables without reopening the
     # plugin.
     show=sec_show(0)
-    rows,step=TABLE_ROWS,TABLE_STEP
-    x=424+SLOT_W+24;w=SCREEN_RIGHT-24-x
-    row_h=min(60,step-2);text_w=w-10
+    # 0.3.34 (user request): the list is flush with the right edge and fills the height
+    # below the position line, so the six rows are as tall as the content area allows.
+    rows=TABLE_ROWS
+    x=424+SLOT_W+24;w=SCREEN_RIGHT-x
+    top=172
+    bottom=TABLE_BOTTOM if FORCE else 560  # the MPC keeps its group footer band free
+    step=(bottom-top)//rows;row_h=step-4
+    text_w=w-12
     blank=table_row_blank(w,row_h)
     c.append(conditional(label('Table position',(x,136,w,28),TEXT,20,value='table_position'),show))
-    top=172
     for row in range(rows):
         y=top+row*step
-        c.append(conditional(ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w+8,row_h),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(x-4,y-4,w+8,row_h)),show))
+        c.append(conditional(ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w,row_h+4),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(x,y-4,w,row_h+4)),show))
         # Labels, not value widgets: a Knob bound to a readout draws no text. They are
         # named 'Row text ...' so the caption baker leaves them alone: the transparent
         # row button is emitted after them, so it is the widget on top and takes the tap.
-        c.append(conditional(label('Row text folder',(x,y+2,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
-        c.append(conditional(label('Row text name',(x,y+22,text_w,26),TEXT,20,value=f'table_row_{row}_name'),show))
+        c.append(conditional(label('Row text folder',(x+6,y+6,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
+        c.append(conditional(label('Row text name',(x+6,y+28,text_w,26),TEXT,20,value=f'table_row_{row}_name'),show))
         # buttonId 1 of 2: at rest the handle reads 0, so the host sees this row as
         # unselected and writes it on the first press instead of finding it chosen.
         c.append(conditional(ent('Table row','Button',{'version':2,'onImage':blank,'offImage':blank,'buttonId':1,'numButtonsInGroup':2,'handleName':handle(f'Select Table Row {row+1}'),'gestureBehaviour':'Instant'},(x,y,w,row_h),False),show))
-    assert top+rows*step<=TABLE_BOTTOM,(TABLE_ROWS,'table rows do not fit the content area')
+    assert top+rows*step<=bottom,(TABLE_ROWS,'table rows do not fit the content area')
     # No RELOAD button (0.3.34, user request): the list is scanned when the plugin
     # opens, so a new table only needs the plugin reopened, and the button sat right
     # under the last row where a mis-tap hit it. No status lines either: on the MPC
