@@ -449,7 +449,7 @@ def envelope(children):
     children.append(ent('editable envelope','Envelope',data,(24,100,full(728),164),True))
     children.append(trace('Envelope output',(full(768),100,full(232),164),'display_env_value','env'))
 def pretty(k):
-    words=k.replace('_',' ').replace('spectral morph','spectral').replace('distortion','warp').replace('unison voices','unison').replace('keytrack transpose','key transpose').replace('keytrack tune','key tune')
+    words=k.replace('_',' ').replace('spectral morph','spectral').replace('distortion','warp').replace('unison voices','unison').replace('keytrack transpose','key transpose').replace('keytrack tune','key tune').replace('detune range','detune scale')
     return words.title()
 from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
 # A section button names its tab as group*8+section, so eight sections per page

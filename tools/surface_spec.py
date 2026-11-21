@@ -52,8 +52,8 @@ for o in range(1,4):
     # remaining three. The oscillator on/off switch is drawn in the page header.
     p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','pan','transpose','tune','phase','random_phase','on']),
         ('PHASE',['transpose_quantize','midi_track','smooth_interpolation','destination']),
-        ('UNISON',['unison_voices','unison_detune','unison_blend','stereo_spread','stack_style','detune_power']),
-        ('SPREAD',['detune_range','frame_spread','spectral_unison']),
+        ('UNISON',['unison_voices','unison_detune','detune_range','unison_blend','stereo_spread','detune_power']),
+        ('SPREAD',['stack_style','frame_spread','spectral_unison']),
         ('WARP',['distortion_type','distortion_amount','distortion_spread','distortion_phase']),
         ('SPECTRAL',['spectral_morph_type','spectral_morph_amount','spectral_morph_spread'])]
     parts=[(name,[k if k.startswith('Osc ') else p+k for k in items]) for name,items in parts]

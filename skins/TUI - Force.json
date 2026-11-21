@@ -17902,7 +17902,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Unison Blend",
+                                    "name": "Detune Scale",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -17914,11 +17914,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Unison Blend]/Parameter 1910"
+                                            "value": "WithName[Detune Scale]/Parameter 1910"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 641"
+                                            "value": "Parameter 619"
                                         },
                                         {
                                             "key": "QTarget",
@@ -17942,7 +17942,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Stereo Spread",
+                                    "name": "Unison Blend",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -17954,11 +17954,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Stereo Spread]/Parameter 1911"
+                                            "value": "WithName[Unison Blend]/Parameter 1911"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 637"
+                                            "value": "Parameter 641"
                                         },
                                         {
                                             "key": "QTarget",
@@ -17982,8 +17982,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Stack Style",
-                                    "type": "menu-osc",
+                                    "name": "Stereo Spread",
+                                    "type": "knob-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -17994,11 +17994,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Stack Style]/Parameter 636"
+                                            "value": "WithName[Stereo Spread]/Parameter 1912"
                                         },
                                         {
-                                            "key": "Menu",
-                                            "value": "Parameter 636"
+                                            "key": "Target",
+                                            "value": "Parameter 637"
                                         },
                                         {
                                             "key": "QTarget",
@@ -18062,8 +18062,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Detune Range",
-                                    "type": "knob-osc",
+                                    "name": "Stack Style",
+                                    "type": "menu-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -18074,11 +18074,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Detune Range]/Parameter 1908"
+                                            "value": "WithName[Stack Style]/Parameter 636"
                                         },
                                         {
-                                            "key": "Target",
-                                            "value": "Parameter 619"
+                                            "key": "Menu",
+                                            "value": "Parameter 636"
                                         },
                                         {
                                             "key": "QTarget",
@@ -24786,7 +24786,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Unison Blend",
+                                    "name": "Detune Scale",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -24798,11 +24798,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Unison Blend]/Parameter 1910"
+                                            "value": "WithName[Detune Scale]/Parameter 1910"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 670"
+                                            "value": "Parameter 648"
                                         },
                                         {
                                             "key": "QTarget",
@@ -24826,7 +24826,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Stereo Spread",
+                                    "name": "Unison Blend",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -24838,11 +24838,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Stereo Spread]/Parameter 1911"
+                                            "value": "WithName[Unison Blend]/Parameter 1911"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 666"
+                                            "value": "Parameter 670"
                                         },
                                         {
                                             "key": "QTarget",
@@ -24866,8 +24866,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Stack Style",
-                                    "type": "menu-osc",
+                                    "name": "Stereo Spread",
+                                    "type": "knob-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -24878,11 +24878,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Stack Style]/Parameter 665"
+                                            "value": "WithName[Stereo Spread]/Parameter 1912"
                                         },
                                         {
-                                            "key": "Menu",
-                                            "value": "Parameter 665"
+                                            "key": "Target",
+                                            "value": "Parameter 666"
                                         },
                                         {
                                             "key": "QTarget",
@@ -24946,8 +24946,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Detune Range",
-                                    "type": "knob-osc",
+                                    "name": "Stack Style",
+                                    "type": "menu-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -24958,11 +24958,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Detune Range]/Parameter 1908"
+                                            "value": "WithName[Stack Style]/Parameter 665"
                                         },
                                         {
-                                            "key": "Target",
-                                            "value": "Parameter 648"
+                                            "key": "Menu",
+                                            "value": "Parameter 665"
                                         },
                                         {
                                             "key": "QTarget",
@@ -31670,7 +31670,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Unison Blend",
+                                    "name": "Detune Scale",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -31682,11 +31682,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Unison Blend]/Parameter 1910"
+                                            "value": "WithName[Detune Scale]/Parameter 1910"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 699"
+                                            "value": "Parameter 677"
                                         },
                                         {
                                             "key": "QTarget",
@@ -31710,7 +31710,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Stereo Spread",
+                                    "name": "Unison Blend",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -31722,11 +31722,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Stereo Spread]/Parameter 1911"
+                                            "value": "WithName[Unison Blend]/Parameter 1911"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 695"
+                                            "value": "Parameter 699"
                                         },
                                         {
                                             "key": "QTarget",
@@ -31750,8 +31750,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Stack Style",
-                                    "type": "menu-osc",
+                                    "name": "Stereo Spread",
+                                    "type": "knob-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -31762,11 +31762,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Stack Style]/Parameter 694"
+                                            "value": "WithName[Stereo Spread]/Parameter 1912"
                                         },
                                         {
-                                            "key": "Menu",
-                                            "value": "Parameter 694"
+                                            "key": "Target",
+                                            "value": "Parameter 695"
                                         },
                                         {
                                             "key": "QTarget",
@@ -31830,8 +31830,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Detune Range",
-                                    "type": "knob-osc",
+                                    "name": "Stack Style",
+                                    "type": "menu-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -31842,11 +31842,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Detune Range]/Parameter 1908"
+                                            "value": "WithName[Stack Style]/Parameter 694"
                                         },
                                         {
-                                            "key": "Target",
-                                            "value": "Parameter 677"
+                                            "key": "Menu",
+                                            "value": "Parameter 694"
                                         },
                                         {
                                             "key": "QTarget",
@@ -192008,7 +192008,7 @@
                 ]
             },
             {
-                "key": "Parameter 1884",
+                "key": "Parameter 1886",
                 "value": [
                     "Off",
                     "On"
