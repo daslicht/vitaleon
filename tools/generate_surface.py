@@ -479,7 +479,7 @@ definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition
     ent('Effect state','Label',g.label_data('Value',COLORS['fx'],SLOT_FONT),(TOGGLE_W+8,28,SLOT_W-TOGGLE_W-8,52)),
 ],'00000000'))))
 pages=[]
-def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True):
+def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True,steady=False):
     # Native-sized caption assets; no text widget ever covers a button.
     key=hashlib.sha256(f'{text}:{w}:{h}:{color}'.encode()).hexdigest()[:16]
     for state in ['off','on']:
@@ -491,9 +491,24 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True):
         while d.textlength(caption,font=font)>w-12 and size>13:size-=1;font=ImageFont.truetype(str(root/'fonts/Roboto-Regular.ttf'),size)
         assert d.textlength(caption,font=font)<=w-10,(caption,w)
         bb=d.textbbox((0,0),caption,font=font);d.text(((w-d.textlength(caption,font=font))/2,(h-(bb[3]-bb[1]))/2-bb[1]),caption,font=font,fill='#edf0f7');im.save(skin/filename)
-    data={'version':2,'onImage':f'nav-{key}-on.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
+    # steady: a momentary write must not look like a switch. The handle is a bool that
+    # reads 0 at rest, so with buttonId 0 the host drew the on image permanently and
+    # flipped to the off image for the instant of the tap (user report: the row button
+    # looked switched on, then disabled). Both states now use the same neutral image.
+    data={'version':2,'onImage':f'nav-{key}-{"off" if steady else "on"}.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),focus)
 
+# The loaded row reads as the active tab: a frame bound to the row's own state
+# readout (0 empty, 0.5 other, 1 current), so nothing has to be duplicated in the
+# plugin. Three frames keep the host's frame choice unambiguous for all three values.
+def table_tab_image(w,h):
+    name=f'table-tab-env{DEF_SUFFIX}.png'
+    if not (skin/name).exists():
+        rgb=tuple(bytes.fromhex(COLORS['env'][2:]))
+        image=Image.new('RGBA',(w,h*3),(0,0,0,0));d=ImageDraw.Draw(image)
+        d.rounded_rectangle((1,2*h+1,w-2,3*h-2),radius=10,outline=rgb+(215,),width=2,fill=rgb+(26,))
+        image.save(skin/name)
+    return name
 def add_table(c):
     # 0.3.34: the wavetable list sits in the SOUND section, right of the wave frame
     # and table knobs, so the table is chosen while the frame is adjusted. The block
@@ -509,10 +524,12 @@ def add_table(c):
     top=172
     for row in range(rows):
         y=top+row*step
+        c.append(conditional(ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w+8,60),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(x-4,y-4,w+8,60)),show))
         c.append(conditional(label('Table folder',(x,y,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
         c.append(conditional(label('Table mark',(x,y+18,16,24),COLORS['osc'],20,value=f'table_row_{row}_state'),show))
         c.append(conditional(label('Table name',(x+18,y+18,text_w-18,24),TEXT,20,value=f'table_row_{row}_name'),show))
-        c.append(conditional(nav_button('LOAD',x+w-load_w,y,load_w,TABLE_ROW_H,f'Select Table Row {row+1}',0,1,'env'),show))
+        # No focus target: the first tap has to load, not take focus.
+        c.append(conditional(nav_button('LOAD',x+w-load_w,y,load_w,TABLE_ROW_H,f'Select Table Row {row+1}',0,1,'env',focus=False,steady=True),show))
     fy=top+rows*step+8
     per_row=4 if w>=380 else 2
     bw=(w-8*(per_row-1))//per_row

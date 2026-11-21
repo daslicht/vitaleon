@@ -19932,6 +19932,43 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1852"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 104 228 60",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "Table folder",
                                     "type": "Label",
                                     "data": {
@@ -20071,7 +20108,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -20090,11 +20127,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 108 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1853"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 158 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -20243,7 +20317,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -20262,11 +20336,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 162 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1854"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 212 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -20415,7 +20526,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -20434,11 +20545,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 216 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1855"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 266 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -20587,7 +20735,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -20606,11 +20754,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 270 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1856"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 320 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -20759,7 +20944,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -20778,11 +20963,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 324 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1857"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 374 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -20931,7 +21153,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -20950,7 +21172,7 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -27912,6 +28134,43 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1852"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 104 228 60",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "Table folder",
                                     "type": "Label",
                                     "data": {
@@ -28051,7 +28310,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -28070,11 +28329,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 108 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1853"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 158 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -28223,7 +28519,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -28242,11 +28538,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 162 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1854"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 212 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -28395,7 +28728,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -28414,11 +28747,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 216 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1855"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 266 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -28567,7 +28937,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -28586,11 +28956,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 270 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1856"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 320 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -28739,7 +29146,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -28758,11 +29165,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 324 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1857"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 374 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -28911,7 +29355,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -28930,7 +29374,7 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -35892,6 +36336,43 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1852"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 104 228 60",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "Table folder",
                                     "type": "Label",
                                     "data": {
@@ -36031,7 +36512,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -36050,11 +36531,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 108 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1853"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 158 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -36203,7 +36721,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -36222,11 +36740,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 162 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1854"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 212 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -36375,7 +36930,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -36394,11 +36949,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 216 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1855"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 266 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -36547,7 +37139,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -36566,11 +37158,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 270 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1856"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 320 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -36719,7 +37348,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -36738,11 +37367,48 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "880 324 96 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table tab",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "table-tab-env.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1857"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "752 374 228 60",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -36891,7 +37557,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-1b02efdff0bc52b4-on.png",
+                                        "onImage": "nav-1b02efdff0bc52b4-off.png",
                                         "offImage": "nav-1b02efdff0bc52b4-off.png",
                                         "buttonId": 0,
                                         "numButtonsInGroup": 1,
@@ -36910,7 +37576,7 @@
                                 },
                                 "bounds": {
                                     "version": 2,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
