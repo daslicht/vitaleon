@@ -91,9 +91,14 @@ SLOT_W,SLOT_H=(394,156) if FORCE else (308,156)
 # buttons are the host's own tab bar, so the second control row moves down into
 # that band and the table list grows to it. ROW2 is the top of the second row; a
 # 188 px slot component ends at 626, the bottom of the plugin surface.
-ROW2=438 if FORCE else 356
-TABLE_STEP,TABLE_ROW_H=65 if FORCE else 54,52
+ROW2=434 if FORCE else 356
+TABLE_STEP,TABLE_ROW_H=64 if FORCE else 54,52
 TABLE_BOTTOM=622 if FORCE else 628
+# The page container was 500 px tall (it ends at y 564) and clipped everything
+# below it. That is exactly the band the old group strip lived in: on the MPC the
+# strip itself draws it, on the Force nothing did, so the container grew to cover
+# it and the section grid can use the height.
+PAGE_HEIGHT=558 if FORCE else 500
 SLOT=f'0 0 {SLOT_W} {SLOT_H}'
 SCREEN_RIGHT=1256 if FORCE else 1000
 KNOB=120 if FORCE else 112
@@ -765,7 +770,7 @@ for i,view in enumerate(VIEWS):
             # Below the second control row (ends at y = 512), like every page.
             # On the Force the second row owns the bottom band, so the bank line
             # reads between the two rows; the MPC keeps it under the grid.
-            bank_y=396 if FORCE else 520
+            bank_y=360 if FORCE else 520
             children.append(label('Active bank',(24,bank_y,140,24),MUTED,18))
             for part in range(2):children.append(label('Bank',(168+part*330,bank_y,320,24),COLORS['env'],18,value=f'active_bank_{part}'))
             # The Force already carries the LIBRARY page in the HOME tab's strip,
@@ -798,7 +803,7 @@ for i,view in enumerate(VIEWS):
     # bindings alone do not make it valid (0.3.0 showed only navigation on MPC).
     # "Children": the page container itself takes no focus, but everything in
     # it may. With "No" nothing on any page could be focused or tapped (7.3).
-    entry=g.entry(title,key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',group_page_handle(view['group']) if FORCE else handle('UI Page'))],invalidating=conditions)
+    entry=g.entry(title,key,{'version':1,'handleName':'Data'},f'0 64 1280 {PAGE_HEIGHT}','Children','Hide','Always',[('Data',group_page_handle(view['group']) if FORCE else handle('UI Page'))],invalidating=conditions)
     if FORCE:page_entries.setdefault(view['group'],[]).append(entry)
     else:all_children.append(entry)
 FOOT_W=(SCREEN_RIGHT-72)//7;FOOT_STEP=FOOT_W+8
