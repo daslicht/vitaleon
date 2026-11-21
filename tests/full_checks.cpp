@@ -419,6 +419,13 @@ int main(int argc,char** argv){
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==3,"a section button names its oscillator tab and is not clamped to the stale page");
    native->set(id("ui_section_tab"),14); // OSC 1, TABLE
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==6,"the last section of an oscillator page stays selected");
+   native->set(id("ui_section_tab"),8); // OSC 1, SOUND
+   check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==0,"SOUND is selectable, not just the sections above it");
+   check(native->getInt(id("ui_section_tab"))==8,"the strip stays on SOUND after its tap");
+   // The host lights the button whose id equals the step and swallows a tap on the
+   // one it still holds, so the handle must follow sections the plugin sets itself.
+   native->set(id("ui_section"),3);waitNative();
+   check(native->getInt(id("ui_section_tab"))==11,"the strip follows a section the plugin changed");
    native->set(id("ui_page"),0);native->set(id("ui_section"),0);}
   // The preset selector is a run-time list, so the host turns it as a continuous
   // parameter: one coarse wheel click still moves it by one entry.

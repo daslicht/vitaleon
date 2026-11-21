@@ -55,9 +55,14 @@ inline void Vitaleon::updateNavigation(){
         uiPageSent_=page;uiSectionSent_=section;uiGroupSent_=v.group;
         notifyHostParameterChanged(uiGroup_);notifyHostParameterChanged(uiPage_);notifyHostParameterChanged(uiSection_);
     }
-    // Mirror the section strip: on the Force its buttons name their tab, so the
-    // lit one follows the page the plugin believes it is showing.
-    if(uiSectionTab_>=0)publish(uiSectionTab_,float(v.group*8+section));
+    // Mirror the section strip: on the Force its buttons name their tab and the host
+    // lights the one whose id equals the step. The host keeps its own copy of that
+    // handle and swallows a tap on the button it still thinks is selected, so the copy
+    // has to follow every section change, not only the taps.
+    if(uiSectionTab_>=0){
+        const int tab=v.group*8+section;publish(uiSectionTab_,float(tab));
+        if(ready_&&tab!=uiSectionTabSent_){uiSectionTabSent_=tab;notifyHostParameterChanged(uiSectionTab_);}
+    }
     // A page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1 lands
     // on PHASE again instead of jumping back to SOUND.
     if(!v.hidden&&size_t(page)<rememberedSections_.size())rememberedSections_[size_t(page)]=section;
@@ -155,6 +160,10 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
     // resolve the page first, then let updateNavigation clamp the section to it.
     if(index==uiSectionTab_){
         const int k=mpc::clamp(int(std::lround(plain)),0,55),g=k/8,section=k%8;
+        // The host echoes the value the plugin published to keep the strip lit. That
+        // echo is not a tap: resolving a page from it would pull the screen around.
+        const auto& shown=surfaceViews_[mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1)];
+        if(shown.group==g&&getInt(uiSection_)==section)return true;
         std::lock_guard<std::mutex> lock(navigationMutex_);
         int page;
         if(g==4||g==6){
