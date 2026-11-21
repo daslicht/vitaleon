@@ -7546,6 +7546,182 @@
                     }
                 },
                 {
+                    "key": "knob-osc-small-bipolar",
+                    "value": {
+                        "version": 2,
+                        "actions": [
+                            {
+                                "version": 1,
+                                "onAction": "Mouse Down",
+                                "handler": "Q-Link",
+                                "handleName": "QTarget",
+                                "additionalData": ""
+                            },
+                            {
+                                "version": 1,
+                                "onAction": "Double Click",
+                                "handler": "Show Overlay",
+                                "handleName": "Data",
+                                "additionalData": "bipolar overlay"
+                            },
+                            {
+                                "version": 1,
+                                "onAction": "Enter Pressed",
+                                "handler": "Show Overlay",
+                                "handleName": "Data",
+                                "additionalData": "bipolar overlay"
+                            }
+                        ],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "focus",
+                                    "type": "Focus",
+                                    "data": {
+                                        "version": 1,
+                                        "backgroundColour": "19ffffff",
+                                        "outlineColour": "ffbca3ff",
+                                        "backgroundInset": 4.0,
+                                        "outlineThickness": 1.0
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "WhenFocussed",
+                                    "boundsType": "Absolute",
+                                    "bounds": "35 18 120 120"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "name",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 18.0
+                                            },
+                                            "colour": "ffedf0f7",
+                                            "justification": "horizontallyCentred verticallyCentred",
+                                            "case": "Original"
+                                        },
+                                        "type": "Name",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 190 20"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "knob",
+                                    "type": "Knob",
+                                    "data": {
+                                        "version": 3,
+                                        "knobType": "FilmStrip",
+                                        "filmStrip": "large-osc-bipolar-f.png",
+                                        "numFrames": 127,
+                                        "invert": false,
+                                        "dragOrientation": "Vertical",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "35 18 120 120"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "value",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 18.0
+                                            },
+                                            "colour": "ffbca3ff",
+                                            "justification": "horizontallyCentred verticallyCentred",
+                                            "case": "Original"
+                                        },
+                                        "type": "Value",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 138 190 18"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
                     "key": "knob-osc-frame",
                     "value": {
                         "version": 2,
@@ -17263,7 +17439,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Pan",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -17303,7 +17479,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Transpose",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -17343,7 +17519,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Tune",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -24147,7 +24323,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Pan",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -24187,7 +24363,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Transpose",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -24227,7 +24403,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Tune",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -31031,7 +31207,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Pan",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -31071,7 +31247,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Transpose",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -31111,7 +31287,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Tune",
-                                    "type": "knob-osc-small",
+                                    "type": "knob-osc-small-bipolar",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"

@@ -409,7 +409,7 @@ def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None,widt
         # 0.3.34: the SOUND knobs beside the table use the compact centred cell.
         # Level is a fader elsewhere; here every SOUND control is a dial in a row.
         assert color=='osc',(name,role)
-        key='knob-osc-small'
+        key='knob-osc-small-bipolar' if role=='bipolar' else 'knob-osc-small'
     data=slot_data(title,name,slot) if slot is not None and role in ['knob','bipolar','fader'] else [('Data','WithName['+title+']/'+handle(name))]
     return g.entry(title,key,{'version':1,'handleName':'Data'},f'{x} {y} '+('184 188' if compact else f'{width or SLOT_W} {SLOT_H}'),'Yes','Hide' if visible else 'Show','Always',data+([('Menu',handle(name))] if role=='menu' else []),invalidating=visible)
 
@@ -483,13 +483,19 @@ definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition(
 # its own definition trims the readout box instead of letting it run into the
 # neighbouring cell, which the touch check reads as a label/control collision.
 # The SOUND knobs beside the table are 190 px wide (172 on the MPC), so the name and
-# the readout are centred above and below the dial instead of beside it.
-definitions.append(g.obj(('key','knob-osc-small'),('value',g.component_definition(g.control_actions('value overlay'),[
-    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'{(SMALL_W-KNOB)//2} 18 {KNOB} {KNOB}','No','Show','WhenFocussed'),
-    ent('name','Label',g.label_data('Name',TEXT,18,'horizontallyCentred verticallyCentred'),(0,0,SMALL_W,20)),
-    ent('knob','Knob',g.knob_filmstrip_data(f'large-osc-knob{DEF_SUFFIX}.png',127,'Vertical'),((SMALL_W-KNOB)//2,18,KNOB,KNOB)),
-    ent('value','Label',g.label_data('Value',COLORS['osc'],18,'horizontallyCentred verticallyCentred'),(0,18+KNOB,SMALL_W,SLOT_H-18-KNOB)),
-],'00000000'))))
+# the readout are centred above and below the dial instead of beside it. Pan, transpose
+# and tune are centred around zero (12 o'clock), so they use the bipolar dial: its arc
+# grows from the middle, which is what tells the user where zero is.
+def small_cell(role,color='osc'):
+    bipolar=role=='bipolar'
+    return g.obj(('key','knob-osc-small' if not bipolar else 'knob-osc-small-bipolar'),
+        ('value',g.component_definition(g.control_actions('bipolar overlay' if bipolar else 'value overlay'),[
+        g.entry('focus','Focus',g.focus_data(COLORS[color]),f'{(SMALL_W-KNOB)//2} 18 {KNOB} {KNOB}','No','Show','WhenFocussed'),
+        ent('name','Label',g.label_data('Name',TEXT,18,'horizontallyCentred verticallyCentred'),(0,0,SMALL_W,20)),
+        ent('knob','Knob',g.knob_filmstrip_data(f'large-{color}-{"bipolar" if bipolar else "knob"}{DEF_SUFFIX}.png',127,'Vertical'),((SMALL_W-KNOB)//2,18,KNOB,KNOB)),
+        ent('value','Label',g.label_data('Value',COLORS[color],18,'horizontallyCentred verticallyCentred'),(0,18+KNOB,SMALL_W,SLOT_H-18-KNOB)),
+    ],'00000000')))
+for role in ['knob','bipolar']:definitions.append(small_cell(role))
 definitions.append(g.obj(('key','knob-osc-frame'),('value',g.component_definition(g.control_actions('value overlay'),[
     g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'8 {30 if FORCE else 28} {KNOB} {KNOB}','No','Show','WhenFocussed'),
     ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,WAVE_SLOT_W,30 if FORCE else 26)),
