@@ -365,6 +365,9 @@ def pretty(k):
     words=k.replace('_',' ').replace('spectral morph','spectral').replace('distortion','warp').replace('unison voices','unison').replace('keytrack transpose','key transpose').replace('keytrack tune','key tune')
     return words.title()
 from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
+# A section button names its tab as group*8+section, so eight sections per page
+# is the space one tab owns.
+assert all(len(v['sections'])<=8 for v in VIEWS if not v.get('hidden')),max(len(v['sections']) for v in VIEWS)
 write_header()
 definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],[
     ent('Effect name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,24 if FORCE else 26)),
@@ -579,7 +582,12 @@ for i,view in enumerate(VIEWS):
             children.append(nav_button(('FILTER 1 OFF','FILTER 1 ON'),700,76,296,52,'Home Filter',color='fx'))
             for part in range(4):children.append(label('Import status',(24+part*244,134,236,26),COLORS['mod'],18,value=f'display_load_text_{part}'))
         for section,(title_text,button_x,button_w) in enumerate(section_buttons):
-            children.append(nav_button(title_text,button_x,76,button_w,52,'UI Section',section,32,color))
+            # The Force's native tab bar writes no page, so the section button itself
+            # names its tab (group*8+section) and the plugin resolves the page from
+            # the tap. The MPC writes UI Page with every footer tap and keeps 32 steps.
+            children.append(nav_button(title_text,button_x,76,button_w,52,
+                'Group Section' if FORCE else 'UI Section',
+                view['group']*8+section if FORCE else section,56 if FORCE else 32,color))
         # Large graphs (user request): oscillator 560x315 (16:9), envelope and
         # LFO/curve 240 px high with a single row of three controls below.
         # 0.3.7 compromise after "too small" (0.3.5) and "way too big" (0.3.6).

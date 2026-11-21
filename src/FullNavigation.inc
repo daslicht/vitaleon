@@ -37,11 +37,19 @@ inline void Vitaleon::createNavigation(){
     // LFO and OTHER share the MOD tab, so its strip needs one parameter: a
     // single value lights exactly one button and defaults to LFO 1.
     {auto m=mpc::intParam("ui_mod_page","MOD Page",0,12,0);m.automatable=false;uiModPage_=addParam(m);}
+    // Appended (0.3.37): the Force's section buttons name the tab they belong to,
+    // group*8+section. Its tab bar is native and writes no page, so the first
+    // subtab tapped is the first thing that says which page is on screen; without
+    // it the section was clamped to the sections of a stale page.
+    {auto s=mpc::intParam("ui_section_tab","Group Section",0,55,0);s.automatable=false;uiSectionTab_=addParam(s);}
     updateNavigation();
 }
 inline void Vitaleon::updateNavigation(){
     int page=mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1);const auto& v=surfaceViews_[page];publish(uiGroup_,float(v.group));if(!v.hidden)rememberedPages_[v.group]=page;
     int section=mpc::clamp(getInt(uiSection_),0,int(v.sections.size())-1);publish(uiSection_,float(section));
+    // Mirror the section strip: on the Force its buttons name their tab, so the
+    // lit one follows the page the plugin believes it is showing.
+    if(uiSectionTab_>=0)publish(uiSectionTab_,float(v.group*8+section));
     // A page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1 lands
     // on PHASE again instead of jumping back to SOUND.
     if(!v.hidden&&size_t(page)<rememberedSections_.size())rememberedSections_[size_t(page)]=section;
@@ -136,6 +144,21 @@ inline bool Vitaleon::navigationChanged(int index,float plain){
     if(index==uiPick_){const int route=int(std::lround(plain));
         if(route>0&&matrixView_>=0&&getInt(uiPage_)==matrixView_){publish(uiPick_,0);set(routeSelect_,float(route));navigateTo(pickGroupView_,0);}
         return true;}
+    // A Force section button names its tab (group*8+section). The native tab bar
+    // writes no page, so this tap is what tells the plugin which page it is on:
+    // resolve the page first, then let updateNavigation clamp the section to it.
+    if(index==uiSectionTab_){
+        const int k=mpc::clamp(int(std::lround(plain)),0,55),g=k/8,section=k%8;
+        std::lock_guard<std::mutex> lock(navigationMutex_);
+        int page;
+        if(g==4||g==6){
+            // LFO and OTHER share the MOD tab, whose strip is one parameter.
+            const int mod=mpc::clamp(getInt(uiModPage_),0,12);
+            page=mod<8?groupMemberPage(4,mod):(mod<12?groupMemberPage(6,mod-8):groupMemberPage(6,0));
+            if(surfaceViews_[page].group!=g)page=groupMemberPage(g,0);
+        }else page=groupMemberPage(g,getInt(groupPage_[g]));
+        publish(uiGroup_,float(g));publish(uiPage_,float(page));publish(uiSection_,float(section));
+        updateNavigation();return true;}
     if(index!=uiGroup_&&index!=uiPage_&&index!=uiSection_)return false;
     std::lock_guard<std::mutex> lock(navigationMutex_);
     if(index==uiGroup_){const int page=mpc::clamp(rememberedPages_[mpc::clamp(int(std::lround(plain)),0,6)],0,int(surfaceViews_.size())-1);publish(uiPage_,float(page));publish(uiSection_,float(rememberedSections_[size_t(page)]));}

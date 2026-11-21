@@ -411,6 +411,15 @@ int main(int argc,char** argv){
    effect->setParameter(effect,g1,0.0f);native->set(id("ui_section"),1);waitNative();
    native->setNormalised(id("ui_g1_slot_0"),.7f);
    check(std::abs(native->getNormalised(native->controlIndex("osc_1_phase"))-.7f)<1e-5,"the same phase knob follows the selected oscillator");}
+  // The Force tab bar writes no page, so the plugin can still believe HOME (three
+  // sections) while OSC 1 is on screen. A section button names its tab, and that
+  // tap must move the plugin onto the page before the section is clamped to it.
+  {native->set(id("ui_gpage_1"),0);native->set(id("ui_page"),0);native->set(id("ui_section"),0);
+   native->set(id("ui_section_tab"),11); // OSC 1, SPREAD
+   check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==3,"a section button names its oscillator tab and is not clamped to the stale page");
+   native->set(id("ui_section_tab"),14); // OSC 1, TABLE
+   check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==6,"the last section of an oscillator page stays selected");
+   native->set(id("ui_page"),0);native->set(id("ui_section"),0);}
   // The preset selector is a run-time list, so the host turns it as a continuous
   // parameter: one coarse wheel click still moves it by one entry.
   {
