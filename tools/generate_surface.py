@@ -110,7 +110,7 @@ KNOB_SMALL=64 if FORCE else 56  # the table cursor's rotary, one header line hig
 TABLE_KNOB_W=148 if FORCE else 104
 WAVE_SLOT_W=SLOT_W-TABLE_KNOB_W-8
 # 0.3.34: SOUND carries four knobs beside the table, so they use a compact cell.
-SMALL_W=190 if FORCE else 172
+SMALL_W=129 if FORCE else 115
 TOGGLE_W,TOGGLE_H=(168,88) if FORCE else (136,72)
 # 0.3.34: the oscillator's on/off switch in the header band is a smaller pill.
 SWITCH_W,SWITCH_H=120,52
@@ -696,7 +696,7 @@ def cell_position(chart,section,slot):
         # x = 408), so the sound section reads wave, frame, level from left to right.
         # Its slot number stays 0: only the place on screen moves, not the Q-Link.
         if slot==0:return 424,166
-        return 24+(slot-1)*(SMALL_W+12),ROW2 if FORCE else 372
+        return 24+(slot-1)*(SMALL_W+8),ROW2 if FORCE else 372
     row,col=divmod(slot,3);return col_x(col),166+(ROW2-166)*row
 from surface_spec import DESTINATIONS
 all_children=[]

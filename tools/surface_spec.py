@@ -50,8 +50,8 @@ for o in range(1,4):
     # the other sections (0.3.25: three wide columns, two rows).
     # 0.3.34 (user request): pan, transpose and tune sit on SOUND; SPREAD keeps the
     # remaining three. The oscillator on/off switch is drawn in the page header.
-    p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','pan','transpose','tune','on']),
-        ('PHASE',['phase','random_phase','transpose_quantize','midi_track','smooth_interpolation','destination']),
+    p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','pan','transpose','tune','phase','random_phase','on']),
+        ('PHASE',['transpose_quantize','midi_track','smooth_interpolation','destination']),
         ('UNISON',['unison_voices','unison_detune','unison_blend','stereo_spread','stack_style','detune_power']),
         ('SPREAD',['detune_range','frame_spread','spectral_unison']),
         ('WARP',['distortion_type','distortion_amount','distortion_spread','distortion_phase']),

@@ -7436,7 +7436,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "30 18 112 112"
+                                    "bounds": "1 18 112 112"
                                 }
                             },
                             {
@@ -7473,7 +7473,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 172 20"
+                                    "bounds": "0 0 115 20"
                                 }
                             },
                             {
@@ -7502,7 +7502,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "30 18 112 112"
+                                    "bounds": "1 18 112 112"
                                 }
                             },
                             {
@@ -7539,7 +7539,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 130 172 26"
+                                    "bounds": "0 130 115 26"
                                 }
                             }
                         ]
@@ -7612,7 +7612,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "30 18 112 112"
+                                    "bounds": "1 18 112 112"
                                 }
                             },
                             {
@@ -7649,7 +7649,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 172 20"
+                                    "bounds": "0 0 115 20"
                                 }
                             },
                             {
@@ -7678,7 +7678,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "30 18 112 112"
+                                    "bounds": "1 18 112 112"
                                 }
                             },
                             {
@@ -7715,7 +7715,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 130 172 26"
+                                    "bounds": "0 130 115 26"
                                 }
                             }
                         ]
@@ -18334,7 +18334,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -18347,7 +18347,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "20 304 180 164",
+                                    "bounds": "20 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -18363,7 +18363,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -18376,7 +18376,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "204 304 180 164",
+                                    "bounds": "143 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -18392,7 +18392,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -18405,7 +18405,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "388 304 180 164",
+                                    "bounds": "266 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -18421,7 +18421,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-184x168-osc.png"
+                                        "image": "qframe-373x168-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -18434,7 +18434,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "570 302 184 168",
+                                    "bounds": "387 302 373 168",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/1/4/Parameter 1896"
@@ -18515,7 +18515,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 308 172 156",
+                                    "bounds": "24 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -18555,7 +18555,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "208 308 172 156",
+                                    "bounds": "147 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -18595,7 +18595,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "392 308 172 156",
+                                    "bounds": "270 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -18635,7 +18635,87 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "576 308 172 156",
+                                    "bounds": "393 308 115 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Phase",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Phase]/Parameter 1884"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 629"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1884"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "516 308 115 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Random Phase",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Random Phase]/Parameter 1885"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 630"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1885"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "639 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -18793,65 +18873,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "352 288 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878",
-                                        "IndexedEnabling/1/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "684 288 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878",
-                                        "IndexedEnabling/1/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Phase",
+                                    "name": "Pitch Quantize",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -18863,11 +18885,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Phase]/Parameter 1879"
+                                            "value": "WithName[Pitch Quantize]/Parameter 1879"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 629"
+                                            "value": "Parameter 639"
                                         },
                                         {
                                             "key": "QTarget",
@@ -18882,86 +18904,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "24 102 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Random Phase",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Random Phase]/Parameter 1880"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 630"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1880"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "356 102 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Pitch Quantize",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Pitch Quantize]/Parameter 1881"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 639"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1881"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "688 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -18987,7 +18929,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1882"
+                                            "value": "Parameter 1880"
                                         }
                                     ]
                                 },
@@ -18997,7 +18939,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 292 308 156",
+                                    "bounds": "356 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -19023,7 +18965,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1883"
+                                            "value": "Parameter 1881"
                                         }
                                     ]
                                 },
@@ -19033,7 +18975,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "356 292 308 156",
+                                    "bounds": "688 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -19063,7 +19005,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1884"
+                                            "value": "Parameter 1882"
                                         }
                                     ]
                                 },
@@ -19073,7 +19015,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "688 292 308 156",
+                                    "bounds": "24 292 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -26001,7 +25943,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -26014,7 +25956,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "20 304 180 164",
+                                    "bounds": "20 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -26030,7 +25972,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -26043,7 +25985,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "204 304 180 164",
+                                    "bounds": "143 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -26059,7 +26001,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -26072,7 +26014,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "388 304 180 164",
+                                    "bounds": "266 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -26088,7 +26030,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-184x168-osc.png"
+                                        "image": "qframe-373x168-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -26101,7 +26043,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "570 302 184 168",
+                                    "bounds": "387 302 373 168",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/1/4/Parameter 1896"
@@ -26182,7 +26124,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 308 172 156",
+                                    "bounds": "24 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -26222,7 +26164,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "208 308 172 156",
+                                    "bounds": "147 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -26262,7 +26204,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "392 308 172 156",
+                                    "bounds": "270 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -26302,7 +26244,87 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "576 308 172 156",
+                                    "bounds": "393 308 115 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Phase",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Phase]/Parameter 1884"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 658"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1884"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "516 308 115 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Random Phase",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Random Phase]/Parameter 1885"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 659"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1885"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "639 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -26460,65 +26482,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "352 288 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878",
-                                        "IndexedEnabling/1/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "684 288 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878",
-                                        "IndexedEnabling/1/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Phase",
+                                    "name": "Pitch Quantize",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -26530,11 +26494,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Phase]/Parameter 1879"
+                                            "value": "WithName[Pitch Quantize]/Parameter 1879"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 658"
+                                            "value": "Parameter 668"
                                         },
                                         {
                                             "key": "QTarget",
@@ -26549,86 +26513,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "24 102 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Random Phase",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Random Phase]/Parameter 1880"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 659"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1880"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "356 102 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Pitch Quantize",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Pitch Quantize]/Parameter 1881"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 668"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1881"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "688 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -26654,7 +26538,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1882"
+                                            "value": "Parameter 1880"
                                         }
                                     ]
                                 },
@@ -26664,7 +26548,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 292 308 156",
+                                    "bounds": "356 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -26690,7 +26574,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1883"
+                                            "value": "Parameter 1881"
                                         }
                                     ]
                                 },
@@ -26700,7 +26584,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "356 292 308 156",
+                                    "bounds": "688 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -26730,7 +26614,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1884"
+                                            "value": "Parameter 1882"
                                         }
                                     ]
                                 },
@@ -26740,7 +26624,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "688 292 308 156",
+                                    "bounds": "24 292 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -33668,7 +33552,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -33681,7 +33565,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "20 304 180 164",
+                                    "bounds": "20 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -33697,7 +33581,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -33710,7 +33594,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "204 304 180 164",
+                                    "bounds": "143 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -33726,7 +33610,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-180x164-osc.png"
+                                        "image": "qframe-123x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -33739,7 +33623,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "388 304 180 164",
+                                    "bounds": "266 304 123 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -33755,7 +33639,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-184x168-osc.png"
+                                        "image": "qframe-373x168-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -33768,7 +33652,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "570 302 184 168",
+                                    "bounds": "387 302 373 168",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/1/4/Parameter 1896"
@@ -33849,7 +33733,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 308 172 156",
+                                    "bounds": "24 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -33889,7 +33773,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "208 308 172 156",
+                                    "bounds": "147 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -33929,7 +33813,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "392 308 172 156",
+                                    "bounds": "270 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -33969,7 +33853,87 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "576 308 172 156",
+                                    "bounds": "393 308 115 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Phase",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Phase]/Parameter 1884"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 687"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1884"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "516 308 115 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Random Phase",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Random Phase]/Parameter 1885"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 688"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1885"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "639 308 115 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -34127,65 +34091,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "352 288 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878",
-                                        "IndexedEnabling/1/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "684 288 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878",
-                                        "IndexedEnabling/1/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Phase",
+                                    "name": "Pitch Quantize",
                                     "type": "knob-osc",
                                     "data": {
                                         "version": 1,
@@ -34197,11 +34103,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Phase]/Parameter 1879"
+                                            "value": "WithName[Pitch Quantize]/Parameter 1879"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 687"
+                                            "value": "Parameter 697"
                                         },
                                         {
                                             "key": "QTarget",
@@ -34216,86 +34122,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "24 102 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Random Phase",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Random Phase]/Parameter 1880"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 688"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1880"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "356 102 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/1/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Pitch Quantize",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Pitch Quantize]/Parameter 1881"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 697"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1881"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "688 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -34321,7 +34147,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1882"
+                                            "value": "Parameter 1880"
                                         }
                                     ]
                                 },
@@ -34331,7 +34157,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 292 308 156",
+                                    "bounds": "356 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -34357,7 +34183,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1883"
+                                            "value": "Parameter 1881"
                                         }
                                     ]
                                 },
@@ -34367,7 +34193,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "356 292 308 156",
+                                    "bounds": "688 102 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
@@ -34397,7 +34223,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1884"
+                                            "value": "Parameter 1882"
                                         }
                                     ]
                                 },
@@ -34407,7 +34233,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "688 292 308 156",
+                                    "bounds": "24 292 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/1/32/Parameter 1878"
                                     ]
