@@ -686,7 +686,14 @@ for i,view in enumerate(VIEWS):
             # slots directly; a four-slot bank outline would only mislead there.
             if not FORCE:children.extend(qlink_frames(cells,section,color))
             children.extend(cells)
-        if isinstance(chart,int):add_table(children)
+        if isinstance(chart,int):
+            add_table(children)
+            if FORCE:
+                # TEMPORARY (user request): which step the strip holds, which page and
+                # section the plugin picked, and what the host last gave UI Section.
+                # Below the table row, so no section's controls sit underneath.
+                for x,w,name,value in [(24,300,'Debug strip','debug_strip'),(340,240,'Debug page','debug_page'),(596,240,'Debug section','debug_section'),(852,300,'Debug ui section','debug_uisec')]:
+                    children.append(label(name,(x,594,w,24),COLORS['mod'],18,value=value))
         if chart=='home':
             # Below the second control row (ends at y = 512), like every page.
             children.append(label('Active bank',(24,520,140,24),MUTED,18))

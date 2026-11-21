@@ -11818,5 +11818,29 @@
   "index": 1969,
   "name": "Table Step",
   "value": 0.0
+ },
+ {
+  "display": "STRIP 0",
+  "index": 1970,
+  "name": "debug_strip",
+  "value": 0.0
+ },
+ {
+  "display": "PAGE 0",
+  "index": 1971,
+  "name": "debug_page",
+  "value": 0.0
+ },
+ {
+  "display": "SEC 0",
+  "index": 1972,
+  "name": "debug_section",
+  "value": 0.0
+ },
+ {
+  "display": "UISEC 0",
+  "index": 1973,
+  "name": "debug_uisec",
+  "value": 0.0
  }
 ]

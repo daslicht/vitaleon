@@ -79,7 +79,7 @@ inline void Vitaleon::createControls(){
     initValues_[size_t(controlIndex("volume"))]=3136;
     if(assets_[0].size()<=1)addProgram("Init",initValues_);
     createFilePrograms();
-    createStorage();createTables();createNavigation();createTableStep();
+    createStorage();createTables();createNavigation();createTableStep();createDebug();
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){
@@ -215,6 +215,7 @@ inline bool Vitaleon::formatValue(int index,float plain,std::string& out){
         out=param(target).display(value);if(!param(target).unit.empty())out+=" "+param(target).unit;return true;
     }
     if(formatLibrary(index,out))return true;
+    if(formatDebug(index,out))return true;
     if(formatTable(index,out))return true;
     for(const auto& b:banks_)for(size_t i=0;i<b.proxies.size();++i)if(index==b.proxies[i])return formatValue(b.targets[mpc::clamp(getInt(b.selector)-1,0,int(b.targets.size())-1)][i],plain,out);
     if(index==advancedValue_){int target=advancedTargets_[getInt(advancedSelector_)];out=displayText(target);return true;}

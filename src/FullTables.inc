@@ -44,6 +44,21 @@ inline void Vitaleon::createTables(){
     tableNameReadout_=numParams();for(int i=0;i<3;++i)addReadout("display_table_name_"+std::to_string(i+1));
     tableCursor_=0;
 }
+// TEMPORARY (user request, to be removed): four readouts the OSC page shows so a
+// wrong page can be read off the device — which step the section strip holds, which
+// page/section the plugin picked, and what the host last handed UI Section.
+inline void Vitaleon::createDebug(){
+    auto readout=[&](const char* id){auto p=mpc::intParam(id,id,0,4095,0);p.automatable=false;return addParam(p);};
+    debugStrip_=readout("debug_strip");debugPage_=readout("debug_page");
+    debugSection_=readout("debug_section");debugUiSec_=readout("debug_uisec");
+}
+inline bool Vitaleon::formatDebug(int index,std::string& out){
+    if(index==debugStrip_){out="STRIP "+std::to_string(getInt(debugStrip_));return true;}
+    if(index==debugPage_){out="PAGE "+std::to_string(getInt(debugPage_));return true;}
+    if(index==debugSection_){out="SEC "+std::to_string(getInt(debugSection_));return true;}
+    if(index==debugUiSec_){out="UISEC "+std::to_string(getInt(debugUiSec_));return true;}
+    return false;
+}
 inline void Vitaleon::publishTables(){
     if(tableRowStates_<0)return;
     const int count=tableCount();

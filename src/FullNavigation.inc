@@ -80,6 +80,14 @@ inline void Vitaleon::updateNavigation(){
             publishTables();
         }
     }
+    // TEMPORARY diagnostic for the device: the OSC page shows these four.
+    if(debugStrip_>=0){
+        publish(debugStrip_,float(mpc::clamp(getInt(uiSectionTab_),0,4095)));
+        publish(debugPage_,float(page));publish(debugSection_,float(section));
+        publish(debugUiSec_,float(mpc::clamp(getInt(uiSection_),0,31)));
+        notifyHostParameterChanged(debugStrip_);notifyHostParameterChanged(debugPage_);
+        notifyHostParameterChanged(debugSection_);notifyHostParameterChanged(debugUiSec_);
+    }
     refreshProxies();browserDisplayDirty_.store(true);
 }
 inline int Vitaleon::groupMemberPage(int group,int member){
