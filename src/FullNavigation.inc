@@ -55,6 +55,8 @@ inline void Vitaleon::createGroupSections(){
         p.automatable=false;groupSection_[g]=addParam(p);
     }
 }
+// LFO and OTHER share the MOD tab, so one Q-Link bank serves both groups.
+static constexpr int kTabBank[7]={0,1,2,3,4,5,4};
 inline void Vitaleon::updateNavigation(){
     int page=mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1);const auto& v=surfaceViews_[page];publish(uiGroup_,float(v.group));if(!v.hidden)rememberedPages_[v.group]=page;
     int section=mpc::clamp(getInt(uiSection_),0,int(v.sections.size())-1);publish(uiSection_,float(section));
@@ -91,7 +93,18 @@ inline void Vitaleon::updateNavigation(){
             publishTables();
         }
     }
-    refreshProxies();browserDisplayDirty_.store(true);
+    refreshProxies();
+    // 0.3.34 (user report): the host paints the page or section it just switched to
+    // before this callback publishes the new controls' slot values, so a fader bound
+    // to its Q-Link slot kept the 0 the slot was created with (OSC 1 level showed 0
+    // until OSC 2 and back). A display update request does not move a control whose
+    // value the host keeps itself, so announce the slots that are now on screen.
+    // One pass per page/section change, never while a Q-Link turns.
+    if(ready_){const int bank=kTabBank[mpc::clamp(v.group,0,6)];
+        for(int i=0;i<9;++i){const int target=uiTargets_[i].load();if(target<0)break;
+            notifyHostParameterChanged(uiKnobs_+i);
+            if(groupSlot_[bank]>=0)notifyHostParameterChanged(groupSlot_[bank]+i);}}
+    browserDisplayDirty_.store(true);
 }
 inline int Vitaleon::groupMemberPage(int group,int member){
     // Group pages count members inside the group, as the tab bar does.
@@ -145,8 +158,6 @@ inline bool Vitaleon::applySlot(int slot,float plain){
     slotEditMs_.store(nowMs(),std::memory_order_relaxed);
     return true;
 }
-// LFO and OTHER share the MOD tab, so one Q-Link bank serves both groups.
-static constexpr int kTabBank[7]={0,1,2,3,4,5,4};
 inline bool Vitaleon::navigationChanged(int index,float plain){
     if(uiGroup_<0)return false;
     if(index==uiModPage_){

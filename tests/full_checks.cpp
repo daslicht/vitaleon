@@ -447,6 +447,18 @@ int main(int argc,char** argv){
    native->set(id("ui_section"),3);waitNative();
    check(native->getInt(id("ui_gsec_1"))==3,"the strip follows a section the plugin changed");
    native->set(id("ui_page"),0);native->set(id("ui_section"),0);}
+  // 0.3.34 (user report): the host paints the page it just opened before the plugin
+  // publishes its slot values, so a Q-Link-bound fader kept the 0 its slot was created
+  // with (OSC 1 Level showed 0 until OSC 2 and back). The plugin now announces the
+  // slots it just published, which is what moves the host's own widget.
+  {native->set(id("ui_page"),0);waitNative();
+   native->set(id("ui_page"),4);waitNative();
+   unsigned announced=readoutUpdates.load();
+   native->set(id("ui_section"),0);waitNative();
+   const int level=native->controlIndex("osc_1_level");
+   check(std::abs(native->getNormalised(id("ui_g1_slot_1"))-native->getNormalised(level))<1e-6,
+         "a section change puts its controls into the Q-Link slots");
+   check(readoutUpdates.load()>=announced+2,"the slots a page or section shows are announced to the host");}
   // The preset selector is a run-time list, so the host turns it as a continuous
   // parameter: one coarse wheel click still moves it by one entry.
   {
