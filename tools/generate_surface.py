@@ -423,35 +423,38 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True):
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),focus)
 
 def add_table(c):
-    # 0.3.36: the wavetable list is the seventh section of every oscillator page
-    # (user request), not a page of its own. The oscillator is the page, so the
-    # OSC 1/2/3 buttons are gone and LOAD writes that oscillator's table. Every
-    # name is a readout (the Content folder is indexed at run time), so no label
-    # list is generated. The cursor fader is the data wheel's target: a click
-    # moves exactly one table and the plugin loads it once the wheel rests.
-    show=sec_show(6)
+    # 0.3.34: the wavetable list sits in the SOUND section, directly right of the
+    # wave frame knob, so the table is chosen while its frame is adjusted. The
+    # block is as wide as the space beside the knob: 390 px on the Force, 220 px
+    # on the 1000 px MPC skin, which is why the mark column and the cursor knob
+    # are gone (the row itself is the LOAD button) and the four footer commands
+    # wrap into two rows when the block is narrow.
+    show=sec_show(0)
     rows,step=TABLE_ROWS,54
-    c.append(conditional(label('Table position',(24,136,340,28),TEXT,22,value='table_position'),show))
-    # The knob binds to the discrete step handle, not to the 0..1 cursor: the host
-    # steps a replacementStrings parameter one entry per wheel click, while a plain
-    # parameter moves 1/100 of its range and cannot tell the plugin which entry was meant.
-    c.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},(SCREEN_RIGHT-24-KNOB_SMALL,130,KNOB_SMALL,KNOB_SMALL),True,remap=[('Data','WithName[Table Step]/'+handle('Table Step'))]),show))
-    top=190
+    x=424+SLOT_W+24;w=SCREEN_RIGHT-24-x
+    load_w=132 if FORCE else 96
+    text_w=w-load_w-8
+    c.append(conditional(label('Table position',(x,136,w,28),TEXT,20,value='table_position'),show))
+    top=172
     for row in range(rows):
         y=top+row*step
-        c.append(conditional(label('Table mark',(24,y,26,step-4),COLORS['osc'],22,value=f'table_row_{row}_state'),show))
-        c.append(conditional(label('Table folder',(56,y,240,20),MUTED,16,value=f'table_row_{row}_folder'),show))
-        c.append(conditional(label('Table name',(56,y+18,SCREEN_RIGHT-24-132-56-16,24),TEXT,22,value=f'table_row_{row}_name'),show))
-        c.append(conditional(nav_button('LOAD',SCREEN_RIGHT-24-132,y,132,52,f'Select Table Row {row+1}',0,1,'env'),show))
+        c.append(conditional(label('Table folder',(x,y,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
+        c.append(conditional(label('Table mark',(x,y+18,16,24),COLORS['osc'],20,value=f'table_row_{row}_state'),show))
+        c.append(conditional(label('Table name',(x+18,y+18,text_w-18,24),TEXT,20,value=f'table_row_{row}_name'),show))
+        c.append(conditional(nav_button('LOAD',x+w-load_w,y,load_w,52,f'Select Table Row {row+1}',0,1,'env'),show))
     fy=top+rows*step+8
+    per_row=4 if w>=380 else 2
+    bw=(w-8*(per_row-1))//per_row
+    footer_rows=(4+per_row-1)//per_row
     # The tab content area is 628 px high (SDK ui-reference 1.4); a row added
     # here without room would be drawn off the screen instead of failing.
-    assert fy+52<=628,(TABLE_ROWS,'table rows do not fit the content area')
-    c.append(conditional(nav_button('PREV',24,fy,120,52,'Table Previous Page',0),show))
-    c.append(conditional(nav_button('NEXT',152,fy,120,52,'Table Next Page',0),show))
-    c.append(conditional(nav_button('RELOAD',280,fy,150,52,'Table Reload',0),show))
-    c.append(conditional(nav_button('BUILT-IN',438,fy,160,52,'Table Built-in',0),show))
-    for part in range(2):c.append(conditional(label('Table status',(610+part*200,fy+6,190,40),COLORS['mod'],17,value=f'table_status_{part}'),show))
+    assert fy+(footer_rows-1)*60+52<=628,(TABLE_ROWS,per_row,'table rows do not fit the content area')
+    for n,(caption,param) in enumerate([('PREV','Table Previous Page'),('NEXT','Table Next Page'),('RELOAD','Table Reload'),('BUILT-IN','Table Built-in')]):
+        r,col=divmod(n,per_row)
+        c.append(conditional(nav_button(caption,x+col*(bw+8),fy+r*60,bw,52,param,0),show))
+    status_y=fy+footer_rows*60+2
+    if status_y+44<=628:
+        for part in range(2):c.append(conditional(label('Table status',(x,status_y+part*22,text_w,22),COLORS['mod'],15,value=f'table_status_{part}'),show))
 
 def add_library(c):
     # 0.3.19 layout: place line, three commands, six rows of KIND | NAME | button.

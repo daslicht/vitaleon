@@ -84,7 +84,7 @@ inline void Vitaleon::updateNavigation(){
     // cursor on the table that oscillator already uses.
     if(v.group==1&&v.member>=1&&tableViewTarget_>=0){
         const int o=mpc::clamp(v.member-1,0,2);publish(tableViewTarget_,float(o));
-        if(section==6&&tableRowStates_>=0){
+        if(section==0&&tableRowStates_>=0){
             const int count=std::max(1,tableCount());
             const int selected=mpc::clamp(getInt(tableSelect_[o]),0,count-1);
             showTableCursor(selected);

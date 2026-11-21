@@ -55,11 +55,12 @@ for o in range(1,4):
         ('WARP',['distortion_type','distortion_amount','distortion_spread','distortion_phase']),
         ('SPECTRAL',['spectral_morph_type','spectral_morph_amount','spectral_morph_spread'])]
     parts=[(name,[k if k.startswith('Osc ') else p+k for k in items]) for name,items in parts]
-    # Table list (0.3.36): the wavetable of this oscillator is the page's seventh
-    # section, not a page of its own. Its shared cursor and page state is listed
-    # once, on the first oscillator, so every control still appears exactly once.
-    parts.append(('TABLE',[f'Osc {o} Table']+(['Table Cursor','Table Oscillator','Table Page'] if o==1 else [])))
-    assert set(keys(p))-{p+'view_2d'}=={k for _,items in parts for k in items}-{f'Osc {o} Table','Table Cursor','Table Oscillator','Table Page'}
+    # 0.3.34: the table list moved from its own section into SOUND, right of the
+    # wave frame knob (drawn by generate_surface.add_table). The four handles that
+    # section used as items (Open Osc N Table, Table Cursor/Oscillator/Page) are
+    # UI state only now: SOUND is the oscillator's page, so nothing has to open a
+    # separate table page and no Q-Link slot is wasted on an invisible control.
+    assert set(keys(p))-{p+'view_2d'}-{f'Osc {o} Table','Table Cursor','Table Oscillator','Table Page'}=={k for _,items in parts for k in items}
     add(1,f'Oscillator {o}',f'OSC {o}',parts,chart=o-1,member=o)
 add(1,'Sample','SAMPLE',[('PLAY',['Sample File','sample_on','sample_level','sample_pan','sample_transpose','sample_tune']),('PLAY 2',['sample_loop','sample_bounce']),('ROUTING',['sample_keytrack','sample_random_phase','sample_destination','sample_transpose_quantize'])])
 for f in range(1,3):

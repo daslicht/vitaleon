@@ -437,8 +437,8 @@ int main(int argc,char** argv){
   {native->set(id("ui_gpage_1"),0);native->set(id("ui_page"),0);native->set(id("ui_section"),0);
    native->set(id("ui_gsec_1"),3); // OSC 1, SPREAD
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==3,"a section button on the group's own handle opens that oscillator tab, not the stale page");
-   native->set(id("ui_gsec_1"),6); // OSC 1, TABLE
-   check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==6,"the last section of an oscillator page stays selected");
+   native->set(id("ui_gsec_1"),5); // OSC 1, SPECTRAL (the table list is in SOUND now)
+   check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==5,"the last section of an oscillator page stays selected");
    native->set(id("ui_gsec_1"),0); // OSC 1, SOUND
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==0,"SOUND is selectable, not just the sections above it");
    check(native->getInt(id("ui_gsec_1"))==0,"the strip stays on SOUND after its tap");
@@ -495,7 +495,7 @@ int main(int argc,char** argv){
     for(int i=0;i<10;++i)writeTable(folder/("Test Table "+std::to_string(i+1)+".wav"));
     native->set(id("table_command_2"),1);waitNative();
     native->set(open,1);waitNative();
-    check(native->getInt(open)==0&&native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==6,"the table button opens the oscillator's table section and sets itself back");
+    check(native->getInt(open)==0&&native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==0,"the table button opens the oscillator's SOUND section, where the list now is, and sets itself back");
     check(native->testTableCount()==11&&native->displayText(id("table_row_0_name"))=="Built-in / current","the table list starts with the built-in entry");
     const std::string firstName=native->displayText(id("table_row_1_name"));
     check(firstName=="Test Table 1"&&native->displayText(id("table_row_1_folder"))=="Test","the table rows carry the installed names and their folder");

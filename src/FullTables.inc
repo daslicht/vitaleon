@@ -116,7 +116,7 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         publish(tableViewTarget_,float(o));
         showTableCursor(selected);
         // 0.3.36: the list is the oscillator page's seventh section, not a page.
-        navigateTo(groupMemberPage(1,o),6);
+        navigateTo(groupMemberPage(1,o),0);
         publishTables();browserDisplayDirty_.store(true);return true;
     }
     // The discrete knob: its value is the entry, so no fraction has to be decoded.
