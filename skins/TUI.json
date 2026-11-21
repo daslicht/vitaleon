@@ -7202,7 +7202,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 56 56 56"
+                                    "bounds": "16 48 72 72"
                                 }
                             },
                             {
@@ -7246,14 +7246,48 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "knob",
+                                    "name": "dial",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 1,
+                                        "colour": "0",
+                                        "image": "table-dial-osc.png"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "16 48 72 72"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "value",
                                     "type": "Knob",
                                     "data": {
-                                        "version": 3,
-                                        "knobType": "FilmStrip",
-                                        "filmStrip": "compact-osc-knob.png",
-                                        "numFrames": 127,
-                                        "invert": false,
+                                        "version": 4,
+                                        "knobType": "ValueSlider",
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 20.0
+                                            },
+                                            "colour": "ffedf0f7",
+                                            "justification": "horizontallyCentred verticallyCentred",
+                                            "case": "Original"
+                                        },
                                         "dragOrientation": "Vertical",
                                         "handleName": "Data"
                                     }
@@ -7268,7 +7302,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 56 56 56"
+                                    "bounds": "16 48 72 72"
                                 }
                             }
                         ]

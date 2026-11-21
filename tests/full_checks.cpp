@@ -524,6 +524,7 @@ int main(int argc,char** argv){
     click();
     check(native->testTableCursor()==1,"one data wheel click moves the table cursor by one entry");
     check(loaded(1),"the cursor entry loads once the wheel rests");
+    check(native->displayText(step)==std::to_string(native->testTableCursor()+1)+"/"+std::to_string(native->testTableCount()),"the table tile shows its position in the list");
     check(native->displayText(id("display_table_name_1"))==firstName,"the oscillator names the table it loaded");
     // A quick spin: three clicks inside the 120 ms rest window load only the last entry.
     click();click();click();

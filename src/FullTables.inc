@@ -188,6 +188,13 @@ inline bool Vitaleon::formatTable(int index,std::string& out){
         if(at<count){std::lock_guard<std::mutex> tables(tableMutex_);out=tableFolder(assets_[1][size_t(at)]);}
         return true;
     }
+    if(index==tableViewStep_){
+        // 0.3.34 (user request): the table tile shows the position in the list, not the
+        // raw step label, so the skin's ValueSlider reads '12/33'.
+        const int count=std::max(1,tableCount());
+        out=std::to_string(mpc::clamp(tableCursor_,0,count-1)+1)+"/"+std::to_string(count);
+        return true;
+    }
     if(index==tablePosition_){
         out="Page "+std::to_string(page+1)+"/"+std::to_string(pages);
         if(count>0)out+="  "+std::to_string(mpc::clamp(tableCursor_,0,count-1)+1)+"/"+std::to_string(count);

@@ -413,12 +413,28 @@ write_header()
 # it. The SDK has no endless-encoder widget: the knob follows the cursor and stops
 # at the first and last table. The skin binds it to the discrete step handle, so one
 # wheel click is exactly one table and the plugin loads the entry it lands on.
-TABLE_KNOB_X=(TABLE_KNOB_W-KNOB_SMALL)//2
-TABLE_KNOB_Y=58 if FORCE else 56
+# 0.3.34 (user request): the table control is a value tile, not a rotary. The step
+# handle is a list position, so a dial only suggested a continuous knob. The SDK's
+# ValueSlider widget draws the value text and nothing else; the ring behind it is our
+# own image, and the tile keeps the focus ring and the data wheel of the old knob.
+TABLE_VALUE=84 if FORCE else 72
+TABLE_VALUE_X=(TABLE_KNOB_W-TABLE_VALUE)//2
+TABLE_VALUE_Y=48
+def table_dial_image():
+    name=f'table-dial-osc{DEF_SUFFIX}.png'
+    if not (skin/name).exists():
+        image=Image.new('RGBA',(TABLE_VALUE,TABLE_VALUE),(0,0,0,0))
+        rgb=tuple(bytes.fromhex(COLORS['osc'][2:]));fill=tuple(bytes.fromhex(PANEL[2:]))
+        ImageDraw.Draw(image).ellipse((1,1,TABLE_VALUE-2,TABLE_VALUE-2),outline=rgb+(230,),width=2,fill=fill+(255,))
+        image.save(skin/name)
+    return name
 definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition([],[
-    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'{TABLE_KNOB_X} {TABLE_KNOB_Y} {KNOB_SMALL} {KNOB_SMALL}','No','Show','WhenFocussed'),
+    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'{TABLE_VALUE_X} {TABLE_VALUE_Y} {TABLE_VALUE} {TABLE_VALUE}','No','Show','WhenFocussed'),
     ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,TABLE_KNOB_W,30 if FORCE else 26)),
-    ent('knob','Knob',g.knob_filmstrip_data(f'compact-osc-knob{DEF_SUFFIX}.png',127,'Vertical'),(TABLE_KNOB_X,TABLE_KNOB_Y,KNOB_SMALL,KNOB_SMALL)),
+    ent('dial','Image',{'version':1,'colour':'0','image':table_dial_image()},(TABLE_VALUE_X,TABLE_VALUE_Y,TABLE_VALUE,TABLE_VALUE)),
+    # The value is the parameter's display text, i.e. 'position/total' (formatTable).
+    ent('value','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},
+        (TABLE_VALUE_X,TABLE_VALUE_Y,TABLE_VALUE,TABLE_VALUE)),
 ],'00000000'))))
 # The wave frame cell is narrower than a slot (the table knob shares the row), so
 # its own definition trims the readout box instead of letting it run into the

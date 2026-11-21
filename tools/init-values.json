@@ -11454,16 +11454,16 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0.71",
   "index": 1909,
   "name": "Group 1 Slot 2",
-  "value": 0.0
+  "value": 0.7071067690849304
  },
  {
-  "display": "0.00",
+  "display": "1.00",
   "index": 1910,
   "name": "Group 1 Slot 3",
-  "value": 0.0
+  "value": 1.0
  },
  {
   "display": "0.00",
@@ -11508,16 +11508,16 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0.41",
   "index": 1918,
   "name": "Group 2 Slot 1",
-  "value": 0.0
+  "value": 0.40625
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1919,
   "name": "Group 2 Slot 2",
-  "value": 0.0
+  "value": 0.5
  },
  {
   "display": "0.00",
@@ -11526,10 +11526,10 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "1.00",
   "index": 1921,
   "name": "Group 2 Slot 4",
-  "value": 0.0
+  "value": 1.0
  },
  {
   "display": "0.00",
@@ -11568,22 +11568,22 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1928,
   "name": "Group 3 Slot 1",
-  "value": 0.0
+  "value": 0.5007121562957764
  },
  {
-  "display": "0.00",
+  "display": "0.81",
   "index": 1929,
   "name": "Group 3 Slot 2",
-  "value": 0.0
+  "value": 0.8052446842193604
  },
  {
-  "display": "0.00",
+  "display": "1.00",
   "index": 1930,
   "name": "Group 3 Slot 3",
-  "value": 0.0
+  "value": 1.0
  },
  {
   "display": "0.00",
@@ -11628,22 +11628,22 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1938,
   "name": "Group 4 Slot 1",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.25",
   "index": 1939,
   "name": "Group 4 Slot 2",
-  "value": 0.0
+  "value": 0.25
  },
  {
-  "display": "0.00",
+  "display": "0.58",
   "index": 1940,
   "name": "Group 4 Slot 3",
-  "value": 0.0
+  "value": 0.5833333134651184
  },
  {
   "display": "0.00",
@@ -11748,52 +11748,52 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1958,
   "name": "Group 6 Slot 1",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1959,
   "name": "Group 6 Slot 2",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1960,
   "name": "Group 6 Slot 3",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1961,
   "name": "Group 6 Slot 4",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1962,
   "name": "Group 6 Slot 5",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1963,
   "name": "Group 6 Slot 6",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1964,
   "name": "Group 6 Slot 7",
-  "value": 0.0
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1965,
   "name": "Group 6 Slot 8",
-  "value": 0.0
+  "value": 0.5
  },
  {
   "display": "0.00",
@@ -11814,7 +11814,7 @@
   "value": 0.0
  },
  {
-  "display": "0",
+  "display": "1/1",
   "index": 1969,
   "name": "Table Step",
   "value": 0.0
