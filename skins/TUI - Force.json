@@ -19193,48 +19193,6 @@
                                         "IndexedEnabling/6/8/Parameter 1971"
                                     ]
                                 }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Debug section state",
-                                    "type": "Label",
-                                    "data": {
-                                        "version": 1,
-                                        "textStyle": {
-                                            "version": 1,
-                                            "font": {
-                                                "version": 1,
-                                                "name": "Roboto",
-                                                "style": "Regular",
-                                                "height": 14.0
-                                            },
-                                            "colour": "fff6bf66",
-                                            "justification": "left verticallyCentred",
-                                            "case": "Original"
-                                        },
-                                        "type": "Value",
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "Parameter 1981"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 1,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Show",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "292 46 286 24"
-                                }
                             }
                         ]
                     }
@@ -26490,48 +26448,6 @@
                                         "IndexedEnabling/6/8/Parameter 1971"
                                     ]
                                 }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Debug section state",
-                                    "type": "Label",
-                                    "data": {
-                                        "version": 1,
-                                        "textStyle": {
-                                            "version": 1,
-                                            "font": {
-                                                "version": 1,
-                                                "name": "Roboto",
-                                                "style": "Regular",
-                                                "height": 14.0
-                                            },
-                                            "colour": "fff6bf66",
-                                            "justification": "left verticallyCentred",
-                                            "case": "Original"
-                                        },
-                                        "type": "Value",
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "Parameter 1981"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 1,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Show",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "292 46 286 24"
-                                }
                             }
                         ]
                     }
@@ -33786,48 +33702,6 @@
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/6/8/Parameter 1971"
                                     ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Debug section state",
-                                    "type": "Label",
-                                    "data": {
-                                        "version": 1,
-                                        "textStyle": {
-                                            "version": 1,
-                                            "font": {
-                                                "version": 1,
-                                                "name": "Roboto",
-                                                "style": "Regular",
-                                                "height": 14.0
-                                            },
-                                            "colour": "fff6bf66",
-                                            "justification": "left verticallyCentred",
-                                            "case": "Original"
-                                        },
-                                        "type": "Value",
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "Parameter 1981"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 1,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Show",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "292 46 286 24"
                                 }
                             }
                         ]

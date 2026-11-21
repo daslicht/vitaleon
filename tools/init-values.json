@@ -11860,35 +11860,5 @@
   "index": 1976,
   "name": "Group 6 Section",
   "value": 0.0
- },
- {
-  "display": "STRIP 0",
-  "index": 1977,
-  "name": "debug_strip",
-  "value": 0.0
- },
- {
-  "display": "PAGE 0",
-  "index": 1978,
-  "name": "debug_page",
-  "value": 0.0
- },
- {
-  "display": "SEC 0",
-  "index": 1979,
-  "name": "debug_section",
-  "value": 0.0
- },
- {
-  "display": "UISEC 0",
-  "index": 1980,
-  "name": "debug_uisec",
-  "value": 0.0
- },
- {
-  "display": "STRIP 0 PAGE 0 SEC 0 UISEC 0",
-  "index": 1981,
-  "name": "debug_line",
-  "value": 0.0
  }
 ]

@@ -439,10 +439,6 @@ int main(int argc,char** argv){
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==3,"a section button on the group's own handle opens that oscillator tab, not the stale page");
    native->set(id("ui_gsec_1"),6); // OSC 1, TABLE
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==6,"the last section of an oscillator page stays selected");
-   check(native->displayText(id("debug_strip"))=="STRIP 6"&&native->displayText(id("debug_page"))=="PAGE 4"&&
-         native->displayText(id("debug_section"))=="SEC 6"&&native->displayText(id("debug_uisec"))=="UISEC 6",
-         "the diagnostic readouts name the strip step, the page, the section and UI Section");
-   check(native->displayText(id("debug_line"))=="STRIP 6 PAGE 4 SEC 6 UISEC 6","the on-screen diagnostic line names all four values");
    native->set(id("ui_gsec_1"),0); // OSC 1, SOUND
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==0,"SOUND is selectable, not just the sections above it");
    check(native->getInt(id("ui_gsec_1"))==0,"the strip stays on SOUND after its tap");

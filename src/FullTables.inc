@@ -44,42 +44,6 @@ inline void Vitaleon::createTables(){
     tableNameReadout_=numParams();for(int i=0;i<3;++i)addReadout("display_table_name_"+std::to_string(i+1));
     tableCursor_=0;
 }
-// TEMPORARY (user request, to be removed): four readouts the OSC page shows so a
-// wrong page can be read off the device — which step the section strip holds, which
-// page/section the plugin picked, and what the host last handed UI Section.
-inline void Vitaleon::createDebug(){
-    auto readout=[&](const char* id){auto p=mpc::intParam(id,id,0,4095,0);p.automatable=false;return addParam(p);};
-    debugStrip_=readout("debug_strip");debugPage_=readout("debug_page");
-    debugSection_=readout("debug_section");debugUiSec_=readout("debug_uisec");
-    debugLine_=readout("debug_line");
-}
-// TEMPORARY: every callback the plugin actually receives, before any decision.
-// A tap that leaves no EVT line never reached the plugin at all.
-inline void Vitaleon::logEvent(const char* tag,int index,float plain){
-    const int page=uiPage_>=0?mpc::clamp(getInt(uiPage_),0,4095):-1;
-    {std::lock_guard<std::mutex> lock(debugLogMutex_);
-     std::ofstream out("/tmp/vitaleon-sections.log",std::ios::app);
-     if(out)out<<"t="<<std::time(nullptr)<<" EVT "<<tag<<" idx="<<index<<" val="<<int(std::lround(plain))<<" page="<<page<<"\n";}
-}
-// TEMPORARY: one line per section change, readable over ssh from the device.
-inline void Vitaleon::logSection(int page,int section){
-    const int group=page>=0&&page<int(surfaceViews_.size())?surfaceViews_[size_t(page)].group:-1;
-    const int strip=group>=0&&groupSection_[group]>=0?getInt(groupSection_[group]):-1;
-    const int ui=uiSection_>=0?mpc::clamp(getInt(uiSection_),0,31):-1;
-    {std::lock_guard<std::mutex> lock(debugLogMutex_);
-     if(page==debugLastPage_&&section==debugLastSection_&&strip==debugLastStrip_&&ui==debugLastUi_)return;
-     debugLastPage_=page;debugLastSection_=section;debugLastStrip_=strip;debugLastUi_=ui;
-     std::ofstream out("/tmp/vitaleon-sections.log",std::ios::app);
-     if(out)out<<"t="<<std::time(nullptr)<<" STRIP "<<strip<<" PAGE "<<page<<" SEC "<<section<<" UISEC "<<ui<<"\n";}
-}
-inline bool Vitaleon::formatDebug(int index,std::string& out){
-    if(index==debugStrip_){out="STRIP "+std::to_string(getInt(debugStrip_));return true;}
-    if(index==debugPage_){out="PAGE "+std::to_string(getInt(debugPage_));return true;}
-    if(index==debugSection_){out="SEC "+std::to_string(getInt(debugSection_));return true;}
-    if(index==debugUiSec_){out="UISEC "+std::to_string(getInt(debugUiSec_));return true;}
-    if(index==debugLine_){out="STRIP "+std::to_string(getInt(debugStrip_))+" PAGE "+std::to_string(getInt(debugPage_))+" SEC "+std::to_string(getInt(debugSection_))+" UISEC "+std::to_string(getInt(debugUiSec_));return true;}
-    return false;
-}
 inline void Vitaleon::publishTables(){
     if(tableRowStates_<0)return;
     const int count=tableCount();

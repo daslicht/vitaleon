@@ -91,17 +91,6 @@ inline void Vitaleon::updateNavigation(){
             publishTables();
         }
     }
-    // TEMPORARY diagnostic for the device: the OSC page shows these four.
-    if(debugStrip_>=0){
-        publish(debugStrip_,float(mpc::clamp(groupSection_[v.group]>=0?getInt(groupSection_[v.group]):-1,0,4095)));
-        publish(debugPage_,float(page));publish(debugSection_,float(section));
-        publish(debugUiSec_,float(mpc::clamp(getInt(uiSection_),0,31)));
-        notifyHostParameterChanged(debugStrip_);notifyHostParameterChanged(debugPage_);
-        publish(debugLine_,float(page*32+section)); // a change token: the text reads the four above
-        notifyHostParameterChanged(debugSection_);notifyHostParameterChanged(debugUiSec_);
-        notifyHostParameterChanged(debugLine_);
-        logSection(page,section);
-    }
     refreshProxies();browserDisplayDirty_.store(true);
 }
 inline int Vitaleon::groupMemberPage(int group,int member){

@@ -79,7 +79,7 @@ inline void Vitaleon::createControls(){
     initValues_[size_t(controlIndex("volume"))]=3136;
     if(assets_[0].size()<=1)addProgram("Init",initValues_);
     createFilePrograms();
-    createStorage();createTables();createNavigation();createTableStep();createGroupSections();createDebug();
+    createStorage();createTables();createNavigation();createTableStep();createGroupSections();
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){
@@ -175,20 +175,6 @@ inline void Vitaleon::listStep(int index,float plain){
 }
 inline void Vitaleon::parameterChanged(int index,float plain){
     if(!ready_)return;
-    // TEMPORARY: the strip, the handles the section logic reads, the per-group page
-    // handles and the table's NEXT button, so one log tells which kinds of tap
-    // reach the plugin at all.
-    if(index==uiSectionTab_)logEvent("strip",index,plain);
-    else if(index==uiSection_)logEvent("uisec",index,plain);
-    else if(index==uiPage_)logEvent("uipage",index,plain);
-    else if(tableCommands_>=0&&index==tableCommands_+1)logEvent("tablenext",index,plain);
-    else{
-        bool logged=false;
-        for(int g=0;g<7&&!logged;++g){
-            if(index==groupSection_[g]){logEvent(("gsec"+std::to_string(g+1)).c_str(),index,plain);logged=true;}
-            else if(index==groupPage_[g]){logEvent(("gpage"+std::to_string(g+1)).c_str(),index,plain);logged=true;}
-        }
-    }
     listStep(index,plain);
     fxPlanDirty_.store(true,std::memory_order_relaxed);
     if(navigationChanged(index,plain)||tableChanged(index,plain)||storageChanged(index))return;
@@ -229,7 +215,6 @@ inline bool Vitaleon::formatValue(int index,float plain,std::string& out){
         out=param(target).display(value);if(!param(target).unit.empty())out+=" "+param(target).unit;return true;
     }
     if(formatLibrary(index,out))return true;
-    if(formatDebug(index,out))return true;
     if(formatTable(index,out))return true;
     for(const auto& b:banks_)for(size_t i=0;i<b.proxies.size();++i)if(index==b.proxies[i])return formatValue(b.targets[mpc::clamp(getInt(b.selector)-1,0,int(b.targets.size())-1)][i],plain,out);
     if(index==advancedValue_){int target=advancedTargets_[getInt(advancedSelector_)];out=displayText(target);return true;}
