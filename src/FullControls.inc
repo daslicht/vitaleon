@@ -79,7 +79,7 @@ inline void Vitaleon::createControls(){
     initValues_[size_t(controlIndex("volume"))]=3136;
     if(assets_[0].size()<=1)addProgram("Init",initValues_);
     createFilePrograms();
-    createStorage();createTables();createNavigation();
+    createStorage();createTables();createNavigation();createTableStep();
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){

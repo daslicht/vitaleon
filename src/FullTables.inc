@@ -30,6 +30,7 @@ inline void Vitaleon::createTables(){
     // clicks (one click is 1/100 of the range) before the plugin sees them. The
     // plugin keeps the entry itself and publishes the snapped position back.
     {auto p=mpc::floatParam("table_view_cursor","Table Cursor",0,1,0);p.automatable=false;tableViewCursor_=addParam(p);}
+
     tableOpen_=numParams();
     for(int i=0;i<3;++i){auto p=mpc::boolParam(("table_open_"+std::to_string(i+1)).c_str(),("Open Osc "+std::to_string(i+1)+" Table").c_str(),false);p.automatable=false;addParam(p);}
     const char* commands[]={"Table Previous Page","Table Next Page","Table Reload","Table Built-in"};
@@ -65,7 +66,24 @@ inline void Vitaleon::publishTables(){
         publishNormalised(tableNameReadout_+o,float(selected+1)/float(std::max(1,count)));
     }
 }
-// The wheel: a click is one entry, a drag follows its travel, a jump is absolute.
+// Appended after every other parameter, so no existing slot index moves.
+inline void Vitaleon::createTableStep(){
+    // 0.3.37: the wheel control. A plain parameter is turned by 1/100 of its range
+    // per click and its own steps are ignored, so a fraction of the cursor had to be
+    // turned back into an entry after every click and the host kept its own position.
+    // The skin gives this one kTableSteps replacementStrings: the value is the entry,
+    // one click is exactly one table and the knob cannot drift against the list.
+    auto s=mpc::intParam("table_view_step","Table Step",0,kTableSteps-1,0);s.automatable=false;tableViewStep_=addParam(s);
+}
+// The float cursor's controls (row buttons, BUILT-IN, a loaded project) move the
+// step knob with it, so the knob always shows the entry the list marks.
+inline void Vitaleon::publishTableCursor(){
+    if(tableRowStates_<0)return;
+    const int count=std::max(1,tableCount());
+    if(tableViewCursor_>=0)publish(tableViewCursor_,float(tableCursor_)/float(std::max(1,count-1)));
+    if(tableViewStep_>=0)publish(tableViewStep_,float(mpc::clamp(tableCursor_,0,kTableSteps-1)));
+}
+// The float wheel: a click is one entry, a drag follows its travel, a jump is absolute.
 inline void Vitaleon::tableCursorStep(int index,float plain){
     if(index<0||index!=tableViewCursor_)return;
     const int count=tableCount();
@@ -76,7 +94,7 @@ inline void Vitaleon::tableCursorStep(int index,float plain){
     const bool click=now-tableMs_>=25; // a wheel click arrives alone
     tableRaw_=raw;tableMs_=now;
     const float step=1.0f/float(last);
-    if(std::fabs(delta)<step*.01f){publishNormalised(index,float(tableCursor_)/float(last));tableTravel_=0;return;}
+    if(std::fabs(delta)<step*.01f){publishTableCursor();tableTravel_=0;return;}
     int next=tableCursor_;
     if(click&&std::fabs(delta)>=0.25f)next=int(std::lround(double(plain)*double(last)));
     else if(click&&std::fabs(delta)<step*1.5f)next+=(delta>0?1:-1);
@@ -86,7 +104,7 @@ inline void Vitaleon::tableCursorStep(int index,float plain){
         if(moved){next+=moved;tableTravel_-=float(moved)*step;}
     }
     tableCursor_=mpc::clamp(next,0,last);
-    publishNormalised(index,float(tableCursor_)/float(last));
+    publishTableCursor();
     notifyHostParameterChanged(index);
     // The wheel moves the cursor, so the page follows it onto the screen. Paging
     // with PREV/NEXT stays where the user put it until the cursor leaves that page.
@@ -117,6 +135,8 @@ inline void Vitaleon::tableReload(){
         const int last=std::max(0,tableCount()-1);
         if(getInt(tableSelect_[o])>last)publishList(tableSelect_[o],float(last));
     }
+    // A reload can drop the entry the cursor points at.
+    tableCursor_=std::min(tableCursor_,std::max(0,tableCount()-1));publishTableCursor();
     {std::lock_guard<std::mutex> state(stateMutex_);loadMessage_="Tables: "+std::to_string(tableCount());}
 }
 inline bool Vitaleon::tableChanged(int index,float plain){
@@ -128,11 +148,21 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         const int count=std::max(1,tableCount());
         const int selected=mpc::clamp(getInt(tableSelect_[o]),0,count-1);
         publish(tableViewTarget_,float(o));
-        publish(tableViewCursor_,float(selected)/float(std::max(1,count-1)));
-        publish(tableViewPage_,float(selected/kTableRows));
-        tableCursor_=selected;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
+        tableCursor_=selected;tableMs_=nowMs();tableTravel_=0;
+        publishTableCursor();publish(tableViewPage_,float(selected/kTableRows));tableRaw_=getNormalised(tableViewCursor_);
         // 0.3.36: the list is the oscillator page's seventh section, not a page.
         navigateTo(groupMemberPage(1,o),6);
+        publishTables();browserDisplayDirty_.store(true);return true;
+    }
+    // The discrete knob: the value is the entry, so no delta bookkeeping is involved.
+    if(index==tableViewStep_){
+        const int count=std::max(1,tableCount());
+        const int at=mpc::clamp(getInt(tableViewStep_),0,count-1);
+        tableCursor_=at;tableMs_=nowMs();tableTravel_=0;
+        publishTableCursor();publish(tableViewPage_,float(at/kTableRows));tableRaw_=getNormalised(tableViewCursor_);
+        // Load once the wheel rests, so a spin parses only the table it lands on.
+        tableLoadSlot_.store(mpc::clamp(getInt(tableViewTarget_),0,2),std::memory_order_relaxed);
+        tableLoadDue_.store(nowMs()+120,std::memory_order_relaxed);
         publishTables();browserDisplayDirty_.store(true);return true;
     }
     if(index>=tableCommands_&&index<tableCommands_+4){
@@ -144,8 +174,8 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         else{
             // Built-in: index 0 is the built-in table, at once.
             const int slot=mpc::clamp(getInt(tableViewTarget_),0,2);
-            publish(tableViewCursor_,0);tableCursor_=0;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
-            publish(tableViewPage_,0);publishList(tableSelect_[slot],0);
+            tableCursor_=0;tableMs_=nowMs();tableTravel_=0;
+            publishTableCursor();publish(tableViewPage_,0);tableRaw_=getNormalised(tableViewCursor_);publishList(tableSelect_[slot],0);
             tableLoadSlot_.store(slot);tableLoadDue_.store(0);
             requestService(false);
         }
@@ -157,8 +187,8 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         const int page=mpc::clamp(getInt(tableViewPage_),0,tablePageCount()-1);
         const int at=page*kTableRows+(index-tableRows_);
         if(at<tableCount()){
-            publish(tableViewCursor_,float(at)/float(std::max(1,tableCount()-1)));
-            tableCursor_=at;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
+            tableCursor_=at;tableMs_=nowMs();tableTravel_=0;
+            publishTableCursor();tableRaw_=getNormalised(tableViewCursor_);
             publishList(tableSelect_[slot],float(at));
             tableLoadSlot_.store(slot);tableLoadDue_.store(0);
             requestService(false);

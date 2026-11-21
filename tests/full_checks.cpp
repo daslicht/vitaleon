@@ -480,6 +480,14 @@ int main(int argc,char** argv){
     click();click();click();
     check(native->testTableCursor()==4,"a quick spin moves the cursor once per click");
     check(loaded(4),"a quick spin loads only the table it lands on");
+    // The skin's knob writes the discrete step handle: the value is the entry and
+    // the host steps it one per click, so no direction can be misread.
+    {const int step=id("table_view_step");
+     native->set(step,6);waitNative();
+     check(native->testTableCursor()==6&&loaded(6),"the step handle selects that entry and loads it");
+     check(native->getInt(id("table_view_page"))==1,"the step handle pages to the entry's page");
+     native->set(step,2);waitNative();
+     check(native->testTableCursor()==2&&loaded(2),"a lower step goes back to the earlier entry");}
     native->set(id("table_row_2"),1);waitNative();
     check(native->getInt(table)==2&&native->testTableCursor()==2,"a row button loads that table at once");
     native->set(id("table_command_1"),1);waitNative();

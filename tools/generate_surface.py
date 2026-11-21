@@ -134,6 +134,7 @@ assert len(GRAPH)==4,GRAPH
 # The plugin pages the table list by kTableRows, so the layout must use the same
 # number: a second copy here would silently offset every page after the first.
 TABLE_ROWS=int(re.search(r'kTableRows=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
+TABLE_STEPS=int(re.search(r'kTableSteps=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
 def wave_bars(children,chart,x,y,w,h):
     # 0.3.18: 128 columns of 3 px and 108 levels (was 64 x 64, which looked blocky).
     # The number of columns no longer costs host notifications: the plugin asks
@@ -410,7 +411,10 @@ def add_table(c):
     show=['IndexedEnabling/6/32/'+handle('UI Section')]
     rows,step=TABLE_ROWS,54
     c.append(conditional(label('Table position',(24,136,340,28),TEXT,22,value='table_position'),show))
-    c.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},(SCREEN_RIGHT-24-KNOB_SMALL,130,KNOB_SMALL,KNOB_SMALL),True,remap=[('Data','WithName[Table Cursor]/'+handle('Table Cursor'))]),show))
+    # The knob binds to the discrete step handle, not to the 0..1 cursor: the host
+    # steps a replacementStrings parameter one entry per wheel click, while a plain
+    # parameter moves 1/100 of its range and cannot tell the plugin which entry was meant.
+    c.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},(SCREEN_RIGHT-24-KNOB_SMALL,130,KNOB_SMALL,KNOB_SMALL),True,remap=[('Data','WithName[Table Step]/'+handle('Table Step'))]),show))
     top=190
     for row in range(rows):
         y=top+row*step
@@ -731,6 +735,9 @@ if FORCE:
         maps.append({'Tab':t+1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':gm})
 else:maps=[{'Tab':1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':q}]
 replacements=[{'key':'Parameter '+str(p['index']),'value':p['choices']} for p in params if p['name']!='Full Engine' and len(p.get('choices',[]))>1]
+# The table cursor's steps: synthetic numbers, not content names. They make the host
+# treat the handle as kTableSteps discrete choices instead of a 0..1 float.
+replacements.append({'key':'Parameter '+str(index('Table Step')),'value':[str(n) for n in range(1,TABLE_STEPS+1)]})
 tui={'pageData':{'version':1,'componentDefinitions':{'version':2,'importFiles':[],'localComponentDefinitions':definitions},'replacementStrings':replacements,'info':{'version':1,'type':'CompleteDescription'},'tabs':tabs}}
 qlinks={'version':4,'info':{'version':1,'type':'CompleteDescription'},'Screen Mode Q-Links':{'version':4,'map':maps},'Program Mode Q-Links':{f'Q-Link {i+1}':index(n) for i,n in enumerate(['macro_control_1','macro_control_2','macro_control_3','macro_control_4','filter_1_cutoff','filter_1_resonance','filter_2_cutoff','filter_2_resonance','Env attack','Env decay','Env sustain','Env release','volume','Voices','osc_1_wave_frame','osc_1_unison_voices'])}}
 for state in ['off','on']:

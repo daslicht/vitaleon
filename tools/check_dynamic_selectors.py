@@ -14,7 +14,9 @@ params = {p['index']: p['name'] for p in json.loads((project / 'build/params.jso
 labelled = {int(m.group(1)): re.sub(r'\s+', '', m.group(2)) for m in re.finditer(r'"key":\s*"Parameter (\d+)",\s*"value":\s*\[([^\]]*)\]', skin)}
 bad = []
 for index, name in params.items():
-    dynamic = name == 'Preset' or 'Table' in name or name.startswith('Library ') or name in ('Sample File', 'LFO Shape File', 'UI Group', 'UI Page', 'UI Section', 'UI Pick')
+    # 'Table Step' is the one table handle with a fixed list: its strings are the
+    # synthetic step numbers 1..kTableSteps, not names read from the Content folder.
+    dynamic = name == 'Preset' or ('Table' in name and name != 'Table Step') or name.startswith('Library ') or name in ('Sample File', 'LFO Shape File', 'UI Group', 'UI Page', 'UI Section', 'UI Pick')
     if dynamic and index in labelled and labelled[index] != '"Off","On"':
         bad.append((index, name, labelled[index][:60]))
 assert not bad, bad

@@ -11,6 +11,7 @@ assert len(replacement['Parameter '+str(NAMES['Target'])])==429
 assert len(replacement['Parameter '+str(NAMES['Parameter'])])==770
 assert 'Parameter '+str(NAMES['Value']) not in replacement
 assert replacement['Parameter '+str(NAMES['voice override'])]==['Kill','Steal']
+assert len(replacement['Parameter '+str(NAMES['Table Step'])])==512
 mapping=json.loads((skin/('Q-Links - Force.json' if GROUP_MODEL else 'Q-Links.json')).read_text())['Screen Mode Q-Links']['map']
 if GROUP_MODEL:
     # One Q-Link map per tab, each bound to its group slots, so a knob names

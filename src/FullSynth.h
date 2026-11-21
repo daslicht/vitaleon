@@ -131,14 +131,20 @@ private:
     // Table picker (0.3.35): the wheel moves a cursor, the entry loads at rest.
     // tools/generate_surface.py reads this number to lay out the same page.
     static constexpr int kTableRows=6;
+    // The cursor knob binds to a discrete step parameter: the host moves a plain
+    // parameter by 1/100 of its range per wheel click, but honours the steps of a
+    // handle that the skin gave replacementStrings. One click is one table then.
+    static constexpr int kTableSteps=512;
     int tableOpen_=-1,tableCommands_=-1,tableRows_=-1,tableRowStates_=-1,tableRowNames_=-1,tableRowFolders_=-1,tablePosition_=-1,tableStatus_=-1,tableNameReadout_=-1;
-    int tableViewTarget_=-1,tableViewCursor_=-1,tableViewPage_=-1;
+    int tableViewTarget_=-1,tableViewCursor_=-1,tableViewPage_=-1,tableViewStep_=-1;
     int tableCursor_=0;float tableRaw_=0;long long tableMs_=0;float tableTravel_=0;
     std::atomic<long long> tableLoadDue_{0};
     std::atomic<int> tableLoadSlot_{-1};
     std::mutex tableMutex_; // guards assets_[1]: RELOAD may swap it while the host reads
     void createTables();
+    void createTableStep();
     void publishTables();
+    void publishTableCursor();
     void serviceTables();
     void tableReload();
     void tableCursorStep(int index,float plain);
