@@ -110,6 +110,16 @@ int main(int argc,char** argv){
  auto synth=std::make_unique<Vitaleon>();synth->testNoStartSound();synth->prepare(44100,512);
  displayEffect.object=synth.get();synth->effect_=&displayEffect;synth->host_=displayHost;
  auto id=[&](const std::string& name){for(int i=0;i<synth->numParams();++i)if(synth->param(i).id==name)return i;throw std::runtime_error("Missing parameter "+name);};
+ // 0.3.34 (user report): the Force tab bar writes no page, so the first tap on a tab
+ // reaches the plugin only after the host has painted it. Every group's Q-Link slots
+ // must therefore already carry its default page's values at load, or OSC 1's level
+ // fader shows the 0 its slot was created with.
+ {const int level=synth->controlIndex("osc_1_level"),frame=synth->controlIndex("osc_1_wave_frame"),cutoff=synth->controlIndex("filter_1_cutoff");
+  check(std::abs(synth->getNormalised(id("ui_g1_slot_1"))-synth->getNormalised(level))<1e-6&&
+        std::abs(synth->getNormalised(id("ui_g1_slot_0"))-synth->getNormalised(frame))<1e-6,
+        "a fresh plugin already carries the oscillator's SOUND values in its slots");
+  check(std::abs(synth->getNormalised(id("ui_g2_slot_0"))-synth->getNormalised(cutoff))<1e-6,
+        "every group's slots are filled at load, not only the visible tab's");}
  float left[512]{},right[512]{};float* outputs[]={left,right};mpc::ProcessContext ctx;ctx.outputs=outputs;ctx.numOutputs=2;ctx.numFrames=128;
  bool finite=true;auto render=[&]{mpc::ScopedDenormalsOff denormals;audit=true;synth->process(ctx);audit=false;for(int i=0;i<ctx.numFrames;++i)finite&=std::isfinite(left[i])&&std::isfinite(right[i]);};
  auto settle=[&]{ctx.numMidiEvents=0;for(int i=0;i<10000&&synth->busy();++i){render();std::this_thread::sleep_for(std::chrono::milliseconds(1));}check(!synth->busy(),"asset service settled");};

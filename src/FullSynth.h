@@ -90,6 +90,12 @@ private:
     int uiSectionTab_=-1; // legacy 56-step strip slot, kept so no parameter index moves
     int groupSection_[7]={-1,-1,-1,-1,-1,-1,-1}; // one 8-step strip per group
     int groupPage_[7]={-1,-1,-1,-1,-1,-1,-1},groupSlot_[7]={-1,-1,-1,-1,-1,-1,-1};
+    // The parameters each group's nine Q-Link slots point at, i.e. the last section
+    // that group showed (0.3.34). The Force tab bar never calls back, so a tab can
+    // become visible while the plugin still believes in another page; these let
+    // refreshNavigation() keep every group's slots filled, so the host paints real
+    // values on a tab's first visit instead of the 0 a fresh slot was created with.
+    std::array<std::array<std::atomic<int>,16>,7> groupTargets_{};
     // What the host still has to hear about the Q-Link slots (0.3.23). A moving control
     // must not call into the host: 0.3.22 sent audioMasterAutomate on every movement and
     // redrew the page when the knob group changed, and the controls felt sluggish on the

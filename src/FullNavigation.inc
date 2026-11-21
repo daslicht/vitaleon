@@ -42,6 +42,17 @@ inline void Vitaleon::createNavigation(){
     // write slots no page has, so each group now owns its own handle below. The
     // slot stays so no later parameter index moves; nothing reads it.
     {auto s=mpc::intParam("ui_section_tab","Group Section",0,55,0);s.automatable=false;uiSectionTab_=addParam(s);}
+    // 0.3.34: every group's slots start at its default page's first section, so a tab
+    // the native bar opens without a callback still has the right values when the
+    // host reads them (OSC 1 Level used to show 0 on its first visit).
+    for(int g=0;g<7;++g){
+        for(int i=0;i<16;++i)groupTargets_[size_t(g)][size_t(i)].store(-1,std::memory_order_relaxed);
+        const int defaultPage=rememberedPages_[size_t(g)];if(defaultPage<0)continue;
+        const auto& sections=surfaceViews_[size_t(defaultPage)].sections;
+        if(sections.empty())continue;
+        const auto& first=sections.front();
+        for(size_t i=0;i<first.size()&&i<16;++i)groupTargets_[size_t(g)][i].store(first[i],std::memory_order_relaxed);
+    }
     updateNavigation();
 }
 inline void Vitaleon::createGroupSections(){
@@ -79,7 +90,7 @@ inline void Vitaleon::updateNavigation(){
      if(v.group==4)modPage=tabMemberIndex(page);
      else if(v.group==6)modPage=v.hidden?12:8+tabMemberIndex(page);
      if(modPage>=0&&uiModPage_>=0)publish(uiModPage_,float(modPage));}
-    const auto& targets=v.sections[section];for(int i=0;i<16;++i)uiTargets_[i].store(i<int(targets.size())?targets[i]:-1);
+    const auto& targets=v.sections[section];for(int i=0;i<16;++i){const int target=i<int(targets.size())?targets[i]:-1;uiTargets_[i].store(target);groupTargets_[size_t(v.group)][size_t(i)].store(target,std::memory_order_relaxed);}
     slotEditMs_.store(0,std::memory_order_relaxed); // other controls now: every slot shows its new target
     // 0.3.36: every oscillator page carries its table list as its seventh section.
     // The page names the oscillator LOAD writes, and entering the section puts the
@@ -232,6 +243,12 @@ inline void Vitaleon::refreshNavigation(){
         const auto& t=param(target);
         if(moving&&t.kind!=mpc::Param::Kind::Float&&t.toPlain(getNormalised(uiKnobs_+i))==get(target))continue;
         publishNormalised(uiKnobs_+i,getNormalised(target));}
+    // 0.3.34: publish every group's slots, not only the visible tab's. The host
+    // paints a tab it just opened; the Force tab bar tells the plugin nothing, so the
+    // values must already be in the slots when the host reads them on open.
+    for(int g=0;g<7;++g)if(groupSlot_[g]>=0)for(int i=0;i<9;++i){
+        const int target=groupTargets_[size_t(g)][size_t(i)].load(std::memory_order_relaxed);
+        publishNormalised(groupSlot_[g]+i,target<0?0.0f:getNormalised(target));}
     // The tab on screen shows the slots of its group; publish them alongside.
     if(uiPage_>=0){const int g=mpc::clamp(surfaceViews_[mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1)].group,0,6);
         // The tab owns the bank, not the group: MOD publishes into the LFO bank
