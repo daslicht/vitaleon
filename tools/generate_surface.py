@@ -692,8 +692,9 @@ for i,view in enumerate(VIEWS):
                 # TEMPORARY (user request): which step the strip holds, which page and
                 # section the plugin picked, and what the host last gave UI Section.
                 # Below the table row, so no section's controls sit underneath.
-                for x,w,name,value in [(24,300,'Debug strip','debug_strip'),(340,240,'Debug page','debug_page'),(596,240,'Debug section','debug_section'),(852,300,'Debug ui section','debug_uisec')]:
-                    children.append(label(name,(x,594,w,24),COLORS['mod'],18,value=value))
+                # One line in the header gap (292..578), the only strip of the page
+                # that no section's controls use.
+                children.append(label('Debug section state',(292,110,286,24),COLORS['mod'],14,value='debug_line'))
         if chart=='home':
             # Below the second control row (ends at y = 512), like every page.
             children.append(label('Active bank',(24,520,140,24),MUTED,18))

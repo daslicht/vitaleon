@@ -86,7 +86,10 @@ inline void Vitaleon::updateNavigation(){
         publish(debugPage_,float(page));publish(debugSection_,float(section));
         publish(debugUiSec_,float(mpc::clamp(getInt(uiSection_),0,31)));
         notifyHostParameterChanged(debugStrip_);notifyHostParameterChanged(debugPage_);
+        publish(debugLine_,float(page*32+section)); // a change token: the text reads the four above
         notifyHostParameterChanged(debugSection_);notifyHostParameterChanged(debugUiSec_);
+        notifyHostParameterChanged(debugLine_);
+        logSection(page,section);
     }
     refreshProxies();browserDisplayDirty_.store(true);
 }

@@ -17,6 +17,7 @@
 #include <chrono>
 #include <filesystem>
 #include <fstream>
+#include <ctime>
 #include <set>
 #include <deque>
 #include <condition_variable>
@@ -137,7 +138,10 @@ private:
     static constexpr int kTableSteps=512;
     int tableOpen_=-1,tableCommands_=-1,tableRows_=-1,tableRowStates_=-1,tableRowNames_=-1,tableRowFolders_=-1,tablePosition_=-1,tableStatus_=-1,tableNameReadout_=-1;
     int tableViewTarget_=-1,tableViewPage_=-1,tableViewStep_=-1;
-    int debugStrip_=-1,debugPage_=-1,debugSection_=-1,debugUiSec_=-1; // TEMPORARY diagnostic
+    int debugStrip_=-1,debugPage_=-1,debugSection_=-1,debugUiSec_=-1,debugLine_=-1; // TEMPORARY diagnostic
+    std::mutex debugLogMutex_; // TEMPORARY: guards the section log below
+    int debugLastPage_=-1,debugLastSection_=-1,debugLastStrip_=-1,debugLastUi_=-1;
+    void logSection(int page,int section); // TEMPORARY
     int tableCursor_=0;
     std::atomic<long long> tableLoadDue_{0};
     std::atomic<int> tableLoadSlot_{-1};

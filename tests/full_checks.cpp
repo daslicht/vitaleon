@@ -422,6 +422,7 @@ int main(int argc,char** argv){
    check(native->displayText(id("debug_strip"))=="STRIP 14"&&native->displayText(id("debug_page"))=="PAGE 4"&&
          native->displayText(id("debug_section"))=="SEC 6"&&native->displayText(id("debug_uisec"))=="UISEC 6",
          "the diagnostic readouts name the strip step, the page, the section and UI Section");
+   check(native->displayText(id("debug_line"))=="STRIP 14 PAGE 4 SEC 6 UISEC 6","the on-screen diagnostic line names all four values");
    native->set(id("ui_section_tab"),8); // OSC 1, SOUND
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==0,"SOUND is selectable, not just the sections above it");
    check(native->getInt(id("ui_section_tab"))==8,"the strip stays on SOUND after its tap");

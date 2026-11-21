@@ -11842,5 +11842,11 @@
   "index": 1973,
   "name": "debug_uisec",
   "value": 0.0
+ },
+ {
+  "display": "STRIP 0 PAGE 0 SEC 0 UISEC 0",
+  "index": 1974,
+  "name": "debug_line",
+  "value": 0.0
  }
 ]
