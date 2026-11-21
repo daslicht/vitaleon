@@ -175,7 +175,7 @@ inline void Vitaleon::listStep(int index,float plain){
 }
 inline void Vitaleon::parameterChanged(int index,float plain){
     if(!ready_)return;
-    listStep(index,plain);tableCursorStep(index,plain);
+    listStep(index,plain);
     fxPlanDirty_.store(true,std::memory_order_relaxed);
     if(navigationChanged(index,plain)||tableChanged(index,plain)||storageChanged(index))return;
     if(index==FullMode){publish(FullMode,1);return;}

@@ -449,9 +449,9 @@ int main(int argc,char** argv){
   // The wheel moves one cursor entry per click and the entry loads when the wheel
   // rests; a row button loads at once.
   {
-    const int open=id("table_open_1"),cursor=id("table_view_cursor"),table=id("table_1");
+    const int open=id("table_open_1"),step=id("table_view_step"),table=id("table_1");
     auto idle=[&](int blocks){for(int i=0;i<blocks;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}};
-    auto click=[&]{std::this_thread::sleep_for(std::chrono::milliseconds(30));native->setNormalised(cursor,native->getNormalised(cursor)+0.01f);};
+    auto click=[&]{native->set(step,native->getInt(step)+1);};
     auto loaded=[&](int entry){for(int i=0;i<400&&native->getInt(table)!=entry;++i)idle(1);return native->getInt(table)==entry;};
     // The fixture ships no wavetables, so the view is tested against ten small ones.
     auto writeTable=[&](const std::filesystem::path& path){
@@ -480,14 +480,12 @@ int main(int argc,char** argv){
     click();click();click();
     check(native->testTableCursor()==4,"a quick spin moves the cursor once per click");
     check(loaded(4),"a quick spin loads only the table it lands on");
-    // The skin's knob writes the discrete step handle: the value is the entry and
-    // the host steps it one per click, so no direction can be misread.
-    {const int step=id("table_view_step");
-     native->set(step,6);waitNative();
-     check(native->testTableCursor()==6&&loaded(6),"the step handle selects that entry and loads it");
-     check(native->getInt(id("table_view_page"))==1,"the step handle pages to the entry's page");
-     native->set(step,2);waitNative();
-     check(native->testTableCursor()==2&&loaded(2),"a lower step goes back to the earlier entry");}
+    // A jump on the knob is absolute: the value is the entry itself.
+    native->set(step,6);waitNative();
+    check(native->testTableCursor()==6&&loaded(6),"a step jump selects that entry and loads it");
+    check(native->getInt(id("table_view_page"))==1,"a step jump pages to the entry's page");
+    native->set(step,2);waitNative();
+    check(native->testTableCursor()==2&&loaded(2),"a lower step goes back to the earlier entry");
     native->set(id("table_row_2"),1);waitNative();
     check(native->getInt(table)==2&&native->testTableCursor()==2,"a row button loads that table at once");
     native->set(id("table_command_1"),1);waitNative();

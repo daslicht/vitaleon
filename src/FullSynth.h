@@ -88,6 +88,7 @@ private:
     int uiGroup_=-1,uiPage_=-1,uiSection_=-1,uiKnobs_=-1,uiBank_=-1;
     int uiModPage_=-1;  // the MOD tab's one strip: LFO 1..8, MATRIX..CURVE, picker
     int uiSectionTab_=-1; // the Force section strip: group*8+section, names its tab
+    int uiGroupSent_=-1,uiPageSent_=-1,uiSectionSent_=-1; // what the host was last told
     int groupPage_[7]={-1,-1,-1,-1,-1,-1,-1},groupSlot_[7]={-1,-1,-1,-1,-1,-1,-1};
     // What the host still has to hear about the Q-Link slots (0.3.23). A moving control
     // must not call into the host: 0.3.22 sent audioMasterAutomate on every movement and
@@ -136,18 +137,17 @@ private:
     // handle that the skin gave replacementStrings. One click is one table then.
     static constexpr int kTableSteps=512;
     int tableOpen_=-1,tableCommands_=-1,tableRows_=-1,tableRowStates_=-1,tableRowNames_=-1,tableRowFolders_=-1,tablePosition_=-1,tableStatus_=-1,tableNameReadout_=-1;
-    int tableViewTarget_=-1,tableViewCursor_=-1,tableViewPage_=-1,tableViewStep_=-1;
-    int tableCursor_=0;float tableRaw_=0;long long tableMs_=0;float tableTravel_=0;
+    int tableViewTarget_=-1,tableViewPage_=-1,tableViewStep_=-1;
+    int tableCursor_=0;
     std::atomic<long long> tableLoadDue_{0};
     std::atomic<int> tableLoadSlot_{-1};
     std::mutex tableMutex_; // guards assets_[1]: RELOAD may swap it while the host reads
     void createTables();
     void createTableStep();
     void publishTables();
-    void publishTableCursor();
+    void showTableCursor(int entry);
     void serviceTables();
     void tableReload();
-    void tableCursorStep(int index,float plain);
     bool tableChanged(int index,float plain);
     bool formatTable(int index,std::string& out);
     int tableCount();

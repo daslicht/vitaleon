@@ -46,10 +46,15 @@ inline void Vitaleon::createNavigation(){
 }
 inline void Vitaleon::updateNavigation(){
     int page=mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1);const auto& v=surfaceViews_[page];publish(uiGroup_,float(v.group));if(!v.hidden)rememberedPages_[v.group]=page;
-    int section=mpc::clamp(getInt(uiSection_),0,int(v.sections.size())-1);
-    // The Force's section buttons write Group Section, so the host only repaints the
-    // page when it hears that UI Section, the handle its IndexedEnabling reads, moved.
-    {const bool moved=getInt(uiSection_)!=section;publish(uiSection_,float(section));if(moved&&ready_)notifyHostParameterChanged(uiSection_);}
+    int section=mpc::clamp(getInt(uiSection_),0,int(v.sections.size())-1);publish(uiSection_,float(section));
+    // Page, group and section reach the host only through these publishes: the Force's
+    // section buttons write Group Section instead. So compare against what the host was
+    // last told, not against the value the tap already stored — tapping SOUND publishes
+    // the section it already holds, which looked like "nothing changed" and never repainted.
+    if(ready_&&(page!=uiPageSent_||section!=uiSectionSent_||v.group!=uiGroupSent_)){
+        uiPageSent_=page;uiSectionSent_=section;uiGroupSent_=v.group;
+        notifyHostParameterChanged(uiGroup_);notifyHostParameterChanged(uiPage_);notifyHostParameterChanged(uiSection_);
+    }
     // Mirror the section strip: on the Force its buttons name their tab, so the
     // lit one follows the page the plugin believes it is showing.
     if(uiSectionTab_>=0)publish(uiSectionTab_,float(v.group*8+section));
@@ -74,9 +79,7 @@ inline void Vitaleon::updateNavigation(){
         if(section==6&&tableRowStates_>=0){
             const int count=std::max(1,tableCount());
             const int selected=mpc::clamp(getInt(tableSelect_[o]),0,count-1);
-            tableCursor_=selected;tableMs_=nowMs();tableTravel_=0;
-            publishTableCursor();
-            publish(tableViewPage_,float(selected/kTableRows));tableRaw_=getNormalised(tableViewCursor_);
+            showTableCursor(selected);
             publishTables();
         }
     }
