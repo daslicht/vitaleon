@@ -486,6 +486,12 @@ definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition(
 # the readout are centred above and below the dial instead of beside it. Pan, transpose
 # and tune are centred around zero (12 o'clock), so they use the bipolar dial: its arc
 # grows from the middle, which is what tells the user where zero is.
+def small_value_data(color):
+    # The readout shows the sound parameter, not the Q-Link slot: the slot's display
+    # text is the raw 0..1 float ('0.50' in the centre), the target prints '0%', '0'.
+    data=dict(g.label_data('Value',COLORS[color],18,'horizontallyCentred verticallyCentred'))
+    data['handleName']='Target'
+    return data
 def small_cell(role,color='osc'):
     bipolar=role=='bipolar'
     return g.obj(('key','knob-osc-small' if not bipolar else 'knob-osc-small-bipolar'),
@@ -493,7 +499,7 @@ def small_cell(role,color='osc'):
         g.entry('focus','Focus',g.focus_data(COLORS[color]),f'{(SMALL_W-KNOB)//2} 18 {KNOB} {KNOB}','No','Show','WhenFocussed'),
         ent('name','Label',g.label_data('Name',TEXT,18,'horizontallyCentred verticallyCentred'),(0,0,SMALL_W,20)),
         ent('knob','Knob',g.knob_filmstrip_data(f'large-{color}-{"bipolar" if bipolar else "knob"}{DEF_SUFFIX}.png',127,'Vertical'),((SMALL_W-KNOB)//2,18,KNOB,KNOB)),
-        ent('value','Label',g.label_data('Value',COLORS[color],18,'horizontallyCentred verticallyCentred'),(0,18+KNOB,SMALL_W,SLOT_H-18-KNOB)),
+        ent('value','Label',small_value_data(color),(0,18+KNOB,SMALL_W,SLOT_H-18-KNOB)),
     ],'00000000')))
 for role in ['knob','bipolar']:definitions.append(small_cell(role))
 definitions.append(g.obj(('key','knob-osc-frame'),('value',g.component_definition(g.control_actions('value overlay'),[
