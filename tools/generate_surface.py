@@ -502,47 +502,51 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True,steady=
 # readout (0 empty, 0.5 other, 1 current), so nothing has to be duplicated in the
 # plugin. Three frames keep the host's frame choice unambiguous for all three values.
 def table_tab_image(w,h):
-    name=f'table-tab-env{DEF_SUFFIX}.png'
+    name=f'table-tab-env-{w}x{h}{DEF_SUFFIX}.png'
     if not (skin/name).exists():
         rgb=tuple(bytes.fromhex(COLORS['env'][2:]))
         image=Image.new('RGBA',(w,h*3),(0,0,0,0));d=ImageDraw.Draw(image)
         d.rounded_rectangle((1,2*h+1,w-2,3*h-2),radius=10,outline=rgb+(215,),width=2,fill=rgb+(26,))
         image.save(skin/name)
     return name
+def table_row_blank(w,h):
+    name=f'table-row-blank-{w}x{h}{DEF_SUFFIX}.png'
+    if not (skin/name).exists():Image.new('RGBA',(w,h),(0,0,0,0)).save(skin/name)
+    return name
+def table_text_readout(param,color,size,bounds,name):
+    # A value widget, not a label: a Label swallows the touch of the control under
+    # it, and the row button now covers the whole row.
+    style=dict(sdk_label_data('Text',color,size,'left verticallyCentred'))['textStyle']
+    return ent(name,'Knob',{'version':4,'knobType':'ValueSlider','textStyle':style,'dragOrientation':'Vertical','handleName':handle(param)},bounds)
+
 def add_table(c):
-    # 0.3.34: the wavetable list sits in the SOUND section, right of the wave frame
-    # and table knobs, so the table is chosen while the frame is adjusted. The block
-    # is as wide as the space beside the pair: 390 px on the Force, 220 px on the
-    # 1000 px MPC skin, which is why the row itself is the LOAD button and the four
-    # footer commands wrap into two rows when the block is narrow.
+    # 0.3.34 (user request): the row itself is the tab. A separate LOAD button was
+    # both a second step and a second tap (the host took the press for focus), so the
+    # whole row is one transparent button over its text and the loaded row carries
+    # the accent frame. PREV/NEXT and BUILT-IN are gone: the page follows the table
+    # cursor (step tile, wheel) and the built-in table is the first row. RELOAD stays
+    # because it is the only way to pick up newly copied tables without reopening the
+    # plugin.
     show=sec_show(0)
     rows,step=TABLE_ROWS,TABLE_STEP
     x=424+SLOT_W+24;w=SCREEN_RIGHT-24-x
-    load_w=132 if FORCE else 96
-    text_w=w-load_w-8
+    row_h=min(60,step-2);text_w=w-10
+    blank=table_row_blank(w,row_h)
     c.append(conditional(label('Table position',(x,136,w,28),TEXT,20,value='table_position'),show))
     top=172
     for row in range(rows):
         y=top+row*step
-        c.append(conditional(ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w+8,60),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(x-4,y-4,w+8,60)),show))
-        c.append(conditional(label('Table folder',(x,y,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
-        c.append(conditional(label('Table mark',(x,y+18,16,24),COLORS['osc'],20,value=f'table_row_{row}_state'),show))
-        c.append(conditional(label('Table name',(x+18,y+18,text_w-18,24),TEXT,20,value=f'table_row_{row}_name'),show))
-        # No focus target: the first tap has to load, not take focus.
-        c.append(conditional(nav_button('LOAD',x+w-load_w,y,load_w,TABLE_ROW_H,f'Select Table Row {row+1}',0,1,'env',focus=False,steady=True),show))
-    fy=top+rows*step+8
-    per_row=4 if w>=380 else 2
-    bw=(w-8*(per_row-1))//per_row
-    footer_rows=(4+per_row-1)//per_row
-    # The tab content area is 628 px high (SDK ui-reference 1.4); a row added
-    # here without room would be drawn off the screen instead of failing.
-    assert fy+(footer_rows-1)*60+52<=TABLE_BOTTOM,(TABLE_ROWS,per_row,'table rows do not fit the content area')
-    for n,(caption,param) in enumerate([('PREV','Table Previous Page'),('NEXT','Table Next Page'),('RELOAD','Table Reload'),('BUILT-IN','Table Built-in')]):
-        r,col=divmod(n,per_row)
-        c.append(conditional(nav_button(caption,x+col*(bw+8),fy+r*60,bw,52,param,0),show))
-    status_y=fy+footer_rows*60+2
-    if status_y+44<=TABLE_BOTTOM:
-        for part in range(2):c.append(conditional(label('Table status',(x,status_y+part*22,text_w,22),COLORS['mod'],15,value=f'table_status_{part}'),show))
+        c.append(conditional(ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w+8,row_h),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(x-4,y-4,w+8,row_h)),show))
+        c.append(conditional(table_text_readout(f'table_row_{row}_folder',MUTED,15,(x,y+2,text_w,20),'Table folder'),show))
+        c.append(conditional(table_text_readout(f'table_row_{row}_name',TEXT,20,(x,y+22,text_w,row_h-24),'Table name'),show))
+        # buttonId 1 of 2: at rest the handle reads 0, so the host sees this row as
+        # unselected and writes it on the first press instead of finding it chosen.
+        c.append(conditional(ent('Table row','Button',{'version':2,'onImage':blank,'offImage':blank,'buttonId':1,'numButtonsInGroup':2,'handleName':handle(f'Select Table Row {row+1}'),'gestureBehaviour':'Instant'},(x,y,w,row_h),False),show))
+    fy=top+rows*step+6
+    assert fy+52<=TABLE_BOTTOM,(TABLE_ROWS,'table rows do not fit the content area')
+    c.append(conditional(nav_button('RELOAD',x,fy,w,52,'Table Reload',0,1,'osc',focus=False),show))
+    # No status lines here any more: the block ends at the RELOAD button, and on the
+    # MPC the group footer owns the band below it (load messages read on HOME).
 
 def add_library(c):
     # 0.3.19 layout: place line, three commands, six rows of KIND | NAME | button.
@@ -703,10 +707,15 @@ for i,view in enumerate(VIEWS):
     if chart!='library':
         # Seven LFO sections need the top line for their buttons, so the module
         # selector moves next to the version label on ENV/LFO pages.
+        # 0.3.34 (user request): the oscillator pages drop the page title and the
+        # version line; the tab bar and the module row already name them, and the
+        # line only pushed the graph down.
         if view['group'] in [3,4]:
             children.append(label('ENVELOPE' if view['group']==3 else 'LFO',(24,72,296,38),TEXT,30))
-        else:children.append(label(title.upper() if chart not in ['pickgroup','picktarget'] else 'CHOOSE TARGET',(24,72,title_room,38),TEXT,30))
-        children.append(label('VITALEON '+version,(24,110,150 if view['group'] in [3,4] else (min(260,section_buttons[0][1]-32) if section_buttons else 260),24),MUTED,17))
+        elif view['group']!=1:
+            children.append(label(title.upper() if chart not in ['pickgroup','picktarget'] else 'CHOOSE TARGET',(24,72,title_room,38),TEXT,30))
+        if view['group']!=1:
+            children.append(label('VITALEON '+version,(24,110,150 if view['group'] in [3,4] else (min(260,section_buttons[0][1]-32) if section_buttons else 260),24),MUTED,17))
         if view['group'] in [3,4]:
             children.append(label('Selected module',(190,110,130,24),MUTED,20,value='Env Select' if view['group']==3 else 'LFO Select'))
         if chart=='home':

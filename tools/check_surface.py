@@ -51,9 +51,11 @@ for page,section,values in states():
             if GROUP_MODEL and any(p==NAMES[f'Group {g} Section'] for g in range(7)):
                 assert d['numButtonsInGroup']==8 and 0<=d['buttonId']<7,(e['name'],d['buttonId'],d['numButtonsInGroup'])
         if kind=='Knob':
-            # The ValueSlider draws only the value text; every other knob is a film strip.
-            if d.get('knobType')=='FilmStrip':assert image_size(d['filmStrip'])==(w,h*d['numFrames'])
-            assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52),(300,56),(120,120),(372,64),(56,56),(64,64),(84,84),(72,72)],(e['name'],w,h)
+            # The ValueSlider draws only the value text, so its bounds are a text box
+            # of any size; every other knob is a film strip at a native control size.
+            if d.get('knobType')=='FilmStrip':
+                assert image_size(d['filmStrip'])==(w,h*d['numFrames'])
+                assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52),(300,56),(120,120),(372,64),(56,56),(64,64),(84,84),(72,72)],(e['name'],w,h)
     if VIEWS[page]['group']==1 and isinstance(VIEWS[page]['chart'],int) and section==0:
         segments=[e for e in leaves if e['name'].startswith('wave column')]
         left=min(e['box'][0] for e in segments);right=max(e['box'][2] for e in segments)
