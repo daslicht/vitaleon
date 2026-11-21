@@ -56,9 +56,10 @@ inline void Vitaleon::createDebug(){
 // TEMPORARY: every callback the plugin actually receives, before any decision.
 // A tap that leaves no EVT line never reached the plugin at all.
 inline void Vitaleon::logEvent(const char* tag,int index,float plain){
+    const int page=uiPage_>=0?mpc::clamp(getInt(uiPage_),0,4095):-1;
     {std::lock_guard<std::mutex> lock(debugLogMutex_);
      std::ofstream out("/tmp/vitaleon-sections.log",std::ios::app);
-     if(out)out<<"t="<<std::time(nullptr)<<" EVT "<<tag<<" idx="<<index<<" plain="<<int(std::lround(plain))<<"\n";}
+     if(out)out<<"t="<<std::time(nullptr)<<" EVT "<<tag<<" idx="<<index<<" val="<<int(std::lround(plain))<<" page="<<page<<"\n";}
 }
 // TEMPORARY: one line per section change, readable over ssh from the device.
 inline void Vitaleon::logSection(int page,int section){

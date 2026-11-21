@@ -175,10 +175,14 @@ inline void Vitaleon::listStep(int index,float plain){
 }
 inline void Vitaleon::parameterChanged(int index,float plain){
     if(!ready_)return;
-    // TEMPORARY: the strip and the handles the section logic reads.
+    // TEMPORARY: the strip, the handles the section logic reads, the per-group page
+    // handles and the table's NEXT button — one log then tells which kinds of tap
+    // reach the plugin at all.
     if(index==uiSectionTab_)logEvent("strip",index,plain);
     else if(index==uiSection_)logEvent("uisec",index,plain);
     else if(index==uiPage_)logEvent("uipage",index,plain);
+    else if(tableCommands_>=0&&index==tableCommands_+1)logEvent("tablenext",index,plain);
+    else for(int g=0;g<7;++g)if(index==groupPage_[g]){logEvent(("gpage"+std::to_string(g+1)).c_str(),index,plain);break;}
     listStep(index,plain);
     fxPlanDirty_.store(true,std::memory_order_relaxed);
     if(navigationChanged(index,plain)||tableChanged(index,plain)||storageChanged(index))return;
