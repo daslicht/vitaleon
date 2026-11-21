@@ -554,7 +554,10 @@ def cell_position(chart,section,slot):
         assert slot<3,(chart,slot)
         return col_x(slot),364
     if isinstance(chart,int) and section==0:
-        if slot==0:return col_x(2),166
+        # The wave frame knob sits directly beside the waveform (the graph ends at
+        # x = 408), so the sound section reads wave, frame, level from left to right.
+        # Its slot number stays 0: only the place on screen moves, not the Q-Link.
+        if slot==0:return 424,166
         return col_x(slot-1),372
     row,col=divmod(slot,3);return col_x(col),166+190*row
 from surface_spec import DESTINATIONS
