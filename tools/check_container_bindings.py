@@ -24,7 +24,7 @@ if GROUP_MODEL:
     # Every tab must lose every view container it binds, not just the one tab
     # the single-tab layout had.
     assert len(invalid_parents(broken))==len([e for e in broken if e['componentData']['type'].startswith('view-')])
-else:assert len(invalid_parents(broken))==28
+else:assert len(invalid_parents(broken))==len([e for e in broken if e['componentData']['type'].startswith('view-')])
 for page,section,values in states():
     entries_p=tab_entries(page);broken_p=copy.deepcopy(entries_p)
     for e in broken_p:

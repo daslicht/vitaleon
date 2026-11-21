@@ -211,7 +211,8 @@ inline void Vitaleon::loadPreset(const Json& preset){
 }
 inline void Vitaleon::loadSelections(){
     for(int o=0;o<3;++o){int selection=getInt(tableSelect_[o]);if(selection==lastTable_[o])continue;lastTable_[o]=selection;if(!selection)continue;
-        const auto& asset=assets_[1].at(selection);auto extension=std::filesystem::path(asset.entry.empty()?asset.path:asset.entry).extension().string();for(auto& c:extension)c=char(std::tolower((unsigned char)c));if(extension==".wav"){
+        Asset asset;{std::lock_guard<std::mutex> tables(tableMutex_);if(selection>=int(assets_[1].size()))continue;asset=assets_[1][size_t(selection)];}
+        auto extension=std::filesystem::path(asset.entry.empty()?asset.path:asset.entry).extension().string();for(auto& c:extension)c=char(std::tolower((unsigned char)c));if(extension==".wav"){
             dsp::WavData w;vitaleon_assets::require(dsp::parseWav(readAssetBytes(asset),w)&&w.numFrames()<=16777216,"Invalid wavetable WAV");
             WavetableCreator c(engine_->getWavetable(o));c.initFromAudioFile(w.channels[0].data(),int(w.numFrames()),int(w.sampleRate),WavetableCreator::kWavetableSplice,FileSource::kNoInterpolate);c.render();savedAssets_["wavetables"][o]=c.stateToJson();
         }else loadTable(o,readAsset(asset));

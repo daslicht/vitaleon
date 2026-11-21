@@ -48,15 +48,19 @@ add(0,'Library','LIBRARY',[('BANKS',[])],chart='library')
 for o in range(1,4):
     # Medium 16:9 graph top-left with four controls around it, six controls in
     # the other sections (0.3.25: three wide columns, two rows).
-    p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','on',f'Osc {o} Table']),
+    p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','on']),
         ('PHASE',['phase','random_phase','transpose_quantize','midi_track','smooth_interpolation','destination']),
         ('UNISON',['unison_voices','unison_detune','unison_blend','stereo_spread','stack_style','detune_power']),
         ('SPREAD',['pan','transpose','tune','detune_range','frame_spread','spectral_unison']),
         ('WARP',['distortion_type','distortion_amount','distortion_spread','distortion_phase']),
         ('SPECTRAL',['spectral_morph_type','spectral_morph_amount','spectral_morph_spread'])]
     parts=[(name,[k if k.startswith('Osc ') else p+k for k in items]) for name,items in parts]
-    assert set(keys(p))-{p+'view_2d'}=={k for _,items in parts for k in items}-{f'Osc {o} Table'}
+    assert set(keys(p))-{p+'view_2d',f'Osc {o} Table'}=={k for _,items in parts for k in items}
     add(1,f'Oscillator {o}',f'OSC {o}',parts,chart=o-1,member=o)
+# Table picker (0.3.35): the wavetable list is a view of its own, because its
+# entries are read from the Content folder at run time. The three table
+# parameters live here so each still appears exactly once in the model.
+add(1,'Table','TABLE',[('TABLES',['Osc 1 Table','Osc 2 Table','Osc 3 Table','Table Cursor','Table Oscillator','Table Page'])],'osc','table')
 add(1,'Sample','SAMPLE',[('PLAY',['Sample File','sample_on','sample_level','sample_pan','sample_transpose','sample_tune']),('PLAY 2',['sample_loop','sample_bounce']),('ROUTING',['sample_keytrack','sample_random_phase','sample_destination','sample_transpose_quantize'])])
 for f in range(1,3):
     p=f'filter_{f}_';main=[p+k for k in ['cutoff','resonance','drive','mix','on','model','style','blend']]

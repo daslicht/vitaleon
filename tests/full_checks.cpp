@@ -376,9 +376,9 @@ int main(int argc,char** argv){
   }
   check(mapped&&sectionCount==expectedSections,"all "+std::to_string(int(spec.size()))+" module views and "+std::to_string(expectedSections)+" sections map Q-Links to visible controls");
   if(argc>2){std::ofstream f(std::string(argv[2])+"-surface.json");f<<snapshots.dump();}
-  native->set(id("ui_page"),8);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.37f);check(std::abs(native->getNormalised(cutoff)-.37f)<1e-6,"filter cutoff Q-Link writes the actual full-engine filter");
-  native->set(id("ui_page"),15);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.4f);check(std::abs(native->getNormalised(native->controlIndex("env_6_attack"))-.4f)<1e-6,"Envelope 6 view edits Envelope 6 through Q-Link");
-  native->set(id("ui_page"),23);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.6f);check(std::abs(native->getNormalised(native->controlIndex("lfo_8_frequency"))-.6f)<1e-6,"LFO 8 view edits LFO 8 through Q-Link");
+  native->set(id("ui_page"),9);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.37f);check(std::abs(native->getNormalised(cutoff)-.37f)<1e-6,"filter cutoff Q-Link writes the actual full-engine filter");
+  native->set(id("ui_page"),16);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.4f);check(std::abs(native->getNormalised(native->controlIndex("env_6_attack"))-.4f)<1e-6,"Envelope 6 view edits Envelope 6 through Q-Link");
+  native->set(id("ui_page"),24);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.6f);check(std::abs(native->getNormalised(native->controlIndex("lfo_8_frequency"))-.6f)<1e-6,"LFO 8 view edits LFO 8 through Q-Link");
   // The sound parameter is announced once the control rests (0.3.23), not while it moves.
   for(int i=0;i<1000&&!native->testSlotsAtRest();++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
   check(native->testSlotsAtRest()&&automatedTarget.load()==native->controlIndex("lfo_8_frequency"),"Q-Link automation reports stable LFO 8 parameter rather than navigation proxy");
@@ -386,7 +386,7 @@ int main(int argc,char** argv){
   // stay on the matrix page instead of pulling the LFO page back.
   native->set(id("ui_gpage_6"),0);native->set(id("ui_section"),0);
   const int modPage=native->getInt(id("ui_page"));
-  check(native->getInt(id("ui_group"))==6&&modPage==34,"the OTHER group page shows the matrix");
+  check(native->getInt(id("ui_group"))==6&&modPage==35,"the OTHER group page shows the matrix");
   native->setNormalised(id("ui_g4_slot_0"),.8f);
   check(native->getInt(id("ui_page"))==modPage&&native->getInt(id("ui_group"))==6,"a MOD bank write keeps the matrix page");
   native->set(id("ui_gpage_0"),1);const int homePage=native->getInt(id("ui_page"));
@@ -395,15 +395,15 @@ int main(int argc,char** argv){
   // The MOD strip is one parameter, so it opens LFO 1 by default and only one
   // subtab can be selected.
   native->set(id("ui_mod_page"),0);
-  check(native->getInt(id("ui_page"))==16,"MOD Page 0 opens LFO 1");
+  check(native->getInt(id("ui_page"))==17,"MOD Page 0 opens LFO 1");
   native->set(id("ui_mod_page"),8);
-  check(native->getInt(id("ui_page"))==34,"MOD Page 8 opens the matrix");
+  check(native->getInt(id("ui_page"))==35,"MOD Page 8 opens the matrix");
   native->set(id("ui_mod_page"),11);
-  check(native->getInt(id("ui_page"))==37,"MOD Page 11 opens the modulation curve");
+  check(native->getInt(id("ui_page"))==38,"MOD Page 11 opens the modulation curve");
   // A strip button is one step of its parameter (SDK ui-reference 6.4). With the
   // page index space of every view (0..39) the four OSC buttons wrote step 13 and
   // every OSC page, and every Q-Link slot on it, edited oscillator 1.
-  {const int g1=id("ui_gpage_1");check(native->param(g1).max==3,"the OSC strip has one step per page");
+  {const int g1=id("ui_gpage_1");check(native->param(g1).max==4,"the OSC strip has one step per page");
    effect->setParameter(effect,g1,1.0f/3.0f);native->set(id("ui_section"),1);waitNative();
    check(native->getInt(g1)==1&&native->getInt(id("ui_page"))==5,"pressing OSC 2 opens the Oscillator 2 page");
    native->setNormalised(id("ui_g1_slot_0"),.3f);
@@ -435,6 +435,54 @@ int main(int argc,char** argv){
     check(native->getInt(sel)>=2,"the drag keeps following the travel");
     pause();native->setNormalised(sel,0.9f);
     check(native->getInt(sel)>=8,"a jump in a run-time list stays absolute again");
+  }
+  // 0.3.35 table picker: its own view. The wheel moves one cursor entry per click
+  // and the entry loads when the wheel rests; a row button loads at once.
+  {
+    const int open=id("table_open_1"),cursor=id("table_view_cursor"),table=id("table_1");
+    const int view=native->testTablePageView();
+    auto idle=[&](int blocks){for(int i=0;i<blocks;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}};
+    auto click=[&]{std::this_thread::sleep_for(std::chrono::milliseconds(30));native->setNormalised(cursor,native->getNormalised(cursor)+0.01f);};
+    auto loaded=[&](int entry){for(int i=0;i<400&&native->getInt(table)!=entry;++i)idle(1);return native->getInt(table)==entry;};
+    // The fixture ships no wavetables, so the view is tested against ten small ones.
+    auto writeTable=[&](const std::filesystem::path& path){
+      std::vector<uint8_t> bytes;auto put32=[&](uint32_t v){for(int i=0;i<4;++i)bytes.push_back(uint8_t(v>>(8*i)));};
+      auto put16=[&](uint16_t v){for(int i=0;i<2;++i)bytes.push_back(uint8_t(v>>(8*i)));};
+      const int frames=2048;bytes.insert(bytes.end(),{'R','I','F','F'});put32(uint32_t(36+frames*2));
+      bytes.insert(bytes.end(),{'W','A','V','E','f','m','t',' '});put32(16);put16(1);put16(1);put32(44100);put32(44100*2);put16(2);put16(16);
+      bytes.insert(bytes.end(),{'d','a','t','a'});put32(uint32_t(frames*2));
+      for(int i=0;i<frames;++i)put16(uint16_t(int16_t(std::lround((i/(double)frames*2-1)*8000))));
+      std::ofstream(path.string(),std::ios::binary).write(reinterpret_cast<const char*>(bytes.data()),std::streamsize(bytes.size()));
+    };
+    auto folder=std::filesystem::path(argv[3])/"Content/Wavetables/Test";
+    std::filesystem::create_directories(folder);
+    for(int i=0;i<10;++i)writeTable(folder/("Test Table "+std::to_string(i+1)+".wav"));
+    native->set(id("table_command_2"),1);waitNative();
+    native->set(open,1);waitNative();
+    check(native->getInt(open)==0&&view>=0&&native->getInt(id("ui_page"))==view,"the table button opens the table view and sets itself back");
+    check(native->testTableCount()==11&&native->displayText(id("table_row_0_name"))=="Built-in / current","the table list starts with the built-in entry");
+    const std::string firstName=native->displayText(id("table_row_1_name"));
+    check(firstName=="Test Table 1"&&native->displayText(id("table_row_1_folder"))=="Test","the table rows carry the installed names and their folder");
+    click();
+    check(native->testTableCursor()==1,"one data wheel click moves the table cursor by one entry");
+    check(loaded(1),"the cursor entry loads once the wheel rests");
+    check(native->displayText(id("display_table_name_1"))==firstName,"the oscillator names the table it loaded");
+    // A quick spin: three clicks inside the 120 ms rest window load only the last entry.
+    click();click();click();
+    check(native->testTableCursor()==4,"a quick spin moves the cursor once per click");
+    check(loaded(4),"a quick spin loads only the table it lands on");
+    native->set(id("table_row_2"),1);waitNative();
+    check(native->getInt(table)==2&&native->testTableCursor()==2,"a row button loads that table at once");
+    native->set(id("table_command_1"),1);waitNative();
+    check(native->getInt(id("table_view_page"))==1&&!native->displayText(id("table_row_0_name")).empty(),"NEXT shows the next page of tables");
+    const int before=native->testTableCount();
+    writeTable(folder/"Test Reload.wav");
+    native->set(id("table_command_2"),1);waitNative();
+    check(native->testTableCount()==before+1,"RELOAD picks up a table copied into the Content folder");
+    std::filesystem::remove_all(folder);native->set(id("table_command_2"),1);waitNative();
+    check(native->testTableCount()==1,"RELOAD drops tables that were removed again");
+    native->set(id("table_command_3"),1);waitNative();
+    check(native->getInt(table)==0&&native->testTableCursor()==0&&native->getInt(id("table_view_page"))==0,"BUILT-IN returns to the built-in table");
   }
   // Each page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1.
   native->set(id("ui_gpage_1"),0);native->set(id("ui_section"),1);
@@ -478,7 +526,7 @@ int main(int argc,char** argv){
      bool accepted=found&&native->internalLoadState(chunk.data(),chunk.size());for(int i=0;i<3000&&native->busy();++i)idle(1);rest();
      check(found&&accepted&&native->getInt(voices)==8,"a project saved with 24 voices is restored at eight");}}
    // A list on screen is bound to its own parameter: the host hears of its step at once.
-   native->set(id("ui_page"),16);native->set(id("ui_section"),0);idle(20);int list=named("LFO sync");
+   native->set(id("ui_page"),17);native->set(id("ui_section"),0);idle(20);int list=named("LFO sync");
    bool stepped=list>=0&&native->param(list).kind!=mpc::Param::Kind::Float;float old=stepped?native->getNormalised(list):0;automatedTarget.store(-1);
    effect->setParameter(effect,id("ui_knob_1"),old>.5f?0.0f:1.0f);for(int i=0;i<100&&automatedTarget.load()<0;++i)idle(1);
    check(stepped&&native->getNormalised(list)!=old&&automatedTarget.load()==list,"a list turned by Q-Link is announced to the host for redrawing");

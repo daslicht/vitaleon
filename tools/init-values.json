@@ -429,7 +429,7 @@
   "display": "0.5 ms",
   "index": 71,
   "name": "env 1 attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "0",
@@ -441,7 +441,7 @@
   "display": "1 s",
   "index": 73,
   "name": "env 1 decay",
-  "value": 0.5623413324356079
+  "value": 0.8052446842193604
  },
  {
   "display": "-2",
@@ -465,7 +465,7 @@
   "display": "89.9 ms",
   "index": 77,
   "name": "env 1 release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "-2",
@@ -483,7 +483,7 @@
   "display": "0.5 ms",
   "index": 80,
   "name": "env 2 attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "0",
@@ -495,7 +495,7 @@
   "display": "1 s",
   "index": 82,
   "name": "env 2 decay",
-  "value": 0.5623413324356079
+  "value": 0.8052446842193604
  },
  {
   "display": "-2",
@@ -519,7 +519,7 @@
   "display": "89.9 ms",
   "index": 86,
   "name": "env 2 release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "-2",
@@ -537,7 +537,7 @@
   "display": "0.5 ms",
   "index": 89,
   "name": "env 3 attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "0",
@@ -549,7 +549,7 @@
   "display": "1 s",
   "index": 91,
   "name": "env 3 decay",
-  "value": 0.5623413324356079
+  "value": 0.8052446842193604
  },
  {
   "display": "-2",
@@ -573,7 +573,7 @@
   "display": "89.9 ms",
   "index": 95,
   "name": "env 3 release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "-2",
@@ -591,7 +591,7 @@
   "display": "0.5 ms",
   "index": 98,
   "name": "env 4 attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "0",
@@ -603,7 +603,7 @@
   "display": "1 s",
   "index": 100,
   "name": "env 4 decay",
-  "value": 0.5623413324356079
+  "value": 0.8052446842193604
  },
  {
   "display": "-2",
@@ -627,7 +627,7 @@
   "display": "89.9 ms",
   "index": 104,
   "name": "env 4 release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "-2",
@@ -645,7 +645,7 @@
   "display": "0.5 ms",
   "index": 107,
   "name": "env 5 attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "0",
@@ -657,7 +657,7 @@
   "display": "1 s",
   "index": 109,
   "name": "env 5 decay",
-  "value": 0.5623413324356079
+  "value": 0.8052446842193604
  },
  {
   "display": "-2",
@@ -681,7 +681,7 @@
   "display": "89.9 ms",
   "index": 113,
   "name": "env 5 release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "-2",
@@ -699,7 +699,7 @@
   "display": "0.5 ms",
   "index": 116,
   "name": "env 6 attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "0",
@@ -711,7 +711,7 @@
   "display": "1 s",
   "index": 118,
   "name": "env 6 decay",
-  "value": 0.5623413324356079
+  "value": 0.8052446842193604
  },
  {
   "display": "-2",
@@ -735,7 +735,7 @@
   "display": "89.9 ms",
   "index": 122,
   "name": "env 6 release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "-2",
@@ -5553,7 +5553,7 @@
   "display": "0.5 ms",
   "index": 925,
   "name": "Env attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "0 ms",
@@ -5565,7 +5565,7 @@
   "display": "1 s",
   "index": 927,
   "name": "Env decay",
-  "value": 0.5623413324356079
+  "value": 0.8052446842193604
  },
  {
   "display": "1",
@@ -5577,7 +5577,7 @@
   "display": "89.9 ms",
   "index": 929,
   "name": "Env release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "0",
@@ -10749,13 +10749,13 @@
   "display": "0.5 ms",
   "index": 1791,
   "name": "Home Attack",
-  "value": 0.34967154264450073
+  "value": 0.5007121562957764
  },
  {
   "display": "89.9 ms",
   "index": 1792,
   "name": "Home Release",
-  "value": 0.4837442934513092
+  "value": 0.6926976442337036
  },
  {
   "display": "1",
@@ -11018,552 +11018,792 @@
  {
   "display": "0",
   "index": 1836,
-  "name": "UI Group",
+  "name": "Table Oscillator",
   "value": 0.0
  },
  {
   "display": "0",
   "index": 1837,
-  "name": "UI Page",
+  "name": "Table Page",
   "value": 0.0
  },
  {
-  "display": "0",
+  "display": "0.00",
   "index": 1838,
-  "name": "UI Section",
+  "name": "Table Cursor",
   "value": 0.0
  },
  {
-  "display": "-24dB",
+  "display": "Off",
   "index": 1839,
-  "name": "UI Control 1",
-  "value": 0.42381584644317627
+  "name": "Open Osc 1 Table",
+  "value": 0.0
  },
  {
-  "display": "4",
+  "display": "Off",
   "index": 1840,
-  "name": "UI Control 2",
-  "value": 0.4285714328289032
+  "name": "Open Osc 2 Table",
+  "value": 0.0
  },
  {
-  "display": "262 Hz",
+  "display": "Off",
   "index": 1841,
-  "name": "UI Control 3",
-  "value": 0.40625
+  "name": "Open Osc 3 Table",
+  "value": 0.0
  },
  {
-  "display": "50%",
+  "display": "Off",
   "index": 1842,
-  "name": "UI Control 4",
-  "value": 0.5
+  "name": "Table Previous Page",
+  "value": 0.0
  },
  {
-  "display": "0.5 ms",
+  "display": "Off",
   "index": 1843,
-  "name": "UI Control 5",
-  "value": 0.34967154264450073
+  "name": "Table Next Page",
+  "value": 0.0
  },
  {
-  "display": "89.9 ms",
+  "display": "Off",
   "index": 1844,
-  "name": "UI Control 6",
-  "value": 0.4837442934513092
+  "name": "Table Reload",
+  "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "Off",
   "index": 1845,
-  "name": "UI Control 7",
+  "name": "Table Built-in",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "Off",
   "index": 1846,
-  "name": "UI Control 8",
+  "name": "Select Table Row 1",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "Off",
   "index": 1847,
-  "name": "UI Control 9",
+  "name": "Select Table Row 2",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "Off",
   "index": 1848,
-  "name": "UI Control 10",
+  "name": "Select Table Row 3",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "Off",
   "index": 1849,
-  "name": "UI Control 11",
+  "name": "Select Table Row 4",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "Off",
   "index": 1850,
-  "name": "UI Control 12",
+  "name": "Select Table Row 5",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "Off",
   "index": 1851,
-  "name": "UI Control 13",
+  "name": "Select Table Row 6",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": ">",
   "index": 1852,
-  "name": "UI Control 14",
+  "name": "table_row_0_state",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "",
   "index": 1853,
-  "name": "UI Control 15",
+  "name": "table_row_1_state",
   "value": 0.0
  },
  {
-  "display": "Unused",
+  "display": "",
   "index": 1854,
-  "name": "UI Control 16",
+  "name": "table_row_2_state",
   "value": 0.0
  },
  {
-  "display": "0",
+  "display": "",
   "index": 1855,
-  "name": "UI Pick",
+  "name": "table_row_3_state",
   "value": 0.0
  },
  {
-  "display": "0",
+  "display": "",
   "index": 1856,
-  "name": "UI Bank",
+  "name": "table_row_4_state",
   "value": 0.0
  },
  {
-  "display": "0",
+  "display": "",
   "index": 1857,
-  "name": "Group 0 Page",
+  "name": "table_row_5_state",
   "value": 0.0
  },
  {
-  "display": "0.42",
+  "display": "Built-in / current",
   "index": 1858,
-  "name": "Group 0 Slot 1",
-  "value": 0.42381584644317627
+  "name": "table_row_0_name",
+  "value": 0.0
  },
  {
-  "display": "0.43",
+  "display": "",
   "index": 1859,
-  "name": "Group 0 Slot 2",
-  "value": 0.4285714328289032
+  "name": "table_row_1_name",
+  "value": 0.0
  },
  {
-  "display": "0.41",
+  "display": "",
   "index": 1860,
-  "name": "Group 0 Slot 3",
-  "value": 0.40625
+  "name": "table_row_2_name",
+  "value": 0.0
  },
  {
-  "display": "0.50",
+  "display": "",
   "index": 1861,
-  "name": "Group 0 Slot 4",
-  "value": 0.5
+  "name": "table_row_3_name",
+  "value": 0.0
  },
  {
-  "display": "0.35",
+  "display": "",
   "index": 1862,
-  "name": "Group 0 Slot 5",
-  "value": 0.34967154264450073
+  "name": "table_row_4_name",
+  "value": 0.0
  },
  {
-  "display": "0.48",
+  "display": "",
   "index": 1863,
-  "name": "Group 0 Slot 6",
-  "value": 0.4837442934513092
+  "name": "table_row_5_name",
+  "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Built-in",
   "index": 1864,
-  "name": "Group 0 Slot 7",
+  "name": "table_row_0_folder",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "",
   "index": 1865,
-  "name": "Group 0 Slot 8",
+  "name": "table_row_1_folder",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "",
   "index": 1866,
-  "name": "Group 0 Slot 9",
+  "name": "table_row_2_folder",
+  "value": 0.0
+ },
+ {
+  "display": "",
+  "index": 1867,
+  "name": "table_row_3_folder",
+  "value": 0.0
+ },
+ {
+  "display": "",
+  "index": 1868,
+  "name": "table_row_4_folder",
+  "value": 0.0
+ },
+ {
+  "display": "",
+  "index": 1869,
+  "name": "table_row_5_folder",
+  "value": 0.0
+ },
+ {
+  "display": "Page 1/1  1/1",
+  "index": 1870,
+  "name": "table_position",
+  "value": 0.0
+ },
+ {
+  "display": "No user sounds. Add banks to ",
+  "index": 1871,
+  "name": "table_status_0",
+  "value": 0.0
+ },
+ {
+  "display": "Content/Banks, then reopen ",
+  "index": 1872,
+  "name": "table_status_1",
+  "value": 0.0
+ },
+ {
+  "display": "Built-in / current",
+  "index": 1873,
+  "name": "display_table_name_1",
+  "value": 0.0
+ },
+ {
+  "display": "Built-in / current",
+  "index": 1874,
+  "name": "display_table_name_2",
+  "value": 0.0
+ },
+ {
+  "display": "Built-in / current",
+  "index": 1875,
+  "name": "display_table_name_3",
   "value": 0.0
  },
  {
   "display": "0",
-  "index": 1867,
-  "name": "Group 1 Page",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1868,
-  "name": "Group 1 Slot 1",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1869,
-  "name": "Group 1 Slot 2",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1870,
-  "name": "Group 1 Slot 3",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1871,
-  "name": "Group 1 Slot 4",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1872,
-  "name": "Group 1 Slot 5",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1873,
-  "name": "Group 1 Slot 6",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1874,
-  "name": "Group 1 Slot 7",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1875,
-  "name": "Group 1 Slot 8",
-  "value": 0.0
- },
- {
-  "display": "0.00",
   "index": 1876,
-  "name": "Group 1 Slot 9",
+  "name": "UI Group",
   "value": 0.0
  },
  {
   "display": "0",
   "index": 1877,
-  "name": "Group 2 Page",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1878,
-  "name": "Group 2 Slot 1",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1879,
-  "name": "Group 2 Slot 2",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1880,
-  "name": "Group 2 Slot 3",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1881,
-  "name": "Group 2 Slot 4",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1882,
-  "name": "Group 2 Slot 5",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1883,
-  "name": "Group 2 Slot 6",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1884,
-  "name": "Group 2 Slot 7",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1885,
-  "name": "Group 2 Slot 8",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1886,
-  "name": "Group 2 Slot 9",
+  "name": "UI Page",
   "value": 0.0
  },
  {
   "display": "0",
+  "index": 1878,
+  "name": "UI Section",
+  "value": 0.0
+ },
+ {
+  "display": "-24dB",
+  "index": 1879,
+  "name": "UI Control 1",
+  "value": 0.42381584644317627
+ },
+ {
+  "display": "4",
+  "index": 1880,
+  "name": "UI Control 2",
+  "value": 0.4285714328289032
+ },
+ {
+  "display": "262 Hz",
+  "index": 1881,
+  "name": "UI Control 3",
+  "value": 0.40625
+ },
+ {
+  "display": "50%",
+  "index": 1882,
+  "name": "UI Control 4",
+  "value": 0.5
+ },
+ {
+  "display": "0.5 ms",
+  "index": 1883,
+  "name": "UI Control 5",
+  "value": 0.5007121562957764
+ },
+ {
+  "display": "89.9 ms",
+  "index": 1884,
+  "name": "UI Control 6",
+  "value": 0.6926976442337036
+ },
+ {
+  "display": "Unused",
+  "index": 1885,
+  "name": "UI Control 7",
+  "value": 0.0
+ },
+ {
+  "display": "Unused",
+  "index": 1886,
+  "name": "UI Control 8",
+  "value": 0.0
+ },
+ {
+  "display": "Unused",
   "index": 1887,
-  "name": "Group 3 Page",
+  "name": "UI Control 9",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1888,
-  "name": "Group 3 Slot 1",
+  "name": "UI Control 10",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1889,
-  "name": "Group 3 Slot 2",
+  "name": "UI Control 11",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1890,
-  "name": "Group 3 Slot 3",
+  "name": "UI Control 12",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1891,
-  "name": "Group 3 Slot 4",
+  "name": "UI Control 13",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1892,
-  "name": "Group 3 Slot 5",
+  "name": "UI Control 14",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1893,
-  "name": "Group 3 Slot 6",
+  "name": "UI Control 15",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1894,
-  "name": "Group 3 Slot 7",
+  "name": "UI Control 16",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0",
   "index": 1895,
-  "name": "Group 3 Slot 8",
+  "name": "UI Pick",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0",
   "index": 1896,
-  "name": "Group 3 Slot 9",
+  "name": "UI Bank",
   "value": 0.0
  },
  {
   "display": "0",
   "index": 1897,
-  "name": "Group 4 Page",
+  "name": "Group 0 Page",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0.42",
   "index": 1898,
-  "name": "Group 4 Slot 1",
-  "value": 0.0
+  "name": "Group 0 Slot 1",
+  "value": 0.42381584644317627
  },
  {
-  "display": "0.00",
+  "display": "0.43",
   "index": 1899,
-  "name": "Group 4 Slot 2",
-  "value": 0.0
+  "name": "Group 0 Slot 2",
+  "value": 0.4285714328289032
  },
  {
-  "display": "0.00",
+  "display": "0.41",
   "index": 1900,
-  "name": "Group 4 Slot 3",
-  "value": 0.0
+  "name": "Group 0 Slot 3",
+  "value": 0.40625
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1901,
-  "name": "Group 4 Slot 4",
-  "value": 0.0
+  "name": "Group 0 Slot 4",
+  "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0.50",
   "index": 1902,
-  "name": "Group 4 Slot 5",
-  "value": 0.0
+  "name": "Group 0 Slot 5",
+  "value": 0.5007121562957764
  },
  {
-  "display": "0.00",
+  "display": "0.69",
   "index": 1903,
-  "name": "Group 4 Slot 6",
-  "value": 0.0
+  "name": "Group 0 Slot 6",
+  "value": 0.6926976442337036
  },
  {
   "display": "0.00",
   "index": 1904,
-  "name": "Group 4 Slot 7",
+  "name": "Group 0 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1905,
-  "name": "Group 4 Slot 8",
+  "name": "Group 0 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1906,
-  "name": "Group 4 Slot 9",
+  "name": "Group 0 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
   "index": 1907,
-  "name": "Group 5 Page",
+  "name": "Group 1 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1908,
-  "name": "Group 5 Slot 1",
+  "name": "Group 1 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1909,
-  "name": "Group 5 Slot 2",
+  "name": "Group 1 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1910,
-  "name": "Group 5 Slot 3",
+  "name": "Group 1 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1911,
-  "name": "Group 5 Slot 4",
+  "name": "Group 1 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1912,
-  "name": "Group 5 Slot 5",
+  "name": "Group 1 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1913,
-  "name": "Group 5 Slot 6",
+  "name": "Group 1 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1914,
-  "name": "Group 5 Slot 7",
+  "name": "Group 1 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1915,
-  "name": "Group 5 Slot 8",
+  "name": "Group 1 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1916,
-  "name": "Group 5 Slot 9",
+  "name": "Group 1 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
   "index": 1917,
-  "name": "Group 6 Page",
+  "name": "Group 2 Page",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1918,
-  "name": "Group 6 Slot 1",
+  "name": "Group 2 Slot 1",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1919,
-  "name": "Group 6 Slot 2",
+  "name": "Group 2 Slot 2",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1920,
-  "name": "Group 6 Slot 3",
+  "name": "Group 2 Slot 3",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1921,
-  "name": "Group 6 Slot 4",
+  "name": "Group 2 Slot 4",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1922,
-  "name": "Group 6 Slot 5",
+  "name": "Group 2 Slot 5",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1923,
-  "name": "Group 6 Slot 6",
+  "name": "Group 2 Slot 6",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1924,
-  "name": "Group 6 Slot 7",
+  "name": "Group 2 Slot 7",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1925,
-  "name": "Group 6 Slot 8",
+  "name": "Group 2 Slot 8",
   "value": 0.0
  },
  {
   "display": "0.00",
   "index": 1926,
-  "name": "Group 6 Slot 9",
+  "name": "Group 2 Slot 9",
   "value": 0.0
  },
  {
   "display": "0",
   "index": 1927,
+  "name": "Group 3 Page",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1928,
+  "name": "Group 3 Slot 1",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1929,
+  "name": "Group 3 Slot 2",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1930,
+  "name": "Group 3 Slot 3",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1931,
+  "name": "Group 3 Slot 4",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1932,
+  "name": "Group 3 Slot 5",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1933,
+  "name": "Group 3 Slot 6",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1934,
+  "name": "Group 3 Slot 7",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1935,
+  "name": "Group 3 Slot 8",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1936,
+  "name": "Group 3 Slot 9",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1937,
+  "name": "Group 4 Page",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1938,
+  "name": "Group 4 Slot 1",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1939,
+  "name": "Group 4 Slot 2",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1940,
+  "name": "Group 4 Slot 3",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1941,
+  "name": "Group 4 Slot 4",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1942,
+  "name": "Group 4 Slot 5",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1943,
+  "name": "Group 4 Slot 6",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1944,
+  "name": "Group 4 Slot 7",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1945,
+  "name": "Group 4 Slot 8",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1946,
+  "name": "Group 4 Slot 9",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1947,
+  "name": "Group 5 Page",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1948,
+  "name": "Group 5 Slot 1",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1949,
+  "name": "Group 5 Slot 2",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1950,
+  "name": "Group 5 Slot 3",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1951,
+  "name": "Group 5 Slot 4",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1952,
+  "name": "Group 5 Slot 5",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1953,
+  "name": "Group 5 Slot 6",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1954,
+  "name": "Group 5 Slot 7",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1955,
+  "name": "Group 5 Slot 8",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1956,
+  "name": "Group 5 Slot 9",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1957,
+  "name": "Group 6 Page",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1958,
+  "name": "Group 6 Slot 1",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1959,
+  "name": "Group 6 Slot 2",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1960,
+  "name": "Group 6 Slot 3",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1961,
+  "name": "Group 6 Slot 4",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1962,
+  "name": "Group 6 Slot 5",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1963,
+  "name": "Group 6 Slot 6",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1964,
+  "name": "Group 6 Slot 7",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1965,
+  "name": "Group 6 Slot 8",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1966,
+  "name": "Group 6 Slot 9",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1967,
   "name": "MOD Page",
   "value": 0.0
  }

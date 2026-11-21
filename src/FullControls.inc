@@ -34,12 +34,13 @@ inline void Vitaleon::createControls(){
         routes_[i].destination=addParam(mpc::choiceParam((pre+"_destination").c_str(),(name+" Target").c_str(),destinations_));
     }
     scanAssets();
-    auto selector=[&](const char* id,const char* name,const std::vector<Asset>& files){
+    auto selector=[&](const char* id,const char* name,const std::vector<Asset>& files,int range=-1){
         // File selection is session-local; project state embeds the actual assets.
-        auto p=mpc::intParam(id,name,0,int(files.size())-1,0);p.automatable=false;return addParam(p);
+        // A table selector keeps a wide range: RELOAD may add files while it runs.
+        auto p=mpc::intParam(id,name,0,range>=0?range:int(files.size())-1,0);p.automatable=false;return addParam(p);
     };
     presetSelect_=selector("preset_select","Preset",assets_[0]);
-    for(int i=0;i<3;++i){std::string id="table_"+std::to_string(i+1);tableSelect_[i]=selector(id.c_str(),("Osc "+std::to_string(i+1)+" Table").c_str(),assets_[1]);}
+    for(int i=0;i<3;++i){std::string id="table_"+std::to_string(i+1);tableSelect_[i]=selector(id.c_str(),("Osc "+std::to_string(i+1)+" Table").c_str(),assets_[1],4095);}
     sampleSelect_=selector("sample_select","Sample File",assets_[2]);
     lfoShapeSelect_=selector("lfo_file","LFO File",assets_[3]);
     loadStatus_=addParam(mpc::intParam("load_status","Load Status",0,2,0));
@@ -75,7 +76,7 @@ inline void Vitaleon::createControls(){
     initValues_[size_t(controlIndex("volume"))]=3136;
     if(assets_[0].size()<=1)addProgram("Init",initValues_);
     createFilePrograms();
-    createStorage();createNavigation();
+    createStorage();createTables();createNavigation();
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){
@@ -126,9 +127,8 @@ inline void Vitaleon::publishList(int index,float plain){
     // A selector written by the plugin itself (preset load, library browsing) must
     // move its cache too; publishNormalised alone sends no parameterChanged.
     publishNormalised(index,param(index).toNormalised(plain));
-    int slot=-1;
-    for(int i=0;i<3;++i)if(index==tableSelect_[i])slot=i;
-    if(slot<0)slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
+    // Tables have their own view now, so only the file selectors keep a cache.
+    const int slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
     if(slot<0)return;
     listIndex_[slot]=int(std::lround(plain));listRaw_[slot]=getNormalised(index);listMs_[slot]=0;listTravel_[slot]=0;
 }
@@ -140,9 +140,7 @@ inline void Vitaleon::listStep(int index,float plain){
     // click therefore moved 0.01 while one table is 1/32 of the range - two clicks
     // for the first table, three for every later one. A click is one entry now, a
     // drag or swipe keeps following the position, and a jump stays absolute.
-    int slot=-1;
-    for(int i=0;i<3;++i)if(index==tableSelect_[i])slot=i;
-    if(slot<0)slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
+    const int slot=index==presetSelect_?3:index==sampleSelect_?4:index==lfoShapeSelect_?5:-1;
     if(slot<0)return;
     const int last=std::max(0,int(param(index).max));
     const float raw=getNormalised(index),delta=raw-listRaw_[slot];
@@ -174,9 +172,9 @@ inline void Vitaleon::listStep(int index,float plain){
 }
 inline void Vitaleon::parameterChanged(int index,float plain){
     if(!ready_)return;
-    listStep(index,plain);
+    listStep(index,plain);tableCursorStep(index,plain);
     fxPlanDirty_.store(true,std::memory_order_relaxed);
-    if(navigationChanged(index,plain)||storageChanged(index))return;
+    if(navigationChanged(index,plain)||tableChanged(index,plain)||storageChanged(index))return;
     if(index==FullMode){publish(FullMode,1);return;}
     // The audio thread refreshes proxy readouts. Use the host callback's value,
     // never reread a proxy that may already have been refreshed to its old target.
@@ -214,9 +212,19 @@ inline bool Vitaleon::formatValue(int index,float plain,std::string& out){
         out=param(target).display(value);if(!param(target).unit.empty())out+=" "+param(target).unit;return true;
     }
     if(formatLibrary(index,out))return true;
+    if(formatTable(index,out))return true;
     for(const auto& b:banks_)for(size_t i=0;i<b.proxies.size();++i)if(index==b.proxies[i])return formatValue(b.targets[mpc::clamp(getInt(b.selector)-1,0,int(b.targets.size())-1)][i],plain,out);
     if(index==advancedValue_){int target=advancedTargets_[getInt(advancedSelector_)];out=displayText(target);return true;}
-    auto fileLabel=[&](int group){int n=mpc::clamp(int(plain),0,int(assets_[group].size())-1);const auto& asset=assets_[group][n];out=n?std::filesystem::path(asset.entry.empty()?asset.path:asset.entry).stem().string():asset.label;return true;};
+    auto fileLabel=[&](int group){
+        if(group==1){
+            std::lock_guard<std::mutex> tables(tableMutex_);
+            if(assets_[1].empty()){out="Built-in / current";return true;}
+            const int n=mpc::clamp(int(plain),0,int(assets_[1].size())-1);const auto& asset=assets_[1][n];
+            out=n?std::filesystem::path(asset.entry.empty()?asset.path:asset.entry).stem().string():asset.label;return true;
+        }
+        const int n=mpc::clamp(int(plain),0,int(assets_[group].size())-1);const auto& asset=assets_[group][n];
+        out=n?std::filesystem::path(asset.entry.empty()?asset.path:asset.entry).stem().string():asset.label;return true;};
+
     if(index==presetSelect_)return fileLabel(0);if(index==sampleSelect_)return fileLabel(2);if(index==lfoShapeSelect_)return fileLabel(3);
     for(int p:tableSelect_)if(index==p)return fileLabel(1);
     if(index==loadStatus_){std::lock_guard<std::mutex> lock(stateMutex_);out=pendingPreset_.load()>=0?"Load requested...":loadMessage_;return true;}

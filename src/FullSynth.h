@@ -59,6 +59,9 @@ public:
     void testImport(const nlohmann::json& data){std::lock_guard<std::mutex> life(lifecycleMutex_);std::lock_guard<std::mutex> state(stateMutex_);fxWaitIdle();loadPreset(data);syncFullControls(true,true);connectRoutes();engine_->checkOversampling();warmGraph();refreshProxies();}
     const nlohmann::json& testAssets()const{return savedAssets_;}
     const std::vector<std::string>& testImportNotes()const{return importNotes_;}
+    int testTableCount(){return tableCount();}
+    int testTableCursor()const{return tableCursor_;}
+    int testTablePageView()const{return tablePageView_;}
     // The Init sound (every control at its default), as the "Init" program selects it.
     void testInit(){beginStateTransaction(true);for(size_t k=0;k<initValues_.size();++k)restoreParameter(int(k),param(int(k)).toNormalised(initValues_[k]));selectInit();endStateTransaction(true);reset();}
     // Engine checks start from the Init state instead of the first installed sound.
@@ -125,6 +128,25 @@ private:
     float listRaw_[6]{};int listIndex_[6]{};long long listMs_[6]{};float listTravel_[6]{};
     void listStep(int index,float plain);
     void publishList(int index,float plain); // sets a selector and its list cache
+    // Table picker (0.3.35): the wheel moves a cursor, the entry loads at rest.
+    int tablePageView_=-1;
+    int tableOpen_=-1,tableCommands_=-1,tableRows_=-1,tableRowStates_=-1,tableRowNames_=-1,tableRowFolders_=-1,tablePosition_=-1,tableStatus_=-1,tableNameReadout_=-1;
+    int tableViewTarget_=-1,tableViewCursor_=-1,tableViewPage_=-1;
+    int tableCursor_=0;float tableRaw_=0;long long tableMs_=0;float tableTravel_=0;
+    std::atomic<long long> tableLoadDue_{0};
+    std::atomic<int> tableLoadSlot_{-1};
+    std::mutex tableMutex_; // guards assets_[1]: RELOAD may swap it while the host reads
+    void createTables();
+    void publishTables();
+    void serviceTables();
+    void tableReload();
+    void tableCursorStep(int index,float plain);
+    bool tableChanged(int index,float plain);
+    bool formatTable(int index,std::string& out);
+    int tableCount();
+    int tablePageCount();
+    std::string tableFolder(const Asset& asset);
+    std::string tableText(const std::string& text,size_t limit);
     struct LibraryBank {std::string name;std::vector<int> files;};
     std::vector<LibraryBank> libraryBanks_;
     int factoryProgramCount_=0; // 1 = the "Init" program of a plugin without sounds, else 0
@@ -334,4 +356,5 @@ private:
 #include "FullLibrary.inc"
 #include "FullStorage.inc"
 #include "FullNavigation.inc"
+#include "FullTables.inc"
 #include "FullRuntime.inc"

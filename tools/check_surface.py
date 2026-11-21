@@ -4,7 +4,7 @@ from PIL import Image
 skin=PROJECT/'skins'
 assert len(UI['tabs'])==(6 if GROUP_MODEL else 1)
 if GROUP_MODEL:assert [t['tabName'] for t in UI['tabs']]==['HOME','OSC','FILTER','ENV','MOD','FX'],'tab bar'
-assert len(VIEWS)==40 and [sum(v['group']==g for v in VIEWS) for g in range(7)]==[4,4,2,6,8,10,6]
+assert len(VIEWS)==41 and [sum(v['group']==g for v in VIEWS) for g in range(7)]==[4,5,2,6,8,10,6]
 assert all(len(v['sections'])<=32 and all(len(s['items'])<=16 for s in v['sections']) for v in VIEWS)
 replacement={x['key']:x['value'] for x in UI['replacementStrings']}
 assert len(replacement['Parameter '+str(NAMES['Target'])])==429
@@ -45,7 +45,7 @@ for page,section,values in states():
             assert w>=64 and h>=52,(e['name'],w,h)
             for name in ['onImage','offImage']:assert image_size(d[name])==(w,h)
             p=parameter(d['handleName'],e['mapping'])
-            if p==NAMES['UI Page']:assert d['numButtonsInGroup']==40 and 0<=d['buttonId']<40
+            if p==NAMES['UI Page']:assert d['numButtonsInGroup']==41 and 0<=d['buttonId']<41
             if p==NAMES['UI Group']:assert d['numButtonsInGroup']==7
         if kind=='Knob':
             assert image_size(d['filmStrip'])==(w,h*d['numFrames'])
@@ -55,7 +55,7 @@ for page,section,values in states():
         left=min(e['box'][0] for e in segments);right=max(e['box'][2] for e in segments)
         top=min(e['box'][1] for e in segments);bottom=max(e['box'][3] for e in segments)
         assert (right-left)*9==(bottom-top)*16 and right-left==384,'Oscillator graph must be exactly 16:9'
-    if page==24 and section==0:
+    if page==25 and section==0:
         assert len([e for e in leaves if e['name']=='Effect switch'])==9,'FX overview must expose all nine effects'
 result=audit();assert not result['errors'],result['errors']
-print(f'PASS: 40 module views / {checked} states, seven footer groups, all nine FX, exact 16:9 oscillator graphs, native-size controls, complete bindings, Q-Link map, no control under the Q-Link sidebar and no label/control collisions')
+print(f'PASS: 41 module views / {checked} states, seven footer groups, all nine FX, exact 16:9 oscillator graphs, native-size controls, complete bindings, Q-Link map, no control under the Q-Link sidebar and no label/control collisions')
