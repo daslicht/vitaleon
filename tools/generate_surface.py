@@ -86,6 +86,14 @@ COLORS={'osc':'ffbca3ff','env':'ff64d9ba','mod':'fff6bf66','fx':'ff7cb9e8'}
 # 1254), and its slots are drawn at their own size instead of being stretched.
 FORCE=os.environ.get('VITALEON_VARIANT')=='force'
 SLOT_W,SLOT_H=(394,156) if FORCE else (308,156)
+# 0.3.34 (user request): the Force fills the screen height. On the MPC the seven
+# group buttons keep the band under the grid (y 568..624); on the Force those
+# buttons are the host's own tab bar, so the second control row moves down into
+# that band and the table list grows to it. ROW2 is the top of the second row; a
+# 188 px slot component ends at 626, the bottom of the plugin surface.
+ROW2=438 if FORCE else 356
+TABLE_STEP,TABLE_ROW_H=65 if FORCE else 54,52
+TABLE_BOTTOM=622 if FORCE else 628
 SLOT=f'0 0 {SLOT_W} {SLOT_H}'
 SCREEN_RIGHT=1256 if FORCE else 1000
 KNOB=120 if FORCE else 112
@@ -473,7 +481,7 @@ def add_table(c):
     # 1000 px MPC skin, which is why the row itself is the LOAD button and the four
     # footer commands wrap into two rows when the block is narrow.
     show=sec_show(0)
-    rows,step=TABLE_ROWS,54
+    rows,step=TABLE_ROWS,TABLE_STEP
     x=424+SLOT_W+24;w=SCREEN_RIGHT-24-x
     load_w=132 if FORCE else 96
     text_w=w-load_w-8
@@ -484,19 +492,19 @@ def add_table(c):
         c.append(conditional(label('Table folder',(x,y,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
         c.append(conditional(label('Table mark',(x,y+18,16,24),COLORS['osc'],20,value=f'table_row_{row}_state'),show))
         c.append(conditional(label('Table name',(x+18,y+18,text_w-18,24),TEXT,20,value=f'table_row_{row}_name'),show))
-        c.append(conditional(nav_button('LOAD',x+w-load_w,y,load_w,52,f'Select Table Row {row+1}',0,1,'env'),show))
+        c.append(conditional(nav_button('LOAD',x+w-load_w,y,load_w,TABLE_ROW_H,f'Select Table Row {row+1}',0,1,'env'),show))
     fy=top+rows*step+8
     per_row=4 if w>=380 else 2
     bw=(w-8*(per_row-1))//per_row
     footer_rows=(4+per_row-1)//per_row
     # The tab content area is 628 px high (SDK ui-reference 1.4); a row added
     # here without room would be drawn off the screen instead of failing.
-    assert fy+(footer_rows-1)*60+52<=628,(TABLE_ROWS,per_row,'table rows do not fit the content area')
+    assert fy+(footer_rows-1)*60+52<=TABLE_BOTTOM,(TABLE_ROWS,per_row,'table rows do not fit the content area')
     for n,(caption,param) in enumerate([('PREV','Table Previous Page'),('NEXT','Table Next Page'),('RELOAD','Table Reload'),('BUILT-IN','Table Built-in')]):
         r,col=divmod(n,per_row)
         c.append(conditional(nav_button(caption,x+col*(bw+8),fy+r*60,bw,52,param,0),show))
     status_y=fy+footer_rows*60+2
-    if status_y+44<=628:
+    if status_y+44<=TABLE_BOTTOM:
         for part in range(2):c.append(conditional(label('Table status',(x,status_y+part*22,text_w,22),COLORS['mod'],15,value=f'table_status_{part}'),show))
 
 def add_library(c):
@@ -598,14 +606,14 @@ def cell_position(chart,section,slot):
         row,col=divmod(slot,3);return col_x(col),152+row*132
     if chart in ['env','lfo','curve']:
         assert slot<3,(chart,slot)
-        return col_x(slot),364
+        return col_x(slot),ROW2 if FORCE else 364
     if isinstance(chart,int) and section==0:
         # The wave frame knob sits directly beside the waveform (the graph ends at
         # x = 408), so the sound section reads wave, frame, level from left to right.
         # Its slot number stays 0: only the place on screen moves, not the Q-Link.
         if slot==0:return 424,166
-        return col_x(slot-1),372
-    row,col=divmod(slot,3);return col_x(col),166+190*row
+        return col_x(slot-1),ROW2 if FORCE else 372
+    row,col=divmod(slot,3);return col_x(col),166+(ROW2-166)*row
 from surface_spec import DESTINATIONS
 all_children=[]
 version=json.loads((project/'plugin.json').read_text())['version']
@@ -682,7 +690,10 @@ for i,view in enumerate(VIEWS):
             # two cell rows for six more controls. The graph sits in its own
             # transparent container so one IndexedEnabling hides it as a whole
             # (the bare grid rectangles carry no handle of their own).
-            graph=[];wave_bars(graph,chart,24,140,384,216)
+            # On the Force the second row sits at ROW2, so the graph is centred in
+            # the space between the version line and that row instead of hugging
+            # the top and leaving a hole under it.
+            graph=[];wave_bars(graph,chart,24,166 if FORCE else 140,384,216)
             for e in graph:
                 b=dict(e)['bounds'];x,y,w,h=map(int,dict(b)['bounds'].split())
                 b[:]=[(k,f'{x} {y-64} {w} {h}' if k=='bounds' else v) for k,v in b]
@@ -752,8 +763,11 @@ for i,view in enumerate(VIEWS):
             add_table(children)
         if chart=='home':
             # Below the second control row (ends at y = 512), like every page.
-            children.append(label('Active bank',(24,520,140,24),MUTED,18))
-            for part in range(2):children.append(label('Bank',(168+part*330,520,320,24),COLORS['env'],18,value=f'active_bank_{part}'))
+            # On the Force the second row owns the bottom band, so the bank line
+            # reads between the two rows; the MPC keeps it under the grid.
+            bank_y=396 if FORCE else 520
+            children.append(label('Active bank',(24,bank_y,140,24),MUTED,18))
+            for part in range(2):children.append(label('Bank',(168+part*330,bank_y,320,24),COLORS['env'],18,value=f'active_bank_{part}'))
             # The Force already carries the LIBRARY page in the HOME tab's strip,
             # so its HOME page needs no second button. The MPC skin has no strip:
             # there this button is the only way to the library.
