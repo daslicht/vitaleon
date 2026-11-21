@@ -142,6 +142,7 @@ private:
     std::mutex debugLogMutex_; // TEMPORARY: guards the section log below
     int debugLastPage_=-1,debugLastSection_=-1,debugLastStrip_=-1,debugLastUi_=-1;
     void logSection(int page,int section); // TEMPORARY
+    void logEvent(const char* tag,int index,float plain); // TEMPORARY
     int tableCursor_=0;
     std::atomic<long long> tableLoadDue_{0};
     std::atomic<int> tableLoadSlot_{-1};

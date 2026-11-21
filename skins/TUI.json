@@ -8123,7 +8123,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -8157,7 +8157,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -8191,7 +8191,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -9841,7 +9841,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -9875,7 +9875,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -9909,7 +9909,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -9943,7 +9943,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -17474,7 +17474,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -17508,7 +17508,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -17542,7 +17542,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -17576,7 +17576,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -17610,7 +17610,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -17644,7 +17644,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -17678,7 +17678,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -25541,7 +25541,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -25575,7 +25575,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -25609,7 +25609,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -25643,7 +25643,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -25677,7 +25677,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -25711,7 +25711,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -25745,7 +25745,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -33608,7 +33608,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -33642,7 +33642,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -33676,7 +33676,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -33710,7 +33710,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -33744,7 +33744,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -33778,7 +33778,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -33812,7 +33812,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -37217,7 +37217,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -37251,7 +37251,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -37285,7 +37285,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -38231,7 +38231,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -38265,7 +38265,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -38299,7 +38299,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -39537,7 +39537,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -39571,7 +39571,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -39605,7 +39605,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -40885,7 +40885,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -40919,7 +40919,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -40953,7 +40953,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -41899,7 +41899,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -41933,7 +41933,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -41967,7 +41967,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -42001,7 +42001,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -42035,7 +42035,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -42069,7 +42069,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -42103,7 +42103,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -50203,7 +50203,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -50237,7 +50237,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -51285,7 +51285,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -51319,7 +51319,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -52217,7 +52217,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -52251,7 +52251,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -53425,7 +53425,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -53459,7 +53459,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -54426,7 +54426,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -54460,7 +54460,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -55920,7 +55920,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -55954,7 +55954,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -56908,7 +56908,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -56942,7 +56942,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -56976,7 +56976,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -58223,7 +58223,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -58257,7 +58257,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -58291,7 +58291,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -58325,7 +58325,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -60301,7 +60301,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -60335,7 +60335,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -60369,7 +60369,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -61392,7 +61392,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -61426,7 +61426,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -61460,7 +61460,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62633,7 +62633,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62667,7 +62667,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62701,7 +62701,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62735,7 +62735,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62769,7 +62769,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62803,7 +62803,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62837,7 +62837,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -62871,7 +62871,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -83335,7 +83335,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -83369,7 +83369,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -84435,7 +84435,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -84469,7 +84469,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
@@ -84503,7 +84503,7 @@
                                 },
                                 "bounds": {
                                     "version": 1,
-                                    "acceptsHWFocus": "Yes",
+                                    "acceptsHWFocus": "No",
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",

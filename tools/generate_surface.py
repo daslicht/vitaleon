@@ -405,7 +405,7 @@ definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition
     ent('Effect state','Label',g.label_data('Value',COLORS['fx'],SLOT_FONT),(TOGGLE_W+8,28,SLOT_W-TOGGLE_W-8,52)),
 ],'00000000'))))
 pages=[]
-def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
+def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True):
     # Native-sized caption assets; no text widget ever covers a button.
     key=hashlib.sha256(f'{text}:{w}:{h}:{color}'.encode()).hexdigest()[:16]
     for state in ['off','on']:
@@ -418,7 +418,7 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
         assert d.textlength(caption,font=font)<=w-10,(caption,w)
         bb=d.textbbox((0,0),caption,font=font);d.text(((w-d.textlength(caption,font=font))/2,(h-(bb[3]-bb[1]))/2-bb[1]),caption,font=font,fill='#edf0f7');im.save(skin/filename)
     data={'version':2,'onImage':f'nav-{key}-on.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
-    return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),True)
+    return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),focus)
 
 def add_table(c):
     # 0.3.36: the wavetable list is the seventh section of every oscillator page
@@ -620,7 +620,9 @@ for i,view in enumerate(VIEWS):
             # The Force's native tab bar writes no page, so the section button itself
             # names its tab (group*8+section) and the plugin resolves the page from
             # the tap. The MPC writes UI Page with every footer tap and keeps 32 steps.
-            children.append(nav_button(title_text,button_x,76,button_w,52,*section_strip(section),color))
+            # A section button is a tab, never a focus target: a focusable control can
+            # spend the first tap after a page opens on taking focus instead of acting.
+            children.append(nav_button(title_text,button_x,76,button_w,52,*section_strip(section),color,focus=False))
         # Large graphs (user request): oscillator 560x315 (16:9), envelope and
         # LFO/curve 240 px high with a single row of three controls below.
         # 0.3.7 compromise after "too small" (0.3.5) and "way too big" (0.3.6).

@@ -175,6 +175,10 @@ inline void Vitaleon::listStep(int index,float plain){
 }
 inline void Vitaleon::parameterChanged(int index,float plain){
     if(!ready_)return;
+    // TEMPORARY: the strip and the handles the section logic reads.
+    if(index==uiSectionTab_)logEvent("strip",index,plain);
+    else if(index==uiSection_)logEvent("uisec",index,plain);
+    else if(index==uiPage_)logEvent("uipage",index,plain);
     listStep(index,plain);
     fxPlanDirty_.store(true,std::memory_order_relaxed);
     if(navigationChanged(index,plain)||tableChanged(index,plain)||storageChanged(index))return;
