@@ -451,8 +451,12 @@
     "sub": 0,
     "title": "Table",
     "items": [
+      "Osc 1 Table",
+      "Osc 2 Table",
+      "Osc 3 Table",
       "Table Cursor",
-      "Table Oscillator"
+      "Table Oscillator",
+      "Table Page"
     ],
     "chart": "table",
     "color": "osc",
@@ -461,8 +465,12 @@
       {
         "title": "TABLES",
         "items": [
+          "Osc 1 Table",
+          "Osc 2 Table",
+          "Osc 3 Table",
           "Table Cursor",
-          "Table Oscillator"
+          "Table Oscillator",
+          "Table Page"
         ]
       }
     ]

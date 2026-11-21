@@ -19,8 +19,13 @@ inline std::string Vitaleon::tableFolder(const Asset& asset){
     return tableText(folder,28);
 }
 inline void Vitaleon::createTables(){
+    const int count=std::max(1,tableCount());
     auto integer=[&](const char* id,const char* name,int max){auto p=mpc::intParam(id,name,0,std::max(1,max),0);p.automatable=false;return addParam(p);};
     tableViewTarget_=integer("table_view_target","Table Oscillator",2);
+    // Kept as a parameter instead of a member: it is already saved in projects
+    // and automated by hosts. Deleting it would shift the index of every
+    // parameter after it and silently retarget old automation.
+    tableViewPage_=integer("table_view_page","Table Page",511);
     // The cursor is continuous on purpose: an integer range would swallow wheel
     // clicks (one click is 1/100 of the range) before the plugin sees them. The
     // plugin keeps the entry itself and publishes the snapped position back.
@@ -38,14 +43,14 @@ inline void Vitaleon::createTables(){
     tablePosition_=addReadout("table_position");
     tableStatus_=numParams();for(int i=0;i<2;++i)addReadout("table_status_"+std::to_string(i));
     tableNameReadout_=numParams();for(int i=0;i<3;++i)addReadout("display_table_name_"+std::to_string(i+1));
-    tableCursor_=0;tablePage_=0;tableSelection_.fill(0);tableRaw_=0;tableMs_=0;tableTravel_=0;
+    tableCursor_=0;tableRaw_=0;tableMs_=0;tableTravel_=0;
 }
 inline void Vitaleon::publishTables(){
     if(tableRowStates_<0)return;
     const int count=tableCount();
     const int pages=tablePageCount();
     const int cursor=mpc::clamp(tableCursor_,0,std::max(0,count-1));
-    const int page=mpc::clamp(tablePage_,0,pages-1);tablePage_=page;
+    const int page=mpc::clamp(getInt(tableViewPage_),0,pages-1);
     // A fresh value in every readout makes the host ask for its text again.
     static std::atomic<unsigned> serial{0};
     const float marker=float((++serial)%16000000)/16000000;
@@ -56,7 +61,7 @@ inline void Vitaleon::publishTables(){
         publishNormalised(tableRowStates_+row,at==cursor?1.0f:0.5f);
     }
     for(int o=0;o<3;++o){
-        const int selected=mpc::clamp(tableSelection_[o],0,std::max(0,count-1));
+        const int selected=mpc::clamp(getInt(tableSelect_[o]),0,std::max(0,count-1));
         publishNormalised(tableNameReadout_+o,float(selected+1)/float(std::max(1,count)));
     }
 }
@@ -85,7 +90,7 @@ inline void Vitaleon::tableCursorStep(int index,float plain){
     notifyHostParameterChanged(index);
     // The wheel moves the cursor, so the page follows it onto the screen. Paging
     // with PREV/NEXT stays where the user put it until the cursor leaves that page.
-    if(tableCursor_/kTableRows!=tablePage_)tablePage_=tableCursor_/kTableRows;
+    if(tableCursor_/kTableRows!=getInt(tableViewPage_))publish(tableViewPage_,float(tableCursor_/kTableRows));
     // Load once the wheel rests: a fast spin does not parse every table it passes.
     tableLoadSlot_.store(mpc::clamp(getInt(tableViewTarget_),0,2),std::memory_order_relaxed);
     tableLoadDue_.store(nowMs()+120,std::memory_order_relaxed);
@@ -108,8 +113,10 @@ inline void Vitaleon::tableReload(){
         asset.bank="Loose tables";
     }
     {std::lock_guard<std::mutex> tables(tableMutex_);assets_[1].swap(files);}
-    const int last=std::max(0,tableCount()-1);
-    for(int& selected:tableSelection_)selected=std::min(selected,last);
+    for(int o=0;o<3;++o){
+        const int last=std::max(0,tableCount()-1);
+        if(getInt(tableSelect_[o])>last)publishList(tableSelect_[o],float(last));
+    }
     {std::lock_guard<std::mutex> state(stateMutex_);loadMessage_="Tables: "+std::to_string(tableCount());}
 }
 inline bool Vitaleon::tableChanged(int index,float plain){
@@ -119,10 +126,10 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         publish(index,0);
         const int o=index-tableOpen_;
         const int count=std::max(1,tableCount());
-        const int selected=mpc::clamp(tableSelection_[o],0,count-1);
+        const int selected=mpc::clamp(getInt(tableSelect_[o]),0,count-1);
         publish(tableViewTarget_,float(o));
         publish(tableViewCursor_,float(selected)/float(std::max(1,count-1)));
-        tablePage_=selected/kTableRows;
+        publish(tableViewPage_,float(selected/kTableRows));
         tableCursor_=selected;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
         if(tablePageView_>=0)navigateTo(tablePageView_,0);
         publishTables();browserDisplayDirty_.store(true);return true;
@@ -131,13 +138,13 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         publish(index,0);
         const int command=index-tableCommands_;
         const int pages=tablePageCount();
-        if(command==0||command==1)tablePage_=mpc::clamp(tablePage_+(command?1:-1),0,pages-1);
+        if(command==0||command==1)publish(tableViewPage_,float(mpc::clamp(getInt(tableViewPage_)+(command?1:-1),0,pages-1)));
         else if(command==2)tableReload();
         else{
             // Built-in: index 0 is the built-in table, at once.
             const int slot=mpc::clamp(getInt(tableViewTarget_),0,2);
             publish(tableViewCursor_,0);tableCursor_=0;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
-            tablePage_=0;tableSelection_[slot]=0;
+            publish(tableViewPage_,0);publishList(tableSelect_[slot],0);
             tableLoadSlot_.store(slot);tableLoadDue_.store(0);
             requestService(false);
         }
@@ -146,12 +153,12 @@ inline bool Vitaleon::tableChanged(int index,float plain){
     if(index>=tableRows_&&index<tableRows_+kTableRows){
         publish(index,0);
         const int slot=mpc::clamp(getInt(tableViewTarget_),0,2);
-        const int page=mpc::clamp(tablePage_,0,tablePageCount()-1);
+        const int page=mpc::clamp(getInt(tableViewPage_),0,tablePageCount()-1);
         const int at=page*kTableRows+(index-tableRows_);
         if(at<tableCount()){
             publish(tableViewCursor_,float(at)/float(std::max(1,tableCount()-1)));
             tableCursor_=at;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
-            tableSelection_[slot]=at;
+            publishList(tableSelect_[slot],float(at));
             tableLoadSlot_.store(slot);tableLoadDue_.store(0);
             requestService(false);
         }
@@ -166,7 +173,7 @@ inline void Vitaleon::serviceTables(){
     const int slot=mpc::clamp(tableLoadSlot_.load(std::memory_order_relaxed),0,2);
     const int count=tableCount();if(count<=0)return;
     const int cursor=mpc::clamp(tableCursor_,0,count-1);
-    if(tableSelection_[slot]!=cursor)tableSelection_[slot]=cursor;
+    if(getInt(tableSelect_[slot])!=cursor)publishList(tableSelect_[slot],float(cursor));
     requestService(false);
     publishTables();browserDisplayDirty_.store(true);
 }
@@ -174,7 +181,7 @@ inline bool Vitaleon::formatTable(int index,std::string& out){
     if(tableRowStates_<0)return false;
     const int count=tableCount();
     const int pages=tablePageCount();
-    const int page=mpc::clamp(tablePage_,0,pages-1);
+    const int page=mpc::clamp(getInt(tableViewPage_),0,pages-1);
     if(index>=tableRowStates_&&index<tableRowStates_+kTableRows){
         const int at=page*kTableRows+(index-tableRowStates_);
         out=at<count&&at==mpc::clamp(tableCursor_,0,std::max(0,count-1))?">":"";
@@ -208,7 +215,7 @@ inline bool Vitaleon::formatTable(int index,std::string& out){
     }
     if(index>=tableNameReadout_&&index<tableNameReadout_+3){
         const int o=index-tableNameReadout_;
-        const int selected=mpc::clamp(tableSelection_[o],0,std::max(0,count-1));
+        const int selected=mpc::clamp(getInt(tableSelect_[o]),0,std::max(0,count-1));
         if(count>0&&selected>0){std::lock_guard<std::mutex> tables(tableMutex_);out=tableText(assets_[1][size_t(selected)].name,31);}
         else out="Built-in / current";
         return true;
