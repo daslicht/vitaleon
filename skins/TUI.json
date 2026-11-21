@@ -7202,7 +7202,44 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 56 56"
+                                    "bounds": "24 56 56 56"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "name",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 22.0
+                                            },
+                                            "colour": "ffedf0f7",
+                                            "justification": "left",
+                                            "case": "Original"
+                                        },
+                                        "type": "Name",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 104 26"
                                 }
                             },
                             {
@@ -7231,7 +7268,183 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 56 56"
+                                    "bounds": "24 56 56 56"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "key": "knob-osc-frame",
+                    "value": {
+                        "version": 2,
+                        "actions": [
+                            {
+                                "version": 1,
+                                "onAction": "Mouse Down",
+                                "handler": "Q-Link",
+                                "handleName": "QTarget",
+                                "additionalData": ""
+                            },
+                            {
+                                "version": 1,
+                                "onAction": "Double Click",
+                                "handler": "Show Overlay",
+                                "handleName": "Data",
+                                "additionalData": "value overlay"
+                            },
+                            {
+                                "version": 1,
+                                "onAction": "Enter Pressed",
+                                "handler": "Show Overlay",
+                                "handleName": "Data",
+                                "additionalData": "value overlay"
+                            }
+                        ],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "focus",
+                                    "type": "Focus",
+                                    "data": {
+                                        "version": 1,
+                                        "backgroundColour": "19ffffff",
+                                        "outlineColour": "ffbca3ff",
+                                        "backgroundInset": 4.0,
+                                        "outlineThickness": 1.0
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "WhenFocussed",
+                                    "boundsType": "Absolute",
+                                    "bounds": "8 28 112 112"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "name",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 22.0
+                                            },
+                                            "colour": "ffedf0f7",
+                                            "justification": "left",
+                                            "case": "Original"
+                                        },
+                                        "type": "Name",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 196 26"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "knob",
+                                    "type": "Knob",
+                                    "data": {
+                                        "version": 3,
+                                        "knobType": "FilmStrip",
+                                        "filmStrip": "large-osc-knob.png",
+                                        "numFrames": 127,
+                                        "invert": false,
+                                        "dragOrientation": "Vertical",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "8 28 112 112"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "value",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 22.0
+                                            },
+                                            "colour": "ffbca3ff",
+                                            "justification": "left",
+                                            "case": "Original"
+                                        },
+                                        "type": "Value",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "128 50 60 64"
                                 }
                             }
                         ]
@@ -17660,7 +17873,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
+                                        "image": "qframe-204x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -17673,7 +17886,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "420 98 316 164",
+                                    "bounds": "420 98 204 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -17743,7 +17956,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Wave Frame",
-                                    "type": "knob-osc",
+                                    "type": "knob-osc-frame",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -17772,7 +17985,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "424 102 308 156",
+                                    "bounds": "424 102 196 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -17849,6 +18062,38 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "356 308 308 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table cursor",
+                                    "type": "table-cursor",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Table Step]/Parameter 1969"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "628 102 104 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -25571,7 +25816,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
+                                        "image": "qframe-204x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -25584,7 +25829,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "420 98 316 164",
+                                    "bounds": "420 98 204 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -25654,7 +25899,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Wave Frame",
-                                    "type": "knob-osc",
+                                    "type": "knob-osc-frame",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -25683,7 +25928,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "424 102 308 156",
+                                    "bounds": "424 102 196 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -25760,6 +26005,38 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "356 308 308 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table cursor",
+                                    "type": "table-cursor",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Table Step]/Parameter 1969"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "628 102 104 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -33482,7 +33759,7 @@
                                     "data": {
                                         "version": 1,
                                         "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
+                                        "image": "qframe-204x164-osc.png"
                                     }
                                 },
                                 "handle remapping": {
@@ -33495,7 +33772,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "420 98 316 164",
+                                    "bounds": "420 98 204 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -33565,7 +33842,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Wave Frame",
-                                    "type": "knob-osc",
+                                    "type": "knob-osc-frame",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -33594,7 +33871,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "424 102 308 156",
+                                    "bounds": "424 102 196 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -33671,6 +33948,38 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "356 308 308 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Table cursor",
+                                    "type": "table-cursor",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Table Step]/Parameter 1969"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "628 102 104 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]

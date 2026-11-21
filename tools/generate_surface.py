@@ -91,6 +91,11 @@ SCREEN_RIGHT=1256 if FORCE else 1000
 KNOB=120 if FORCE else 112
 FADER_W,FADER_H=(372,64) if FORCE else (300,56)
 KNOB_SMALL=64 if FORCE else 56  # the table cursor's rotary, one header line high
+# 0.3.34 (user request): the table knob sits right of the wave frame knob in the
+# oscillator's SOUND section, so that row splits: the wave frame keeps its dial and
+# readout, the table knob gets a compact cell before the list.
+TABLE_KNOB_W=148 if FORCE else 104
+WAVE_SLOT_W=SLOT_W-TABLE_KNOB_W-8
 TOGGLE_W,TOGGLE_H=(168,88) if FORCE else (136,72)
 SEG_W,SEG_H=(186,56) if FORCE else (148,52)
 SEG_DX,SEG_DY=(194,62) if FORCE else (152,58)
@@ -328,7 +333,7 @@ def page_nav(page):
         own=group_pages(VIEWS[page]['group']);return f"Group {VIEWS[page]['group']} Page",own.index(page),len(own)
     return 'UI Page',page,len(VIEWS)
 def slot_data(title,name,slot):return [('Data','WithName['+title+']/'+handle((f'Group {GROUP_SLOT} Slot' if GROUP_SLOT is not None else 'UI Control')+f' {slot+1}')),('Target',handle(name))]
-def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
+def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None,width=None,narrow=False):
     p=parameter(name);choices=p.get('choices',[])
     if p['kind']=='bool':role='toggle'
     elif len(choices)>1:role='menu'
@@ -357,8 +362,13 @@ def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None):
         elif name.startswith('filter_') or name in ['Home Cutoff','Home Resonance']:color='fx'
         elif name.startswith('macro_'):color='mod'
         key='home-'+role+'-'+color
+    if narrow:
+        # 0.3.34: the wave frame cell is narrower than a slot (the table knob shares
+        # the row), so it uses its own definition with a trimmed readout box.
+        assert role in ['knob','bipolar'] and color=='osc',(name,role)
+        key='knob-osc-frame'
     data=slot_data(title,name,slot) if slot is not None and role in ['knob','bipolar','fader'] else [('Data','WithName['+title+']/'+handle(name))]
-    return g.entry(title,key,{'version':1,'handleName':'Data'},f'{x} {y} '+('184 188' if compact else f'{SLOT_W} {SLOT_H}'),'Yes','Hide' if visible else 'Show','Always',data+([('Menu',handle(name))] if role=='menu' else []),invalidating=visible)
+    return g.entry(title,key,{'version':1,'handleName':'Data'},f'{x} {y} '+('184 188' if compact else f'{width or SLOT_W} {SLOT_H}'),'Yes','Hide' if visible else 'Show','Always',data+([('Menu',handle(name))] if role=='menu' else []),invalidating=visible)
 
 def home_browser(children):
     # The Force is wider: the browser panel moves left and gains the space.
@@ -397,14 +407,27 @@ from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
 # is the space one tab owns.
 assert all(len(v['sections'])<=8 for v in VIEWS if not v.get('hidden')),max(len(v['sections']) for v in VIEWS)
 write_header()
-# 0.3.37: the table cursor is a rotary in a slot like every other knob. A bare
-# Knob entry showed no focus ring and the data wheel kept editing whatever had
-# focus before; the slot takes hardware focus, its Focus child draws the ring and
-# the wheel turns it. The SDK has no endless-encoder widget: the knob follows the
-# cursor and stops at the first and last table.
+# The table cursor is a rotary in a slot like every other knob. A bare Knob entry
+# showed no focus ring and the data wheel kept editing whatever had focus before;
+# the slot takes hardware focus, its Focus child draws the ring and the wheel turns
+# it. The SDK has no endless-encoder widget: the knob follows the cursor and stops
+# at the first and last table. The skin binds it to the discrete step handle, so one
+# wheel click is exactly one table and the plugin loads the entry it lands on.
+TABLE_KNOB_X=(TABLE_KNOB_W-KNOB_SMALL)//2
+TABLE_KNOB_Y=58 if FORCE else 56
 definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition([],[
-    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'0 0 {KNOB_SMALL} {KNOB_SMALL}','No','Show','WhenFocussed'),
-    ent('knob','Knob',g.knob_filmstrip_data(f'compact-osc-knob{DEF_SUFFIX}.png',127,'Vertical'),(0,0,KNOB_SMALL,KNOB_SMALL)),
+    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'{TABLE_KNOB_X} {TABLE_KNOB_Y} {KNOB_SMALL} {KNOB_SMALL}','No','Show','WhenFocussed'),
+    ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,TABLE_KNOB_W,30 if FORCE else 26)),
+    ent('knob','Knob',g.knob_filmstrip_data(f'compact-osc-knob{DEF_SUFFIX}.png',127,'Vertical'),(TABLE_KNOB_X,TABLE_KNOB_Y,KNOB_SMALL,KNOB_SMALL)),
+],'00000000'))))
+# The wave frame cell is narrower than a slot (the table knob shares the row), so
+# its own definition trims the readout box instead of letting it run into the
+# neighbouring cell, which the touch check reads as a label/control collision.
+definitions.append(g.obj(('key','knob-osc-frame'),('value',g.component_definition(g.control_actions('value overlay'),[
+    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'8 {30 if FORCE else 28} {KNOB} {KNOB}','No','Show','WhenFocussed'),
+    ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,WAVE_SLOT_W,30 if FORCE else 26)),
+    ent('knob','Knob',g.knob_filmstrip_data(f'large-osc-knob{DEF_SUFFIX}.png',127,'Vertical'),(8,30 if FORCE else 28,KNOB,KNOB)),
+    ent('value','Label',g.label_data('Value',COLORS['osc'],SLOT_FONT),(16+KNOB,50,WAVE_SLOT_W-24-KNOB,64)),
 ],'00000000'))))
 definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],[
     ent('Effect name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,24 if FORCE else 26)),
@@ -428,12 +451,11 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True):
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),focus)
 
 def add_table(c):
-    # 0.3.34: the wavetable list sits in the SOUND section, directly right of the
-    # wave frame knob, so the table is chosen while its frame is adjusted. The
-    # block is as wide as the space beside the knob: 390 px on the Force, 220 px
-    # on the 1000 px MPC skin, which is why the mark column and the cursor knob
-    # are gone (the row itself is the LOAD button) and the four footer commands
-    # wrap into two rows when the block is narrow.
+    # 0.3.34: the wavetable list sits in the SOUND section, right of the wave frame
+    # and table knobs, so the table is chosen while the frame is adjusted. The block
+    # is as wide as the space beside the pair: 390 px on the Force, 220 px on the
+    # 1000 px MPC skin, which is why the row itself is the LOAD button and the four
+    # footer commands wrap into two rows when the block is narrow.
     show=sec_show(0)
     rows,step=TABLE_ROWS,54
     x=424+SLOT_W+24;w=SCREEN_RIGHT-24-x
@@ -673,6 +695,8 @@ for i,view in enumerate(VIEWS):
             cells=[]
             for slot,name in enumerate(part['items']):
                 x,y=cell_position(chart,section,slot)
+                # 0.3.34: the wave frame cell shares its row with the table knob.
+                narrow=isinstance(chart,int) and section==0 and slot==0
                 caption=pretty(name)
                 if view['group']==5:
                     for prefix in ['Compressor ','Chorus ','Delay ','Warp ','Eq ','Filter Fx ','Flanger ','Phaser ','Reverb ']:
@@ -693,7 +717,7 @@ for i,view in enumerate(VIEWS):
                         if name in ['Voices','Home Attack','Home Release']:control_color='env'
                         elif name.startswith('filter_') or name in ['Home Cutoff','Home Resonance','Home Filter']:control_color='fx'
                         elif name.startswith('macro_'):control_color='mod'
-                    cell=control(name,caption,x,y,control_color,visible=sec_show(section),slot=slot)
+                    cell=control(name,caption,x,y,control_color,visible=sec_show(section),slot=slot,width=WAVE_SLOT_W if narrow else None,narrow=narrow)
                 dict(dict(cell)['handle remapping'])['map'].append(g.obj(('key','QTarget'),('value',handle(f'Group {GROUP_SLOT} Slot {slot+1}' if GROUP_SLOT is not None else f'UI Control {slot+1}'))))
                 cells.append(cell)
             # Frames first: they lie under the controls and take no touch. The Force
@@ -701,6 +725,13 @@ for i,view in enumerate(VIEWS):
             # slots directly; a four-slot bank outline would only mislead there.
             if not FORCE:children.extend(qlink_frames(cells,section,color))
             children.extend(cells)
+            # 0.3.34 (user request): the old TABLE page's cursor rotary, back
+            # beside the wave frame knob. It writes the discrete step handle, so
+            # one click is one table and the plugin loads the entry it lands on.
+            if isinstance(chart,int) and section==0:
+                children.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},
+                    (424+WAVE_SLOT_W+8,166,TABLE_KNOB_W,SLOT_H),True,remap=[('Data','WithName[Table Step]/'+handle('Table Step'))]),sec_show(0)))
+
         if isinstance(chart,int):
             add_table(children)
         if chart=='home':
