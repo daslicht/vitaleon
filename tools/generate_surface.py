@@ -289,7 +289,7 @@ for color,accent in COLORS.items():
         definitions.append(g.obj(('key',role+'-'+color),('value',g.component_definition(actions,children,'00000000'))))
 # 0.3.34 (user request): the oscillator on/off switch left the SOUND grid for the free
 # band at the top left of the oscillator pages, where the page title used to be.
-for color in COLORS:
+for color in ['osc']:
     definitions.append(g.obj(('key','osc-switch-'+color),('value',g.component_definition(
         [g.action('Mouse Down','Q-Link','Data','')],
         [ent('switch','Button',g.button_data(f'small-{color}-on{DEF_SUFFIX}.png',f'small-{color}-off{DEF_SUFFIX}.png',1,1),(0,0,SWITCH_W,SWITCH_H))],'00000000'))))
@@ -992,10 +992,12 @@ for color,argb in COLORS.items():
         d.rounded_rectangle((2,2,133,69),radius=34,fill=rgb if state=='on' else '#454c61')
         x=100 if state=='on' else 36;d.ellipse((x-25,11,x+25,61),fill='#181a23' if state=='on' else '#edf0f7')
         img.save(skin/f'large-{color}-{state}.png')
-        small=Image.new('RGBA',(SWITCH_W,SWITCH_H));d=ImageDraw.Draw(small)
-        d.rounded_rectangle((1,1,SWITCH_W-2,SWITCH_H-2),radius=(SWITCH_H-2)//2,fill=rgb if state=='on' else '#454c61')
-        x=SWITCH_W-32 if state=='on' else 32;d.ellipse((x-19,8,x+19,SWITCH_H-8),fill='#181a23' if state=='on' else '#edf0f7')
-        small.save(skin/f'small-{color}-{state}.png')
+        if color=='osc':
+            # Only the oscillator switch is drawn at header size.
+            small=Image.new('RGBA',(SWITCH_W,SWITCH_H));d=ImageDraw.Draw(small)
+            d.rounded_rectangle((1,1,SWITCH_W-2,SWITCH_H-2),radius=(SWITCH_H-2)//2,fill=rgb if state=='on' else '#454c61')
+            x=SWITCH_W-32 if state=='on' else 32;d.ellipse((x-19,8,x+19,SWITCH_H-8),fill='#181a23' if state=='on' else '#edf0f7')
+            small.save(skin/f'small-{color}-{state}.png')
         img=Image.new('RGBA',(148,52),('#373045' if state=='on' else '#222531'));d=ImageDraw.Draw(img)
         d.rectangle((0,0,147,51),outline=rgb if state=='on' else '#454c61',width=2 if state=='on' else 1)
         img.save(skin/f'segment-choice-{color}-{state}.png')
@@ -1019,7 +1021,7 @@ if FORCE:
             variant(f'large-{color}-{state}.png',(TOGGLE_W,TOGGLE_H))
             variant(f'segment-choice-{color}-{state}.png',(SEG_W,SEG_H))
             variant(f'large-fx-{state}.png',(TOGGLE_W,TOGGLE_H))
-            variant(f'small-{color}-{state}.png',(SWITCH_W,SWITCH_H))
+            if color=='osc':variant(f'small-{color}-{state}.png',(SWITCH_W,SWITCH_H))
 (root/'surface-pages.json').write_text(json.dumps([{k:p[k] for k in ['family','sub','title','items','chart','color','subtitle','sections']} for p in pages],indent=2))
 strip=Image.new('RGBA',(1216,4*512))
 for frame in range(512):
