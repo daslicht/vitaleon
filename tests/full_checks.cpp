@@ -412,24 +412,25 @@ int main(int argc,char** argv){
    native->setNormalised(id("ui_g1_slot_0"),.7f);
    check(std::abs(native->getNormalised(native->controlIndex("osc_1_phase"))-.7f)<1e-5,"the same phase knob follows the selected oscillator");}
   // The Force tab bar writes no page, so the plugin can still believe HOME (three
-  // sections) while OSC 1 is on screen. A section button names its tab, and that
-  // tap must move the plugin onto the page before the section is clamped to it.
+  // sections) while OSC 1 is on screen. Each group's strip writes its own 8-step
+  // handle, and that tap must move the plugin onto the page before the section is
+  // clamped to it.
   {native->set(id("ui_gpage_1"),0);native->set(id("ui_page"),0);native->set(id("ui_section"),0);
-   native->set(id("ui_section_tab"),11); // OSC 1, SPREAD
-   check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==3,"a section button names its oscillator tab and is not clamped to the stale page");
-   native->set(id("ui_section_tab"),14); // OSC 1, TABLE
+   native->set(id("ui_gsec_1"),3); // OSC 1, SPREAD
+   check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==3,"a section button on the group's own handle opens that oscillator tab, not the stale page");
+   native->set(id("ui_gsec_1"),6); // OSC 1, TABLE
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==6,"the last section of an oscillator page stays selected");
-   check(native->displayText(id("debug_strip"))=="STRIP 14"&&native->displayText(id("debug_page"))=="PAGE 4"&&
+   check(native->displayText(id("debug_strip"))=="STRIP 6"&&native->displayText(id("debug_page"))=="PAGE 4"&&
          native->displayText(id("debug_section"))=="SEC 6"&&native->displayText(id("debug_uisec"))=="UISEC 6",
          "the diagnostic readouts name the strip step, the page, the section and UI Section");
-   check(native->displayText(id("debug_line"))=="STRIP 14 PAGE 4 SEC 6 UISEC 6","the on-screen diagnostic line names all four values");
-   native->set(id("ui_section_tab"),8); // OSC 1, SOUND
+   check(native->displayText(id("debug_line"))=="STRIP 6 PAGE 4 SEC 6 UISEC 6","the on-screen diagnostic line names all four values");
+   native->set(id("ui_gsec_1"),0); // OSC 1, SOUND
    check(native->getInt(id("ui_page"))==4&&native->getInt(id("ui_section"))==0,"SOUND is selectable, not just the sections above it");
-   check(native->getInt(id("ui_section_tab"))==8,"the strip stays on SOUND after its tap");
+   check(native->getInt(id("ui_gsec_1"))==0,"the strip stays on SOUND after its tap");
    // The host lights the button whose id equals the step and swallows a tap on the
    // one it still holds, so the handle must follow sections the plugin sets itself.
    native->set(id("ui_section"),3);waitNative();
-   check(native->getInt(id("ui_section_tab"))==11,"the strip follows a section the plugin changed");
+   check(native->getInt(id("ui_gsec_1"))==3,"the strip follows a section the plugin changed");
    native->set(id("ui_page"),0);native->set(id("ui_section"),0);}
   // The preset selector is a run-time list, so the host turns it as a continuous
   // parameter: one coarse wheel click still moves it by one entry.

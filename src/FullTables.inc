@@ -63,7 +63,8 @@ inline void Vitaleon::logEvent(const char* tag,int index,float plain){
 }
 // TEMPORARY: one line per section change, readable over ssh from the device.
 inline void Vitaleon::logSection(int page,int section){
-    const int strip=uiSectionTab_>=0?getInt(uiSectionTab_):-1;
+    const int group=page>=0&&page<int(surfaceViews_.size())?surfaceViews_[size_t(page)].group:-1;
+    const int strip=group>=0&&groupSection_[group]>=0?getInt(groupSection_[group]):-1;
     const int ui=uiSection_>=0?mpc::clamp(getInt(uiSection_),0,31):-1;
     {std::lock_guard<std::mutex> lock(debugLogMutex_);
      if(page==debugLastPage_&&section==debugLastSection_&&strip==debugLastStrip_&&ui==debugLastUi_)return;

@@ -11820,32 +11820,74 @@
   "value": 0.0
  },
  {
-  "display": "STRIP 0",
+  "display": "0",
   "index": 1970,
+  "name": "Group 0 Section",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1971,
+  "name": "Group 1 Section",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1972,
+  "name": "Group 2 Section",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1973,
+  "name": "Group 3 Section",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1974,
+  "name": "Group 4 Section",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1975,
+  "name": "Group 5 Section",
+  "value": 0.0
+ },
+ {
+  "display": "0",
+  "index": 1976,
+  "name": "Group 6 Section",
+  "value": 0.0
+ },
+ {
+  "display": "STRIP 0",
+  "index": 1977,
   "name": "debug_strip",
   "value": 0.0
  },
  {
   "display": "PAGE 0",
-  "index": 1971,
+  "index": 1978,
   "name": "debug_page",
   "value": 0.0
  },
  {
   "display": "SEC 0",
-  "index": 1972,
+  "index": 1979,
   "name": "debug_section",
   "value": 0.0
  },
  {
   "display": "UISEC 0",
-  "index": 1973,
+  "index": 1980,
   "name": "debug_uisec",
   "value": 0.0
  },
  {
   "display": "STRIP 0 PAGE 0 SEC 0 UISEC 0",
-  "index": 1974,
+  "index": 1981,
   "name": "debug_line",
   "value": 0.0
  }

@@ -88,7 +88,8 @@ private:
     int storageAvailable_=-1;
     int uiGroup_=-1,uiPage_=-1,uiSection_=-1,uiKnobs_=-1,uiBank_=-1;
     int uiModPage_=-1;  // the MOD tab's one strip: LFO 1..8, MATRIX..CURVE, picker
-    int uiSectionTab_=-1; // the Force section strip: group*8+section, names its tab
+    int uiSectionTab_=-1; // legacy 56-step strip slot, kept so no parameter index moves
+    int groupSection_[7]={-1,-1,-1,-1,-1,-1,-1}; // one 8-step strip per group
     int groupPage_[7]={-1,-1,-1,-1,-1,-1,-1},groupSlot_[7]={-1,-1,-1,-1,-1,-1,-1};
     // What the host still has to hear about the Q-Link slots (0.3.23). A moving control
     // must not call into the host: 0.3.22 sent audioMasterAutomate on every movement and
@@ -149,6 +150,7 @@ private:
     std::mutex tableMutex_; // guards assets_[1]: RELOAD may swap it while the host reads
     void createTables();
     void createTableStep();
+    void createGroupSections();
     void createDebug();
     bool formatDebug(int index,std::string& out);
     void publishTables();

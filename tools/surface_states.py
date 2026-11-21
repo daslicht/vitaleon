@@ -44,12 +44,11 @@ def states():
             # A regular Force page switches through one handle that also names its
             # group (the tab bar writes no page); MATRIX and the pickers keep
             # UI Section because they use it as a data selector.
-            if GROUP_MODEL and v['chart'] not in ('mxtable','pickgroup','picktarget'):
-                step=v['group']*8+section
-                # A one-section page draws no strip and must show anyway; simulate a
-                # step it could never write, so a gate on the strip shows up as blank.
-                if len(v['sections'])<=1:step=(step+3)%56
-                values[NAMES['Group Section']]=step/55
+            if GROUP_MODEL and v['chart'] not in ('mxtable','pickgroup','picktarget') and len(v['sections'])>1:
+                # Each group's strip is its own 8-step handle, its ids are the
+                # section numbers. A one-section page draws no strip, so it writes
+                # nothing and its content must show anyway.
+                values[NAMES[f"Group {v['group']} Section"]]=section/7
             if GROUP_MODEL:
                 values[NAMES[f"Group {v['group']} Page"]]=own.index(i)/max(1,len(own)-1)
                 if v['group'] in (4,6):

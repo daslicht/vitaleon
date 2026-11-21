@@ -67,7 +67,7 @@ for p in params:
     # (0.3.20 lost their labels that way). They are switches.
     if p['name'] in ['Drives','Up Folder','Refresh Drives','Previous Files','Next Files','Installed Banks']+['Open Row %d'%n for n in range(1,7)]:
         p['kind']='bool';p['choices']=['Off','On']
-    if p['name'] in ['UI Group','UI Page','UI Section','UI Pick','UI Bank']:
+    if p['name'] in ['UI Group','UI Page','UI Section','UI Pick','UI Bank','Group Section']+[f'Group {g} Section' for g in range(7)]:
         # Navigation state must never get replacementStrings. The parameter
         # dump sweeps UI Section while the 2-section Home view clamps it, so it
         # is misdetected as a 0/1 switch. A 2-string entry makes the MPC treat
@@ -104,9 +104,10 @@ def handle(name):
         else:raise ValueError('Unknown parameter '+name)
     return 'Parameter '+str(byname[name]['index'])
 def index(name):return int(handle(name).split()[-1])
-# The Force's tab bar writes no page, so a regular page's section strip writes one
-# handle that also names the group (group*8+section) and its content conditions read
-# that same handle: the host switches the section itself, nothing mirrors it back.
+# The Force's tab bar writes no page, so a regular page's section strip writes the
+    # 8-step handle of its group (page-local ids 0..6) and its content conditions read
+    # that same handle: the host switches the section itself, nothing mirrors it back.
+    # A 56-step handle with group*8+section made the host write slots no page has.
 SECTION_BASE=None
 SECTION_COUNT=0
 def sec_cond(section):
@@ -114,14 +115,15 @@ def sec_cond(section):
         # A page with one section draws no strip, so nothing could ever write its
         # step: its single section must not be gated on the strip at all.
         if SECTION_COUNT<=1:return None
-        return f'IndexedEnabling/{SECTION_BASE*8+section}/56/'+handle('Group Section')
+        return f'IndexedEnabling/{section}/8/'+handle(f'Group {SECTION_BASE} Section')
     return f'IndexedEnabling/{section}/32/'+handle('UI Section')
 def sec_show(section):
     cond=sec_cond(section);return [] if cond is None else [cond]
 def section_strip(section):
     # MATRIX and the pickers keep UI Section: they use it as a data selector and
     # their own buttons write it, so their strips must name the same handle.
-    if FORCE and SECTION_BASE is not None:return 'Group Section',SECTION_BASE*8+section,56
+    # Every other group owns one 8-step handle whose ids are the section numbers.
+    if FORCE and SECTION_BASE is not None:return f'Group {SECTION_BASE} Section',section,8
     return 'UI Section',section,32
 def ent(name,kind,data,bounds,focus=False,remap=()):return g.entry(name,kind,data,' '.join(map(str,bounds)),'Yes' if focus else 'No','Show','Always',remap)
 

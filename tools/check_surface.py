@@ -48,6 +48,8 @@ for page,section,values in states():
             p=parameter(d['handleName'],e['mapping'])
             if p==NAMES['UI Page']:assert d['numButtonsInGroup']==40 and 0<=d['buttonId']<40
             if p==NAMES['UI Group']:assert d['numButtonsInGroup']==7
+            if GROUP_MODEL and any(p==NAMES[f'Group {g} Section'] for g in range(7)):
+                assert d['numButtonsInGroup']==8 and 0<=d['buttonId']<7,(e['name'],d['buttonId'],d['numButtonsInGroup'])
         if kind=='Knob':
             assert image_size(d['filmStrip'])==(w,h*d['numFrames'])
             assert (w,h) in [(112,112),(280,56),(56,112),(120,52),(150,52),(300,56),(120,120),(372,64),(56,56),(64,64)],(e['name'],w,h)
@@ -59,12 +61,12 @@ for page,section,values in states():
     if page==24 and section==0:
         assert len([e for e in leaves if e['name']=='Effect switch'])==9,'FX overview must expose all nine effects'
 if GROUP_MODEL:
-    # One source per page: a regular Force page must switch on Group Section alone
-    # (its strip writes that handle), the MATRIX and the pickers on UI Section alone.
-    # Two handles for one section are what made the tabs jump back and forth.
+    # One source per page: a regular Force page must switch on its own group's
+    # 8-step section handle alone (its strip writes that one), the MATRIX and the
+    # pickers on UI Section alone. Two handles for one section jumped back and forth.
     for page,section,values in states():
-        only=dict(values)
-        if VIEWS[page]['chart'] in ('mxtable','pickgroup','picktarget'):only[NAMES['Group Section']]=PARAMS[NAMES['Group Section']]['default']/55
+        only=dict(values);strip=f"Group {VIEWS[page]['group']} Section"
+        if VIEWS[page]['chart'] in ('mxtable','pickgroup','picktarget'):only[NAMES[strip]]=PARAMS[NAMES[strip]]['default']/7
         else:only[NAMES['UI Section']]=PARAMS[NAMES['UI Section']]['default']/31
         leaves=expand(tab_entries(page),only)
         assert any(e['kind']=='Label' and 64<=e['box'][1]<568 for e in leaves),(page,section,'section must follow exactly one handle')
