@@ -48,10 +48,12 @@ add(0,'Library','LIBRARY',[('BANKS',[])],chart='library')
 for o in range(1,4):
     # Medium 16:9 graph top-left with four controls around it, six controls in
     # the other sections (0.3.25: three wide columns, two rows).
-    p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','on']),
+    # 0.3.34 (user request): pan, transpose and tune sit on SOUND; SPREAD keeps the
+    # remaining three. The oscillator on/off switch is drawn in the page header.
+    p=f'osc_{o}_';parts=[('SOUND',['wave_frame','level','pan','transpose','tune','on']),
         ('PHASE',['phase','random_phase','transpose_quantize','midi_track','smooth_interpolation','destination']),
         ('UNISON',['unison_voices','unison_detune','unison_blend','stereo_spread','stack_style','detune_power']),
-        ('SPREAD',['pan','transpose','tune','detune_range','frame_spread','spectral_unison']),
+        ('SPREAD',['detune_range','frame_spread','spectral_unison']),
         ('WARP',['distortion_type','distortion_amount','distortion_spread','distortion_phase']),
         ('SPECTRAL',['spectral_morph_type','spectral_morph_amount','spectral_morph_spread'])]
     parts=[(name,[k if k.startswith('Osc ') else p+k for k in items]) for name,items in parts]

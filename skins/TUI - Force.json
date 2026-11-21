@@ -7553,6 +7553,182 @@
                     }
                 },
                 {
+                    "key": "knob-osc-small",
+                    "value": {
+                        "version": 2,
+                        "actions": [
+                            {
+                                "version": 1,
+                                "onAction": "Mouse Down",
+                                "handler": "Q-Link",
+                                "handleName": "QTarget",
+                                "additionalData": ""
+                            },
+                            {
+                                "version": 1,
+                                "onAction": "Double Click",
+                                "handler": "Show Overlay",
+                                "handleName": "Data",
+                                "additionalData": "value overlay"
+                            },
+                            {
+                                "version": 1,
+                                "onAction": "Enter Pressed",
+                                "handler": "Show Overlay",
+                                "handleName": "Data",
+                                "additionalData": "value overlay"
+                            }
+                        ],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "focus",
+                                    "type": "Focus",
+                                    "data": {
+                                        "version": 1,
+                                        "backgroundColour": "19ffffff",
+                                        "outlineColour": "ffbca3ff",
+                                        "backgroundInset": 4.0,
+                                        "outlineThickness": 1.0
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "WhenFocussed",
+                                    "boundsType": "Absolute",
+                                    "bounds": "35 18 120 120"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "name",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 18.0
+                                            },
+                                            "colour": "ffedf0f7",
+                                            "justification": "horizontallyCentred verticallyCentred",
+                                            "case": "Original"
+                                        },
+                                        "type": "Name",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 190 20"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "knob",
+                                    "type": "Knob",
+                                    "data": {
+                                        "version": 3,
+                                        "knobType": "FilmStrip",
+                                        "filmStrip": "large-osc-knob-f.png",
+                                        "numFrames": 127,
+                                        "invert": false,
+                                        "dragOrientation": "Vertical",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "35 18 120 120"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "value",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 18.0
+                                            },
+                                            "colour": "ffbca3ff",
+                                            "justification": "horizontallyCentred verticallyCentred",
+                                            "case": "Original"
+                                        },
+                                        "type": "Value",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 138 190 18"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
                     "key": "knob-osc-frame",
                     "value": {
                         "version": 2,
@@ -17230,7 +17406,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Level",
-                                    "type": "fader-osc",
+                                    "type": "knob-osc-small",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -17259,7 +17435,127 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 370 394 156",
+                                    "bounds": "24 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Pan",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Pan]/Parameter 1910"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 628"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1910"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "226 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Transpose",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Transpose]/Parameter 1911"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 638"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1911"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "428 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Tune",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Tune]/Parameter 1912"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 640"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1912"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "630 370 190 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -17773,8 +18069,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Pan",
-                                    "type": "bipolar-osc",
+                                    "name": "Detune Range",
+                                    "type": "knob-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -17785,11 +18081,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Pan]/Parameter 1908"
+                                            "value": "WithName[Detune Range]/Parameter 1908"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 628"
+                                            "value": "Parameter 619"
                                         },
                                         {
                                             "key": "QTarget",
@@ -17813,7 +18109,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Transpose",
+                                    "name": "Frame Spread",
                                     "type": "bipolar-osc",
                                     "data": {
                                         "version": 1,
@@ -17825,11 +18121,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Transpose]/Parameter 1909"
+                                            "value": "WithName[Frame Spread]/Parameter 1909"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 638"
+                                            "value": "Parameter 624"
                                         },
                                         {
                                             "key": "QTarget",
@@ -17844,126 +18140,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "442 102 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Tune",
-                                    "type": "bipolar-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Tune]/Parameter 1910"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 640"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1910"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "860 102 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Detune Range",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Detune Range]/Parameter 1911"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 619"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1911"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "24 370 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Frame Spread",
-                                    "type": "bipolar-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Frame Spread]/Parameter 1912"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 624"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1912"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "442 370 394 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/3/8/Parameter 1971"
                                     ]
@@ -17989,7 +18165,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1913"
+                                            "value": "Parameter 1910"
                                         }
                                     ]
                                 },
@@ -17999,7 +18175,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "860 370 394 156",
+                                    "bounds": "860 102 394 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/3/8/Parameter 1971"
                                     ]
@@ -24114,7 +24290,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Level",
-                                    "type": "fader-osc",
+                                    "type": "knob-osc-small",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -24143,7 +24319,127 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 370 394 156",
+                                    "bounds": "24 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Pan",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Pan]/Parameter 1910"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 657"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1910"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "226 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Transpose",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Transpose]/Parameter 1911"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 667"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1911"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "428 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Tune",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Tune]/Parameter 1912"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 669"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1912"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "630 370 190 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -24657,8 +24953,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Pan",
-                                    "type": "bipolar-osc",
+                                    "name": "Detune Range",
+                                    "type": "knob-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -24669,11 +24965,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Pan]/Parameter 1908"
+                                            "value": "WithName[Detune Range]/Parameter 1908"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 657"
+                                            "value": "Parameter 648"
                                         },
                                         {
                                             "key": "QTarget",
@@ -24697,7 +24993,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Transpose",
+                                    "name": "Frame Spread",
                                     "type": "bipolar-osc",
                                     "data": {
                                         "version": 1,
@@ -24709,11 +25005,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Transpose]/Parameter 1909"
+                                            "value": "WithName[Frame Spread]/Parameter 1909"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 667"
+                                            "value": "Parameter 653"
                                         },
                                         {
                                             "key": "QTarget",
@@ -24728,126 +25024,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "442 102 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Tune",
-                                    "type": "bipolar-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Tune]/Parameter 1910"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 669"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1910"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "860 102 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Detune Range",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Detune Range]/Parameter 1911"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 648"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1911"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "24 370 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Frame Spread",
-                                    "type": "bipolar-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Frame Spread]/Parameter 1912"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 653"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1912"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "442 370 394 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/3/8/Parameter 1971"
                                     ]
@@ -24873,7 +25049,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1913"
+                                            "value": "Parameter 1910"
                                         }
                                     ]
                                 },
@@ -24883,7 +25059,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "860 370 394 156",
+                                    "bounds": "860 102 394 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/3/8/Parameter 1971"
                                     ]
@@ -30998,7 +31174,7 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Level",
-                                    "type": "fader-osc",
+                                    "type": "knob-osc-small",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -31027,7 +31203,127 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 370 394 156",
+                                    "bounds": "24 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Pan",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Pan]/Parameter 1910"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 686"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1910"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "226 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Transpose",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Transpose]/Parameter 1911"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 696"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1911"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "428 370 190 156",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/8/Parameter 1971"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Tune",
+                                    "type": "knob-osc-small",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Tune]/Parameter 1912"
+                                        },
+                                        {
+                                            "key": "Target",
+                                            "value": "Parameter 698"
+                                        },
+                                        {
+                                            "key": "QTarget",
+                                            "value": "Parameter 1912"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "630 370 190 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -31541,8 +31837,8 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Pan",
-                                    "type": "bipolar-osc",
+                                    "name": "Detune Range",
+                                    "type": "knob-osc",
                                     "data": {
                                         "version": 1,
                                         "handleName": "Data"
@@ -31553,11 +31849,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Pan]/Parameter 1908"
+                                            "value": "WithName[Detune Range]/Parameter 1908"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 686"
+                                            "value": "Parameter 677"
                                         },
                                         {
                                             "key": "QTarget",
@@ -31581,7 +31877,7 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Transpose",
+                                    "name": "Frame Spread",
                                     "type": "bipolar-osc",
                                     "data": {
                                         "version": 1,
@@ -31593,11 +31889,11 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "WithName[Transpose]/Parameter 1909"
+                                            "value": "WithName[Frame Spread]/Parameter 1909"
                                         },
                                         {
                                             "key": "Target",
-                                            "value": "Parameter 696"
+                                            "value": "Parameter 682"
                                         },
                                         {
                                             "key": "QTarget",
@@ -31612,126 +31908,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "442 102 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Tune",
-                                    "type": "bipolar-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Tune]/Parameter 1910"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 698"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1910"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "860 102 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Detune Range",
-                                    "type": "knob-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Detune Range]/Parameter 1911"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 677"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1911"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "24 370 394 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/3/8/Parameter 1971"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Frame Spread",
-                                    "type": "bipolar-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[Frame Spread]/Parameter 1912"
-                                        },
-                                        {
-                                            "key": "Target",
-                                            "value": "Parameter 682"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1912"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "442 370 394 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/3/8/Parameter 1971"
                                     ]
@@ -31757,7 +31933,7 @@
                                         },
                                         {
                                             "key": "QTarget",
-                                            "value": "Parameter 1913"
+                                            "value": "Parameter 1910"
                                         }
                                     ]
                                 },
@@ -31767,7 +31943,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "860 370 394 156",
+                                    "bounds": "860 102 394 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/3/8/Parameter 1971"
                                     ]

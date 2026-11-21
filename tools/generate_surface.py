@@ -109,6 +109,8 @@ KNOB_SMALL=64 if FORCE else 56  # the table cursor's rotary, one header line hig
 # readout, the table knob gets a compact cell before the list.
 TABLE_KNOB_W=148 if FORCE else 104
 WAVE_SLOT_W=SLOT_W-TABLE_KNOB_W-8
+# 0.3.34: SOUND carries four knobs beside the table, so they use a compact cell.
+SMALL_W=190 if FORCE else 172
 TOGGLE_W,TOGGLE_H=(168,88) if FORCE else (136,72)
 # 0.3.34: the oscillator's on/off switch in the header band is a smaller pill.
 SWITCH_W,SWITCH_H=120,52
@@ -369,7 +371,7 @@ def page_nav(page):
         own=group_pages(VIEWS[page]['group']);return f"Group {VIEWS[page]['group']} Page",own.index(page),len(own)
     return 'UI Page',page,len(VIEWS)
 def slot_data(title,name,slot):return [('Data','WithName['+title+']/'+handle((f'Group {GROUP_SLOT} Slot' if GROUP_SLOT is not None else 'UI Control')+f' {slot+1}')),('Target',handle(name))]
-def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None,width=None,narrow=False):
+def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None,width=None,narrow=False,small=False):
     p=parameter(name);choices=p.get('choices',[])
     if p['kind']=='bool':role='toggle'
     elif len(choices)>1:role='menu'
@@ -403,6 +405,11 @@ def control(name,title,x,y,color='osc',visible=None,compact=False,slot=None,widt
         # the row), so it uses its own definition with a trimmed readout box.
         assert role in ['knob','bipolar'] and color=='osc',(name,role)
         key='knob-osc-frame'
+    if small:
+        # 0.3.34: the SOUND knobs beside the table use the compact centred cell.
+        # Level is a fader elsewhere; here every SOUND control is a dial in a row.
+        assert color=='osc',(name,role)
+        key='knob-osc-small'
     data=slot_data(title,name,slot) if slot is not None and role in ['knob','bipolar','fader'] else [('Data','WithName['+title+']/'+handle(name))]
     return g.entry(title,key,{'version':1,'handleName':'Data'},f'{x} {y} '+('184 188' if compact else f'{width or SLOT_W} {SLOT_H}'),'Yes','Hide' if visible else 'Show','Always',data+([('Menu',handle(name))] if role=='menu' else []),invalidating=visible)
 
@@ -475,6 +482,14 @@ definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition(
 # The wave frame cell is narrower than a slot (the table knob shares the row), so
 # its own definition trims the readout box instead of letting it run into the
 # neighbouring cell, which the touch check reads as a label/control collision.
+# The SOUND knobs beside the table are 190 px wide (172 on the MPC), so the name and
+# the readout are centred above and below the dial instead of beside it.
+definitions.append(g.obj(('key','knob-osc-small'),('value',g.component_definition(g.control_actions('value overlay'),[
+    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'{(SMALL_W-KNOB)//2} 18 {KNOB} {KNOB}','No','Show','WhenFocussed'),
+    ent('name','Label',g.label_data('Name',TEXT,18,'horizontallyCentred verticallyCentred'),(0,0,SMALL_W,20)),
+    ent('knob','Knob',g.knob_filmstrip_data(f'large-osc-knob{DEF_SUFFIX}.png',127,'Vertical'),((SMALL_W-KNOB)//2,18,KNOB,KNOB)),
+    ent('value','Label',g.label_data('Value',COLORS['osc'],18,'horizontallyCentred verticallyCentred'),(0,18+KNOB,SMALL_W,SLOT_H-18-KNOB)),
+],'00000000'))))
 definitions.append(g.obj(('key','knob-osc-frame'),('value',g.component_definition(g.control_actions('value overlay'),[
     g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'8 {30 if FORCE else 28} {KNOB} {KNOB}','No','Show','WhenFocussed'),
     ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,WAVE_SLOT_W,30 if FORCE else 26)),
@@ -663,7 +678,7 @@ def cell_position(chart,section,slot):
         # x = 408), so the sound section reads wave, frame, level from left to right.
         # Its slot number stays 0: only the place on screen moves, not the Q-Link.
         if slot==0:return 424,166
-        return col_x(slot-1),ROW2 if FORCE else 372
+        return 24+(slot-1)*(SMALL_W+12),ROW2 if FORCE else 372
     row,col=divmod(slot,3);return col_x(col),166+(ROW2-166)*row
 from surface_spec import DESTINATIONS
 all_children=[]
@@ -789,6 +804,7 @@ for i,view in enumerate(VIEWS):
                 x,y=cell_position(chart,section,slot)
                 # 0.3.34: the wave frame cell shares its row with the table knob.
                 narrow=isinstance(chart,int) and section==0 and slot==0
+                small=isinstance(chart,int) and section==0 and slot>0
                 caption=pretty(name)
                 if view['group']==5:
                     for prefix in ['Compressor ','Chorus ','Delay ','Warp ','Eq ','Filter Fx ','Flanger ','Phaser ','Reverb ']:
@@ -809,7 +825,7 @@ for i,view in enumerate(VIEWS):
                         if name in ['Voices','Home Attack','Home Release']:control_color='env'
                         elif name.startswith('filter_') or name in ['Home Cutoff','Home Resonance','Home Filter']:control_color='fx'
                         elif name.startswith('macro_'):control_color='mod'
-                    cell=control(name,caption,x,y,control_color,visible=sec_show(section),slot=slot,width=WAVE_SLOT_W if narrow else None,narrow=narrow)
+                    cell=control(name,caption,x,y,control_color,visible=sec_show(section),slot=slot,width=WAVE_SLOT_W if narrow else (SMALL_W if small else None),narrow=narrow,small=small)
                 dict(dict(cell)['handle remapping'])['map'].append(g.obj(('key','QTarget'),('value',handle(f'Group {GROUP_SLOT} Slot {slot+1}' if GROUP_SLOT is not None else f'UI Control {slot+1}'))))
                 cells.append(cell)
             # Frames first: they lie under the controls and take no touch. The Force
