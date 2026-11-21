@@ -210,7 +210,12 @@ for color,accent in COLORS.items():
         # 5.2): the slot entry takes hardware focus and every child is 'No', so
         # a tap anywhere in the cell focuses it and the data wheel edits its
         # value (knob, fader, switch and choice cells alike).
-        children=[g.entry('focus','Focus',g.focus_data(accent),SLOT,'No','Show','WhenFocussed'),
+        # 0.3.34 (user request): the focus frame follows the dial, not the whole
+        # slot. Around a knob it was as wide as the cell and left the readout
+        # outside the box it framed; the fader and the switch fill their cell,
+        # so their frame stays the slot.
+        focus_bounds=f'8 {30 if FORCE else 28} {KNOB} {KNOB}' if role in ['knob','bipolar'] else SLOT
+        children=[g.entry('focus','Focus',g.focus_data(accent),focus_bounds,'No','Show','WhenFocussed'),
             ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,30 if FORCE else 26))]
         actions=g.control_actions('value overlay')
         if role in ['knob','bipolar']:

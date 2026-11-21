@@ -72,7 +72,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
@@ -248,7 +248,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
@@ -1139,7 +1139,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
@@ -1315,7 +1315,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
@@ -2206,7 +2206,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
@@ -2382,7 +2382,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
@@ -3273,7 +3273,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
@@ -3449,7 +3449,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 394 156"
+                                    "bounds": "8 30 120 120"
                                 }
                             },
                             {
