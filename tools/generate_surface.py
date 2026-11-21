@@ -388,31 +388,32 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc'):
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),True)
 
 def add_table(c):
-    # 0.3.35: the wavetable list as its own view. Every name is a readout (the
-    # Content folder is indexed at run time), so no label list is generated. The
-    # cursor fader is the data wheel's target: a click moves exactly one table and
-    # the plugin loads it once the wheel rests.
+    # 0.3.36: the wavetable list is the seventh section of every oscillator page
+    # (user request), not a page of its own. The oscillator is the page, so the
+    # OSC 1/2/3 buttons are gone and LOAD writes that oscillator's table. Every
+    # name is a readout (the Content folder is indexed at run time), so no label
+    # list is generated. The cursor fader is the data wheel's target: a click
+    # moves exactly one table and the plugin loads it once the wheel rests.
+    show=['IndexedEnabling/6/32/'+handle('UI Section')]
     rows,step=TABLE_ROWS,54
-    c.append(label('TABLE',(24,70,158,40),TEXT,30))
-    for o in range(3):c.append(nav_button(f'OSC {o+1}',196+o*164,70,152,52,'Table Oscillator',o,3))
-    c.append(label('Table position',(24,132,340,28),TEXT,22,value='table_position'))
-    c.append(ent('Table cursor','Knob',g.knob_filmstrip_data(f'compact-osc-fader{DEF_SUFFIX}.png',127,'Horizontal'),(SCREEN_RIGHT-24-FADER_W,130,FADER_W,FADER_H),True,remap=[('Data',handle('Table Cursor'))]))
+    c.append(conditional(label('Table position',(24,136,340,28),TEXT,22,value='table_position'),show))
+    c.append(conditional(ent('Table cursor','Knob',g.knob_filmstrip_data(f'compact-osc-fader{DEF_SUFFIX}.png',127,'Horizontal'),(SCREEN_RIGHT-24-FADER_W,130,FADER_W,FADER_H),True,remap=[('Data',handle('Table Cursor'))]),show))
     top=190
     for row in range(rows):
         y=top+row*step
-        c.append(label('Table mark',(24,y,26,step-4),COLORS['osc'],22,value=f'table_row_{row}_state'))
-        c.append(label('Table folder',(56,y,240,20),MUTED,16,value=f'table_row_{row}_folder'))
-        c.append(label('Table name',(56,y+18,SCREEN_RIGHT-24-132-56-16,24),TEXT,22,value=f'table_row_{row}_name'))
-        c.append(nav_button('LOAD',SCREEN_RIGHT-24-132,y,132,52,f'Select Table Row {row+1}',0,1,'env'))
+        c.append(conditional(label('Table mark',(24,y,26,step-4),COLORS['osc'],22,value=f'table_row_{row}_state'),show))
+        c.append(conditional(label('Table folder',(56,y,240,20),MUTED,16,value=f'table_row_{row}_folder'),show))
+        c.append(conditional(label('Table name',(56,y+18,SCREEN_RIGHT-24-132-56-16,24),TEXT,22,value=f'table_row_{row}_name'),show))
+        c.append(conditional(nav_button('LOAD',SCREEN_RIGHT-24-132,y,132,52,f'Select Table Row {row+1}',0,1,'env'),show))
     fy=top+rows*step+8
     # The tab content area is 628 px high (SDK ui-reference 1.4); a row added
     # here without room would be drawn off the screen instead of failing.
     assert fy+52<=628,(TABLE_ROWS,'table rows do not fit the content area')
-    c.append(nav_button('PREV',24,fy,120,52,'Table Previous Page',0))
-    c.append(nav_button('NEXT',152,fy,120,52,'Table Next Page',0))
-    c.append(nav_button('RELOAD',280,fy,150,52,'Table Reload',0))
-    c.append(nav_button('BUILT-IN',438,fy,160,52,'Table Built-in',0))
-    for part in range(2):c.append(label('Table status',(610+part*200,fy+6,190,40),COLORS['mod'],17,value=f'table_status_{part}'))
+    c.append(conditional(nav_button('PREV',24,fy,120,52,'Table Previous Page',0),show))
+    c.append(conditional(nav_button('NEXT',152,fy,120,52,'Table Next Page',0),show))
+    c.append(conditional(nav_button('RELOAD',280,fy,150,52,'Table Reload',0),show))
+    c.append(conditional(nav_button('BUILT-IN',438,fy,160,52,'Table Built-in',0),show))
+    for part in range(2):c.append(conditional(label('Table status',(610+part*200,fy+6,190,40),COLORS['mod'],17,value=f'table_status_{part}'),show))
 
 def add_library(c):
     # 0.3.19 layout: place line, three commands, six rows of KIND | NAME | button.
@@ -559,13 +560,13 @@ for i,view in enumerate(VIEWS):
     # Section buttons are right-aligned inside the content area, before the title
     # is placed, so the two never overlap (the caption is baked into the button).
     section_buttons=[]
-    if chart not in ('library','table') and len(sections)>1 and chart!='picktarget':
+    if chart!='library' and len(sections)>1 and chart!='picktarget':
         end=696 if chart=='home' else SCREEN_RIGHT-4
         wide=len(sections)<=4;button_w=124 if wide else 88;step=132 if wide else 96
         for section,part in enumerate(sections):
             section_buttons.append((part['title'],end-len(sections)*step+section*step,button_w))
     title_room=min(440,section_buttons[0][1]-32) if section_buttons else (330 if chart=='mxtable' else 440)
-    if chart not in ('library','table'):
+    if chart!='library':
         # Seven LFO sections need the top line for their buttons, so the module
         # selector moves next to the version label on ENV/LFO pages.
         if view['group'] in [3,4]:
@@ -611,7 +612,8 @@ for i,view in enumerate(VIEWS):
                 if d['type']=='Envelope':b[:]=[(k,f'24 140 {full(728)} 190' if k=='bounds' else v) for k,v in b]
                 if d['type']=='Plotter':b[:]=[(k,f'{full(768)} 140 {full(232)} 190' if k=='bounds' else v) for k,v in b]
         for section,part in enumerate(sections):
-            if chart in ['mxtable','pickgroup','picktarget','table']:break
+            if chart in ['mxtable','pickgroup','picktarget']:break
+            if part['title']=='TABLE':break  # its list is laid out by add_table below
             cells=[]
             for slot,name in enumerate(part['items']):
                 x,y=cell_position(chart,section,slot)
@@ -643,13 +645,7 @@ for i,view in enumerate(VIEWS):
             # slots directly; a four-slot bank outline would only mislead there.
             if not FORCE:children.extend(qlink_frames(cells,section,color))
             children.extend(cells)
-            # The oscillator's table cell: the fader is gone, a name and the
-            # button into the table view take its place.
-            if isinstance(chart,int) and section==0:
-                x,y=cell_position(chart,0,3);first=['IndexedEnabling/0/32/'+handle('UI Section')]
-                children.append(conditional(label('Table',(x,y+6,SLOT_W,26),MUTED,18),first))
-                children.append(conditional(label('Table name',(x+4,y+32,SLOT_W-8,40),COLORS['osc'],22,value=f'display_table_name_{chart+1}'),first))
-                children.append(conditional(nav_button('TABLE',x+4,y+86,SLOT_W-8,52,f'Open Osc {chart+1} Table'),first))
+        if isinstance(chart,int):add_table(children)
         if chart=='home':
             # Below the second control row (ends at y = 512), like every page.
             children.append(label('Active bank',(24,520,140,24),MUTED,18))
@@ -659,7 +655,6 @@ for i,view in enumerate(VIEWS):
             # there this button is the only way to the library.
             if not FORCE:children.append(nav_button('LIBRARY',SCREEN_RIGHT-24-156,512,156,52,*page_nav(3)))
     elif chart=='library':add_library(children)
-    else:add_table(children)
     if title=='Advanced' and __import__('os').environ.get('VITALEON_DIAG'):  # device diagnostic only
         children.append(label('DIAGNOSTIC: a test chord plays on every page except HOME',(24,352,1000,30),COLORS['mod'],20))
         children.append(label('blk mean/max us   gap max us between callbacks   late callbacks   wait max us for fx core   n host calls/s   call mean/max us   t seconds',(24,386,1230,26),MUTED,17))

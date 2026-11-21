@@ -6,7 +6,7 @@ inline void Vitaleon::createNavigation(){
     rememberedPages_.fill(-1);
     for(const auto& page:specification){SurfaceView view{page.at("group"),page.at("member"),{}};view.hidden=page.value("hidden",false);
         if(page.at("chart").is_string()){const std::string chart=page.at("chart");const int at=int(surfaceViews_.size());
-            if(chart=="mxtable")matrixView_=at;else if(chart=="pickgroup")pickGroupView_=at;else if(chart=="picktarget")pickTargetView_=at;else if(chart=="table")tablePageView_=at;}for(const auto& section:page.at("sections")){std::vector<int> row;for(const auto& item:section.at("items"))row.push_back(find(item));view.sections.push_back(std::move(row));}if(rememberedPages_[view.group]<0&&!view.hidden)rememberedPages_[view.group]=int(surfaceViews_.size());surfaceViews_.push_back(std::move(view));}
+            if(chart=="mxtable")matrixView_=at;else if(chart=="pickgroup")pickGroupView_=at;else if(chart=="picktarget")pickTargetView_=at;}for(const auto& section:page.at("sections")){std::vector<int> row;for(const auto& item:section.at("items"))row.push_back(find(item));view.sections.push_back(std::move(row));}if(rememberedPages_[view.group]<0&&!view.hidden)rememberedPages_[view.group]=int(surfaceViews_.size());surfaceViews_.push_back(std::move(view));}
     rememberedSections_.assign(surfaceViews_.size(),0);
     auto integer=[&](const char* id,const char* name,int max){auto p=mpc::intParam(id,name,0,max,0);p.automatable=false;return addParam(p);};
     uiGroup_=integer("ui_group","UI Group",6);uiPage_=integer("ui_page","UI Page",int(surfaceViews_.size())-1);uiSection_=integer("ui_section","UI Section",31);
@@ -55,9 +55,21 @@ inline void Vitaleon::updateNavigation(){
      if(modPage>=0&&uiModPage_>=0)publish(uiModPage_,float(modPage));}
     const auto& targets=v.sections[section];for(int i=0;i<16;++i)uiTargets_[i].store(i<int(targets.size())?targets[i]:-1);
     slotEditMs_.store(0,std::memory_order_relaxed); // other controls now: every slot shows its new target
+    // 0.3.36: every oscillator page carries its table list as its seventh section.
+    // The page names the oscillator LOAD writes, and entering the section puts the
+    // cursor on the table that oscillator already uses.
+    if(v.group==1&&v.member>=1&&tableViewTarget_>=0){
+        const int o=mpc::clamp(v.member-1,0,2);publish(tableViewTarget_,float(o));
+        if(section==6&&tableRowStates_>=0){
+            const int count=std::max(1,tableCount());
+            const int selected=mpc::clamp(getInt(tableSelect_[o]),0,count-1);
+            tableCursor_=selected;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
+            publish(tableViewCursor_,float(selected)/float(std::max(1,count-1)));
+            publish(tableViewPage_,float(selected/kTableRows));
+            publishTables();
+        }
+    }
     refreshProxies();browserDisplayDirty_.store(true);
-    // The table list is readout text, so entering its page fills it once.
-    if(page==tablePageView_)publishTables();
 }
 inline int Vitaleon::groupMemberPage(int group,int member){
     // Group pages count members inside the group, as the tab bar does.

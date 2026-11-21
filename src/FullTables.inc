@@ -131,7 +131,8 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         publish(tableViewCursor_,float(selected)/float(std::max(1,count-1)));
         publish(tableViewPage_,float(selected/kTableRows));
         tableCursor_=selected;tableRaw_=getNormalised(tableViewCursor_);tableMs_=nowMs();tableTravel_=0;
-        if(tablePageView_>=0)navigateTo(tablePageView_,0);
+        // 0.3.36: the list is the oscillator page's seventh section, not a page.
+        navigateTo(groupMemberPage(1,o),6);
         publishTables();browserDisplayDirty_.store(true);return true;
     }
     if(index>=tableCommands_&&index<tableCommands_+4){

@@ -61,7 +61,6 @@ public:
     const std::vector<std::string>& testImportNotes()const{return importNotes_;}
     int testTableCount(){return tableCount();}
     int testTableCursor()const{return tableCursor_;}
-    int testTablePageView()const{return tablePageView_;}
     // The Init sound (every control at its default), as the "Init" program selects it.
     void testInit(){beginStateTransaction(true);for(size_t k=0;k<initValues_.size();++k)restoreParameter(int(k),param(int(k)).toNormalised(initValues_[k]));selectInit();endStateTransaction(true);reset();}
     // Engine checks start from the Init state instead of the first installed sound.
@@ -131,7 +130,6 @@ private:
     // Table picker (0.3.35): the wheel moves a cursor, the entry loads at rest.
     // tools/generate_surface.py reads this number to lay out the same page.
     static constexpr int kTableRows=6;
-    int tablePageView_=-1;
     int tableOpen_=-1,tableCommands_=-1,tableRows_=-1,tableRowStates_=-1,tableRowNames_=-1,tableRowFolders_=-1,tablePosition_=-1,tableStatus_=-1,tableNameReadout_=-1;
     int tableViewTarget_=-1,tableViewCursor_=-1,tableViewPage_=-1;
     int tableCursor_=0;float tableRaw_=0;long long tableMs_=0;float tableTravel_=0;

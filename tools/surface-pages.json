@@ -184,7 +184,11 @@
       "osc_1_distortion_phase",
       "osc_1_spectral_morph_type",
       "osc_1_spectral_morph_amount",
-      "osc_1_spectral_morph_spread"
+      "osc_1_spectral_morph_spread",
+      "Osc 1 Table",
+      "Table Cursor",
+      "Table Oscillator",
+      "Table Page"
     ],
     "chart": 0,
     "color": "osc",
@@ -247,6 +251,15 @@
           "osc_1_spectral_morph_amount",
           "osc_1_spectral_morph_spread"
         ]
+      },
+      {
+        "title": "TABLE",
+        "items": [
+          "Osc 1 Table",
+          "Table Cursor",
+          "Table Oscillator",
+          "Table Page"
+        ]
       }
     ]
   },
@@ -282,7 +295,8 @@
       "osc_2_distortion_phase",
       "osc_2_spectral_morph_type",
       "osc_2_spectral_morph_amount",
-      "osc_2_spectral_morph_spread"
+      "osc_2_spectral_morph_spread",
+      "Osc 2 Table"
     ],
     "chart": 1,
     "color": "osc",
@@ -345,6 +359,12 @@
           "osc_2_spectral_morph_amount",
           "osc_2_spectral_morph_spread"
         ]
+      },
+      {
+        "title": "TABLE",
+        "items": [
+          "Osc 2 Table"
+        ]
       }
     ]
   },
@@ -380,7 +400,8 @@
       "osc_3_distortion_phase",
       "osc_3_spectral_morph_type",
       "osc_3_spectral_morph_amount",
-      "osc_3_spectral_morph_spread"
+      "osc_3_spectral_morph_spread",
+      "Osc 3 Table"
     ],
     "chart": 2,
     "color": "osc",
@@ -443,34 +464,11 @@
           "osc_3_spectral_morph_amount",
           "osc_3_spectral_morph_spread"
         ]
-      }
-    ]
-  },
-  {
-    "family": 1,
-    "sub": 0,
-    "title": "Table",
-    "items": [
-      "Osc 1 Table",
-      "Osc 2 Table",
-      "Osc 3 Table",
-      "Table Cursor",
-      "Table Oscillator",
-      "Table Page"
-    ],
-    "chart": "table",
-    "color": "osc",
-    "subtitle": "",
-    "sections": [
+      },
       {
-        "title": "TABLES",
+        "title": "TABLE",
         "items": [
-          "Osc 1 Table",
-          "Osc 2 Table",
-          "Osc 3 Table",
-          "Table Cursor",
-          "Table Oscillator",
-          "Table Page"
+          "Osc 3 Table"
         ]
       }
     ]
