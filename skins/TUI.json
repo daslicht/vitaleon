@@ -4274,6 +4274,250 @@
                     }
                 },
                 {
+                    "key": "osc-switch-osc",
+                    "value": {
+                        "version": 2,
+                        "actions": [
+                            {
+                                "version": 1,
+                                "onAction": "Mouse Down",
+                                "handler": "Q-Link",
+                                "handleName": "QTarget",
+                                "additionalData": ""
+                            }
+                        ],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "switch",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "small-osc-on.png",
+                                        "offImage": "small-osc-off.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "Data",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 120 52"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "key": "osc-switch-env",
+                    "value": {
+                        "version": 2,
+                        "actions": [
+                            {
+                                "version": 1,
+                                "onAction": "Mouse Down",
+                                "handler": "Q-Link",
+                                "handleName": "QTarget",
+                                "additionalData": ""
+                            }
+                        ],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "switch",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "small-env-on.png",
+                                        "offImage": "small-env-off.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "Data",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 120 52"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "key": "osc-switch-mod",
+                    "value": {
+                        "version": 2,
+                        "actions": [
+                            {
+                                "version": 1,
+                                "onAction": "Mouse Down",
+                                "handler": "Q-Link",
+                                "handleName": "QTarget",
+                                "additionalData": ""
+                            }
+                        ],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "switch",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "small-mod-on.png",
+                                        "offImage": "small-mod-off.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "Data",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 120 52"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "key": "osc-switch-fx",
+                    "value": {
+                        "version": 2,
+                        "actions": [
+                            {
+                                "version": 1,
+                                "onAction": "Mouse Down",
+                                "handler": "Q-Link",
+                                "handleName": "QTarget",
+                                "additionalData": ""
+                            }
+                        ],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "switch",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "small-fx-on.png",
+                                        "offImage": "small-fx-off.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "Data",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 120 52"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
                     "key": "value overlay",
                     "value": {
                         "version": 2,
@@ -17855,6 +18099,38 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Oscillator on",
+                                    "type": "osc-switch-osc",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Oscillator On]/Parameter 627"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "24 12 120 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "Q-Link frame",
                                     "type": "Image",
                                     "data": {
@@ -17903,35 +18179,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "20 304 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878",
-                                        "IndexedEnabling/0/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "352 304 316 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -18013,42 +18260,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "24 308 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "On",
-                                    "type": "toggle-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[On]/Parameter 627"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1881"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "356 308 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -25592,6 +25803,38 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Oscillator on",
+                                    "type": "osc-switch-osc",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Oscillator On]/Parameter 656"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "24 12 120 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "Q-Link frame",
                                     "type": "Image",
                                     "data": {
@@ -25640,35 +25883,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "20 304 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878",
-                                        "IndexedEnabling/0/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "352 304 316 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -25750,42 +25964,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "24 308 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "On",
-                                    "type": "toggle-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[On]/Parameter 656"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1881"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "356 308 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -33329,6 +33507,38 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Oscillator on",
+                                    "type": "osc-switch-osc",
+                                    "data": {
+                                        "version": 1,
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "WithName[Oscillator On]/Parameter 685"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 2,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Hide",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "24 12 120 52",
+                                    "additionalInvalidatingHandles": [
+                                        "IndexedEnabling/0/32/Parameter 1878"
+                                    ]
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "Q-Link frame",
                                     "type": "Image",
                                     "data": {
@@ -33377,35 +33587,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "20 304 316 164",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878",
-                                        "IndexedEnabling/0/4/Parameter 1896"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "Q-Link frame",
-                                    "type": "Image",
-                                    "data": {
-                                        "version": 1,
-                                        "colour": "0",
-                                        "image": "qframe-316x164-osc.png"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": []
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "352 304 316 164",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878",
                                         "IndexedEnabling/0/4/Parameter 1896"
@@ -33487,42 +33668,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "24 308 308 156",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "On",
-                                    "type": "toggle-osc",
-                                    "data": {
-                                        "version": 1,
-                                        "handleName": "Data"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "Data",
-                                            "value": "WithName[On]/Parameter 685"
-                                        },
-                                        {
-                                            "key": "QTarget",
-                                            "value": "Parameter 1881"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "Yes",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "356 308 308 156",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]

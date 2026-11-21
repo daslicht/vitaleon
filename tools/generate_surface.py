@@ -110,6 +110,8 @@ KNOB_SMALL=64 if FORCE else 56  # the table cursor's rotary, one header line hig
 TABLE_KNOB_W=148 if FORCE else 104
 WAVE_SLOT_W=SLOT_W-TABLE_KNOB_W-8
 TOGGLE_W,TOGGLE_H=(168,88) if FORCE else (136,72)
+# 0.3.34: the oscillator's on/off switch in the header band is a smaller pill.
+SWITCH_W,SWITCH_H=120,52
 SEG_W,SEG_H=(186,56) if FORCE else (148,52)
 SEG_DX,SEG_DY=(194,62) if FORCE else (152,58)
 SLOT_FONT=26 if FORCE else 22
@@ -283,6 +285,12 @@ for color,accent in COLORS.items():
                 ent('value','Label',g.label_data('Value',accent,SLOT_FONT-2),(6,24,SLOT_W-12,42)),
                 ent('fader','Knob',g.knob_filmstrip_data(f'compact-{color}-fader{DEF_SUFFIX}.png',127,'Horizontal'),(6,78,FADER_W,FADER_H))])
         definitions.append(g.obj(('key',role+'-'+color),('value',g.component_definition(actions,children,'00000000'))))
+# 0.3.34 (user request): the oscillator on/off switch left the SOUND grid for the free
+# band at the top left of the oscillator pages, where the page title used to be.
+for color in COLORS:
+    definitions.append(g.obj(('key','osc-switch-'+color),('value',g.component_definition(
+        [g.action('Mouse Down','Q-Link','Data','')],
+        [ent('switch','Button',g.button_data(f'small-{color}-on{DEF_SUFFIX}.png',f'small-{color}-off{DEF_SUFFIX}.png',1,1),(0,0,SWITCH_W,SWITCH_H))],'00000000'))))
 definitions.append(g.obj(('key','value overlay'),('value',g.overlay_component('KnobOverlay',g.knob_overlay_data(),BG))))
 definitions.append(g.obj(('key','bipolar overlay'),('value',g.overlay_component('KnobOverlay',g.knob_overlay_data(True),BG))))
 def menu_overlay(key,background):  # kept for reference; unused since 0.3.10
@@ -768,6 +776,11 @@ for i,view in enumerate(VIEWS):
             if part['title']=='TABLE':break  # its list is laid out by add_table below
             cells=[]
             for slot,name in enumerate(part['items']):
+                if isinstance(chart,int) and section==0 and name==f'osc_{chart+1}_on':
+                    # The switch is drawn in the header band, not in the SOUND grid.
+                    children.append(conditional(ent('Oscillator on','osc-switch-'+color,{'version':1,'handleName':'Data'},
+                        (24,76,SWITCH_W,SWITCH_H),True,remap=[('Data','WithName[Oscillator On]/'+handle(name))]),sec_show(0)))
+                    continue
                 x,y=cell_position(chart,section,slot)
                 # 0.3.34: the wave frame cell shares its row with the table knob.
                 narrow=isinstance(chart,int) and section==0 and slot==0
@@ -958,6 +971,10 @@ for color,argb in COLORS.items():
         d.rounded_rectangle((2,2,133,69),radius=34,fill=rgb if state=='on' else '#454c61')
         x=100 if state=='on' else 36;d.ellipse((x-25,11,x+25,61),fill='#181a23' if state=='on' else '#edf0f7')
         img.save(skin/f'large-{color}-{state}.png')
+        small=Image.new('RGBA',(SWITCH_W,SWITCH_H));d=ImageDraw.Draw(small)
+        d.rounded_rectangle((1,1,SWITCH_W-2,SWITCH_H-2),radius=(SWITCH_H-2)//2,fill=rgb if state=='on' else '#454c61')
+        x=SWITCH_W-32 if state=='on' else 32;d.ellipse((x-19,8,x+19,SWITCH_H-8),fill='#181a23' if state=='on' else '#edf0f7')
+        small.save(skin/f'small-{color}-{state}.png')
         img=Image.new('RGBA',(148,52),('#373045' if state=='on' else '#222531'));d=ImageDraw.Draw(img)
         d.rectangle((0,0,147,51),outline=rgb if state=='on' else '#454c61',width=2 if state=='on' else 1)
         img.save(skin/f'segment-choice-{color}-{state}.png')
@@ -981,6 +998,7 @@ if FORCE:
             variant(f'large-{color}-{state}.png',(TOGGLE_W,TOGGLE_H))
             variant(f'segment-choice-{color}-{state}.png',(SEG_W,SEG_H))
             variant(f'large-fx-{state}.png',(TOGGLE_W,TOGGLE_H))
+            variant(f'small-{color}-{state}.png',(SWITCH_W,SWITCH_H))
 (root/'surface-pages.json').write_text(json.dumps([{k:p[k] for k in ['family','sub','title','items','chart','color','subtitle','sections']} for p in pages],indent=2))
 strip=Image.new('RGBA',(1216,4*512))
 for frame in range(512):
