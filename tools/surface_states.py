@@ -41,6 +41,11 @@ def states():
         own=[j for j,x in enumerate(VIEWS) if x['group']==v['group']]
         for section in range(len(v['sections'])):
             values={NAMES['UI Page']:i/(len(VIEWS)-1),NAMES['UI Group']:v['group']/6,NAMES['UI Section']:section/31}
+            # A regular Force page switches through one handle that also names its
+            # group (the tab bar writes no page); MATRIX and the pickers keep
+            # UI Section because they use it as a data selector.
+            if GROUP_MODEL and v['chart'] not in ('mxtable','pickgroup','picktarget'):
+                values[NAMES['Group Section']]=(v['group']*8+section)/55
             if GROUP_MODEL:
                 values[NAMES[f"Group {v['group']} Page"]]=own.index(i)/max(1,len(own)-1)
                 if v['group'] in (4,6):

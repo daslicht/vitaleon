@@ -104,6 +104,19 @@ def handle(name):
         else:raise ValueError('Unknown parameter '+name)
     return 'Parameter '+str(byname[name]['index'])
 def index(name):return int(handle(name).split()[-1])
+# The Force's tab bar writes no page, so a regular page's section strip writes one
+# handle that also names the group (group*8+section) and its content conditions read
+# that same handle: the host switches the section itself, nothing mirrors it back.
+SECTION_BASE=None
+def sec_cond(section):
+    if FORCE and SECTION_BASE is not None:
+        return f'IndexedEnabling/{SECTION_BASE*8+section}/56/'+handle('Group Section')
+    return f'IndexedEnabling/{section}/32/'+handle('UI Section')
+def section_strip(section):
+    # MATRIX and the pickers keep UI Section: they use it as a data selector and
+    # their own buttons write it, so their strips must name the same handle.
+    if FORCE and SECTION_BASE is not None:return 'Group Section',SECTION_BASE*8+section,56
+    return 'UI Section',section,32
 def ent(name,kind,data,bounds,focus=False,remap=()):return g.entry(name,kind,data,' '.join(map(str,bounds)),'Yes' if focus else 'No','Show','Always',remap)
 
 def conditional(entry,handles):
@@ -408,7 +421,7 @@ def add_table(c):
     # name is a readout (the Content folder is indexed at run time), so no label
     # list is generated. The cursor fader is the data wheel's target: a click
     # moves exactly one table and the plugin loads it once the wheel rests.
-    show=['IndexedEnabling/6/32/'+handle('UI Section')]
+    show=[sec_cond(6)]
     rows,step=TABLE_ROWS,54
     c.append(conditional(label('Table position',(24,136,340,28),TEXT,22,value='table_position'),show))
     # The knob binds to the discrete step handle, not to the 0..1 cursor: the host
@@ -568,6 +581,7 @@ else:
 for i,view in enumerate(VIEWS):
     GROUP_SLOT=view['group'] if FORCE else None
     title=view['title'];chart=view['chart'];color=view['color'];sections=view['sections'];children=[]
+    SECTION_BASE=view['group'] if chart not in ('mxtable','pickgroup','picktarget') else None
     pages.append(dict(family=view['group'],sub=view['member'],title=title,items=[x for sec in sections for x in sec['items']],chart=chart,color=color,subtitle='',sections=sections))
     # ENV/LFO instances share their actual proxy-backed graph/control view.
     # Do not instantiate eight copies of 384 graph segments on a small MPC.
@@ -599,9 +613,7 @@ for i,view in enumerate(VIEWS):
             # The Force's native tab bar writes no page, so the section button itself
             # names its tab (group*8+section) and the plugin resolves the page from
             # the tap. The MPC writes UI Page with every footer tap and keeps 32 steps.
-            children.append(nav_button(title_text,button_x,76,button_w,52,
-                'Group Section' if FORCE else 'UI Section',
-                view['group']*8+section if FORCE else section,56 if FORCE else 32,color))
+            children.append(nav_button(title_text,button_x,76,button_w,52,*section_strip(section),color))
         # Large graphs (user request): oscillator 560x315 (16:9), envelope and
         # LFO/curve 240 px high with a single row of three controls below.
         # 0.3.7 compromise after "too small" (0.3.5) and "way too big" (0.3.6).
@@ -619,7 +631,7 @@ for i,view in enumerate(VIEWS):
             # Drawn before the section buttons below, so the buttons stay on top
             # and keep their taps. A wrapper that holds focusable children and
             # is shown/hidden uses "Children" (ui-reference 7.3), never "No".
-            children.insert(0,g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Section'))],invalidating=[f'IndexedEnabling/0/32/'+handle('UI Section')]))
+            children.insert(0,g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Section'))],invalidating=[sec_cond(0)]))
         elif chart in ['lfo','curve']:
             curve_w=full(960)//GRAPH['kCurveColumns']*GRAPH['kCurveColumns']
             curve_bars(children,24,140,curve_w,190)
@@ -652,14 +664,14 @@ for i,view in enumerate(VIEWS):
                 caption=caption.replace('Spectral Amount','Spectral Amt').replace('Warp Amount','Warp Amount').replace('Unison Detune','Detune').replace('Smooth Interpolation','Smooth Frames').replace('Keytrack','Key Track').replace('Transpose Quantize','Pitch Quantize').replace('Lower Threshold','Lower Thresh.').replace('Upper Threshold','Upper Thresh.').replace('Dry Wet','Mix').replace('Home ','').replace('Macro Control','Macro')
                 if chart=='effects' and section==0:
                     row,col=divmod(slot,3);caption=name[:-3].replace('_',' ').title()
-                    cell=g.entry(caption,'effect-toggle',{'version':1,'handleName':'Data'},f'{col_x(col)} {152+row*132} {SLOT_W} 112','Yes','Hide','Always',[('Data','WithName['+caption+']/'+handle(name))],invalidating=[f'IndexedEnabling/{section}/32/'+handle('UI Section')])
+                    cell=g.entry(caption,'effect-toggle',{'version':1,'handleName':'Data'},f'{col_x(col)} {152+row*132} {SLOT_W} 112','Yes','Hide','Always',[('Data','WithName['+caption+']/'+handle(name))],invalidating=[sec_cond(section)])
                 else:
                     control_color=color
                     if chart=='home':
                         if name in ['Voices','Home Attack','Home Release']:control_color='env'
                         elif name.startswith('filter_') or name in ['Home Cutoff','Home Resonance','Home Filter']:control_color='fx'
                         elif name.startswith('macro_'):control_color='mod'
-                    cell=control(name,caption,x,y,control_color,visible=[f'IndexedEnabling/{section}/32/'+handle('UI Section')],slot=slot)
+                    cell=control(name,caption,x,y,control_color,visible=[sec_cond(section)],slot=slot)
                 dict(dict(cell)['handle remapping'])['map'].append(g.obj(('key','QTarget'),('value',handle(f'Group {GROUP_SLOT} Slot {slot+1}' if GROUP_SLOT is not None else f'UI Control {slot+1}'))))
                 cells.append(cell)
             # Frames first: they lie under the controls and take no touch. The Force

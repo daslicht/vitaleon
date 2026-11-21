@@ -47,21 +47,13 @@ inline void Vitaleon::createNavigation(){
 inline void Vitaleon::updateNavigation(){
     int page=mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1);const auto& v=surfaceViews_[page];publish(uiGroup_,float(v.group));if(!v.hidden)rememberedPages_[v.group]=page;
     int section=mpc::clamp(getInt(uiSection_),0,int(v.sections.size())-1);publish(uiSection_,float(section));
-    // Page, group and section reach the host only through these publishes: the Force's
-    // section buttons write Group Section instead. So compare against what the host was
-    // last told, not against the value the tap already stored — tapping SOUND publishes
-    // the section it already holds, which looked like "nothing changed" and never repainted.
-    if(ready_&&(page!=uiPageSent_||section!=uiSectionSent_||v.group!=uiGroupSent_)){
-        uiPageSent_=page;uiSectionSent_=section;uiGroupSent_=v.group;
-        notifyHostParameterChanged(uiGroup_);notifyHostParameterChanged(uiPage_);notifyHostParameterChanged(uiSection_);
-    }
-    // Mirror the section strip: on the Force its buttons name their tab and the host
-    // lights the one whose id equals the step. The host keeps its own copy of that
-    // handle and swallows a tap on the button it still thinks is selected, so the copy
-    // has to follow every section change, not only the taps.
+    // The Force's section buttons write Group Section and its content conditions read
+    // that same handle, so a tap switches the section without the plugin. This only
+    // steps in when the section moved some other way (the table opens, a project is
+    // restored): then the strip still holds the old step and must be told.
     if(uiSectionTab_>=0){
-        const int tab=v.group*8+section;publish(uiSectionTab_,float(tab));
-        if(ready_&&tab!=uiSectionTabSent_){uiSectionTabSent_=tab;notifyHostParameterChanged(uiSectionTab_);}
+        const int tab=v.group*8+section;
+        if(tab!=getInt(uiSectionTab_)){publish(uiSectionTab_,float(tab));if(ready_)notifyHostParameterChanged(uiSectionTab_);}
     }
     // A page keeps the subtab it was left on: OSC 1 > PHASE > OSC 2 > OSC 1 lands
     // on PHASE again instead of jumping back to SOUND.
