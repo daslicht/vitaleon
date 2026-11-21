@@ -7158,6 +7158,86 @@
                     }
                 },
                 {
+                    "key": "table-cursor",
+                    "value": {
+                        "version": 2,
+                        "actions": [],
+                        "backgroundData": {
+                            "version": 1,
+                            "focussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            },
+                            "unfocussed": {
+                                "version": 1,
+                                "colour": "00000000",
+                                "image": ""
+                            }
+                        },
+                        "ignoreMousePresses": false,
+                        "disableCoarseDataWheel": false,
+                        "componentsData": [
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "focus",
+                                    "type": "Focus",
+                                    "data": {
+                                        "version": 1,
+                                        "backgroundColour": "19ffffff",
+                                        "outlineColour": "ffbca3ff",
+                                        "backgroundInset": 4.0,
+                                        "outlineThickness": 1.0
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "WhenFocussed",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 372 64"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "fader",
+                                    "type": "Knob",
+                                    "data": {
+                                        "version": 3,
+                                        "knobType": "FilmStrip",
+                                        "filmStrip": "compact-osc-fader-f.png",
+                                        "numFrames": 127,
+                                        "invert": false,
+                                        "dragOrientation": "Horizontal",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": []
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "0 0 372 64"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
                     "key": "effect-toggle",
                     "value": {
                         "version": 2,
@@ -17826,14 +17906,9 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Table cursor",
-                                    "type": "Knob",
+                                    "type": "table-cursor",
                                     "data": {
-                                        "version": 3,
-                                        "knobType": "FilmStrip",
-                                        "filmStrip": "compact-osc-fader-f.png",
-                                        "numFrames": 127,
-                                        "invert": false,
-                                        "dragOrientation": "Horizontal",
+                                        "version": 1,
                                         "handleName": "Data"
                                     }
                                 },
@@ -17842,7 +17917,7 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "Parameter 1838"
+                                            "value": "WithName[Table Cursor]/Parameter 1838"
                                         }
                                     ]
                                 },
@@ -25086,14 +25161,9 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Table cursor",
-                                    "type": "Knob",
+                                    "type": "table-cursor",
                                     "data": {
-                                        "version": 3,
-                                        "knobType": "FilmStrip",
-                                        "filmStrip": "compact-osc-fader-f.png",
-                                        "numFrames": 127,
-                                        "invert": false,
-                                        "dragOrientation": "Horizontal",
+                                        "version": 1,
                                         "handleName": "Data"
                                     }
                                 },
@@ -25102,7 +25172,7 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "Parameter 1838"
+                                            "value": "WithName[Table Cursor]/Parameter 1838"
                                         }
                                     ]
                                 },
@@ -32346,14 +32416,9 @@
                                 "componentData": {
                                     "version": 1,
                                     "name": "Table cursor",
-                                    "type": "Knob",
+                                    "type": "table-cursor",
                                     "data": {
-                                        "version": 3,
-                                        "knobType": "FilmStrip",
-                                        "filmStrip": "compact-osc-fader-f.png",
-                                        "numFrames": 127,
-                                        "invert": false,
-                                        "dragOrientation": "Horizontal",
+                                        "version": 1,
                                         "handleName": "Data"
                                     }
                                 },
@@ -32362,7 +32427,7 @@
                                     "map": [
                                         {
                                             "key": "Data",
-                                            "value": "Parameter 1838"
+                                            "value": "WithName[Table Cursor]/Parameter 1838"
                                         }
                                     ]
                                 },

@@ -369,6 +369,14 @@ from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
 # is the space one tab owns.
 assert all(len(v['sections'])<=8 for v in VIEWS if not v.get('hidden')),max(len(v['sections']) for v in VIEWS)
 write_header()
+# 0.3.37: the table cursor is a slot like every other fader. A bare Knob entry
+# showed no focus ring, and the data wheel kept editing whatever had focus before.
+# The slot takes hardware focus, its Focus child draws the ring, and the wheel
+# edits the handle of the focused component.
+definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition([],[
+    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'0 0 {FADER_W} {FADER_H}','No','Show','WhenFocussed'),
+    ent('fader','Knob',g.knob_filmstrip_data(f'compact-osc-fader{DEF_SUFFIX}.png',127,'Horizontal'),(0,0,FADER_W,FADER_H)),
+],'00000000'))))
 definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],[
     ent('Effect name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,24 if FORCE else 26)),
     ent('Effect switch','Button',g.button_data(f'large-fx-on{DEF_SUFFIX}.png',f'large-fx-off{DEF_SUFFIX}.png',1,1),(0,24 if FORCE else 40,TOGGLE_W,TOGGLE_H)),
@@ -400,7 +408,7 @@ def add_table(c):
     show=['IndexedEnabling/6/32/'+handle('UI Section')]
     rows,step=TABLE_ROWS,54
     c.append(conditional(label('Table position',(24,136,340,28),TEXT,22,value='table_position'),show))
-    c.append(conditional(ent('Table cursor','Knob',g.knob_filmstrip_data(f'compact-osc-fader{DEF_SUFFIX}.png',127,'Horizontal'),(SCREEN_RIGHT-24-FADER_W,130,FADER_W,FADER_H),True,remap=[('Data',handle('Table Cursor'))]),show))
+    c.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},(SCREEN_RIGHT-24-FADER_W,130,FADER_W,FADER_H),True,remap=[('Data','WithName[Table Cursor]/'+handle('Table Cursor'))]),show))
     top=190
     for row in range(rows):
         y=top+row*step
