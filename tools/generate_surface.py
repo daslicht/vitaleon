@@ -183,14 +183,20 @@ TABLE_STEPS=int(re.search(r'kTableSteps=(\d+)',(project/'src/FullSynth.h').read_
 # A plain Image cannot move with a value, and a second control beside the graph
 # would only repeat the PHASE tab's knob; the line shows where the cycle starts.
 PHASE_LINE_FRAMES=128
-def phase_line_image(w,h):
-    name=f'phase-line-osc{DEF_SUFFIX}.png'
+def phase_dot_image(w,h):
+    # 0.3.34 (user request): the phase marker is a dot in a thin band at the bottom of
+    # the waveform instead of a 216 px tall line in every frame. 128 frames of 384x16
+    # cost 3.4 MB decoded instead of 42 MB, and the first visit of an oscillator page
+    # no longer stalls while the host decodes the strip.
+    name=f'phase-dot-{w}x{h}{DEF_SUFFIX}.png'
     if not (skin/name).exists():
         rgb=tuple(bytes.fromhex(COLORS['osc'][2:]))
         image=Image.new('RGBA',(w,h*PHASE_LINE_FRAMES),(0,0,0,0));d=ImageDraw.Draw(image)
+        r=(h-4)//2;cy=h//2
         for i in range(PHASE_LINE_FRAMES):
-            x=round(i*(w-2)/(PHASE_LINE_FRAMES-1))
-            d.rectangle((x,i*h+4,x+1,i*h+h-5),fill=rgb+(150,))
+            x=round(i*(w-2*r-2)/(PHASE_LINE_FRAMES-1))+r+1;top=i*h
+            d.ellipse((x-r-2,top+cy-r-2,x+r+2,top+cy+r+2),fill=rgb+(70,))
+            d.ellipse((x-r,top+cy-r,x+r,top+cy+r),fill=rgb+(255,))
         image.save(skin/name)
     return name
 def wave_bars(children,chart,x,y,w,h):
@@ -787,9 +793,9 @@ for i,view in enumerate(VIEWS):
             # and keep their taps. A wrapper that holds focusable children and
             # is shown/hidden uses "Children" (ui-reference 7.3), never "No".
             children.insert(0,g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Section'))],invalidating=sec_show(0)))
-            children.append(conditional(ent('Phase line','Image',
-                {'version':2,'imageType':'FilmStrip','colour':'0','image':phase_line_image(384,216),'numFrames':PHASE_LINE_FRAMES,'handleName':handle(f'osc_{chart+1}_phase'),'animated':False},
-                (24,graph_y,384,216)),sec_show(0)))
+            children.append(conditional(ent('Phase dot','Image',
+                {'version':2,'imageType':'FilmStrip','colour':'0','image':phase_dot_image(384,16),'numFrames':PHASE_LINE_FRAMES,'handleName':handle(f'osc_{chart+1}_phase'),'animated':False},
+                (24,graph_y+216-16,384,16)),sec_show(0)))
         elif chart in ['lfo','curve']:
             curve_w=full(960)//GRAPH['kCurveColumns']*GRAPH['kCurveColumns']
             curve_bars(children,24,140,curve_w,190)

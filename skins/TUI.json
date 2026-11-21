@@ -18231,13 +18231,13 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Phase line",
+                                    "name": "Phase dot",
                                     "type": "Image",
                                     "data": {
                                         "version": 2,
                                         "imageType": "FilmStrip",
                                         "colour": "0",
-                                        "image": "phase-line-osc.png",
+                                        "image": "phase-dot-384x16.png",
                                         "numFrames": 128,
                                         "handleName": "BoundhandleName",
                                         "animated": false
@@ -18258,7 +18258,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 76 384 216",
+                                    "bounds": "24 276 384 16",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -25898,13 +25898,13 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Phase line",
+                                    "name": "Phase dot",
                                     "type": "Image",
                                     "data": {
                                         "version": 2,
                                         "imageType": "FilmStrip",
                                         "colour": "0",
-                                        "image": "phase-line-osc.png",
+                                        "image": "phase-dot-384x16.png",
                                         "numFrames": 128,
                                         "handleName": "BoundhandleName",
                                         "animated": false
@@ -25925,7 +25925,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 76 384 216",
+                                    "bounds": "24 276 384 16",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
@@ -33565,13 +33565,13 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Phase line",
+                                    "name": "Phase dot",
                                     "type": "Image",
                                     "data": {
                                         "version": 2,
                                         "imageType": "FilmStrip",
                                         "colour": "0",
-                                        "image": "phase-line-osc.png",
+                                        "image": "phase-dot-384x16.png",
                                         "numFrames": 128,
                                         "handleName": "BoundhandleName",
                                         "animated": false
@@ -33592,7 +33592,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 76 384 216",
+                                    "bounds": "24 276 384 16",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
