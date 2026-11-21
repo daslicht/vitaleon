@@ -45,7 +45,11 @@ def states():
             # group (the tab bar writes no page); MATRIX and the pickers keep
             # UI Section because they use it as a data selector.
             if GROUP_MODEL and v['chart'] not in ('mxtable','pickgroup','picktarget'):
-                values[NAMES['Group Section']]=(v['group']*8+section)/55
+                step=v['group']*8+section
+                # A one-section page draws no strip and must show anyway; simulate a
+                # step it could never write, so a gate on the strip shows up as blank.
+                if len(v['sections'])<=1:step=(step+3)%56
+                values[NAMES['Group Section']]=step/55
             if GROUP_MODEL:
                 values[NAMES[f"Group {v['group']} Page"]]=own.index(i)/max(1,len(own)-1)
                 if v['group'] in (4,6):
