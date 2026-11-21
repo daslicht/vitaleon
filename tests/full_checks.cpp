@@ -375,6 +375,25 @@ int main(int argc,char** argv){
     }
   }
   check(mapped&&sectionCount==expectedSections,"all "+std::to_string(int(spec.size()))+" module views and "+std::to_string(expectedSections)+" sections map Q-Links to visible controls");
+  // The device's strip writes the group's section handle. Opened that way, every
+  // section of every page must map all eight Q-Links to the controls it shows, so
+  // no knob can edit a neighbour section's parameter (0.3.38).
+  {bool stripMapped=true;int stripOpened=0;
+   for(int page=0;page<int(spec.size());++page){
+     const int group=int(spec[page]["group"]);const int count=int(spec[page]["sections"].size());
+     if(spec[page]["chart"].is_string()||count<2||spec[page].value("hidden",false))continue;
+     int slotInGroup=0;for(int p=0;p<page;++p)if(int(spec[p]["group"])==group&&!spec[p].value("hidden",false))++slotInGroup;
+     native->set(id("ui_gpage_"+std::to_string(group)),float(slotInGroup));
+     for(int sec=0;sec<count;++sec){
+       native->set(id("ui_gsec_"+std::to_string(group)),float(sec));waitNative();++stripOpened;
+       if(native->getInt(id("ui_page"))!=page||native->getInt(id("ui_section"))!=sec){stripMapped=false;continue;}
+       int slot=0;for(const auto& value:spec[page]["sections"][sec]["items"]){
+         std::string name=value;int target=-1;for(int p=0;p<native->numParams();++p)if(native->param(p).name==name)target=p;
+         if(target<0){std::replace(name.begin(),name.end(),'_',' ');for(int p=0;p<native->numParams();++p)if(native->param(p).name==name)target=p;}
+         stripMapped&=target>=0&&std::abs(native->getNormalised(id("ui_knob_"+std::to_string(slot)))-native->getNormalised(target))<1e-6;++slot;}
+     }
+   }
+   check(stripMapped&&stripOpened>0,"every section opened from its strip handle maps all Q-Links to that section's controls");}
   if(argc>2){std::ofstream f(std::string(argv[2])+"-surface.json");f<<snapshots.dump();}
   native->set(id("ui_page"),8);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.37f);check(std::abs(native->getNormalised(cutoff)-.37f)<1e-6,"filter cutoff Q-Link writes the actual full-engine filter");
   native->set(id("ui_page"),15);native->set(id("ui_section"),0);native->setNormalised(id("ui_knob_0"),.4f);check(std::abs(native->getNormalised(native->controlIndex("env_6_attack"))-.4f)<1e-6,"Envelope 6 view edits Envelope 6 through Q-Link");

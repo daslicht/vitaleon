@@ -151,6 +151,7 @@ private:
     void createTables();
     void createTableStep();
     void createGroupSections();
+    void syncSectionFromStrip();
     void createDebug();
     bool formatDebug(int index,std::string& out);
     void publishTables();

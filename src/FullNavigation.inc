@@ -116,7 +116,26 @@ inline int Vitaleon::tabMemberIndex(int page){
     for(int i=0;i<page;++i)if(surfaceViews_[i].group==group&&!surfaceViews_[i].hidden)++k;
     return k;
 }
+// The strip handle is written by the host even when its callback never arrives, so
+// the plugin takes the section it holds before a knob maps its slot.
+inline void Vitaleon::syncSectionFromStrip(){
+    if(uiPage_<0||uiSection_<0)return;
+    const int page=mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1);
+    if(page==matrixView_||page==pickGroupView_||page==pickTargetView_)return;
+    const auto& v=surfaceViews_[page];
+    if(v.group<0||v.group>6||groupSection_[v.group]<0||v.sections.size()<=1)return;
+    const int shown=mpc::clamp(getInt(groupSection_[v.group]),0,int(v.sections.size())-1);
+    if(shown==mpc::clamp(getInt(uiSection_),0,31))return;
+    publish(uiSection_,float(shown));
+    std::lock_guard<std::mutex> lock(navigationMutex_);
+    rememberedSections_[size_t(page)]=shown;
+    const auto& targets=v.sections[size_t(shown)];
+    for(int i=0;i<16;++i)uiTargets_[i].store(i<int(targets.size())?targets[i]:-1);
+}
 inline bool Vitaleon::applySlot(int slot,float plain){
+    // A section the host switched without calling back would still hold the old
+    // section here and the knob would edit that section's parameter.
+    syncSectionFromStrip();
     int target=uiTargets_[slot].load();if(target<0)return true;
     // Record the stable sound parameter, never a page-dependent UI slot.
     int automated=target;
