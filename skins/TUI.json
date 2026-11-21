@@ -21038,43 +21038,6 @@
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
                                 }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "RELOAD",
-                                    "type": "Button",
-                                    "data": {
-                                        "version": 2,
-                                        "onImage": "nav-c1347173246db086-on.png",
-                                        "offImage": "nav-c1347173246db086-off.png",
-                                        "buttonId": 0,
-                                        "numButtonsInGroup": 1,
-                                        "handleName": "BoundhandleName",
-                                        "gestureBehaviour": "Instant"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "BoundhandleName",
-                                            "value": "Parameter 1844"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "756 438 220 52",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878"
-                                    ]
-                                }
                             }
                         ]
                     }
@@ -28742,43 +28705,6 @@
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]
                                 }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "RELOAD",
-                                    "type": "Button",
-                                    "data": {
-                                        "version": 2,
-                                        "onImage": "nav-c1347173246db086-on.png",
-                                        "offImage": "nav-c1347173246db086-off.png",
-                                        "buttonId": 0,
-                                        "numButtonsInGroup": 1,
-                                        "handleName": "BoundhandleName",
-                                        "gestureBehaviour": "Instant"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "BoundhandleName",
-                                            "value": "Parameter 1844"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "756 438 220 52",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878"
-                                    ]
-                                }
                             }
                         ]
                     }
@@ -36442,43 +36368,6 @@
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
                                     "bounds": "756 378 220 52",
-                                    "additionalInvalidatingHandles": [
-                                        "IndexedEnabling/0/32/Parameter 1878"
-                                    ]
-                                }
-                            },
-                            {
-                                "version": 2,
-                                "componentData": {
-                                    "version": 1,
-                                    "name": "RELOAD",
-                                    "type": "Button",
-                                    "data": {
-                                        "version": 2,
-                                        "onImage": "nav-c1347173246db086-on.png",
-                                        "offImage": "nav-c1347173246db086-off.png",
-                                        "buttonId": 0,
-                                        "numButtonsInGroup": 1,
-                                        "handleName": "BoundhandleName",
-                                        "gestureBehaviour": "Instant"
-                                    }
-                                },
-                                "handle remapping": {
-                                    "version": 1,
-                                    "map": [
-                                        {
-                                            "key": "BoundhandleName",
-                                            "value": "Parameter 1844"
-                                        }
-                                    ]
-                                },
-                                "bounds": {
-                                    "version": 2,
-                                    "acceptsHWFocus": "No",
-                                    "showWhenDataModelInvalid": "Hide",
-                                    "whenVisible": "Always",
-                                    "boundsType": "Absolute",
-                                    "bounds": "756 438 220 52",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/32/Parameter 1878"
                                     ]

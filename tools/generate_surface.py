@@ -547,11 +547,11 @@ def add_table(c):
         # buttonId 1 of 2: at rest the handle reads 0, so the host sees this row as
         # unselected and writes it on the first press instead of finding it chosen.
         c.append(conditional(ent('Table row','Button',{'version':2,'onImage':blank,'offImage':blank,'buttonId':1,'numButtonsInGroup':2,'handleName':handle(f'Select Table Row {row+1}'),'gestureBehaviour':'Instant'},(x,y,w,row_h),False),show))
-    fy=top+rows*step+6
-    assert fy+52<=TABLE_BOTTOM,(TABLE_ROWS,'table rows do not fit the content area')
-    c.append(conditional(nav_button('RELOAD',x,fy,w,52,'Table Reload',0,1,'osc',focus=False),show))
-    # No status lines here any more: the block ends at the RELOAD button, and on the
-    # MPC the group footer owns the band below it (load messages read on HOME).
+    assert top+rows*step<=TABLE_BOTTOM,(TABLE_ROWS,'table rows do not fit the content area')
+    # No RELOAD button (0.3.34, user request): the list is scanned when the plugin
+    # opens, so a new table only needs the plugin reopened, and the button sat right
+    # under the last row where a mis-tap hit it. No status lines either: on the MPC
+    # the group footer owns the band below the list (load messages read on HOME).
 
 def add_library(c):
     # 0.3.19 layout: place line, three commands, six rows of KIND | NAME | button.
