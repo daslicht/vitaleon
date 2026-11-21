@@ -174,6 +174,21 @@ assert len(GRAPH)==4,GRAPH
 # number: a second copy here would silently offset every page after the first.
 TABLE_ROWS=int(re.search(r'kTableRows=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
 TABLE_STEPS=int(re.search(r'kTableSteps=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
+# The oscillator's start phase as a guide line over its waveform (user request):
+# one filmstrip frame per wave column, the host picks the frame from osc_N_phase.
+# A plain Image cannot move with a value, and a second control beside the graph
+# would only repeat the PHASE tab's knob; the line shows where the cycle starts.
+PHASE_LINE_FRAMES=128
+def phase_line_image(w,h):
+    name=f'phase-line-osc{DEF_SUFFIX}.png'
+    if not (skin/name).exists():
+        rgb=tuple(bytes.fromhex(COLORS['osc'][2:]))
+        image=Image.new('RGBA',(w,h*PHASE_LINE_FRAMES),(0,0,0,0));d=ImageDraw.Draw(image)
+        for i in range(PHASE_LINE_FRAMES):
+            x=round(i*(w-2)/(PHASE_LINE_FRAMES-1))
+            d.rectangle((x,i*h+4,x+1,i*h+h-5),fill=rgb+(150,))
+        image.save(skin/name)
+    return name
 def wave_bars(children,chart,x,y,w,h):
     # 0.3.18: 128 columns of 3 px and 108 levels (was 64 x 64, which looked blocky).
     # The number of columns no longer costs host notifications: the plugin asks
@@ -698,7 +713,8 @@ for i,view in enumerate(VIEWS):
             # On the Force the second row sits at ROW2, so the graph is centred in
             # the space between the version line and that row instead of hugging
             # the top and leaving a hole under it.
-            graph=[];wave_bars(graph,chart,24,166 if FORCE else 140,384,216)
+            graph_y=166 if FORCE else 140
+            graph=[];wave_bars(graph,chart,24,graph_y,384,216)
             for e in graph:
                 b=dict(e)['bounds'];x,y,w,h=map(int,dict(b)['bounds'].split())
                 b[:]=[(k,f'{x} {y-64} {w} {h}' if k=='bounds' else v) for k,v in b]
@@ -708,6 +724,9 @@ for i,view in enumerate(VIEWS):
             # and keep their taps. A wrapper that holds focusable children and
             # is shown/hidden uses "Children" (ui-reference 7.3), never "No".
             children.insert(0,g.entry('Oscillator graph',graph_key,{'version':1,'handleName':'Data'},'0 64 1280 500','Children','Hide','Always',[('Data',handle('UI Section'))],invalidating=sec_show(0)))
+            children.append(conditional(ent('Phase line','Image',
+                {'version':2,'imageType':'FilmStrip','colour':'0','image':phase_line_image(384,216),'numFrames':PHASE_LINE_FRAMES,'handleName':handle(f'osc_{chart+1}_phase'),'animated':False},
+                (24,graph_y,384,216)),sec_show(0)))
         elif chart in ['lfo','curve']:
             curve_w=full(960)//GRAPH['kCurveColumns']*GRAPH['kCurveColumns']
             curve_bars(children,24,140,curve_w,190)
