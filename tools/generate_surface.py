@@ -513,12 +513,6 @@ def table_row_blank(w,h):
     name=f'table-row-blank-{w}x{h}{DEF_SUFFIX}.png'
     if not (skin/name).exists():Image.new('RGBA',(w,h),(0,0,0,0)).save(skin/name)
     return name
-def table_text_readout(param,color,size,bounds,name):
-    # A value widget, not a label: a Label swallows the touch of the control under
-    # it, and the row button now covers the whole row.
-    style=dict(sdk_label_data('Text',color,size,'left verticallyCentred'))['textStyle']
-    return ent(name,'Knob',{'version':4,'knobType':'ValueSlider','textStyle':style,'dragOrientation':'Vertical','handleName':handle(param)},bounds)
-
 def add_table(c):
     # 0.3.34 (user request): the row itself is the tab. A separate LOAD button was
     # both a second step and a second tap (the host took the press for focus), so the
@@ -537,8 +531,11 @@ def add_table(c):
     for row in range(rows):
         y=top+row*step
         c.append(conditional(ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w+8,row_h),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(x-4,y-4,w+8,row_h)),show))
-        c.append(conditional(table_text_readout(f'table_row_{row}_folder',MUTED,15,(x,y+2,text_w,20),'Table folder'),show))
-        c.append(conditional(table_text_readout(f'table_row_{row}_name',TEXT,20,(x,y+22,text_w,row_h-24),'Table name'),show))
+        # Labels, not value widgets: a Knob bound to a readout draws no text. They are
+        # named 'Row text ...' so the caption baker leaves them alone: the transparent
+        # row button is emitted after them, so it is the widget on top and takes the tap.
+        c.append(conditional(label('Row text folder',(x,y+2,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
+        c.append(conditional(label('Row text name',(x,y+22,text_w,26),TEXT,20,value=f'table_row_{row}_name'),show))
         # buttonId 1 of 2: at rest the handle reads 0, so the host sees this row as
         # unselected and writes it on the first press instead of finding it chosen.
         c.append(conditional(ent('Table row','Button',{'version':2,'onImage':blank,'offImage':blank,'buttonId':1,'numButtonsInGroup':2,'handleName':handle(f'Select Table Row {row+1}'),'gestureBehaviour':'Instant'},(x,y,w,row_h),False),show))
@@ -1005,6 +1002,9 @@ def bake_button_captions(entries):
         for candidate in entries:
             m=dict(dict(candidate)['componentData'])
             if m['type']!='Label':continue
+            # Table rows: the readout labels lie under the transparent row button, which
+            # is emitted after them and therefore takes the tap.
+            if m['name'].startswith('Row text'):continue
             x,y,w,h=map(int,dict(dict(candidate)['bounds'])['bounds'].split())
             if min(x+w,bx+bw)<=max(x,bx) or min(y+h,by+bh)<=max(y,by):continue
             assert x>=bx and y>=by and x+w<=bx+bw and y+h<=by+bh,('Partial label overlap',model['name'],m['name'])

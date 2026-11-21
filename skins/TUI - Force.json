@@ -18131,11 +18131,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18148,15 +18147,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1864"
                                         }
                                     ]
@@ -18177,11 +18176,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18194,15 +18192,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1858"
                                         }
                                     ]
@@ -18213,7 +18211,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 130 380 36",
+                                    "bounds": "842 130 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -18297,11 +18295,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18314,15 +18311,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1865"
                                         }
                                     ]
@@ -18343,11 +18340,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18360,15 +18356,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1859"
                                         }
                                     ]
@@ -18379,7 +18375,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 194 380 36",
+                                    "bounds": "842 194 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -18463,11 +18459,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18480,15 +18475,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1866"
                                         }
                                     ]
@@ -18509,11 +18504,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18526,15 +18520,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1860"
                                         }
                                     ]
@@ -18545,7 +18539,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 258 380 36",
+                                    "bounds": "842 258 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -18629,11 +18623,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18646,15 +18639,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1867"
                                         }
                                     ]
@@ -18675,11 +18668,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18692,15 +18684,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1861"
                                         }
                                     ]
@@ -18711,7 +18703,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 322 380 36",
+                                    "bounds": "842 322 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -18795,11 +18787,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18812,15 +18803,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1868"
                                         }
                                     ]
@@ -18841,11 +18832,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18858,15 +18848,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1862"
                                         }
                                     ]
@@ -18877,7 +18867,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 386 380 36",
+                                    "bounds": "842 386 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -18961,11 +18951,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -18978,15 +18967,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1869"
                                         }
                                     ]
@@ -19007,11 +18996,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -19024,15 +19012,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1863"
                                         }
                                     ]
@@ -19043,7 +19031,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 450 380 36",
+                                    "bounds": "842 450 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -25068,11 +25056,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25085,15 +25072,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1864"
                                         }
                                     ]
@@ -25114,11 +25101,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25131,15 +25117,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1858"
                                         }
                                     ]
@@ -25150,7 +25136,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 130 380 36",
+                                    "bounds": "842 130 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -25234,11 +25220,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25251,15 +25236,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1865"
                                         }
                                     ]
@@ -25280,11 +25265,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25297,15 +25281,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1859"
                                         }
                                     ]
@@ -25316,7 +25300,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 194 380 36",
+                                    "bounds": "842 194 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -25400,11 +25384,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25417,15 +25400,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1866"
                                         }
                                     ]
@@ -25446,11 +25429,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25463,15 +25445,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1860"
                                         }
                                     ]
@@ -25482,7 +25464,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 258 380 36",
+                                    "bounds": "842 258 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -25566,11 +25548,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25583,15 +25564,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1867"
                                         }
                                     ]
@@ -25612,11 +25593,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25629,15 +25609,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1861"
                                         }
                                     ]
@@ -25648,7 +25628,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 322 380 36",
+                                    "bounds": "842 322 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -25732,11 +25712,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25749,15 +25728,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1868"
                                         }
                                     ]
@@ -25778,11 +25757,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25795,15 +25773,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1862"
                                         }
                                     ]
@@ -25814,7 +25792,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 386 380 36",
+                                    "bounds": "842 386 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -25898,11 +25876,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25915,15 +25892,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1869"
                                         }
                                     ]
@@ -25944,11 +25921,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -25961,15 +25937,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1863"
                                         }
                                     ]
@@ -25980,7 +25956,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 450 380 36",
+                                    "bounds": "842 450 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -32005,11 +31981,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32022,15 +31997,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1864"
                                         }
                                     ]
@@ -32051,11 +32026,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32068,15 +32042,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1858"
                                         }
                                     ]
@@ -32087,7 +32061,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 130 380 36",
+                                    "bounds": "842 130 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -32171,11 +32145,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32188,15 +32161,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1865"
                                         }
                                     ]
@@ -32217,11 +32190,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32234,15 +32206,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1859"
                                         }
                                     ]
@@ -32253,7 +32225,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 194 380 36",
+                                    "bounds": "842 194 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -32337,11 +32309,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32354,15 +32325,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1866"
                                         }
                                     ]
@@ -32383,11 +32354,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32400,15 +32370,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1860"
                                         }
                                     ]
@@ -32419,7 +32389,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 258 380 36",
+                                    "bounds": "842 258 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -32503,11 +32473,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32520,15 +32489,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1867"
                                         }
                                     ]
@@ -32549,11 +32518,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32566,15 +32534,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1861"
                                         }
                                     ]
@@ -32585,7 +32553,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 322 380 36",
+                                    "bounds": "842 322 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -32669,11 +32637,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32686,15 +32653,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1868"
                                         }
                                     ]
@@ -32715,11 +32682,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32732,15 +32698,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1862"
                                         }
                                     ]
@@ -32751,7 +32717,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 386 380 36",
+                                    "bounds": "842 386 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]
@@ -32835,11 +32801,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table folder",
-                                    "type": "Knob",
+                                    "name": "Row text folder",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32852,15 +32817,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1869"
                                         }
                                     ]
@@ -32881,11 +32846,10 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "Table name",
-                                    "type": "Knob",
+                                    "name": "Row text name",
+                                    "type": "Label",
                                     "data": {
-                                        "version": 4,
-                                        "knobType": "ValueSlider",
+                                        "version": 1,
                                         "textStyle": {
                                             "version": 1,
                                             "font": {
@@ -32898,15 +32862,15 @@
                                             "justification": "left verticallyCentred",
                                             "case": "Original"
                                         },
-                                        "dragOrientation": "Vertical",
-                                        "handleName": "BoundhandleName"
+                                        "type": "Value",
+                                        "handleName": "Data"
                                     }
                                 },
                                 "handle remapping": {
                                     "version": 1,
                                     "map": [
                                         {
-                                            "key": "BoundhandleName",
+                                            "key": "Data",
                                             "value": "Parameter 1863"
                                         }
                                     ]
@@ -32917,7 +32881,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "842 450 380 36",
+                                    "bounds": "842 450 380 26",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/0/8/Parameter 1971"
                                     ]

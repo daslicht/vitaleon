@@ -107,10 +107,14 @@ def audit():
             x,y,r,b=e['box']
             if x<0 or y<0 or r>1280 or b>628:errors.append((page,section,'out of bounds',e['name'],e['box']))
             if (e['kind'] in CONTROLS or e['kind']=='Envelope') and r>SAFE_RIGHT:errors.append((page,section,'under the Q-Link sidebar',e['name'],e['box']))
-        for control in [e for e in leaves if e['kind'] in CONTROLS]:
+        # Draw order is list order (frames are emitted before the controls that sit
+        # over them), so only a label emitted AFTER a control can swallow its tap.
+        for index,control in enumerate(leaves):
+            if control['kind'] not in CONTROLS:continue
             buttons+=control['kind']=='Button'
             x,y,r,b=control['box']
-            for label in [e for e in leaves if e['kind']=='Label']:
+            for label in leaves[index+1:]:
+                if label['kind']!='Label':continue
                 a,c,d,f=label['box']
                 if min(r,d)>max(x,a) and min(b,f)>max(y,c):errors.append((page,section,'label intercepts control',control['name'],label['name']))
         if not GROUP_MODEL:
