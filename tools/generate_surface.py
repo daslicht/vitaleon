@@ -90,6 +90,7 @@ SLOT=f'0 0 {SLOT_W} {SLOT_H}'
 SCREEN_RIGHT=1256 if FORCE else 1000
 KNOB=120 if FORCE else 112
 FADER_W,FADER_H=(372,64) if FORCE else (300,56)
+KNOB_SMALL=64 if FORCE else 56  # the table cursor's rotary, one header line high
 TOGGLE_W,TOGGLE_H=(168,88) if FORCE else (136,72)
 SEG_W,SEG_H=(186,56) if FORCE else (148,52)
 SEG_DX,SEG_DY=(194,62) if FORCE else (152,58)
@@ -369,13 +370,14 @@ from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
 # is the space one tab owns.
 assert all(len(v['sections'])<=8 for v in VIEWS if not v.get('hidden')),max(len(v['sections']) for v in VIEWS)
 write_header()
-# 0.3.37: the table cursor is a slot like every other fader. A bare Knob entry
-# showed no focus ring, and the data wheel kept editing whatever had focus before.
-# The slot takes hardware focus, its Focus child draws the ring, and the wheel
-# edits the handle of the focused component.
+# 0.3.37: the table cursor is a rotary in a slot like every other knob. A bare
+# Knob entry showed no focus ring and the data wheel kept editing whatever had
+# focus before; the slot takes hardware focus, its Focus child draws the ring and
+# the wheel turns it. The SDK has no endless-encoder widget: the knob follows the
+# cursor and stops at the first and last table.
 definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition([],[
-    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'0 0 {FADER_W} {FADER_H}','No','Show','WhenFocussed'),
-    ent('fader','Knob',g.knob_filmstrip_data(f'compact-osc-fader{DEF_SUFFIX}.png',127,'Horizontal'),(0,0,FADER_W,FADER_H)),
+    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'0 0 {KNOB_SMALL} {KNOB_SMALL}','No','Show','WhenFocussed'),
+    ent('knob','Knob',g.knob_filmstrip_data(f'compact-osc-knob{DEF_SUFFIX}.png',127,'Vertical'),(0,0,KNOB_SMALL,KNOB_SMALL)),
 ],'00000000'))))
 definitions.append(g.obj(('key','effect-toggle'),('value',g.component_definition([g.action('Mouse Down','Q-Link','Data','')],[
     ent('Effect name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,SLOT_W,24 if FORCE else 26)),
@@ -408,7 +410,7 @@ def add_table(c):
     show=['IndexedEnabling/6/32/'+handle('UI Section')]
     rows,step=TABLE_ROWS,54
     c.append(conditional(label('Table position',(24,136,340,28),TEXT,22,value='table_position'),show))
-    c.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},(SCREEN_RIGHT-24-FADER_W,130,FADER_W,FADER_H),True,remap=[('Data','WithName[Table Cursor]/'+handle('Table Cursor'))]),show))
+    c.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},(SCREEN_RIGHT-24-KNOB_SMALL,130,KNOB_SMALL,KNOB_SMALL),True,remap=[('Data','WithName[Table Cursor]/'+handle('Table Cursor'))]),show))
     top=190
     for row in range(rows):
         y=top+row*step
@@ -790,6 +792,17 @@ for color,argb in COLORS.items():
         d.rounded_rectangle((x-18,16,x+18,96),radius=6,fill='#edf0f7')
         strip.paste(image.resize((300,56),Image.Resampling.LANCZOS),(0,i*56))
     strip.save(skin/f'compact-{color}-fader.png')
+    # 0.3.37: the table cursor's rotary, the same art as the large knob at header size.
+    strip=Image.new('RGBA',(KNOB_SMALL,KNOB_SMALL*127))
+    for i in range(127):
+        image=Image.new('RGBA',(448,448));d=ImageDraw.Draw(image)
+        d.ellipse((54,58,394,398),fill='#262a38',outline='#454c61',width=4)
+        d.arc((25,25,423,423),135,405,fill='#454c61',width=14)
+        angle=135+270*i/126
+        d.arc((25,25,423,423),135,angle,fill=rgb,width=14)
+        theta=math.radians(angle);d.line((224+math.cos(theta)*104,224+math.sin(theta)*104,224+math.cos(theta)*151,224+math.sin(theta)*151),fill='#edf0f7',width=12)
+        strip.paste(image.resize((KNOB_SMALL,KNOB_SMALL),Image.Resampling.LANCZOS),(0,i*KNOB_SMALL))
+    strip.save(skin/f'compact-{color}-knob{DEF_SUFFIX}.png')
     for state in ['off','on']:
         img=Image.new('RGBA',(136,72));d=ImageDraw.Draw(img)
         d.rounded_rectangle((2,2,133,69),radius=34,fill=rgb if state=='on' else '#454c61')

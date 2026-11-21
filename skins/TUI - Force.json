@@ -7202,22 +7202,22 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "WhenFocussed",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 372 64"
+                                    "bounds": "0 0 64 64"
                                 }
                             },
                             {
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
-                                    "name": "fader",
+                                    "name": "knob",
                                     "type": "Knob",
                                     "data": {
                                         "version": 3,
                                         "knobType": "FilmStrip",
-                                        "filmStrip": "compact-osc-fader-f.png",
+                                        "filmStrip": "compact-osc-knob-f.png",
                                         "numFrames": 127,
                                         "invert": false,
-                                        "dragOrientation": "Horizontal",
+                                        "dragOrientation": "Vertical",
                                         "handleName": "Data"
                                     }
                                 },
@@ -7231,7 +7231,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "0 0 372 64"
+                                    "bounds": "0 0 64 64"
                                 }
                             }
                         ]
@@ -17927,7 +17927,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "860 66 372 64",
+                                    "bounds": "1168 66 64 64",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/6/32/Parameter 1878"
                                     ]
@@ -25182,7 +25182,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "860 66 372 64",
+                                    "bounds": "1168 66 64 64",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/6/32/Parameter 1878"
                                     ]
@@ -32437,7 +32437,7 @@
                                     "showWhenDataModelInvalid": "Hide",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "860 66 372 64",
+                                    "bounds": "1168 66 64 64",
                                     "additionalInvalidatingHandles": [
                                         "IndexedEnabling/6/32/Parameter 1878"
                                     ]
