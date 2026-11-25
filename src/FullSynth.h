@@ -205,6 +205,21 @@ private:
     std::atomic<bool> favouriteLearnArmed_{false};
     std::atomic<int> favouriteLearnCaptured_{-1};
     std::atomic<bool> favouriteMidiPending_{false};
+    // Favourites-only view (0.3.38): while the toggle is on, the LIST shows nothing but
+    // hearted presets. The file list is rebuilt from the label set, so a heart removed
+    // inside the filtered view makes its row disappear.
+    int libraryFavouritesOnly_=-1;
+    // The heart is drawn from these readouts, not from the button's own handle: a display
+    // handle the plugin publishes survives host repaints (same split as the dice flash),
+    // while a host-owned button value came back as 0 as soon as a note was played.
+    int libraryFavouriteState_=-1;
+    // Heart badge in the LIBRARY message line: filled while the LOADED preset is a
+    // favourite, so the line says at a glance whether the current sound is marked.
+    int libraryLoadedFavourite_=-1;
+    mutable std::vector<int> favouritesFiles_;
+    void rebuildFavouritesFiles();
+    size_t favouriteCount()const;
+    bool favouritesFiltered()const;
     std::vector<int> randomDeck_;long long randomDeckStamp_=0;size_t randomDrawn_=0;
     std::mt19937 randomRng_{std::random_device{}()};
     // Deadline that ends the press flash of the dice, in the same style as

@@ -10938,19 +10938,19 @@
   "value": 1.2499999968440534e-07
  },
  {
-  "display": "No user sounds. Add banks to ",
+  "display": "No user sounds. Add banks ",
   "index": 1823,
   "name": "storage_status_0",
   "value": 1.2499999968440534e-07
  },
  {
-  "display": "Content/Banks, then reopen ",
+  "display": "to Content/Banks, then ",
   "index": 1824,
   "name": "storage_status_1",
   "value": 1.2499999968440534e-07
  },
  {
-  "display": "plugin.",
+  "display": "reopen plugin.",
   "index": 1825,
   "name": "storage_status_2",
   "value": 1.2499999968440534e-07
@@ -11931,6 +11931,54 @@
   "display": "Off",
   "index": 1988,
   "name": "Favourite MIDI Learn",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1989,
+  "name": "Favourites Only",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1990,
+  "name": "library_favourite_state_0",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1991,
+  "name": "library_favourite_state_1",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1992,
+  "name": "library_favourite_state_2",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1993,
+  "name": "library_favourite_state_3",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1994,
+  "name": "library_favourite_state_4",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1995,
+  "name": "library_favourite_state_5",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1996,
+  "name": "library_loaded_favourite",
   "value": 0.0
  }
 ]

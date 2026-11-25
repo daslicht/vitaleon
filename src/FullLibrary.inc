@@ -26,8 +26,9 @@ inline void Vitaleon::createFilePrograms(){
     }
 }
 inline std::string Vitaleon::textPart(const std::string& text,int part){
+    // 28 characters per part: the message line lost 30 px to the heart badge in front of it.
     size_t start=0,end=0;
-    for(int i=0;i<=part;++i){start=end;end=std::min(text.size(),start+31);while(end>start&&end<text.size()&&(uint8_t(text[end])&0xc0)==0x80)--end;if(end<text.size()){size_t space=text.rfind(' ',end-1);if(space!=std::string::npos&&space>start+14)end=space+1;}}
+    for(int i=0;i<=part;++i){start=end;end=std::min(text.size(),start+28);while(end>start&&end<text.size()&&(uint8_t(text[end])&0xc0)==0x80)--end;if(end<text.size()){size_t space=text.rfind(' ',end-1);if(space!=std::string::npos&&space>start+14)end=space+1;}}
     return text.substr(start,end-start);
 }
 inline void Vitaleon::createLibrary(){
@@ -90,29 +91,60 @@ inline void Vitaleon::saveFavourites(){
     if(written&&std::rename(temp.c_str(),path.c_str())==0)return;
     std::remove(temp.c_str());
 }
+inline bool Vitaleon::favouritesFiltered()const{return libraryFavouritesOnly_>=0&&getBool(libraryFavouritesOnly_);}
+inline void Vitaleon::rebuildFavouritesFiles(){
+    // Snapshot first: isFavourite takes the same lock, and a view that rebuilt while the
+    // set was held would deadlock the host thread on its own tap.
+    std::set<std::string> labels;{std::lock_guard<std::mutex> lock(favouritesMutex_);labels=favourites_;}
+    std::vector<int> files;files.reserve(labels.size());
+    if(!libraryBanks_.empty())for(int file:libraryBanks_[0].files)if(labels.count(assets_[0][file].label))files.push_back(file);
+    std::lock_guard<std::mutex> lock(favouritesMutex_);favouritesFiles_=std::move(files);
+}
+inline size_t Vitaleon::favouriteCount()const{std::lock_guard<std::mutex> lock(favouritesMutex_);return favouritesFiles_.size();}
 inline int Vitaleon::libraryPageCount()const{
+    if(favouritesFiltered()){std::lock_guard<std::mutex> lock(favouritesMutex_);return std::max(1,(int(favouritesFiles_.size())+5)/6);}
     int bank=mpc::clamp(getInt(libraryBank_),0,int(libraryBanks_.size())-1);
     return std::max(1,(int(libraryBanks_[bank].files.size())+5)/6);
 }
 inline int Vitaleon::libraryFile(int row)const{
+    if(favouritesFiltered()){
+        // Same layout as a bank, only over the favourited files. The page count is
+        // computed here: libraryPageCount() would take the lock a second time.
+        std::lock_guard<std::mutex> lock(favouritesMutex_);
+        const int pages=std::max(1,(int(favouritesFiles_.size())+5)/6),n=mpc::clamp(getInt(libraryPage_),0,pages-1)*6+row;
+        return n>=0&&n<int(favouritesFiles_.size())?favouritesFiles_[n]:0;
+    }
     int bank=mpc::clamp(getInt(libraryBank_),0,int(libraryBanks_.size())-1);
     int page=mpc::clamp(getInt(libraryPage_),0,libraryPageCount()-1),n=page*6+row;
     const auto& files=libraryBanks_[bank].files;return n>=0&&n<int(files.size())?files[n]:0;
 }
 inline void Vitaleon::refreshLibrary(){
     if(libraryRows_<0)return;
+    // The filtered list is the heart set seen through the installed files; rebuilding it
+    // here keeps it right after a heart tap, a MIDI toggle or a fresh file read.
+    if(favouritesFiltered())rebuildFavouritesFiles();
     publish(libraryPage_,float(mpc::clamp(getInt(libraryPage_),0,libraryPageCount()-1)));
     for(int row=0;row<6;++row){int file=libraryFile(row);publish(libraryRows_+row,file&&file==getInt(presetSelect_)?1:0);
-        if(libraryFavouriteRow_>=0)publish(libraryFavouriteRow_+row,file&&isFavourite(assets_[0][file].label)?1:0);
+        if(libraryFavouriteRow_>=0){
+            // The row handle is the one-shot tap and stays at 0; the readout under the image
+            // is what the host paints, so a host repaint can never lose the heart.
+            const float heart=file&&isFavourite(assets_[0][file].label)?1.f:0.f;
+            publish(libraryFavouriteRow_+row,0);
+            if(libraryFavouriteState_>=0)publishNormalised(libraryFavouriteState_+row,heart);
+        }
         float marker=float(file)/4096;for(int part=0;part<2;++part)publishNormalised(libraryNames_+row*2+part,marker);}
     float selected=float(getInt(presetSelect_))/4096,bank=float(getInt(libraryBank_))/4096;
     for(int i=0;i<2;++i){publishNormalised(librarySelectedText_+i,selected);publishNormalised(libraryBankText_+i,bank);}
+    if(libraryLoadedFavourite_>=0){std::string loaded;{std::lock_guard<std::mutex> lock(stateMutex_);loaded=selectedAsset_.label;}
+        publishNormalised(libraryLoadedFavourite_,isFavourite(loaded)?1.f:0.f);}
     publishNormalised(libraryPageText_,float(getInt(libraryBank_)*683+getInt(libraryPage_))/2800000);
 }
 inline void Vitaleon::publishLoadedName(){
     if(libraryLoadedText_<0)return;
     float marker=float(std::hash<std::string>{}(loadedName_)&0xffffff)/16777216.0f;
     for(int i=0;i<2;++i)publishNormalised(libraryLoadedText_+i,marker);
+    // Called under stateMutex_ by the load paths, so only the favourites lock is taken.
+    if(libraryLoadedFavourite_>=0)publishNormalised(libraryLoadedFavourite_,isFavourite(selectedAsset_.label)?1.f:0.f);
 }
 inline void Vitaleon::flashRandomPress(){
     // The command handle never latches (see libraryChanged), so the lit look comes
@@ -229,14 +261,28 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         setLoadStatus(0);
         return true;
     }
+    if(index==libraryFavouritesOnly_){
+        // A view, not a bank: the LIST is filtered to hearted presets and returns to its
+        // first page, so the first favourite is always the first row.
+        rebuildFavouritesFiles();publish(libraryPage_,0);
+        {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=plain>0.5f?"Favourites only.":"Back to every preset of this bank.";}
+        setLoadStatus(0);refresh();return true;
+    }
     if(index>=libraryFavouriteRow_&&index<libraryFavouriteRow_+6){
         // The button's value *is* the heart state, so a tap arrives as the wanted 0 or 1.
         // Apply it to the preset of this row and let refresh() publish the truth for
         // every row; an empty row resets its own heart instead of storing anything.
+        // One tap toggles: the handle returns to 0, so a host that also reports the release
+        // cannot toggle twice, and the tap direction comes from the stored state. The
+        // release is filtered first: publish() re-enters this handler, and publishing 0
+        // before this line would recurse into itself until the stack ran out.
+        if(plain<=0)return true;
+        publish(index,0);
         const int row=index-libraryFavouriteRow_,file=libraryFile(row);
-        if(!file){publish(index,0);return true;}
-        const bool wanted=plain>0.5f;
-        setFavourite(assets_[0][file].label,wanted);
+        if(!file)return true;
+        const std::string label=assets_[0][file].label;
+        const bool wanted=!isFavourite(label);
+        setFavourite(label,wanted);
         {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=(wanted?"Favourite: ":"Favourite removed: ")+assets_[0][file].name;}
         setLoadStatus(0);refresh();return true;
     }
@@ -267,12 +313,13 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
 }
 inline bool Vitaleon::formatLibrary(int index,std::string& out){
     if(libraryRows_<0)return false;
+    const bool filtered=favouritesFiltered();
     if(index>=libraryNames_&&index<libraryNames_+12){int row=(index-libraryNames_)/2,part=(index-libraryNames_)%2,file=libraryFile(row);
-        out=textPart(file?assets_[0][file].name:(row==0?"No presets in this bank":""),part);return true;}
+        out=textPart(file?assets_[0][file].name:(row==0?(filtered?"No favourites yet":"No presets in this bank"):""),part);return true;}
     if(index>=libraryBankText_&&index<libraryBankText_+2){out=textPart(libraryBanks_[mpc::clamp(getInt(libraryBank_),0,int(libraryBanks_.size())-1)].name,index-libraryBankText_);return true;}
     if(index>=librarySelectedText_&&index<librarySelectedText_+2){int file=mpc::clamp(getInt(presetSelect_),0,int(assets_[0].size())-1);out=textPart(file?assets_[0][file].name:"Select a sound in the list",index-librarySelectedText_);return true;}
     if(index>=libraryLoadedText_&&index<libraryLoadedText_+2){std::lock_guard<std::mutex> lock(stateMutex_);out=textPart(loadedName_,index-libraryLoadedText_);return true;}
-    if(index==libraryPageText_){out=std::to_string(filePrograms_.size())+" installed sounds";return true;}
+    if(index==libraryPageText_){out=filtered?std::to_string(favouriteCount())+" favourites":std::to_string(filePrograms_.size())+" installed sounds";return true;}
     if(index==libraryRandomNote_){
         if(randomLearnArmed_.load())out="MIDI learn: play a note";
         else{const int note=getInt(index);out=note<0?"MIDI off":"MIDI "+std::to_string(note);}

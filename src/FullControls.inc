@@ -101,6 +101,13 @@ inline void Vitaleon::createControls(){
     for(int i=0;i<6;++i){auto p=mpc::boolParam(("library_favourite_row_"+std::to_string(i)).c_str(),("Favourite Row "+std::to_string(i+1)).c_str(),false);p.automatable=false;addParam(p);}
     {auto p=mpc::intParam("library_favourite_note","Favourite MIDI Note",-1,127,-1);p.automatable=false;libraryFavouriteNote_=addParam(p);}
     {auto p=mpc::boolParam("library_favourite_learn","Favourite MIDI Learn",false);p.automatable=false;libraryFavouriteLearn_=addParam(p);}
+    // The favourites-only view, appended last like every other new parameter. Lit means
+    // the LIST shows nothing but presets that carry a heart.
+    {auto p=mpc::boolParam("library_favourites_only","Favourites Only",false);p.automatable=false;libraryFavouritesOnly_=addParam(p);}
+    // One display readout per heart. The button on top is a one-shot command that returns
+    // to 0, so the heart no longer depends on a value the host owns and can reset.
+    libraryFavouriteState_=numParams();for(int i=0;i<6;++i)addReadout("library_favourite_state_"+std::to_string(i));
+    libraryLoadedFavourite_=addReadout("library_loaded_favourite");
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){

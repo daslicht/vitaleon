@@ -313,19 +313,31 @@ int main(int argc,char** argv){
    const int row0=id("library_favourite_row_0"),row5=id("library_favourite_row_5");
    const int favNote=id("library_favourite_note"),favLearn=id("library_favourite_learn");
    const std::string favouritesFile=synth->testFavouritesPath();
+   // The heart look is the row's state readout, not the tap handle (which returns to 0).
+   auto heart=[&](int row){return synth->getNormalised(id("library_favourite_state_"+std::to_string(row)))>0.5f;};
    auto favouritesText=[&]{std::vector<uint8_t> bytes;if(!mpc::readFile(favouritesFile,bytes))return std::string();return std::string(bytes.begin(),bytes.end());};
    std::remove(favouritesFile.c_str());synth->testReloadFavourites();settle();
-   check(synth->getBool(row0)==0&&synth->getBool(row5)==0,"a missing favourites file starts with every heart off");
+   check(heart(0)==0&&heart(5)==0,"a missing favourites file starts with every heart off");
    synth->set(row0,1);settle();
-   check(synth->getBool(row0)==1&&favouritesText().find("\"favourites\":[\"")!=std::string::npos,"a heart tap stores the preset in Favourites.json");
+   check(heart(0)==1&&favouritesText().find("\"favourites\":[\"")!=std::string::npos,"a heart tap stores the preset in Favourites.json");
    synth->testReloadFavourites();settle();
-   check(synth->getBool(row0)==1,"the heart survives reading the file again");
+   check(heart(0)==1,"the heart survives reading the file again");
    synth->set(id("library_page"),1);settle();
-   check(synth->getBool(row0)==0,"the hearts follow the presets of the next page");
+   check(heart(0)==0,"the hearts follow the presets of the next page");
    synth->set(row5,1);settle();
-   check(synth->getBool(row5)==0,"an empty row cannot be favourited");
+   check(heart(5)==0,"an empty row cannot be favourited");
    synth->set(id("library_page"),0);settle();
-   check(synth->getBool(row0)==1,"the favourited preset keeps its heart on its own page");
+   check(heart(0)==1,"the favourited preset keeps its heart on its own page");
+   // Favourites-only view (0.3.38): the LIST shows hearted presets only and follows them.
+   const int favsOnly=id("library_favourites_only");
+   synth->set(favsOnly,1);settle();
+   check(synth->getBool(favsOnly)==1&&synth->displayText(id("library_page_text"))=="1 favourites","the favourites view counts only hearted presets");
+   check(synth->displayText(id("library_name_0"))!="No favourites yet","the hearted preset is the first row of the favourites view");
+   synth->set(row0,1);settle();
+   check(synth->displayText(id("library_name_0"))=="No favourites yet","removing the last heart empties the favourites view");
+   synth->set(favsOnly,0);settle();
+   check(synth->displayText(id("library_page_text"))!=std::string("0 favourites")&&synth->displayText(id("library_name_0"))!="No favourites yet","switching the view off lists the bank again");
+   synth->set(row0,1);settle();
    // Learned note: it works on the sound that is loaded, and the key never becomes a voice.
    synth->set(id("library_row_0"),1);settle();synth->set(id("library_load"),1);settle();
    synth->set(favLearn,1);settle();
@@ -334,19 +346,25 @@ int main(int argc,char** argv){
    check(synth->getInt(favNote)==64&&synth->displayText(favNote)=="Fav 64","FAV takes the note that was played");
    check(synth->testHeld(0,64)==0,"the favourite key leaves nothing held");
    playNote(64,true);playNote(64,false);
-   check(synth->getBool(row0)==0,"the learned note removes the favourite of the loaded sound");
+   check(heart(0)==0,"the learned note removes the favourite of the loaded sound");
    playNote(64,true);playNote(64,false);
-   check(synth->getBool(row0)==1,"the learned note sets it again");
-   synth->set(row0,0);settle();
-   check(synth->getBool(row0)==0&&favouritesText().find("\"favourites\":[]")!=std::string::npos,"a second heart tap removes the favourite from the file");
+   check(heart(0)==1,"the learned note sets it again");
+   check(synth->getNormalised(id("library_loaded_favourite"))>0.5f,"the message badge shows the loaded preset as a favourite");
+   // Regression: playing notes must not disturb the hearts (user report: the markers
+   // vanished as soon as a MIDI note was played).
+   playNote(50,true);playNote(50,false);
+   check(heart(0)==1,"a played note leaves the hearts alone");
+   synth->set(row0,1);settle();
+   check(heart(0)==0&&favouritesText().find("\"favourites\":[]")!=std::string::npos,"a second heart tap removes the favourite from the file");
+   check(synth->getNormalised(id("library_loaded_favourite"))<0.5f,"the message badge clears when the loaded preset loses its heart");
    synth->set(row0,1);settle();
    {std::ofstream broken(favouritesFile,std::ios::binary);broken<<"{not json";}
    synth->testReloadFavourites();settle();
-   check(synth->getBool(row0)==0,"a broken favourites file reads as an empty list");
+   check(heart(0)==0,"a broken favourites file reads as an empty list");
    synth->set(favLearn,1);settle();synth->set(favLearn,1);settle();
    check(synth->getInt(favNote)==-1&&synth->displayText(favNote)=="Fav off","a second FAV tap leaves the favourite note off");
    std::remove(favouritesFile.c_str());synth->testReloadFavourites();settle();
-   check(synth->getBool(row0)==0,"the checks leave no favourites behind");
+   check(heart(0)==0,"the checks leave no favourites behind");
   }
   ctx.midi=notes.data();ctx.numMidiEvents=0;
  }
