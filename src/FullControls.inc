@@ -84,6 +84,11 @@ inline void Vitaleon::createControls(){
     // no existing index moves. The LIBRARY page binds it by name to its dice button;
     // one tap deals the next sound of the random deck.
     {auto p=mpc::boolParam("library_random","Random Preset",false);p.automatable=false;libraryRandom_=addParam(p);}
+    // Press feedback for the dice, appended last for the same reason. A display-only
+    // readout: the host picks the button's filmstrip frame from its value (0 dark,
+    // 0.5 pressed), and because it is not the command handle, the next tap still
+    // arrives while the first one is lit.
+    libraryRandomFlash_=addReadout("library_random_flash");
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){

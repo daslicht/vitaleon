@@ -538,27 +538,39 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True,steady=
     # looked switched on, then disabled). Both states now use the same neutral image.
     data={'version':2,'onImage':f'nav-{key}-{"off" if steady else "on"}.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),focus)
-def dice_image(w,h):
+def dice_frames(w,h):
     # The random command is the only LIBRARY button that reads better as a glyph than
-    # as a word: a die with pips, same frame and colours as every nav button.
-    name=f'nav-dice-{w}x{h}.png'
+    # as a word: a die with pips, same frame and colours as every nav button. Three
+    # frames, because the host picks one from a handle value (0 / 0.5 / 1 -> 0 / 1 / 2):
+    # released, pressed, released. Frame 2 repeats frame 0, so the two values the
+    # plugin writes land on the two looks and no third one can be shown by accident.
+    name=f'nav-dice-{w}x{h}-frames.png'
     if not (skin/name).exists():
-        image=Image.new('RGBA',(w,h),'#222531');d=ImageDraw.Draw(image)
-        d.rectangle((0,0,w-1,h-1),outline='#'+LINE[2:],width=1)
-        size=min(w,h)-18;x=(w-size)//2;y=(h-size)//2
-        d.rounded_rectangle((x,y,x+size-1,y+size-1),radius=max(4,size//6),outline='#edf0f7',width=2)
-        r=max(2,size//12);off=size//4
-        for dx,dy in [(-off,-off),(off,-off),(0,0),(-off,off),(off,off)]:
-            cx=x+size//2+dx;cy=y+size//2+dy
-            d.ellipse((cx-r,cy-r,cx+r,cy+r),fill='#edf0f7')
+        image=Image.new('RGBA',(w,h*3))
+        for frame in range(3):
+            pressed=frame==1
+            tile=Image.new('RGBA',(w,h),'#373045' if pressed else '#222531');d=ImageDraw.Draw(tile)
+            d.rectangle((0,0,w-1,h-1),outline='#'+(COLORS['osc'] if pressed else LINE)[2:],width=2 if pressed else 1)
+            ink='#ffffff' if pressed else '#edf0f7'
+            size=min(w,h)-18;x=(w-size)//2;y=(h-size)//2
+            d.rounded_rectangle((x,y,x+size-1,y+size-1),radius=max(4,size//6),outline=ink,width=2)
+            r=max(2,size//12);off=size//4
+            for dx,dy in [(-off,-off),(off,-off),(0,0),(-off,off),(off,off)]:
+                cx=x+size//2+dx;cy=y+size//2+dy
+                d.ellipse((cx-r,cy-r,cx+r,cy+r),fill=ink)
+            image.paste(tile,(0,frame*h))
         image.save(skin/name)
     return name
 def dice_button(text,x,y,w,h,param,value=1,count=1):
-    # Same momentary behaviour as nav_button's steady form: both images are the
-    # neutral one, so a command never looks like a switch that stays on.
-    image=dice_image(w,h)
-    data={'version':2,'onImage':image,'offImage':image,'buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
-    return ent(text,'Button',data,(x,y,w,h),True)
+    # The tap must not depend on the button's own on/off image: the command handle
+    # returns to 0 within the same write, so a latched press look would make the host
+    # report an unchanged value and swallow the next quick tap. The press look is its
+    # own flash readout, drawn by a filmstrip image underneath; the button on top stays
+    # blank and remains the widget that takes the tap (same split as the table rows).
+    blank=table_row_blank(w,h)
+    data={'version':2,'onImage':blank,'offImage':blank,'buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
+    return [ent('Random dice','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':dice_frames(w,h),'numFrames':3,'handleName':handle('library_random_flash'),'animated':False},(x,y,w,h)),
+            ent(text,'Button',data,(x,y,w,h),True)]
 
 # The loaded row reads as the active tab: a frame bound to the row's own state
 # readout (0 empty, 0.5 other, 1 current), so nothing has to be duplicated in the
@@ -623,8 +635,9 @@ def add_library(c):
     # Random preset: the dice deals the next sound of the deck (no repeats until every
     # installed sound has played once). It sits last in the command row, where a tap
     # cannot land on a drive or a bank by accident. 72 px wide: check_surface requires
-    # at least 64 x 52 for a button.
-    c.append(dice_button('Random preset',928,108,72,52,'Random Preset'))
+    # at least 64 x 52 for a button. Two entries at the same place: the filmstrip that
+    # shows the flash, then the blank button on top that takes the tap.
+    c.extend(dice_button('Random preset',928,108,72,52,'Random Preset'))
     row_w=full(976);action_x=full(840)
     for row in range(6):
         y=174+row*54;available=handle(f'storage_available_{row}')

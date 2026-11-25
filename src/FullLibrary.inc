@@ -72,6 +72,26 @@ inline void Vitaleon::publishLoadedName(){
     float marker=float(std::hash<std::string>{}(loadedName_)&0xffffff)/16777216.0f;
     for(int i=0;i<2;++i)publishNormalised(libraryLoadedText_+i,marker);
 }
+inline void Vitaleon::flashRandomPress(){
+    // The command handle never latches (see libraryChanged), so the lit look comes
+    // from its own readout: 0.5 selects the middle frame of the button filmstrip.
+    if(libraryRandomFlash_<0)return;
+    publishNormalised(libraryRandomFlash_,.5f);
+    randomFlashDue_.store(nowMs()+150,std::memory_order_relaxed);
+    browserDisplayDirty_.store(true);
+}
+inline void Vitaleon::serviceRandomFlash(){
+    // Same deadline pattern as serviceTables: the service loop runs this on every
+    // pass, also while idle, so the dice goes dark about 150 ms after the tap -- or
+    // right after a load that took longer, because the loop is inside serviceChanges
+    // until that load returns.
+    long long due=randomFlashDue_.load(std::memory_order_relaxed);
+    if(!due||nowMs()<due)return;
+    if(!randomFlashDue_.compare_exchange_strong(due,0,std::memory_order_relaxed))return;
+    if(libraryRandomFlash_<0)return;
+    publishNormalised(libraryRandomFlash_,0.f);
+    browserDisplayDirty_.store(true);
+}
 inline bool Vitaleon::libraryChanged(int index,float plain){
     // One persistent bit change per tap. Never send a transient 1/0 pulse:
     // it needlessly relies on the host preserving both edges of one gesture.
@@ -84,6 +104,7 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         // second load from the same press.
         if(plain<=0)return true;
         publish(index,0);
+        flashRandomPress();
         if(libraryBanks_[0].files.empty()){
             {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="No presets installed.";}
             setLoadStatus(2);return true;

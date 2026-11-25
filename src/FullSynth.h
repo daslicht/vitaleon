@@ -159,6 +159,7 @@ private:
     void publishTables();
     void showTableCursor(int entry);
     void serviceTables();
+    void serviceRandomFlash();
     void tableReload();
     bool tableChanged(int index,float plain);
     bool formatTable(int index,std::string& out);
@@ -180,9 +181,12 @@ private:
     // without putting back means every installed sound plays once before any of them
     // can repeat, and a bank of N cannot show the same preset twice in a row. The
     // parameter lives at the very end of the list so no existing index moves.
-    int libraryRandom_=-1;
+    int libraryRandom_=-1,libraryRandomFlash_=-1;
     std::vector<int> randomDeck_;long long randomDeckStamp_=0;size_t randomDrawn_=0;
     std::mt19937 randomRng_{std::random_device{}()};
+    // Deadline that ends the short press flash of the dice, in the same style as
+    // tableLoadDue_: written by the tap, cleared by the service loop.
+    std::atomic<long long> randomFlashDue_{0};
     // UI caches must be refreshed explicitly after browser/state changes.
     // The service thread delivers host callbacks outside the engine locks.
     std::atomic<bool> browserDisplayDirty_{false};
@@ -348,6 +352,7 @@ private:
     int libraryPageCount()const;
     void loadFileIndex(int file);
     int drawRandomFile();
+    void flashRandomPress();
     static std::string textPart(const std::string& text,int part);
     void publishLoadedName();
     void loadSelections();

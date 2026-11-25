@@ -76,6 +76,7 @@ inline void Vitaleon::serviceLoop(){
     while(!quit_.load()){
         if(browserPending_.load())serviceBrowser();
         serviceTables();
+        serviceRandomFlash();
         if(browserDisplayDirty_.exchange(false)){
             // No state/lifecycle lock may be held: hosts may synchronously query
             // parameter strings or save state during these callbacks.

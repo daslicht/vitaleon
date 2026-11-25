@@ -12279,12 +12279,46 @@
                                 "version": 2,
                                 "componentData": {
                                     "version": 1,
+                                    "name": "Random dice",
+                                    "type": "Image",
+                                    "data": {
+                                        "version": 2,
+                                        "imageType": "FilmStrip",
+                                        "colour": "0",
+                                        "image": "nav-dice-72x52-frames.png",
+                                        "numFrames": 3,
+                                        "handleName": "BoundhandleName",
+                                        "animated": false
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1978"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "928 44 72 52"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
                                     "name": "Random preset",
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-dice-72x52.png",
-                                        "offImage": "nav-dice-72x52.png",
+                                        "onImage": "table-row-blank-72x52.png",
+                                        "offImage": "table-row-blank-72x52.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",

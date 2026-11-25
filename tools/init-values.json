@@ -11866,5 +11866,11 @@
   "index": 1977,
   "name": "Random Preset",
   "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1978,
+  "name": "library_random_flash",
+  "value": 0.0
  }
 ]

@@ -264,6 +264,14 @@ int main(int argc,char** argv){
   const int lastDealt=dealt.back();std::vector<int> again;
   for(int n=0;n<2;++n){pressRandom();again.push_back(synth->getInt(selector));}
   check(again[0]!=lastDealt&&again[1]!=again[0],"random preset never repeats across the cycle boundary");
+  // Tap feedback: the dice shows the pressed frame while the tap loads, then the
+  // service loop turns it off. The command handle must stay free for the next tap.
+  const int flashIndex=id("library_random_flash");
+  synth->set(randomButton,1);
+  check(std::abs(synth->getNormalised(flashIndex)-.5f)<1e-5,"a dice tap lights the button while the preset loads");
+  settle();
+  std::this_thread::sleep_for(std::chrono::milliseconds(250));
+  check(synth->getNormalised(flashIndex)<1e-5,"the dice button goes dark again after the flash");
  }
  if(argc>4){
   nlohmann::json skin;std::ifstream input(argv[4]);input>>skin;
