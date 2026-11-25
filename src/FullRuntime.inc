@@ -77,6 +77,7 @@ inline void Vitaleon::serviceLoop(){
         if(browserPending_.load())serviceBrowser();
         serviceTables();
         serviceRandomFlash();
+        serviceRandomMidi();
         if(browserDisplayDirty_.exchange(false)){
             // No state/lifecycle lock may be held: hosts may synchronously query
             // parameter strings or save state during these callbacks.
@@ -293,8 +294,22 @@ inline void Vitaleon::serviceChanges(bool rebuild){
         setLoadStatus(0);}
 }
 inline void Vitaleon::process(mpc::ProcessContext& ctx){
+    // MIDI learn and the random trigger are read here, before the gate: while a service
+    // transaction parks the engine handleFullMidi is never called, so a note read only
+    // there would be lost exactly when the plugin is busy loading a preset.
+    for(int i=0;i<ctx.numMidiEvents;++i){
+        const auto& e=ctx.midi[i];
+        if(!e.isNoteOn()&&!e.isNoteOff())continue;
+        if(e.isNoteOn()&&randomLearnArmed_.load()){randomLearnCaptured_.store(e.note(),std::memory_order_relaxed);randomLearnArmed_.store(false,std::memory_order_relaxed);continue;}
+        const int learned=getInt(libraryRandomNote_);
+        if(learned>=0&&e.note()==learned){if(e.isNoteOn())randomMidiPending_.store(true,std::memory_order_relaxed);continue;}
+    }
     // Capture held keys even while a non-audio asset transaction temporarily parks DSP.
-    auto recordKeys=[&]{for(int i=0;i<ctx.numMidiEvents;++i){const auto& e=ctx.midi[i];if(e.isNoteOn())held_[e.channel()*128+e.note()].store(e.velocity());else if(e.isNoteOff())held_[e.channel()*128+e.note()].store(0);
+    // The learned note is a remote control, never a voice: it is not recorded, so a note
+    // that arrived while the engine was parked is not replayed as a sound later.
+    auto recordKeys=[&]{const int learned=getInt(libraryRandomNote_);for(int i=0;i<ctx.numMidiEvents;++i){const auto& e=ctx.midi[i];
+        if((e.isNoteOn()||e.isNoteOff())&&learned>=0&&e.note()==learned)continue;
+        if(e.isNoteOn())held_[e.channel()*128+e.note()].store(e.velocity());else if(e.isNoteOff())held_[e.channel()*128+e.note()].store(0);
         else if(e.isController()&&(e.controller()==120||e.controller()==123))for(int n=0;n<128;++n)held_[e.channel()*128+n].store(0);}};
     int expected=3;gate_.compare_exchange_strong(expected,0);expected=0;
     if(!gate_.compare_exchange_strong(expected,4)){recordKeys();for(int ch=0;ch<ctx.numOutputs;++ch)std::fill_n(ctx.outputs[ch],ctx.numFrames,0);return;}
@@ -385,6 +400,12 @@ inline void Vitaleon::renderBlock(mpc::ProcessContext& ctx){
 inline void Vitaleon::handleFullMidi(const mpc::MidiEvent& e){
     int ch=e.channel();bool mpe=getBool(mpeEnabled_);int lower=getInt(mpeLower_),upper=getInt(mpeUpper_);
     bool master=mpe&&((ch==0&&lower>0)||(ch==15&&upper>0));int from=ch==0?1:15-upper,to=ch==0?lower:14;
+    // The learned note is a remote control for the dice, never a voice: process() has
+    // already taken it (learn or trigger), so it is swallowed here.
+    if(e.isNoteOn()||e.isNoteOff()){
+        const int learned=getInt(libraryRandomNote_);
+        if(learned>=0&&e.note()==learned)return;
+    }
     if(e.isNoteOn())engine_->noteOn(e.note(),e.velocity()/127.0f,0,ch);
     else if(e.isNoteOff())engine_->noteOff(e.note(),e.velocity()/127.0f,0,ch);
     else if(e.isPitchBend()){float value=e.pitchBend()/8192.0f;

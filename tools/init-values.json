@@ -11872,5 +11872,17 @@
   "index": 1978,
   "name": "library_random_flash",
   "value": 0.0
+ },
+ {
+  "display": "MIDI off",
+  "index": 1979,
+  "name": "Random MIDI Note",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1980,
+  "name": "Random MIDI Learn",
+  "value": 0.0
  }
 ]

@@ -89,6 +89,11 @@ inline void Vitaleon::createControls(){
     // 0.5 pressed), and because it is not the command handle, the next tap still
     // arrives while the first one is lit.
     libraryRandomFlash_=addReadout("library_random_flash");
+    // MIDI learn for the dice, appended last like every other new parameter. The int
+    // keeps the learned note (-1 = off) and therefore travels with the project chunk;
+    // the bool is the one-shot LEARN command (value 1 arms, the handle returns to 0).
+    {auto p=mpc::intParam("library_random_note","Random MIDI Note",-1,127,-1);p.automatable=false;libraryRandomNote_=addParam(p);}
+    {auto p=mpc::boolParam("library_random_learn","Random MIDI Learn",false);p.automatable=false;libraryRandomLearn_=addParam(p);}
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){

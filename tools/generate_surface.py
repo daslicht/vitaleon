@@ -638,15 +638,23 @@ def add_library(c):
     # A row offers OPEN for a drive, folder or bank and LOAD for a sound (state 1 / 2
     # of storage_available_N). REFRESH is gone: DRIVES rescans.
     c.append(label('Directory',(24,76,700,26),MUTED,18,value='storage_path_0'))
+    # The learned MIDI note reads in the header line, where the page still has room on
+    # both screens; it is the parameter's own display text, so nothing new is drawn.
+    c.append(label('Random MIDI',(724,76,272,26),MUTED,18,value='Random MIDI Note'))
     for n,(caption,param,w) in enumerate([('DRIVES','Drives',150),('UP','Up Folder',150),('INSTALLED','Installed Banks',190)]):c.append(nav_button(caption,[24,182,340][n],108,w,52,param))
-    c.append(label('Page',(560,112,104,36),MUTED,22,value='storage_page'))
-    c.append(nav_button('PREV',672,108,120,52,'Previous Files'));c.append(nav_button('NEXT',800,108,120,52,'Next Files'))
+    # LEARN takes the last place of the command row, so the row is a little tighter:
+    # still every button over the 64 x 52 minimum, and the right edge stays at 992.
+    c.append(label('Page',(530,112,80,36),MUTED,22,value='storage_page'))
+    c.append(nav_button('PREV',616,108,100,52,'Previous Files'));c.append(nav_button('NEXT',724,108,100,52,'Next Files'))
     # Random preset: the dice deals the next sound of the deck (no repeats until every
     # installed sound has played once). It sits last in the command row, where a tap
     # cannot land on a drive or a bank by accident. 72 px wide: check_surface requires
     # at least 64 x 52 for a button. Two entries at the same place: the filmstrip that
     # shows the flash, then the blank button on top that takes the tap.
-    c.extend(dice_button('Random preset',928,108,72,52,'Random Preset'))
+    c.extend(dice_button('Random preset',832,108,72,52,'Random Preset'))
+    # One-shot like the dice: the plugin arms the learn mode and returns the handle to
+    # 0, so a second tap cancels and the button never looks switched on.
+    c.append(nav_button('LEARN',912,108,80,52,'Random MIDI Learn',steady=True))
     row_w=full(976);action_x=full(840)
     for row in range(6):
         y=174+row*54;available=handle(f'storage_available_{row}')

@@ -274,6 +274,25 @@ int main(int argc,char** argv){
   std::this_thread::sleep_for(std::chrono::milliseconds(600));
   synth->set(randomButton,0);
   check(synth->getNormalised(flashIndex)<1e-5,"the dice button goes dark again after the flash");
+  // Random preset via MIDI (0.3.36): LEARN takes the next note, that note then deals
+  // the next card, and the assignment travels with the project chunk.
+  const int learnButton=id("library_random_learn"),noteParam=id("library_random_note");
+  mpc::MidiEvent single{};ctx.midi=&single;ctx.numMidiEvents=1;
+  auto playNote=[&](int note,bool on){single=on?mpc::MidiEvent::noteOn(0,note,100):mpc::MidiEvent::noteOff(0,note);ctx.midi=&single;ctx.numMidiEvents=1;render();ctx.numMidiEvents=0;settle();std::this_thread::sleep_for(std::chrono::milliseconds(30));settle();};
+  synth->set(learnButton,1);settle();
+  check(synth->getInt(noteParam)==-1&&synth->displayText(noteParam)=="MIDI learn: play a note","LEARN waits for the next MIDI note");
+  playNote(99,true);
+  check(synth->getInt(noteParam)==99&&synth->displayText(noteParam)=="MIDI 99","LEARN takes the note that was played");
+  const int beforeTrigger=synth->getInt(selector);playNote(99,true);playNote(99,false);
+  check(synth->getInt(selector)!=beforeTrigger,"the learned MIDI note deals a random preset");
+  const int afterTrigger=synth->getInt(selector);playNote(98,true);playNote(98,false);
+  check(synth->getInt(selector)==afterTrigger,"other MIDI notes still play instead of dealing");
+  auto midiState=synth->internalSaveState();synth->testInit();settle();
+  check(synth->internalLoadState(midiState.data(),midiState.size()),"state with a learned MIDI note accepted");settle();
+  check(synth->getInt(noteParam)==99&&synth->displayText(noteParam)=="MIDI 99","the learned MIDI note survives a project round trip");
+  synth->set(learnButton,1);settle();synth->set(learnButton,1);settle();
+  check(synth->getInt(noteParam)==-1&&synth->displayText(noteParam)=="MIDI off","a second LEARN tap leaves the MIDI trigger off");
+  ctx.midi=notes.data();ctx.numMidiEvents=0;
  }
  if(argc>4){
   nlohmann::json skin;std::ifstream input(argv[4]);input>>skin;

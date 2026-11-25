@@ -160,6 +160,7 @@ private:
     void showTableCursor(int entry);
     void serviceTables();
     void serviceRandomFlash();
+    void serviceRandomMidi();
     void tableReload();
     bool tableChanged(int index,float plain);
     bool formatTable(int index,std::string& out);
@@ -181,7 +182,7 @@ private:
     // without putting back means every installed sound plays once before any of them
     // can repeat, and a bank of N cannot show the same preset twice in a row. The
     // parameter lives at the very end of the list so no existing index moves.
-    int libraryRandom_=-1,libraryRandomFlash_=-1;
+    int libraryRandom_=-1,libraryRandomFlash_=-1,libraryRandomNote_=-1,libraryRandomLearn_=-1;
     std::vector<int> randomDeck_;long long randomDeckStamp_=0;size_t randomDrawn_=0;
     std::mt19937 randomRng_{std::random_device{}()};
     // Deadline that ends the press flash of the dice, in the same style as
@@ -190,6 +191,12 @@ private:
     // arrive once the loading callback has returned.
     std::atomic<long long> randomFlashDue_{0};
     static constexpr long long kRandomFlashMs=400;
+    // MIDI learn for the dice. The audio thread only records what it saw and never
+    // touches a parameter; the service loop writes the note and starts the load,
+    // exactly as if the dice had been tapped.
+    std::atomic<bool> randomLearnArmed_{false};
+    std::atomic<int> randomLearnCaptured_{-1};
+    std::atomic<bool> randomMidiPending_{false};
     // UI caches must be refreshed explicitly after browser/state changes.
     // The service thread delivers host callbacks outside the engine locks.
     std::atomic<bool> browserDisplayDirty_{false};

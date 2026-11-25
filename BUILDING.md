@@ -64,4 +64,4 @@ Without `VITALEON_SKIN` they read `skins/TUI.json` and a 1000 px right edge.
 
 ## Parameter rules
 
-The plugin has 1977 parameters. Projects store them by ID. Never change the ID, order or meaning of an existing parameter and never change the plugin's unique ID. New parameters are appended at the end.
+The plugin has 1981 parameters. Projects store them by ID. Never change the ID, order or meaning of an existing parameter and never change the plugin's unique ID. New parameters are appended at the end.

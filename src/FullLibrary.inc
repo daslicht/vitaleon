@@ -99,12 +99,45 @@ inline void Vitaleon::serviceRandomFlash(){
     notifyHostParameterChanged(libraryRandomFlash_);
     browserDisplayDirty_.store(true);
 }
+inline void Vitaleon::serviceRandomMidi(){
+    // The audio thread only records what it saw (see handleFullMidi); everything that
+    // touches parameters or loads a sound happens here, on the service thread.
+    const int captured=randomLearnCaptured_.exchange(-1,std::memory_order_relaxed);
+    if(captured>=0&&libraryRandomNote_>=0){
+        publish(libraryRandomNote_,float(captured));
+        notifyHostParameterChanged(libraryRandomNote_);
+        {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Random preset via MIDI note "+std::to_string(captured)+".";}
+        setLoadStatus(0);
+    }
+    if(!randomMidiPending_.exchange(false,std::memory_order_relaxed))return;
+    if(libraryBanks_[0].files.empty()){
+        {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="No presets installed.";}
+        setLoadStatus(2);return;
+    }
+    flashRandomPress();loadFileIndex(drawRandomFile());
+}
 inline bool Vitaleon::libraryChanged(int index,float plain){
     // One persistent bit change per tap. Never send a transient 1/0 pulse:
     // it needlessly relies on the host preserving both edges of one gesture.
     // Both directions are commands; release performs no parameter write.
     auto refresh=[this]{refreshLibrary();browserDisplayDirty_.store(true);};
     if(index==libraryLoad_){pendingPreset_.store(getInt(presetSelect_));for(int i=0;i<4;++i)publishNormalised(loadText_+i,.25f);requestService();browserDisplayDirty_.store(true);return true;}
+    if(index==libraryRandomLearn_){
+        // One-shot like the dice. Arming clears the old note, so LEARN twice always
+        // ends at "off" and there is no extra button that only means "forget".
+        if(plain<=0)return true;
+        publish(index,0);
+        if(randomLearnArmed_.exchange(false)){
+            {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="MIDI learn cancelled.";}
+        }else{
+            publish(libraryRandomNote_,-1);
+            randomLearnArmed_.store(true);
+            {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="MIDI learn: play the note that should deal a random preset.";}
+        }
+        notifyHostParameterChanged(libraryRandomNote_);
+        setLoadStatus(0);
+        return true;
+    }
     if(index==libraryRandom_){
         // One tap is one write with the value 1; the handle goes straight back to 0.
         // Acting only on 1 means a host that also reports the release cannot start a
@@ -138,6 +171,11 @@ inline bool Vitaleon::formatLibrary(int index,std::string& out){
     if(index>=librarySelectedText_&&index<librarySelectedText_+2){int file=mpc::clamp(getInt(presetSelect_),0,int(assets_[0].size())-1);out=textPart(file?assets_[0][file].name:"Select a sound in the list",index-librarySelectedText_);return true;}
     if(index>=libraryLoadedText_&&index<libraryLoadedText_+2){std::lock_guard<std::mutex> lock(stateMutex_);out=textPart(loadedName_,index-libraryLoadedText_);return true;}
     if(index==libraryPageText_){out=std::to_string(filePrograms_.size())+" installed sounds";return true;}
+    if(index==libraryRandomNote_){
+        if(randomLearnArmed_.load())out="MIDI learn: play a note";
+        else{const int note=getInt(index);out=note<0?"MIDI off":"MIDI "+std::to_string(note);}
+        return true;
+    }
     return false;
 }
 inline int Vitaleon::drawRandomFile(){
