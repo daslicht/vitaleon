@@ -292,6 +292,20 @@ int main(int argc,char** argv){
   check(synth->getInt(noteParam)==99&&synth->displayText(noteParam)=="MIDI 99","the learned MIDI note survives a project round trip");
   synth->set(learnButton,1);settle();synth->set(learnButton,1);settle();
   check(synth->getInt(noteParam)==-1&&synth->displayText(noteParam)=="MIDI off","a second LEARN tap leaves the MIDI trigger off");
+  // User report (0.3.36): the learned note left a sustained voice, because the note
+  // played to learn it was recorded as held before it existed and its note-off then
+  // counted as a trigger. Nothing may stay in held_ for the learned note.
+  synth->set(learnButton,1);settle();playNote(60,true);playNote(60,false);
+  check(synth->getInt(noteParam)==60,"LEARN can be re-armed for another note");
+  check(synth->testHeld(0,60)==0,"the learned note leaves nothing held, so no voice can hang");
+  playNote(60,true);
+  check(synth->testHeld(0,60)==0,"the trigger note is never recorded as a held key");
+  playNote(60,false);
+  playNote(50,true);
+  check(synth->testHeld(0,50)>0,"any other note is still recorded as a held key");
+  playNote(50,false);
+  synth->set(learnButton,1);settle();synth->set(learnButton,1);settle();
+  check(synth->getInt(noteParam)==-1,"the checks leave no learned MIDI note behind");
   ctx.midi=notes.data();ctx.numMidiEvents=0;
  }
  if(argc>4){

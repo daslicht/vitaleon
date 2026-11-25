@@ -105,6 +105,9 @@ inline void Vitaleon::serviceRandomMidi(){
     const int captured=randomLearnCaptured_.exchange(-1,std::memory_order_relaxed);
     if(captured>=0&&libraryRandomNote_>=0){
         publish(libraryRandomNote_,float(captured));
+        // The note was played before it existed, so it may still sit in held_ (replayed
+        // after every rebuild). Clear it: the note is a command, not a key.
+        for(int ch=0;ch<16;++ch)held_[ch*128+captured].store(0);
         notifyHostParameterChanged(libraryRandomNote_);
         {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Random preset via MIDI note "+std::to_string(captured)+".";}
         setLoadStatus(0);

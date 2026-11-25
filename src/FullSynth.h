@@ -66,6 +66,9 @@ public:
     void testInit(){beginStateTransaction(true);for(size_t k=0;k<initValues_.size();++k)restoreParameter(int(k),param(int(k)).toNormalised(initValues_[k]));selectInit();endStateTransaction(true);reset();}
     // Deterministic deck order for tests/full_checks.cpp; the dice itself seeds from
     // std::random_device once per instance.
+    // Held-key bookkeeping, for the tests: a stray entry becomes a sustained voice the
+    // next time a rebuild replays the held keys.
+    int testHeld(int channel,int note)const{return held_[channel*128+note].load();}
     void testSeedRandom(uint32_t seed){randomRng_.seed(seed);randomDeck_.clear();randomDeckStamp_=0;randomDrawn_=0;}
     // Engine checks start from the Init state instead of the first installed sound.
     void testNoStartSound(){startSound_.store(false);}

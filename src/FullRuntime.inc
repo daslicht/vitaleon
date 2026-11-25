@@ -308,7 +308,11 @@ inline void Vitaleon::process(mpc::ProcessContext& ctx){
     // The learned note is a remote control, never a voice: it is not recorded, so a note
     // that arrived while the engine was parked is not replayed as a sound later.
     auto recordKeys=[&]{const int learned=getInt(libraryRandomNote_);for(int i=0;i<ctx.numMidiEvents;++i){const auto& e=ctx.midi[i];
-        if((e.isNoteOn()||e.isNoteOff())&&learned>=0&&e.note()==learned)continue;
+        // The learned note is a remote control, never a voice. Its note-off must still
+        // clear the key it may have written before it was learned: otherwise the next
+        // replay (every rebuild replays held keys) starts a voice that nothing stops.
+        if((e.isNoteOn()||e.isNoteOff())&&learned>=0&&e.note()==learned){
+            if(e.isNoteOff())held_[e.channel()*128+e.note()].store(0);continue;}
         if(e.isNoteOn())held_[e.channel()*128+e.note()].store(e.velocity());else if(e.isNoteOff())held_[e.channel()*128+e.note()].store(0);
         else if(e.isController()&&(e.controller()==120||e.controller()==123))for(int n=0;n<128;++n)held_[e.channel()*128+n].store(0);}};
     int expected=3;gate_.compare_exchange_strong(expected,0);expected=0;
@@ -400,9 +404,10 @@ inline void Vitaleon::renderBlock(mpc::ProcessContext& ctx){
 inline void Vitaleon::handleFullMidi(const mpc::MidiEvent& e){
     int ch=e.channel();bool mpe=getBool(mpeEnabled_);int lower=getInt(mpeLower_),upper=getInt(mpeUpper_);
     bool master=mpe&&((ch==0&&lower>0)||(ch==15&&upper>0));int from=ch==0?1:15-upper,to=ch==0?lower:14;
-    // The learned note is a remote control for the dice, never a voice: process() has
-    // already taken it (learn or trigger), so it is swallowed here.
-    if(e.isNoteOn()||e.isNoteOff()){
+    // The learned note is a remote control for the dice: its note-on is swallowed here
+    // (process() has already taken it as learn or trigger). The note-off still passes,
+    // so a voice that started before the note was learned is always stopped.
+    if(e.isNoteOn()){
         const int learned=getInt(libraryRandomNote_);
         if(learned>=0&&e.note()==learned)return;
     }
