@@ -48,6 +48,47 @@ inline void Vitaleon::createLibrary(){
     librarySelectedText_=numParams();for(int i=0;i<2;++i)addReadout("library_selected_"+std::to_string(i));
     libraryLoadedText_=numParams();for(int i=0;i<2;++i)addReadout("library_loaded_"+std::to_string(i));
     libraryPageText_=addReadout("library_page_text");
+    // The hearts only mirror what the file already said; a missing or broken file is an
+    // empty list, never an error, so the library starts with the sounds it can see.
+    loadFavourites();
+}
+inline std::string Vitaleon::favouritesPath(){return mpc::pluginFolder()+"/Favourites.json";}
+inline bool Vitaleon::isFavourite(const std::string& label)const{
+    if(label.empty())return false;
+    std::lock_guard<std::mutex> lock(favouritesMutex_);return favourites_.count(label)!=0;
+}
+inline void Vitaleon::setFavourite(const std::string& label,bool wanted){
+    if(label.empty())return;
+    {std::lock_guard<std::mutex> lock(favouritesMutex_);
+     if(wanted)favourites_.insert(label);else favourites_.erase(label);}
+    // The service loop owns the file: the host callback stays free of disk I/O. Wake it,
+    // otherwise an idle loop would not write the tap until something else happens.
+    favouritesDirty_.store(true,std::memory_order_relaxed);
+    requestService();
+}
+inline void Vitaleon::loadFavourites(){
+    std::set<std::string> loaded;
+    std::vector<uint8_t> bytes;
+    if(mpc::readFile(favouritesPath(),bytes)){
+        try{Json state=Json::parse(bytes.begin(),bytes.end());
+            if(state.is_object()&&state.value("format",0)==1&&state.count("favourites"))
+                for(const auto& entry:state.at("favourites"))if(entry.is_string())loaded.insert(entry.get<std::string>());
+        }catch(const std::exception&){/* a broken file simply means no favourites yet */}
+    }
+    std::lock_guard<std::mutex> lock(favouritesMutex_);favourites_=std::move(loaded);
+}
+inline void Vitaleon::saveFavourites(){
+    // Write a temp file and rename it over the old one: a power cut mid-write leaves the
+    // previous list instead of a truncated file the next start has to throw away.
+    std::vector<std::string> labels;{std::lock_guard<std::mutex> lock(favouritesMutex_);labels.assign(favourites_.begin(),favourites_.end());}
+    const Json state={{"format",1},{"favourites",labels}};
+    const std::string path=favouritesPath(),temp=path+".tmp",text=state.dump();
+    std::FILE* file=std::fopen(temp.c_str(),"wb");
+    if(file==nullptr)return;
+    const bool written=std::fwrite(text.data(),1,text.size(),file)==text.size();
+    std::fclose(file);
+    if(written&&std::rename(temp.c_str(),path.c_str())==0)return;
+    std::remove(temp.c_str());
 }
 inline int Vitaleon::libraryPageCount()const{
     int bank=mpc::clamp(getInt(libraryBank_),0,int(libraryBanks_.size())-1);
@@ -62,6 +103,7 @@ inline void Vitaleon::refreshLibrary(){
     if(libraryRows_<0)return;
     publish(libraryPage_,float(mpc::clamp(getInt(libraryPage_),0,libraryPageCount()-1)));
     for(int row=0;row<6;++row){int file=libraryFile(row);publish(libraryRows_+row,file&&file==getInt(presetSelect_)?1:0);
+        if(libraryFavouriteRow_>=0)publish(libraryFavouriteRow_+row,file&&isFavourite(assets_[0][file].label)?1:0);
         float marker=float(file)/4096;for(int part=0;part<2;++part)publishNormalised(libraryNames_+row*2+part,marker);}
     float selected=float(getInt(presetSelect_))/4096,bank=float(getInt(libraryBank_))/4096;
     for(int i=0;i<2;++i){publishNormalised(librarySelectedText_+i,selected);publishNormalised(libraryBankText_+i,bank);}
@@ -119,6 +161,33 @@ inline void Vitaleon::serviceRandomMidi(){
     }
     flashRandomPress();loadFileIndex(drawRandomFile());
 }
+inline void Vitaleon::serviceFavourites(){
+    // The audio thread only records what it saw (see process()); every parameter write,
+    // message and file write happens here, on the service thread.
+    const int captured=favouriteLearnCaptured_.exchange(-1,std::memory_order_relaxed);
+    if(captured>=0&&libraryFavouriteNote_>=0){
+        publish(libraryFavouriteNote_,float(captured));
+        // The key was played before it became a command and may still sit in held_.
+        for(int ch=0;ch<16;++ch)held_[ch*128+captured].store(0);
+        notifyHostParameterChanged(libraryFavouriteNote_);
+        {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Favourite key is MIDI note "+std::to_string(captured)+".";}
+        setLoadStatus(0);
+    }
+    if(favouriteMidiPending_.exchange(false,std::memory_order_relaxed)){
+        // A note can only address the sound that is already loaded, never a list row.
+        std::string label,name;
+        {std::lock_guard<std::mutex> lock(stateMutex_);label=selectedAsset_.label;name=loadedName_;}
+        if(label.empty()){
+            {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Load a sound from the list before favouriting it.";}
+            setLoadStatus(2);
+        }else{
+            const bool now=!isFavourite(label);setFavourite(label,now);
+            {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=(now?"Favourite: ":"Favourite removed: ")+name;}
+            setLoadStatus(0);refreshLibrary();browserDisplayDirty_.store(true);
+        }
+    }
+    if(favouritesDirty_.exchange(false,std::memory_order_relaxed))saveFavourites();
+}
 inline bool Vitaleon::libraryChanged(int index,float plain){
     // One persistent bit change per tap. Never send a transient 1/0 pulse:
     // it needlessly relies on the host preserving both edges of one gesture.
@@ -130,6 +199,7 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         // ends at "off" and there is no extra button that only means "forget".
         if(plain<=0)return true;
         publish(index,0);
+        favouriteLearnArmed_.store(false);
         if(randomLearnArmed_.exchange(false)){
             {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="MIDI learn cancelled.";}
         }else{
@@ -140,6 +210,35 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         notifyHostParameterChanged(libraryRandomNote_);
         setLoadStatus(0);
         return true;
+    }
+    if(index==libraryFavouriteLearn_){
+        // Same one-shot arming as the dice: arming forgets the old note, so two taps
+        // always end at "Fav off". Arming one note disarms the other, because one
+        // played key cannot mean two different things.
+        if(plain<=0)return true;
+        publish(index,0);
+        if(favouriteLearnArmed_.exchange(false)){
+            {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Favourite learn cancelled.";}
+        }else{
+            randomLearnArmed_.store(false);
+            publish(libraryFavouriteNote_,-1);
+            favouriteLearnArmed_.store(true);
+            {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Favourite learn: play the note that marks a sound.";}
+        }
+        notifyHostParameterChanged(libraryFavouriteNote_);
+        setLoadStatus(0);
+        return true;
+    }
+    if(index>=libraryFavouriteRow_&&index<libraryFavouriteRow_+6){
+        // The button's value *is* the heart state, so a tap arrives as the wanted 0 or 1.
+        // Apply it to the preset of this row and let refresh() publish the truth for
+        // every row; an empty row resets its own heart instead of storing anything.
+        const int row=index-libraryFavouriteRow_,file=libraryFile(row);
+        if(!file){publish(index,0);return true;}
+        const bool wanted=plain>0.5f;
+        setFavourite(assets_[0][file].label,wanted);
+        {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=(wanted?"Favourite: ":"Favourite removed: ")+assets_[0][file].name;}
+        setLoadStatus(0);refresh();return true;
     }
     if(index==libraryRandom_){
         // One tap is one write with the value 1; the handle goes straight back to 0.
@@ -177,6 +276,11 @@ inline bool Vitaleon::formatLibrary(int index,std::string& out){
     if(index==libraryRandomNote_){
         if(randomLearnArmed_.load())out="MIDI learn: play a note";
         else{const int note=getInt(index);out=note<0?"MIDI off":"MIDI "+std::to_string(note);}
+        return true;
+    }
+    if(index==libraryFavouriteNote_){
+        if(favouriteLearnArmed_.load())out="Fav learn: play a note";
+        else{const int note=getInt(index);out=note<0?"Fav off":"Fav "+std::to_string(note);}
         return true;
     }
     return false;

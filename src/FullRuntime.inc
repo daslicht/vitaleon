@@ -78,6 +78,7 @@ inline void Vitaleon::serviceLoop(){
         serviceTables();
         serviceRandomFlash();
         serviceRandomMidi();
+        serviceFavourites();
         if(browserDisplayDirty_.exchange(false)){
             // No state/lifecycle lock may be held: hosts may synchronously query
             // parameter strings or save state during these callbacks.
@@ -300,18 +301,22 @@ inline void Vitaleon::process(mpc::ProcessContext& ctx){
     for(int i=0;i<ctx.numMidiEvents;++i){
         const auto& e=ctx.midi[i];
         if(!e.isNoteOn()&&!e.isNoteOff())continue;
-        if(e.isNoteOn()&&randomLearnArmed_.load()){randomLearnCaptured_.store(e.note(),std::memory_order_relaxed);randomLearnArmed_.store(false,std::memory_order_relaxed);continue;}
-        const int learned=getInt(libraryRandomNote_);
+        if(e.isNoteOn()&&(randomLearnArmed_.load()||favouriteLearnArmed_.load())){
+            if(favouriteLearnArmed_.exchange(false,std::memory_order_relaxed))favouriteLearnCaptured_.store(e.note(),std::memory_order_relaxed);
+            else{randomLearnCaptured_.store(e.note(),std::memory_order_relaxed);randomLearnArmed_.store(false,std::memory_order_relaxed);}
+            continue;}
+        const int learned=getInt(libraryRandomNote_),favourite=getInt(libraryFavouriteNote_);
         if(learned>=0&&e.note()==learned){if(e.isNoteOn())randomMidiPending_.store(true,std::memory_order_relaxed);continue;}
+        if(favourite>=0&&e.note()==favourite){if(e.isNoteOn())favouriteMidiPending_.store(true,std::memory_order_relaxed);continue;}
     }
     // Capture held keys even while a non-audio asset transaction temporarily parks DSP.
     // The learned note is a remote control, never a voice: it is not recorded, so a note
     // that arrived while the engine was parked is not replayed as a sound later.
-    auto recordKeys=[&]{const int learned=getInt(libraryRandomNote_);for(int i=0;i<ctx.numMidiEvents;++i){const auto& e=ctx.midi[i];
-        // The learned note is a remote control, never a voice. Its note-off must still
-        // clear the key it may have written before it was learned: otherwise the next
+    auto recordKeys=[&]{const int learned=getInt(libraryRandomNote_),favourite=getInt(libraryFavouriteNote_);for(int i=0;i<ctx.numMidiEvents;++i){const auto& e=ctx.midi[i];
+        // The learned notes are remote controls, never voices. Their note-off must still
+        // clear the key they may have written before they were learned: otherwise the next
         // replay (every rebuild replays held keys) starts a voice that nothing stops.
-        if((e.isNoteOn()||e.isNoteOff())&&learned>=0&&e.note()==learned){
+        if((e.isNoteOn()||e.isNoteOff())&&((learned>=0&&e.note()==learned)||(favourite>=0&&e.note()==favourite))){
             if(e.isNoteOff())held_[e.channel()*128+e.note()].store(0);continue;}
         if(e.isNoteOn())held_[e.channel()*128+e.note()].store(e.velocity());else if(e.isNoteOff())held_[e.channel()*128+e.note()].store(0);
         else if(e.isController()&&(e.controller()==120||e.controller()==123))for(int n=0;n<128;++n)held_[e.channel()*128+n].store(0);}};
@@ -408,8 +413,8 @@ inline void Vitaleon::handleFullMidi(const mpc::MidiEvent& e){
     // (process() has already taken it as learn or trigger). The note-off still passes,
     // so a voice that started before the note was learned is always stopped.
     if(e.isNoteOn()){
-        const int learned=getInt(libraryRandomNote_);
-        if(learned>=0&&e.note()==learned)return;
+        const int learned=getInt(libraryRandomNote_),favourite=getInt(libraryFavouriteNote_);
+        if((learned>=0&&e.note()==learned)||(favourite>=0&&e.note()==favourite))return;
     }
     if(e.isNoteOn())engine_->noteOn(e.note(),e.velocity()/127.0f,0,ch);
     else if(e.isNoteOff())engine_->noteOff(e.note(),e.velocity()/127.0f,0,ch);

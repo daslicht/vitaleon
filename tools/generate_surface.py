@@ -580,6 +580,26 @@ def dice_button(text,x,y,w,h,param,value=1,count=1):
     data={'version':2,'onImage':dice_pressed(w,h),'offImage':blank,'buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return [ent('Random dice','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':dice_frames(w,h),'numFrames':3,'handleName':handle('library_random_flash'),'animated':False},(x,y,w,h)),
             ent(text,'Button',data,(x,y,w,h),True)]
+def heart_tile(w,h,filled):
+    # Filled means favourite. The button binds the row parameter itself, so the host picks
+    # on or off from the value: no filmstrip and no overlay button on top of it.
+    tile=Image.new('RGBA',(w,h),'#222531');d=ImageDraw.Draw(tile)
+    d.rectangle((0,0,w-1,h-1),outline='#'+LINE[2:],width=1)
+    ink='#ff6f8a' if filled else '#'+MUTED[2:]
+    scale=(min(w,h)-18)/34.0;cx=w/2;cy=h/2-1;points=[]
+    for step in range(60):
+        t=2*math.pi*step/60
+        points.append((cx+16*math.sin(t)**3*scale,cy-(13*math.cos(t)-5*math.cos(2*t)-2*math.cos(3*t)-math.cos(4*t))*scale))
+    if filled:d.polygon(points,fill=ink)
+    else:d.line(points+[points[0]],fill=ink,width=3,joint='curve')
+    return tile
+def heart_image(w,h,filled):
+    name=f'fav-heart-{"on" if filled else "off"}-{w}x{h}{DEF_SUFFIX}.png'
+    if not (skin/name).exists():heart_tile(w,h,filled).save(skin/name)
+    return name
+def heart_button(text,x,y,w,h,param):
+    data={'version':2,'onImage':heart_image(w,h,True),'offImage':heart_image(w,h,False),'buttonId':1,'numButtonsInGroup':1,'handleName':handle(param),'gestureBehaviour':'Instant'}
+    return ent(text,'Button',data,(x,y,w,h),True)
 
 # The loaded row reads as the active tab: a frame bound to the row's own state
 # readout (0 empty, 0.5 other, 1 current), so nothing has to be duplicated in the
@@ -637,30 +657,35 @@ def add_library(c):
     # 0.3.19 layout: place line, three commands, six rows of KIND | NAME | button.
     # A row offers OPEN for a drive, folder or bank and LOAD for a sound (state 1 / 2
     # of storage_available_N). REFRESH is gone: DRIVES rescans.
-    c.append(label('Directory',(24,76,700,26),MUTED,18,value='storage_path_0'))
-    # The learned MIDI note reads in the header line, where the page still has room on
-    # both screens; it is the parameter's own display text, so nothing new is drawn.
-    c.append(label('Random MIDI',(724,76,272,26),MUTED,18,value='Random MIDI Note'))
-    for n,(caption,param,w) in enumerate([('DRIVES','Drives',150),('UP','Up Folder',150),('INSTALLED','Installed Banks',190)]):c.append(nav_button(caption,[24,182,340][n],108,w,52,param))
-    # LEARN takes the last place of the command row, so the row is a little tighter:
-    # still every button over the 64 x 52 minimum, and the right edge stays at 992.
-    c.append(label('Page',(530,112,80,36),MUTED,22,value='storage_page'))
-    c.append(nav_button('PREV',616,108,100,52,'Previous Files'));c.append(nav_button('NEXT',724,108,100,52,'Next Files'))
+    c.append(label('Directory',(24,76,460,26),MUTED,18,value='storage_path_0'))
+    # Both learned MIDI notes read in the header line, where the page still has room on
+    # both screens; it is the parameters' own display text, so nothing new is drawn.
+    c.append(label('Random MIDI',(490,76,240,26),MUTED,18,value='Random MIDI Note'))
+    c.append(label('Favourite MIDI',(736,76,260,26),MUTED,18,value='Favourite MIDI Note'))
+    for n,(caption,param,w) in enumerate([('DRIVES','Drives',130),('UP','Up Folder',130),('INSTALLED','Installed Banks',170)]):c.append(nav_button(caption,[24,162,300][n],108,w,52,param))
+    # Two one-shot learns share the end of the command row, so the row is tighter than
+    # it was: still every button over the 64 x 52 minimum, right edge at 992.
+    c.append(label('Page',(478,112,70,36),MUTED,22,value='storage_page'))
+    c.append(nav_button('PREV',554,108,90,52,'Previous Files'));c.append(nav_button('NEXT',650,108,90,52,'Next Files'))
     # Random preset: the dice deals the next sound of the deck (no repeats until every
     # installed sound has played once). It sits last in the command row, where a tap
     # cannot land on a drive or a bank by accident. 72 px wide: check_surface requires
     # at least 64 x 52 for a button. Two entries at the same place: the filmstrip that
     # shows the flash, then the blank button on top that takes the tap.
-    c.extend(dice_button('Random preset',832,108,72,52,'Random Preset'))
+    c.extend(dice_button('Random preset',746,108,72,52,'Random Preset'))
     # One-shot like the dice: the plugin arms the learn mode and returns the handle to
     # 0, so a second tap cancels and the button never looks switched on.
-    c.append(nav_button('LEARN',912,108,80,52,'Random MIDI Learn',steady=True))
-    row_w=full(976);action_x=full(840)
+    c.append(nav_button('LEARN',824,108,80,52,'Random MIDI Learn',steady=True))
+    c.append(nav_button('FAV',912,108,80,52,'Favourite MIDI Learn',steady=True))
+    row_w=full(976);action_x=full(840);heart_x=full(768)
     for row in range(6):
         y=174+row*54;available=handle(f'storage_available_{row}')
         c.append(rect('file separator',(24,y+51,row_w,1),LINE))
         c.append(label('File kind',(24,y+12,96,30),MUTED,18,value=f'storage_row_{row*2}'))
-        c.append(label('File name',(124,y+4,action_x-136,44),TEXT,24,value=f'storage_row_{row*2+1}'))
+        c.append(label('File name',(124,y+4,heart_x-132,44),TEXT,24,value=f'storage_row_{row*2+1}'))
+        # The heart sits between the name and OPEN/LOAD: 64 px wide is the touch minimum,
+        # and OPEN/LOAD keeps its full 156 px on both screens.
+        c.append(heart_button(f'Favourite row {row+1}',heart_x,y,64,52,f'Favourite Row {row+1}'))
         c.append(conditional(nav_button('OPEN',action_x,y,156,52,f'Open Row {row+1}'),['IndexedEnabling/1/3/'+available]))
         c.append(conditional(nav_button('LOAD',action_x,y,156,52,f'Open Row {row+1}',color='env'),['IndexedEnabling/2/3/'+available]))
     for part in range(4):c.append(label('Browser status',(24+part*full(244),512,full(236),26),COLORS['mod'],18,value=f'storage_status_{part}'))  # one reading line, like HOME

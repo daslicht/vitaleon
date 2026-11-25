@@ -12060,7 +12060,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 12 700 26"
+                                    "bounds": "24 12 460 26"
                                 }
                             },
                             {
@@ -12102,7 +12102,49 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "724 12 272 26"
+                                    "bounds": "490 12 240 26"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Favourite MIDI",
+                                    "type": "Label",
+                                    "data": {
+                                        "version": 1,
+                                        "textStyle": {
+                                            "version": 1,
+                                            "font": {
+                                                "version": 1,
+                                                "name": "Roboto",
+                                                "style": "Regular",
+                                                "height": 18.0
+                                            },
+                                            "colour": "ffa0a7b7",
+                                            "justification": "left verticallyCentred",
+                                            "case": "Original"
+                                        },
+                                        "type": "Value",
+                                        "handleName": "Data"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "Data",
+                                            "value": "Parameter 1987"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "No",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "736 12 260 26"
                                 }
                             },
                             {
@@ -12113,8 +12155,8 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-71afda61d8a1f06b-on.png",
-                                        "offImage": "nav-71afda61d8a1f06b-off.png",
+                                        "onImage": "nav-eb707166eb21d1de-on.png",
+                                        "offImage": "nav-eb707166eb21d1de-off.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",
@@ -12136,7 +12178,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "24 44 150 52"
+                                    "bounds": "24 44 130 52"
                                 }
                             },
                             {
@@ -12147,8 +12189,8 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-9a1be25f2273c892-on.png",
-                                        "offImage": "nav-9a1be25f2273c892-off.png",
+                                        "onImage": "nav-c5e7d449811ef915-on.png",
+                                        "offImage": "nav-c5e7d449811ef915-off.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",
@@ -12170,7 +12212,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "182 44 150 52"
+                                    "bounds": "162 44 130 52"
                                 }
                             },
                             {
@@ -12181,8 +12223,8 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-25cb43c2015ba0e4-on.png",
-                                        "offImage": "nav-25cb43c2015ba0e4-off.png",
+                                        "onImage": "nav-e7d0120797545e44-on.png",
+                                        "offImage": "nav-e7d0120797545e44-off.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",
@@ -12204,7 +12246,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "340 44 190 52"
+                                    "bounds": "300 44 170 52"
                                 }
                             },
                             {
@@ -12246,7 +12288,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "530 48 80 36"
+                                    "bounds": "478 48 70 36"
                                 }
                             },
                             {
@@ -12257,8 +12299,8 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-0aabffe96d856e99-on.png",
-                                        "offImage": "nav-0aabffe96d856e99-off.png",
+                                        "onImage": "nav-e05d4a89c94ab9ad-on.png",
+                                        "offImage": "nav-e05d4a89c94ab9ad-off.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",
@@ -12280,7 +12322,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "616 44 100 52"
+                                    "bounds": "554 44 90 52"
                                 }
                             },
                             {
@@ -12291,8 +12333,8 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-147103972e743518-on.png",
-                                        "offImage": "nav-147103972e743518-off.png",
+                                        "onImage": "nav-078f0cdff1f56943-on.png",
+                                        "offImage": "nav-078f0cdff1f56943-off.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",
@@ -12314,7 +12356,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "724 44 100 52"
+                                    "bounds": "650 44 90 52"
                                 }
                             },
                             {
@@ -12348,7 +12390,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "832 44 72 52"
+                                    "bounds": "746 44 72 52"
                                 }
                             },
                             {
@@ -12382,7 +12424,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "832 44 72 52"
+                                    "bounds": "746 44 72 52"
                                 }
                             },
                             {
@@ -12407,6 +12449,40 @@
                                         {
                                             "key": "BoundhandleName",
                                             "value": "Parameter 1980"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "824 44 80 52"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "FAV",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "nav-8c08c7abdeaa676d-off.png",
+                                        "offImage": "nav-8c08c7abdeaa676d-off.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1988"
                                         }
                                     ]
                                 },
@@ -12525,7 +12601,41 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "124 114 704 44"
+                                    "bounds": "124 114 636 44"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Favourite row 1",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "fav-heart-on-64x52.png",
+                                        "offImage": "fav-heart-off-64x52.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1981"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "768 110 64 52"
                                 }
                             },
                             {
@@ -12708,7 +12818,41 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "124 168 704 44"
+                                    "bounds": "124 168 636 44"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Favourite row 2",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "fav-heart-on-64x52.png",
+                                        "offImage": "fav-heart-off-64x52.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1982"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "768 164 64 52"
                                 }
                             },
                             {
@@ -12891,7 +13035,41 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "124 222 704 44"
+                                    "bounds": "124 222 636 44"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Favourite row 3",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "fav-heart-on-64x52.png",
+                                        "offImage": "fav-heart-off-64x52.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1983"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "768 218 64 52"
                                 }
                             },
                             {
@@ -13074,7 +13252,41 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "124 276 704 44"
+                                    "bounds": "124 276 636 44"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Favourite row 4",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "fav-heart-on-64x52.png",
+                                        "offImage": "fav-heart-off-64x52.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1984"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "768 272 64 52"
                                 }
                             },
                             {
@@ -13257,7 +13469,41 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "124 330 704 44"
+                                    "bounds": "124 330 636 44"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Favourite row 5",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "fav-heart-on-64x52.png",
+                                        "offImage": "fav-heart-off-64x52.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1985"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "768 326 64 52"
                                 }
                             },
                             {
@@ -13440,7 +13686,41 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "124 384 704 44"
+                                    "bounds": "124 384 636 44"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Favourite row 6",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "fav-heart-on-64x52.png",
+                                        "offImage": "fav-heart-off-64x52.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1986"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "768 380 64 52"
                                 }
                             },
                             {

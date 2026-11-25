@@ -306,6 +306,48 @@ int main(int argc,char** argv){
   playNote(50,false);
   synth->set(learnButton,1);settle();synth->set(learnButton,1);settle();
   check(synth->getInt(noteParam)==-1,"the checks leave no learned MIDI note behind");
+  // Favourites (0.3.37): the heart of a LIST row stores the preset's relative label in
+  // Favourites.json, the file is read again on start, and the learned note toggles the
+  // loaded sound without leaving a held key behind.
+  {
+   const int row0=id("library_favourite_row_0"),row5=id("library_favourite_row_5");
+   const int favNote=id("library_favourite_note"),favLearn=id("library_favourite_learn");
+   const std::string favouritesFile=synth->testFavouritesPath();
+   auto favouritesText=[&]{std::vector<uint8_t> bytes;if(!mpc::readFile(favouritesFile,bytes))return std::string();return std::string(bytes.begin(),bytes.end());};
+   std::remove(favouritesFile.c_str());synth->testReloadFavourites();settle();
+   check(synth->getBool(row0)==0&&synth->getBool(row5)==0,"a missing favourites file starts with every heart off");
+   synth->set(row0,1);settle();
+   check(synth->getBool(row0)==1&&favouritesText().find("\"favourites\":[\"")!=std::string::npos,"a heart tap stores the preset in Favourites.json");
+   synth->testReloadFavourites();settle();
+   check(synth->getBool(row0)==1,"the heart survives reading the file again");
+   synth->set(id("library_page"),1);settle();
+   check(synth->getBool(row0)==0,"the hearts follow the presets of the next page");
+   synth->set(row5,1);settle();
+   check(synth->getBool(row5)==0,"an empty row cannot be favourited");
+   synth->set(id("library_page"),0);settle();
+   check(synth->getBool(row0)==1,"the favourited preset keeps its heart on its own page");
+   // Learned note: it works on the sound that is loaded, and the key never becomes a voice.
+   synth->set(id("library_row_0"),1);settle();synth->set(id("library_load"),1);settle();
+   synth->set(favLearn,1);settle();
+   check(synth->getInt(favNote)==-1&&synth->displayText(favNote)=="Fav learn: play a note","FAV waits for the next MIDI note");
+   playNote(64,true);
+   check(synth->getInt(favNote)==64&&synth->displayText(favNote)=="Fav 64","FAV takes the note that was played");
+   check(synth->testHeld(0,64)==0,"the favourite key leaves nothing held");
+   playNote(64,true);playNote(64,false);
+   check(synth->getBool(row0)==0,"the learned note removes the favourite of the loaded sound");
+   playNote(64,true);playNote(64,false);
+   check(synth->getBool(row0)==1,"the learned note sets it again");
+   synth->set(row0,0);settle();
+   check(synth->getBool(row0)==0&&favouritesText().find("\"favourites\":[]")!=std::string::npos,"a second heart tap removes the favourite from the file");
+   synth->set(row0,1);settle();
+   {std::ofstream broken(favouritesFile,std::ios::binary);broken<<"{not json";}
+   synth->testReloadFavourites();settle();
+   check(synth->getBool(row0)==0,"a broken favourites file reads as an empty list");
+   synth->set(favLearn,1);settle();synth->set(favLearn,1);settle();
+   check(synth->getInt(favNote)==-1&&synth->displayText(favNote)=="Fav off","a second FAV tap leaves the favourite note off");
+   std::remove(favouritesFile.c_str());synth->testReloadFavourites();settle();
+   check(synth->getBool(row0)==0,"the checks leave no favourites behind");
+  }
   ctx.midi=notes.data();ctx.numMidiEvents=0;
  }
  if(argc>4){
@@ -318,6 +360,8 @@ int main(int argc,char** argv){
    }
   check(!browserCommands,"failed custom SELECT/LOAD browser is absent from the shipped skin");
   check(skinHasComponent(skin,"Random preset"),"the shipped skin carries the LIBRARY page's random preset button");
+  check(skinHasComponent(skin,"Favourite row 1")&&skinHasComponent(skin,"Favourite row 6"),"the shipped skin carries a heart on every LIBRARY row");
+  check(skinHasComponent(skin,"FAV")&&skinHasComponent(skin,"Favourite MIDI"),"the shipped skin carries the favourite learn button and its label");
  }
  // Verify audible filter action, rather than checking only the displayed value.
  // Both HOME and FILTER 1 use the same parameter handles.

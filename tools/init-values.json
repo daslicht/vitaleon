@@ -11884,5 +11884,53 @@
   "index": 1980,
   "name": "Random MIDI Learn",
   "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1981,
+  "name": "Favourite Row 1",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1982,
+  "name": "Favourite Row 2",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1983,
+  "name": "Favourite Row 3",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1984,
+  "name": "Favourite Row 4",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1985,
+  "name": "Favourite Row 5",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1986,
+  "name": "Favourite Row 6",
+  "value": 0.0
+ },
+ {
+  "display": "Fav off",
+  "index": 1987,
+  "name": "Favourite MIDI Note",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1988,
+  "name": "Favourite MIDI Learn",
+  "value": 0.0
  }
 ]

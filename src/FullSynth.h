@@ -70,6 +70,9 @@ public:
     // next time a rebuild replays the held keys.
     int testHeld(int channel,int note)const{return held_[channel*128+note].load();}
     void testSeedRandom(uint32_t seed){randomRng_.seed(seed);randomDeck_.clear();randomDeckStamp_=0;randomDrawn_=0;}
+    // Re-read the favourites file, for the checks: same path as a fresh instance.
+    void testReloadFavourites(){loadFavourites();refreshLibrary();}
+    std::string testFavouritesPath()const{return favouritesPath();}
     // Engine checks start from the Init state instead of the first installed sound.
     void testNoStartSound(){startSound_.store(false);}
     bool testEngineSwitch(const std::string& key)const{for(const auto& b:bindings_)if(b.key==key)return b.value->value()!=0;return false;}
@@ -164,6 +167,12 @@ private:
     void serviceTables();
     void serviceRandomFlash();
     void serviceRandomMidi();
+    void serviceFavourites();
+    static std::string favouritesPath();
+    void loadFavourites();
+    void saveFavourites();
+    bool isFavourite(const std::string& label)const;
+    void setFavourite(const std::string& label,bool wanted);
     void tableReload();
     bool tableChanged(int index,float plain);
     bool formatTable(int index,std::string& out);
@@ -186,6 +195,16 @@ private:
     // can repeat, and a bank of N cannot show the same preset twice in a row. The
     // parameter lives at the very end of the list so no existing index moves.
     int libraryRandom_=-1,libraryRandomFlash_=-1,libraryRandomNote_=-1,libraryRandomLearn_=-1;
+    // Favourites (0.3.37): one heart state per LIST row, plus a learnable MIDI note
+    // that toggles the favourite of the loaded sound. Keyed by Asset::label, the stable
+    // relative identity, and stored in Favourites.json in the plugin folder so it
+    // survives projects and reboots (the plugin writes no preset files otherwise).
+    int libraryFavouriteRow_=-1,libraryFavouriteNote_=-1,libraryFavouriteLearn_=-1;
+    std::set<std::string> favourites_;mutable std::mutex favouritesMutex_;
+    std::atomic<bool> favouritesDirty_{false};
+    std::atomic<bool> favouriteLearnArmed_{false};
+    std::atomic<int> favouriteLearnCaptured_{-1};
+    std::atomic<bool> favouriteMidiPending_{false};
     std::vector<int> randomDeck_;long long randomDeckStamp_=0;size_t randomDrawn_=0;
     std::mt19937 randomRng_{std::random_device{}()};
     // Deadline that ends the press flash of the dice, in the same style as

@@ -94,6 +94,13 @@ inline void Vitaleon::createControls(){
     // the bool is the one-shot LEARN command (value 1 arms, the handle returns to 0).
     {auto p=mpc::intParam("library_random_note","Random MIDI Note",-1,127,-1);p.automatable=false;libraryRandomNote_=addParam(p);}
     {auto p=mpc::boolParam("library_random_learn","Random MIDI Learn",false);p.automatable=false;libraryRandomLearn_=addParam(p);}
+    // Favourites, appended last again. Each heart binds its row parameter directly, so
+    // the host itself paints filled or outline from the value; the plugin owns the
+    // truth and republishes it whenever the row shows another preset.
+    libraryFavouriteRow_=numParams();
+    for(int i=0;i<6;++i){auto p=mpc::boolParam(("library_favourite_row_"+std::to_string(i)).c_str(),("Favourite Row "+std::to_string(i+1)).c_str(),false);p.automatable=false;addParam(p);}
+    {auto p=mpc::intParam("library_favourite_note","Favourite MIDI Note",-1,127,-1);p.automatable=false;libraryFavouriteNote_=addParam(p);}
+    {auto p=mpc::boolParam("library_favourite_learn","Favourite MIDI Learn",false);p.automatable=false;libraryFavouriteLearn_=addParam(p);}
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){
