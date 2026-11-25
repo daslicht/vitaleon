@@ -1,6 +1,6 @@
 # Vitaleon
 
-A wavetable synthesizer plugin for Akai MPC standalone, by Andersson Audio.
+A wavetable synthesizer plugin for Akai MPC and Force standalone, by Andersson Audio.
 
 Vitaleon runs the sound engine of Matt Tytel's Vital 1.0.6 (GPLv3) inside the MPC's plugin format, with a touch interface built for the MPC screen. It is an independent project and is **not affiliated with or endorsed by Matt Tytel or Vital Audio**.
 
@@ -12,15 +12,16 @@ Vitaleon runs the sound engine of Matt Tytel's Vital 1.0.6 (GPLv3) inside the MP
 - Imports Vital presets (`.vital`), banks (`.vitalbank`, ZIP), wavetables (`.vitaltable`, WAV), LFO shapes (`.vitallfo`) and WAV samples
 - The release package adds 32 factory wavetables and a bank of 32 factory sounds
 - Live oscillator and LFO graphs, Q-Link mapping per page, host tempo sync
+- Two skins: the MPC layout, and a wider layout for the Akai Force that the firmware picks automatically
 
 ## Status
 
-Version 0.3.27. This is a young project.
+Version 0.3.34. This is a young project.
 
 | | |
 |---|---|
-| Tested on | MPC Live II, MPC OS 3.10.1, the 32-bit build |
-| Not tested | Any other MPC model. The package also contains a 64-bit build that has not run on a device yet. |
+| Tested on | MPC Live II with MPC OS 3.10.1 and an Akai Force, the 32-bit build |
+| Not tested | Other MPC and Force models. The package also contains a 64-bit build that has not run on a device yet. |
 | Requires | MPC OS 3.10.1 or later with **Enhancements (Beta)** and **External Plugin Support** switched on |
 
 If you try it on another model, a report of what works is welcome.
@@ -33,7 +34,7 @@ Download the release ZIP from [dreyandersson.com/vitaleon](https://dreyandersson
 
 1. Create a plugin track and choose **Vitaleon** under External Plugins.
 2. The plugin starts with the first factory sound loaded. Pick another in the MPC's **PRESET** list: it holds the 32 factory sounds (BA bass, LD lead, PD pad, KY keys, PL pluck, SQ sequence, FX).
-3. The footer switches between HOME, OSC, FILTER, ENV, LFO, FX and OTHER. Each group has its pages across the top.
+3. The footer switches between HOME, OSC, FILTER, ENV, LFO, FX and OTHER; on the Force, LFO and OTHER share the MOD tab. Each group has its pages across the top.
 4. **HOME > LIBRARY** browses drives. OPEN enters a drive, folder or bank; LOAD loads a sound.
 5. **OTHER > MATRIX** holds the modulation routes. PICK on a row opens the target chooser.
 6. Macros 1 to 4 are assigned in every factory sound. [FACTORY.md](FACTORY.md) lists all tables, sounds and macro names.
