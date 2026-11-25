@@ -184,9 +184,12 @@ private:
     int libraryRandom_=-1,libraryRandomFlash_=-1;
     std::vector<int> randomDeck_;long long randomDeckStamp_=0;size_t randomDrawn_=0;
     std::mt19937 randomRng_{std::random_device{}()};
-    // Deadline that ends the short press flash of the dice, in the same style as
-    // tableLoadDue_: written by the tap, cleared by the service loop.
+    // Deadline that ends the press flash of the dice, in the same style as
+    // tableLoadDue_: written by the tap, extended while a load runs, cleared by the
+    // service loop. Long enough to be seen: the first repaint after a tap can only
+    // arrive once the loading callback has returned.
     std::atomic<long long> randomFlashDue_{0};
+    static constexpr long long kRandomFlashMs=400;
     // UI caches must be refreshed explicitly after browser/state changes.
     // The service thread delivers host callbacks outside the engine locks.
     std::atomic<bool> browserDisplayDirty_{false};

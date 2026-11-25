@@ -12317,7 +12317,7 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "table-row-blank-72x52.png",
+                                        "onImage": "nav-dice-72x52-pressed.png",
                                         "offImage": "table-row-blank-72x52.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,

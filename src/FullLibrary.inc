@@ -74,22 +74,29 @@ inline void Vitaleon::publishLoadedName(){
 }
 inline void Vitaleon::flashRandomPress(){
     // The command handle never latches (see libraryChanged), so the lit look comes
-    // from its own readout: 0.5 selects the middle frame of the button filmstrip.
+    // from its own readout: 0.5 selects the pressed frame of the button filmstrip.
     if(libraryRandomFlash_<0)return;
     publishNormalised(libraryRandomFlash_,.5f);
-    randomFlashDue_.store(nowMs()+150,std::memory_order_relaxed);
+    notifyHostParameterChanged(libraryRandomFlash_);
+    randomFlashDue_.store(nowMs()+kRandomFlashMs,std::memory_order_relaxed);
     browserDisplayDirty_.store(true);
 }
 inline void Vitaleon::serviceRandomFlash(){
     // Same deadline pattern as serviceTables: the service loop runs this on every
-    // pass, also while idle, so the dice goes dark about 150 ms after the tap -- or
-    // right after a load that took longer, because the loop is inside serviceChanges
-    // until that load returns.
-    long long due=randomFlashDue_.load(std::memory_order_relaxed);
-    if(!due||nowMs()<due)return;
-    if(!randomFlashDue_.compare_exchange_strong(due,0,std::memory_order_relaxed))return;
+    // pass, also while idle. A load runs inside the host's parameter callback, and
+    // the host cannot repaint while it is inside that callback, so a countdown
+    // started at the tap would be over before the first repaint arrives. Keep the
+    // dice lit for as long as the load runs, then for the full flash duration.
     if(libraryRandomFlash_<0)return;
+    if(!randomFlashDue_.load(std::memory_order_relaxed))return;
+    if(requested_.load(std::memory_order_relaxed)!=completed_.load(std::memory_order_relaxed)){
+        randomFlashDue_.store(nowMs()+kRandomFlashMs,std::memory_order_relaxed);return;
+    }
+    long long due=randomFlashDue_.load(std::memory_order_relaxed);
+    if(nowMs()<due)return;
+    if(!randomFlashDue_.compare_exchange_strong(due,0,std::memory_order_relaxed))return;
     publishNormalised(libraryRandomFlash_,0.f);
+    notifyHostParameterChanged(libraryRandomFlash_);
     browserDisplayDirty_.store(true);
 }
 inline bool Vitaleon::libraryChanged(int index,float plain){

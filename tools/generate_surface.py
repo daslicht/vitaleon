@@ -538,28 +538,35 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True,steady=
     # looked switched on, then disabled). Both states now use the same neutral image.
     data={'version':2,'onImage':f'nav-{key}-{"off" if steady else "on"}.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),focus)
-def dice_frames(w,h):
+def dice_tile(w,h,pressed):
     # The random command is the only LIBRARY button that reads better as a glyph than
-    # as a word: a die with pips, same frame and colours as every nav button. Three
-    # frames, because the host picks one from a handle value (0 / 0.5 / 1 -> 0 / 1 / 2):
-    # released, pressed, released. Frame 2 repeats frame 0, so the two values the
-    # plugin writes land on the two looks and no third one can be shown by accident.
+    # as a word: a die with pips, same frame and colours as every nav button. Pressed
+    # inverts it -- accent fill, dark die -- because a flash has to read across the
+    # room, not by a hairline border.
+    tile=Image.new('RGBA',(w,h),'#222531');d=ImageDraw.Draw(tile);ink='#edf0f7'
+    if pressed:
+        d.rectangle((0,0,w-1,h-1),fill='#'+COLORS['osc'][2:]);ink='#222531'
+    else:d.rectangle((0,0,w-1,h-1),outline='#'+LINE[2:],width=1)
+    size=min(w,h)-18;x=(w-size)//2;y=(h-size)//2
+    d.rounded_rectangle((x,y,x+size-1,y+size-1),radius=max(4,size//6),outline=ink,width=2)
+    r=max(2,size//12);off=size//4
+    for dx,dy in [(-off,-off),(off,-off),(0,0),(-off,off),(off,off)]:
+        cx=x+size//2+dx;cy=y+size//2+dy
+        d.ellipse((cx-r,cy-r,cx+r,cy+r),fill=ink)
+    return tile
+def dice_frames(w,h):
+    # Three frames, because the host picks one from a handle value (0 / 0.5 / 1 ->
+    # 0 / 1 / 2): released, pressed, released. Frame 2 repeats frame 0, so the two
+    # values the plugin writes land on the two looks and no third one can appear.
     name=f'nav-dice-{w}x{h}-frames.png'
     if not (skin/name).exists():
         image=Image.new('RGBA',(w,h*3))
-        for frame in range(3):
-            pressed=frame==1
-            tile=Image.new('RGBA',(w,h),'#373045' if pressed else '#222531');d=ImageDraw.Draw(tile)
-            d.rectangle((0,0,w-1,h-1),outline='#'+(COLORS['osc'] if pressed else LINE)[2:],width=2 if pressed else 1)
-            ink='#ffffff' if pressed else '#edf0f7'
-            size=min(w,h)-18;x=(w-size)//2;y=(h-size)//2
-            d.rounded_rectangle((x,y,x+size-1,y+size-1),radius=max(4,size//6),outline=ink,width=2)
-            r=max(2,size//12);off=size//4
-            for dx,dy in [(-off,-off),(off,-off),(0,0),(-off,off),(off,off)]:
-                cx=x+size//2+dx;cy=y+size//2+dy
-                d.ellipse((cx-r,cy-r,cx+r,cy+r),fill=ink)
-            image.paste(tile,(0,frame*h))
+        for frame in range(3):image.paste(dice_tile(w,h,frame==1),(0,frame*h))
         image.save(skin/name)
+    return name
+def dice_pressed(w,h):
+    name=f'nav-dice-{w}x{h}-pressed.png'
+    if not (skin/name).exists():dice_tile(w,h,True).save(skin/name)
     return name
 def dice_button(text,x,y,w,h,param,value=1,count=1):
     # The tap must not depend on the button's own on/off image: the command handle
@@ -567,8 +574,10 @@ def dice_button(text,x,y,w,h,param,value=1,count=1):
     # report an unchanged value and swallow the next quick tap. The press look is its
     # own flash readout, drawn by a filmstrip image underneath; the button on top stays
     # blank and remains the widget that takes the tap (same split as the table rows).
+    # Its on image is the pressed tile as well: the host paints that one itself on the
+    # press, before the plugin can repaint anything, so the tap never looks dead.
     blank=table_row_blank(w,h)
-    data={'version':2,'onImage':blank,'offImage':blank,'buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
+    data={'version':2,'onImage':dice_pressed(w,h),'offImage':blank,'buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return [ent('Random dice','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':dice_frames(w,h),'numFrames':3,'handleName':handle('library_random_flash'),'animated':False},(x,y,w,h)),
             ent(text,'Button',data,(x,y,w,h),True)]
 

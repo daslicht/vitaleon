@@ -270,7 +270,9 @@ int main(int argc,char** argv){
   synth->set(randomButton,1);
   check(std::abs(synth->getNormalised(flashIndex)-.5f)<1e-5,"a dice tap lights the button while the preset loads");
   settle();
-  std::this_thread::sleep_for(std::chrono::milliseconds(250));
+  check(std::abs(synth->getNormalised(flashIndex)-.5f)<1e-5,"the dice stays lit after the load so the host's first repaint shows it");
+  std::this_thread::sleep_for(std::chrono::milliseconds(600));
+  synth->set(randomButton,0);
   check(synth->getNormalised(flashIndex)<1e-5,"the dice button goes dark again after the flash");
  }
  if(argc>4){
