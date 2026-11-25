@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.34
+
+- The envelope time controls use Vital 1.0.6's ranges again: attack, decay and release end at 2.38 s, delay and hold at 1.41 s. 0.3.33 had raised all five to 10 s, which no Vital preset can describe. The quartic knob curve from 0.3.33 stays. Projects store the plain seconds, so a sound saved with a longer time starts at the range end.
+
 ## 0.3.33
 
 - Envelope times reach 10 s instead of 2.38 s (attack, decay, release) and 1.41 s (delay, hold). Saved projects keep their times: the plugin state stores the plain seconds next to the normalised value and uses them whenever a range changed.

@@ -349,15 +349,15 @@ namespace vital {
   };
 
   const ValueDetails ValueDetailsLookup::env_parameter_list[] = {
-    { "delay", 0x000503, 0.0, 10.0, 0.0, 0.0, 1.0,
+    { "delay", 0x000503, 0.0, 1.4142135624, 0.0, 0.0, 1.0,
       ValueDetails::kQuartic, false, " secs", "Delay", nullptr },
-    { "attack", 0x000000, 0.0, 10.0, 0.1495, 0.0, 1.0,
+    { "attack", 0x000000, 0.0, 2.37842, 0.1495, 0.0, 1.0,
       ValueDetails::kQuartic, false, " secs", "Attack", nullptr },
-    { "hold", 0x000504, 0.0, 10.0, 0.0, 0.0, 1.0,
+    { "hold", 0x000504, 0.0, 1.4142135624, 0.0, 0.0, 1.0,
       ValueDetails::kQuartic, false, " secs", "Hold", nullptr },
-    { "decay", 0x000000, 0.0, 10.0, 1.0, 0.0, 1.0,
+    { "decay", 0x000000, 0.0, 2.37842, 1.0, 0.0, 1.0,
       ValueDetails::kQuartic, false, " secs", "Decay", nullptr },
-    { "release", 0x000000, 0.0, 10.0, 0.5476, 0.0, 1.0,
+    { "release", 0x000000, 0.0, 2.37842, 0.5476, 0.0, 1.0,
       ValueDetails::kQuartic, false, " secs", "Release", nullptr },
     { "attack_power", 0x000000, -20.0, 20.0, 0.0f, 0.0, 1.0,
       ValueDetails::kLinear, false, "", "Attack Power", nullptr },
