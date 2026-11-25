@@ -78,6 +78,18 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
     // Both directions are commands; release performs no parameter write.
     auto refresh=[this]{refreshLibrary();browserDisplayDirty_.store(true);};
     if(index==libraryLoad_){pendingPreset_.store(getInt(presetSelect_));for(int i=0;i<4;++i)publishNormalised(loadText_+i,.25f);requestService();browserDisplayDirty_.store(true);return true;}
+    if(index==libraryRandom_){
+        // One tap is one write with the value 1; the handle goes straight back to 0.
+        // Acting only on 1 means a host that also reports the release cannot start a
+        // second load from the same press.
+        if(plain<=0)return true;
+        publish(index,0);
+        if(libraryBanks_[0].files.empty()){
+            {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="No presets installed.";}
+            setLoadStatus(2);return true;
+        }
+        loadFileIndex(drawRandomFile());return true;
+    }
     if(index==libraryBank_||index==bankPrevious_||index==bankNext_){
         if(index!=libraryBank_)publish(libraryBank_,float(mpc::clamp(getInt(libraryBank_)+(index==bankNext_?1:-1),0,int(libraryBanks_.size())-1)));
         publish(libraryPage_,0);refresh();return true;
@@ -99,4 +111,26 @@ inline bool Vitaleon::formatLibrary(int index,std::string& out){
     if(index>=libraryLoadedText_&&index<libraryLoadedText_+2){std::lock_guard<std::mutex> lock(stateMutex_);out=textPart(loadedName_,index-libraryLoadedText_);return true;}
     if(index==libraryPageText_){out=std::to_string(filePrograms_.size())+" installed sounds";return true;}
     return false;
+}
+inline int Vitaleon::drawRandomFile(){
+    // The deck always covers every installed sound and not the bank that happens to be
+    // open: the bank selector follows browsing, so a bank-scoped deck would quietly
+    // narrow to one sound right after a bank preset was loaded. The deck is shuffled
+    // without putting cards back, so N sounds play once each before the next cycle;
+    // a plain random pick would repeat the same sound about every 32 presses with N = 32
+    // and show some duplicate among seven presses in half of the cases.
+    const auto& files=libraryBanks_[0].files;
+    if(files.empty())return 0;
+    long long stamp=0;for(int file:files)stamp+=file;
+    if(randomDeck_.size()!=files.size()||randomDeckStamp_!=stamp){
+        randomDeck_=files;
+        std::shuffle(randomDeck_.begin(),randomDeck_.end(),randomRng_);
+        randomDrawn_=0;randomDeckStamp_=stamp;
+        // The first card of a fresh cycle must not be the sound that is selected last,
+        // or a cycle boundary would look like a repeat.
+        if(randomDeck_.size()>1&&randomDeck_.front()==getInt(presetSelect_))std::swap(randomDeck_.front(),randomDeck_.back());
+    }
+    const int file=randomDeck_[randomDrawn_++];
+    if(randomDrawn_>=randomDeck_.size()){randomDeck_.clear();randomDrawn_=0;randomDeckStamp_=0;}
+    return file;
 }

@@ -12204,7 +12204,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "560 48 190 36"
+                                    "bounds": "560 48 104 36"
                                 }
                             },
                             {
@@ -12215,8 +12215,8 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-88748e7822d1f73d-on.png",
-                                        "offImage": "nav-88748e7822d1f73d-off.png",
+                                        "onImage": "nav-60844c6b27d6ccab-on.png",
+                                        "offImage": "nav-60844c6b27d6ccab-off.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",
@@ -12238,7 +12238,7 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "760 44 116 52"
+                                    "bounds": "672 44 120 52"
                                 }
                             },
                             {
@@ -12249,8 +12249,8 @@
                                     "type": "Button",
                                     "data": {
                                         "version": 2,
-                                        "onImage": "nav-341df2c0640d55c1-on.png",
-                                        "offImage": "nav-341df2c0640d55c1-off.png",
+                                        "onImage": "nav-248b8806e89e3f53-on.png",
+                                        "offImage": "nav-248b8806e89e3f53-off.png",
                                         "buttonId": 1,
                                         "numButtonsInGroup": 1,
                                         "handleName": "BoundhandleName",
@@ -12272,7 +12272,41 @@
                                     "showWhenDataModelInvalid": "Show",
                                     "whenVisible": "Always",
                                     "boundsType": "Absolute",
-                                    "bounds": "884 44 116 52"
+                                    "bounds": "800 44 120 52"
+                                }
+                            },
+                            {
+                                "version": 2,
+                                "componentData": {
+                                    "version": 1,
+                                    "name": "Random preset",
+                                    "type": "Button",
+                                    "data": {
+                                        "version": 2,
+                                        "onImage": "nav-dice-72x52.png",
+                                        "offImage": "nav-dice-72x52.png",
+                                        "buttonId": 1,
+                                        "numButtonsInGroup": 1,
+                                        "handleName": "BoundhandleName",
+                                        "gestureBehaviour": "Instant"
+                                    }
+                                },
+                                "handle remapping": {
+                                    "version": 1,
+                                    "map": [
+                                        {
+                                            "key": "BoundhandleName",
+                                            "value": "Parameter 1977"
+                                        }
+                                    ]
+                                },
+                                "bounds": {
+                                    "version": 1,
+                                    "acceptsHWFocus": "Yes",
+                                    "showWhenDataModelInvalid": "Show",
+                                    "whenVisible": "Always",
+                                    "boundsType": "Absolute",
+                                    "bounds": "928 44 72 52"
                                 }
                             },
                             {

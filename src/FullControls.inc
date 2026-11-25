@@ -80,6 +80,10 @@ inline void Vitaleon::createControls(){
     if(assets_[0].size()<=1)addProgram("Init",initValues_);
     createFilePrograms();
     createStorage();createTables();createNavigation();createTableStep();createGroupSections();
+    // Appended after every other parameter (BUILDING.md: new parameters go last), so
+    // no existing index moves. The LIBRARY page binds it by name to its dice button;
+    // one tap deals the next sound of the random deck.
+    {auto p=mpc::boolParam("library_random","Random Preset",false);p.automatable=false;libraryRandom_=addParam(p);}
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){

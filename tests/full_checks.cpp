@@ -37,6 +37,15 @@ void* operator new(size_t n){if(audit)++allocations;if(void* p=std::malloc(n?n:1
 void* operator new[](size_t n){return ::operator new(n);}
 void operator delete(void* p)noexcept{std::free(p);}void operator delete[](void* p)noexcept{std::free(p);}
 void operator delete(void* p,size_t)noexcept{std::free(p);}void operator delete[](void* p,size_t)noexcept{std::free(p);}
+// The skin nests its pages inside containers, so a component is looked up by
+// walking the whole document instead of one level of the tab list.
+static bool skinHasComponent(const nlohmann::json& node,const std::string& name){
+  if(node.is_object()){auto it=node.find("name");if(it!=node.end()&&it->is_string()&&*it==name)return true;
+    for(auto member=node.begin();member!=node.end();++member)if(skinHasComponent(member.value(),name))return true;
+    return false;}
+  if(node.is_array()){for(const auto& item:node)if(skinHasComponent(item,name))return true;}
+  return false;
+}
 int main(int argc,char** argv){
  if(argc>1&&std::string(argv[1])=="--native-bank"){
   AEffect* e=VSTPluginMain(displayHost);auto* p=static_cast<Vitaleon*>(e->object);
@@ -72,6 +81,10 @@ int main(int argc,char** argv){
   int cutoff=p->controlIndex("filter_1_cutoff");float before=p->get(cutoff);p->set(cutoff,before==20?30.0f:20.0f);d(effSetProgram,0,0);wait();
   int loaded=-1;for(int i=0;i<p->numParams();++i)if(p->param(i).id=="library_loaded_0")loaded=i;
   check(p->get(cutoff)==before&&p->displayText(loaded)=="Init"&&energy()>1e-6,"selecting Init resets the controls and still plays");
+  // Random preset with nothing installed: say so instead of loading the empty slot.
+  int randomButton=-1,statusIndex=-1;for(int i=0;i<p->numParams();++i){if(p->param(i).id=="library_random")randomButton=i;if(p->param(i).id=="load_status")statusIndex=i;}
+  if(randomButton>=0)p->set(randomButton,1);wait();
+  check(randomButton>=0&&statusIndex>=0&&p->getInt(statusIndex)==2&&p->displayText(loaded)=="Init","random preset without installed sounds reports instead of loading");
   d(effMainsChanged,0,0);d(effClose);return failures?1:0;
  }
  {
@@ -237,7 +250,20 @@ int main(int argc,char** argv){
   synth->set(synth->controlIndex("filter_1_cutoff"),23);tap("library_load");settle();check(synth->get(synth->controlIndex("filter_1_cutoff"))==77,"LOAD reloads same preset after edits");
   auto beforeBlank=synth->getInt(selector);tap("library_row_5");check(synth->getInt(selector)==beforeBlank,"empty row cannot select or load another sound");
   if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<synth->numParams();++i)values.push_back({{"id",synth->param(i).id},{"name",synth->param(i).name},{"index",i},{"value",synth->getNormalised(i)},{"display",synth->displayText(i)}});std::ofstream file(std::string(argv[2])+"-library.json");file<<values.dump(2);}
-  auto loadedState=synth->internalSaveState();synth->testInit();settle();check(synth->internalLoadState(loadedState.data(),loadedState.size()),"imported state accepted");settle();check(synth->displayText(id("library_loaded_0"))=="02 Bank Test"&&synth->get(synth->controlIndex("filter_1_cutoff"))==77,"loaded filename and sound survive project restore");
+  auto loadedState=synth->internalSaveState();synth->testInit();settle();check(synth->internalLoadState(loadedState.data(),loadedState.size()),"imported state accepted");settle();  check(synth->displayText(id("library_loaded_0"))=="02 Bank Test"&&synth->get(synth->controlIndex("filter_1_cutoff"))==77,"loaded filename and sound survive project restore");
+  // Random preset (0.3.35): the deck deals every installed sound once per cycle, so a
+  // bank of N cannot repeat a preset until the other N-1 have played.
+  synth->testSeedRandom(7);
+  const int randomButton=id("library_random"),installed=int(synth->param(selector).max);
+  auto pressRandom=[&]{synth->set(randomButton,1);settle();synth->set(randomButton,0);settle();};
+  std::vector<int> dealt;
+  for(int n=0;n<installed;++n){pressRandom();dealt.push_back(synth->getInt(selector));}
+  int duplicates=0,smallest=installed+1;
+  for(size_t a=0;a<dealt.size();++a){smallest=std::min(smallest,dealt[a]);for(size_t b=a+1;b<dealt.size();++b)if(dealt[a]==dealt[b])++duplicates;}
+  check(installed>2&&int(dealt.size())==installed&&!duplicates&&smallest>0&&!synth->busy(),"random preset deals every installed sound once per cycle");
+  const int lastDealt=dealt.back();std::vector<int> again;
+  for(int n=0;n<2;++n){pressRandom();again.push_back(synth->getInt(selector));}
+  check(again[0]!=lastDealt&&again[1]!=again[0],"random preset never repeats across the cycle boundary");
  }
  if(argc>4){
   nlohmann::json skin;std::ifstream input(argv[4]);input>>skin;
@@ -248,6 +274,7 @@ int main(int argc,char** argv){
     browserCommands|=name=="SELECT"||name=="LOAD";
    }
   check(!browserCommands,"failed custom SELECT/LOAD browser is absent from the shipped skin");
+  check(skinHasComponent(skin,"Random preset"),"the shipped skin carries the LIBRARY page's random preset button");
  }
  // Verify audible filter action, rather than checking only the displayed value.
  // Both HOME and FILTER 1 use the same parameter handles.
@@ -433,12 +460,14 @@ int main(int argc,char** argv){
   // page index space of every view (0..39) the four OSC buttons wrote step 13 and
   // every OSC page, and every Q-Link slot on it, edited oscillator 1.
   {const int g1=id("ui_gpage_1");check(native->param(g1).max==3,"the OSC strip has one step per page");
-   effect->setParameter(effect,g1,1.0f/3.0f);native->set(id("ui_section"),1);waitNative();
+   effect->setParameter(effect,g1,1.0f/3.0f);native->set(id("ui_section"),0);waitNative();
    check(native->getInt(g1)==1&&native->getInt(id("ui_page"))==5,"pressing OSC 2 opens the Oscillator 2 page");
-   native->setNormalised(id("ui_g1_slot_0"),.3f);
+   // Phase moved to slot 5 of the SOUND section in 0.3.34, so the per-oscillator
+   // phase knob is checked there rather than at PHASE slot 0.
+   native->setNormalised(id("ui_g1_slot_5"),.3f);
    check(std::abs(native->getNormalised(native->controlIndex("osc_2_phase"))-.3f)<1e-5,"the phase knob on OSC 2 edits oscillator 2, not oscillator 1");
-   effect->setParameter(effect,g1,0.0f);native->set(id("ui_section"),1);waitNative();
-   native->setNormalised(id("ui_g1_slot_0"),.7f);
+   effect->setParameter(effect,g1,0.0f);native->set(id("ui_section"),0);waitNative();
+   native->setNormalised(id("ui_g1_slot_5"),.7f);
    check(std::abs(native->getNormalised(native->controlIndex("osc_1_phase"))-.7f)<1e-5,"the same phase knob follows the selected oscillator");}
   // The Force tab bar writes no page, so the plugin can still believe HOME (three
   // sections) while OSC 1 is on screen. Each group's strip writes its own 8-step

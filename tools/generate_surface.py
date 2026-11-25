@@ -538,6 +538,27 @@ def nav_button(text,x,y,w,h,param,value=1,count=1,color='osc',focus=True,steady=
     # looked switched on, then disabled). Both states now use the same neutral image.
     data={'version':2,'onImage':f'nav-{key}-{"off" if steady else "on"}.png','offImage':f'nav-{key}-off.png','buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return ent(text[0] if isinstance(text,tuple) else text,'Button',data,(x,y,w,h),focus)
+def dice_image(w,h):
+    # The random command is the only LIBRARY button that reads better as a glyph than
+    # as a word: a die with pips, same frame and colours as every nav button.
+    name=f'nav-dice-{w}x{h}.png'
+    if not (skin/name).exists():
+        image=Image.new('RGBA',(w,h),'#222531');d=ImageDraw.Draw(image)
+        d.rectangle((0,0,w-1,h-1),outline='#'+LINE[2:],width=1)
+        size=min(w,h)-18;x=(w-size)//2;y=(h-size)//2
+        d.rounded_rectangle((x,y,x+size-1,y+size-1),radius=max(4,size//6),outline='#edf0f7',width=2)
+        r=max(2,size//12);off=size//4
+        for dx,dy in [(-off,-off),(off,-off),(0,0),(-off,off),(off,off)]:
+            cx=x+size//2+dx;cy=y+size//2+dy
+            d.ellipse((cx-r,cy-r,cx+r,cy+r),fill='#edf0f7')
+        image.save(skin/name)
+    return name
+def dice_button(text,x,y,w,h,param,value=1,count=1):
+    # Same momentary behaviour as nav_button's steady form: both images are the
+    # neutral one, so a command never looks like a switch that stays on.
+    image=dice_image(w,h)
+    data={'version':2,'onImage':image,'offImage':image,'buttonId':value,'numButtonsInGroup':count,'handleName':handle(param),'gestureBehaviour':'Instant'}
+    return ent(text,'Button',data,(x,y,w,h),True)
 
 # The loaded row reads as the active tab: a frame bound to the row's own state
 # readout (0 empty, 0.5 other, 1 current), so nothing has to be duplicated in the
@@ -597,8 +618,13 @@ def add_library(c):
     # of storage_available_N). REFRESH is gone: DRIVES rescans.
     c.append(label('Directory',(24,76,700,26),MUTED,18,value='storage_path_0'))
     for n,(caption,param,w) in enumerate([('DRIVES','Drives',150),('UP','Up Folder',150),('INSTALLED','Installed Banks',190)]):c.append(nav_button(caption,[24,182,340][n],108,w,52,param))
-    c.append(label('Page',(560,112,190,36),MUTED,22,value='storage_page'))
-    c.append(nav_button('PREV',760,108,116,52,'Previous Files'));c.append(nav_button('NEXT',884,108,116,52,'Next Files'))
+    c.append(label('Page',(560,112,104,36),MUTED,22,value='storage_page'))
+    c.append(nav_button('PREV',672,108,120,52,'Previous Files'));c.append(nav_button('NEXT',800,108,120,52,'Next Files'))
+    # Random preset: the dice deals the next sound of the deck (no repeats until every
+    # installed sound has played once). It sits last in the command row, where a tap
+    # cannot land on a drive or a bank by accident. 72 px wide: check_surface requires
+    # at least 64 x 52 for a button.
+    c.append(dice_button('Random preset',928,108,72,52,'Random Preset'))
     row_w=full(976);action_x=full(840)
     for row in range(6):
         y=174+row*54;available=handle(f'storage_available_{row}')

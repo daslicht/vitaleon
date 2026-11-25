@@ -11460,40 +11460,40 @@
   "value": 0.7071067690849304
  },
  {
-  "display": "1.00",
+  "display": "0.50",
   "index": 1910,
   "name": "Group 1 Slot 3",
+  "value": 0.5
+ },
+ {
+  "display": "0.50",
+  "index": 1911,
+  "name": "Group 1 Slot 4",
+  "value": 0.5
+ },
+ {
+  "display": "0.50",
+  "index": 1912,
+  "name": "Group 1 Slot 5",
+  "value": 0.5
+ },
+ {
+  "display": "0.50",
+  "index": 1913,
+  "name": "Group 1 Slot 6",
+  "value": 0.5
+ },
+ {
+  "display": "1.00",
+  "index": 1914,
+  "name": "Group 1 Slot 7",
   "value": 1.0
  },
  {
-  "display": "0.00",
-  "index": 1911,
-  "name": "Group 1 Slot 4",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1912,
-  "name": "Group 1 Slot 5",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1913,
-  "name": "Group 1 Slot 6",
-  "value": 0.0
- },
- {
-  "display": "0.00",
-  "index": 1914,
-  "name": "Group 1 Slot 7",
-  "value": 0.0
- },
- {
-  "display": "0.00",
+  "display": "1.00",
   "index": 1915,
   "name": "Group 1 Slot 8",
-  "value": 0.0
+  "value": 1.0
  },
  {
   "display": "0.00",
@@ -11859,6 +11859,12 @@
   "display": "0",
   "index": 1976,
   "name": "Group 6 Section",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 1977,
+  "name": "Random Preset",
   "value": 0.0
  }
 ]

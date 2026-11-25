@@ -471,16 +471,22 @@ inline void Vitaleon::stateRestored(uint32_t count,bool){
 }
 inline void Vitaleon::programSelected(int index){
     if(index>=factoryProgramCount_&&index<factoryProgramCount_+int(filePrograms_.size())){
-        int file=filePrograms_[index-factoryProgramCount_];
-        {std::lock_guard<std::mutex> state(stateMutex_);stagedState_=Json();}
-        publishList(presetSelect_,float(file));
-        for(int bank=1;bank<int(libraryBanks_.size());++bank)if(libraryBanks_[bank].name==assets_[0][file].bank){publish(libraryBank_,float(bank));break;}
-        publish(libraryPage_,0);refreshLibrary();
-        pendingPreset_.store(file);
-        requestService();browserDisplayDirty_.store(true);
+        loadFileIndex(filePrograms_[index-factoryProgramCount_]);
         return;
     }
     selectInit();
+}
+// One place loads an installed sound by its asset index: the host's PRESET list and
+// the library's own commands (LOAD, the random dice) all end up here, so browsing,
+// the status line and the project state behave the same whichever started it.
+inline void Vitaleon::loadFileIndex(int file){
+    if(file<=0||file>=int(assets_[0].size()))return;
+    {std::lock_guard<std::mutex> state(stateMutex_);stagedState_=Json();}
+    publishList(presetSelect_,float(file));
+    for(int bank=1;bank<int(libraryBanks_.size());++bank)if(libraryBanks_[bank].name==assets_[0][file].bank){publish(libraryBank_,float(bank));break;}
+    publish(libraryPage_,0);refreshLibrary();
+    pendingPreset_.store(file);
+    requestService();browserDisplayDirty_.store(true);
 }
 // Every control already holds its Init value; reset tables, sample and curves.
 inline void Vitaleon::selectInit(){

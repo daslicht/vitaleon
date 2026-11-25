@@ -19,6 +19,7 @@
 #include <fstream>
 #include <set>
 #include <deque>
+#include <random>
 #include <condition_variable>
 #ifdef __linux__
 #include <semaphore.h>
@@ -63,6 +64,9 @@ public:
     int testTableCursor()const{return tableCursor_;}
     // The Init sound (every control at its default), as the "Init" program selects it.
     void testInit(){beginStateTransaction(true);for(size_t k=0;k<initValues_.size();++k)restoreParameter(int(k),param(int(k)).toNormalised(initValues_[k]));selectInit();endStateTransaction(true);reset();}
+    // Deterministic deck order for tests/full_checks.cpp; the dice itself seeds from
+    // std::random_device once per instance.
+    void testSeedRandom(uint32_t seed){randomRng_.seed(seed);randomDeck_.clear();randomDeckStamp_=0;randomDrawn_=0;}
     // Engine checks start from the Init state instead of the first installed sound.
     void testNoStartSound(){startSound_.store(false);}
     bool testEngineSwitch(const std::string& key)const{for(const auto& b:bindings_)if(b.key==key)return b.value->value()!=0;return false;}
@@ -172,6 +176,13 @@ private:
     int libraryBank_=-1,libraryPage_=-1,libraryLoad_=-1,libraryPrevious_=-1,libraryNext_=-1,bankPrevious_=-1,bankNext_=-1;
     int libraryRows_=-1,libraryNames_=-1,libraryBankText_=-1,librarySelectedText_=-1,libraryLoadedText_=-1,libraryPageText_=-1;
     std::atomic<int> pendingPreset_{-1};
+    // Random preset (0.3.35): a shuffled deck of the current bank's files. Drawing
+    // without putting back means every installed sound plays once before any of them
+    // can repeat, and a bank of N cannot show the same preset twice in a row. The
+    // parameter lives at the very end of the list so no existing index moves.
+    int libraryRandom_=-1;
+    std::vector<int> randomDeck_;long long randomDeckStamp_=0;size_t randomDrawn_=0;
+    std::mt19937 randomRng_{std::random_device{}()};
     // UI caches must be refreshed explicitly after browser/state changes.
     // The service thread delivers host callbacks outside the engine locks.
     std::atomic<bool> browserDisplayDirty_{false};
@@ -335,6 +346,8 @@ private:
     bool formatLibrary(int index,std::string& out);
     int libraryFile(int row)const;
     int libraryPageCount()const;
+    void loadFileIndex(int file);
+    int drawRandomFile();
     static std::string textPart(const std::string& text,int part);
     void publishLoadedName();
     void loadSelections();
