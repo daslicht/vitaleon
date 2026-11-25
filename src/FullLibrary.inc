@@ -122,7 +122,16 @@ inline void Vitaleon::refreshLibrary(){
     if(libraryRows_<0)return;
     // The filtered list is the heart set seen through the installed files; rebuilding it
     // here keeps it right after a heart tap, a MIDI toggle or a fresh file read.
-    if(favouritesFiltered())rebuildFavouritesFiles();
+    const bool filtered=favouritesFiltered();
+    if(filtered)rebuildFavouritesFiles();
+    // The favourites view is a list like the wavetable picker: the cursor owns the page, so
+    // the wheel can neither leave the highlight behind nor scroll past the last entry.
+    const int favourites=int(favouriteCount());
+    favouriteCursor_=mpc::clamp(favouriteCursor_,0,std::max(0,favourites-1));
+    if(filtered){
+        if(libraryFavouriteStep_>=0)publish(libraryFavouriteStep_,float(favouriteCursor_));
+        publish(libraryPage_,float(favouriteCursor_/6));
+    }
     publish(libraryPage_,float(mpc::clamp(getInt(libraryPage_),0,libraryPageCount()-1)));
     for(int row=0;row<6;++row){int file=libraryFile(row);publish(libraryRows_+row,file&&file==getInt(presetSelect_)?1:0);
         if(libraryFavouriteRow_>=0){
@@ -132,11 +141,25 @@ inline void Vitaleon::refreshLibrary(){
             publish(libraryFavouriteRow_+row,0);
             if(libraryFavouriteState_>=0)publishNormalised(libraryFavouriteState_+row,heart);
         }
+        if(filtered&&libraryFavouriteRowState_>=0){
+            // Row frame: 0 empty, 0.5 a favourite, 1 the row the wheel points at.
+            const int at=mpc::clamp(getInt(libraryPage_),0,libraryPageCount()-1)*6+row;
+            publishNormalised(libraryFavouriteRowState_+row,file?(at==favouriteCursor_?1.f:.5f):0.f);
+        }
         float marker=float(file)/4096;for(int part=0;part<2;++part)publishNormalised(libraryNames_+row*2+part,marker);}
     float selected=float(getInt(presetSelect_))/4096,bank=float(getInt(libraryBank_))/4096;
     for(int i=0;i<2;++i){publishNormalised(librarySelectedText_+i,selected);publishNormalised(libraryBankText_+i,bank);}
     if(libraryLoadedFavourite_>=0){std::string loaded;{std::lock_guard<std::mutex> lock(stateMutex_);loaded=selectedAsset_.label;}
         publishNormalised(libraryLoadedFavourite_,isFavourite(loaded)?1.f:0.f);}
+    if(filtered&&storageRows_>=0){
+        // The LIBRARY rows draw the favourites list while the view is on, so the browser
+        // readouts carry its names and LOAD buttons. A fresh marker in every readout makes
+        // the host ask for the text again (the same trick publishBrowser() uses).
+        static std::atomic<unsigned> serial{0};
+        const float marker=float((++serial)%16000000)/16000000;
+        for(int p=storageRows_;p<numParams()&&p<=activeBankText_+1;++p)publishNormalised(p,marker);
+        for(int row=0;row<6;++row)publishNormalised(storageAvailable_+row,libraryFile(row)?2.f:0.f);
+    }
     publishNormalised(libraryPageText_,float(getInt(libraryBank_)*683+getInt(libraryPage_))/2800000);
 }
 inline void Vitaleon::publishLoadedName(){
@@ -225,6 +248,18 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
     // it needlessly relies on the host preserving both edges of one gesture.
     // Both directions are commands; release performs no parameter write.
     auto refresh=[this]{refreshLibrary();browserDisplayDirty_.store(true);};
+    if(index==libraryFavouriteStep_){
+        // The wheel of the favourites list moves the cursor and the page follows it. While
+        // the view is off the same cell pages the drive browser, so the control is never
+        // a dead knob between the two modes.
+        if(favouritesFiltered()){
+            favouriteCursor_=mpc::clamp(getInt(index),0,std::max(0,int(favouriteCount())-1));
+            refresh();return true;
+        }
+        std::lock_guard<std::mutex> lock(browserMutex_);
+        browser_.page=mpc::clamp(getInt(index),0,std::max(1,(int(browser_.entries.size())+5)/6)-1);
+        publishBrowser();return true;
+    }
     if(index==libraryLoad_){pendingPreset_.store(getInt(presetSelect_));for(int i=0;i<4;++i)publishNormalised(loadText_+i,.25f);requestService();browserDisplayDirty_.store(true);return true;}
     if(index==libraryRandomLearn_){
         // One-shot like the dice. Arming clears the old note, so LEARN twice always
@@ -264,7 +299,7 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
     if(index==libraryFavouritesOnly_){
         // A view, not a bank: the LIST is filtered to hearted presets and returns to its
         // first page, so the first favourite is always the first row.
-        rebuildFavouritesFiles();publish(libraryPage_,0);
+        rebuildFavouritesFiles();favouriteCursor_=0;publish(libraryPage_,0);
         {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=plain>0.5f?"Favourites only.":"Back to every preset of this bank.";}
         setLoadStatus(0);refresh();return true;
     }
@@ -303,10 +338,11 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         if(index!=libraryBank_)publish(libraryBank_,float(mpc::clamp(getInt(libraryBank_)+(index==bankNext_?1:-1),0,int(libraryBanks_.size())-1)));
         publish(libraryPage_,0);refresh();return true;
     }
-    if(index==libraryPage_||index==libraryPrevious_||index==libraryNext_){
+        if(index==libraryPage_||index==libraryPrevious_||index==libraryNext_){
         if(index!=libraryPage_)publish(libraryPage_,float(mpc::clamp(getInt(libraryPage_)+(index==libraryNext_?1:-1),0,libraryPageCount()-1)));
-        refresh();return true;
-    }
+        // PREV/NEXT move the cursor with the page, so the highlight never stays behind.
+        if(favouritesFiltered())favouriteCursor_=mpc::clamp(getInt(libraryPage_)*6,0,std::max(0,int(favouriteCount())-1));
+        refresh();return true;}
     if(index>=libraryRows_&&index<libraryRows_+6){int file=libraryFile(index-libraryRows_);if(file)publishList(presetSelect_,float(file));refresh();return true;}
     if(index==presetSelect_){refresh();return true;} // browsing never changes sound
     return false;
@@ -320,6 +356,13 @@ inline bool Vitaleon::formatLibrary(int index,std::string& out){
     if(index>=librarySelectedText_&&index<librarySelectedText_+2){int file=mpc::clamp(getInt(presetSelect_),0,int(assets_[0].size())-1);out=textPart(file?assets_[0][file].name:"Select a sound in the list",index-librarySelectedText_);return true;}
     if(index>=libraryLoadedText_&&index<libraryLoadedText_+2){std::lock_guard<std::mutex> lock(stateMutex_);out=textPart(loadedName_,index-libraryLoadedText_);return true;}
     if(index==libraryPageText_){out=filtered?std::to_string(favouriteCount())+" favourites":std::to_string(filePrograms_.size())+" installed sounds";return true;}
+    if(libraryFavouriteStep_>=0&&index==libraryFavouriteStep_){
+        // The same cell pages the drive browser while the view is off, so it never looks
+        // dead; with the view on it is the position in the favourites list.
+        if(filtered){const int count=int(favouriteCount());out=(count?std::to_string(mpc::clamp(favouriteCursor_,0,count-1)+1):std::string("0"))+"/"+std::to_string(count);return true;}
+        std::lock_guard<std::mutex> lock(browserMutex_);
+        out=std::to_string(browser_.page+1)+"/"+std::to_string(std::max(1,(int(browser_.entries.size())+5)/6));return true;
+    }
     if(index==libraryRandomNote_){
         if(randomLearnArmed_.load())out="MIDI learn: play a note";
         else{const int note=getInt(index);out=note<0?"MIDI off":"MIDI "+std::to_string(note);}

@@ -366,6 +366,31 @@ int main(int argc,char** argv){
    std::remove(favouritesFile.c_str());synth->testReloadFavourites();settle();
    check(heart(0)==0,"the checks leave no favourites behind");
   }
+  // Favourites list (0.3.39, user request): the FAVS view works like the wavetable picker.
+  // The wheel moves a cursor, the page follows it, the row frame marks it, the rows name
+  // the favourites (not the drive browser) and a row tap loads the sound it shows.
+  {
+   const int favsOnly=id("library_favourites_only"),favStep=id("library_favourite_step"),page=id("library_page");
+   std::remove(synth->testFavouritesPath().c_str());synth->testReloadFavourites();settle();
+   // Seven hearts spread over two pages of the bank list.
+   for(int at=0;at<7;++at){synth->set(page,at/6);settle();synth->set(id("library_favourite_row_"+std::to_string(at%6)),1);settle();}
+   synth->set(favsOnly,1);settle();
+   check(synth->getInt(page)==0&&synth->displayText(id("library_page_text"))=="7 favourites","the favourites view starts on its first page and counts seven");
+   check(synth->displayText(id("storage_row_0"))==">"&&synth->displayText(id("storage_row_2"))=="FAV","the FAVS rows are the favourites list, marked at the cursor");
+   const std::string first=synth->displayText(id("library_name_0")),head=first.substr(0,std::min<size_t>(10,first.size()));
+   check(!head.empty()&&synth->displayText(id("storage_row_1")).compare(0,head.size(),head)==0,"the FAVS row shows the favourite's name");
+   synth->set(favStep,6);settle();
+   check(synth->getInt(page)==1,"the page follows the favourite cursor");
+   check(synth->getNormalised(id("library_favourite_row_state_0"))>0.9f&&synth->getNormalised(id("library_favourite_row_state_1"))<0.75f,"the row frame marks only the cursor row");
+   check(synth->displayText(favStep)=="7/7","the wheel shows the position in the favourites list");
+   const std::string seventh=synth->displayText(id("library_name_0"));
+   synth->set(id("storage_command_6"),1);settle();
+   check(!seventh.empty()&&synth->displayText(id("library_selected_0"))==seventh,"a row tap loads the favourite the cursor shows");
+   synth->set(id("library_favourite_row_0"),1);settle();
+   check(synth->displayText(id("library_page_text"))=="6 favourites"&&synth->getInt(page)==0,"removing the last heart of a page follows the shorter list");
+   synth->set(favsOnly,0);settle();
+   std::remove(synth->testFavouritesPath().c_str());synth->testReloadFavourites();settle();synth->set(favStep,0);settle();
+  }
   ctx.midi=notes.data();ctx.numMidiEvents=0;
  }
  if(argc>4){
@@ -379,6 +404,8 @@ int main(int argc,char** argv){
   check(!browserCommands,"failed custom SELECT/LOAD browser is absent from the shipped skin");
   check(skinHasComponent(skin,"Random preset"),"the shipped skin carries the LIBRARY page's random preset button");
   check(skinHasComponent(skin,"Favourite row 1")&&skinHasComponent(skin,"Favourite row 6"),"the shipped skin carries a heart on every LIBRARY row");
+  check(skinHasComponent(skin,"Page cursor"),"the shipped skin carries the favourites wheel in the LIBRARY command row");
+  check(skinHasComponent(skin,"Favourite row frame 1")&&skinHasComponent(skin,"Favourite row frame 6"),"the shipped skin carries a frame on every LIBRARY row");
   check(skinHasComponent(skin,"FAV")&&skinHasComponent(skin,"Favourite MIDI"),"the shipped skin carries the favourite learn button and its label");
  }
  // Verify audible filter action, rather than checking only the displayed value.

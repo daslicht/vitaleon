@@ -178,6 +178,9 @@ assert len(GRAPH)==4,GRAPH
 # number: a second copy here would silently offset every page after the first.
 TABLE_ROWS=int(re.search(r'kTableRows=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
 TABLE_STEPS=int(re.search(r'kTableSteps=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
+# The favourites list's wheel is a step handle like the table cursor: the plugin owns the
+# cursor, the skin only needs the same number of steps so one click is one favourite.
+FAVOURITE_STEPS=int(re.search(r'kFavouriteSteps=(\d+)',(project/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
 # The oscillator's start phase as a guide line over its waveform (user request):
 # one filmstrip frame per wave column, the host picks the frame from osc_N_phase.
 # A plain Image cannot move with a value, and a second control beside the graph
@@ -485,6 +488,14 @@ definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition(
     ent('value','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},
         (TABLE_VALUE_X,TABLE_VALUE_Y,TABLE_VALUE,TABLE_VALUE)),
 ],'00000000'))))
+# 0.3.39 (user request): the favourites list works like the wavetable list. Its wheel sits
+# where the LIBRARY page used to print the page number: a value tile that takes hardware
+# focus and writes the discrete step handle, so one click is one favourite and the page
+# follows the highlighted row. While the view is off the same cell pages the drive browser.
+definitions.append(g.obj(('key','library-page'),('value',g.component_definition([],[
+    g.entry('focus','Focus',g.focus_data(COLORS['env']),'0 0 64 52','No','Show','WhenFocussed'),
+    ent('value','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},(0,0,64,52)),
+],'00000000'))))
 # The wave frame cell is narrower than a slot (the table knob shares the row), so
 # its own definition trims the readout box instead of letting it run into the
 # neighbouring cell, which the touch check reads as a label/control collision.
@@ -615,6 +626,16 @@ def heart_button(text,x,y,w,h,param,state):
     data={'version':2,'onImage':heart_image(w,h,True),'offImage':table_row_blank(w,h),'buttonId':1,'numButtonsInGroup':1,'handleName':handle(param),'gestureBehaviour':'Instant'}
     return [ent(text+' heart','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':heart_frames(w,h),'numFrames':2,'handleName':handle(state),'animated':False},(x,y,w,h)),
             ent(text,'Button',data,(x,y,w,h),True)]
+def library_row_frame(w,h):
+    # Three frames like the table rows: 0 empty, 1 a favourite, 2 the row the wheel points
+    # at. The plugin publishes the state readout, so nothing about the marker is host state.
+    name=f'fav-row-{w}x{h}{DEF_SUFFIX}.png'
+    if not (skin/name).exists():
+        rgb=tuple(bytes.fromhex(COLORS['env'][2:]))
+        image=Image.new('RGBA',(w,h*3),(0,0,0,0));d=ImageDraw.Draw(image)
+        d.rounded_rectangle((1,2*h+1,w-2,3*h-2),radius=10,outline=rgb+(215,),width=2,fill=rgb+(22,))
+        image.save(skin/name)
+    return name
 
 # The loaded row reads as the active tab: a frame bound to the row's own state
 # readout (0 empty, 0.5 other, 1 current), so nothing has to be duplicated in the
@@ -680,7 +701,10 @@ def add_library(c):
     for n,(caption,param,w) in enumerate([('DRIVES','Drives',120),('UP','Up Folder',120),('INSTALLED','Installed Banks',150)]):c.append(nav_button(caption,[24,152,280][n],108,w,52,param))
     # Two learns and the favourites view share the end of the command row, so the row is
     # tighter than it was: still every button over the 64 x 52 minimum, right edge 990.
-    c.append(label('Page',(438,112,60,36),MUTED,22,value='storage_page'))
+    # The page text became the favourites wheel (0.3.39, user request): with the view off it
+    # pages the drive browser, with the view on it scrolls the favourites and the page
+    # follows. PREV/NEXT stay for the browser and move the cursor with the page.
+    c.append(ent('Page cursor','library-page',{'version':1,'handleName':'Data'},(438,110,64,52),True,remap=[('Data','WithName[Favourite Step]/'+handle('Favourite Step'))]))
     c.append(nav_button('PREV',506,108,90,52,'Previous Files'));c.append(nav_button('NEXT',604,108,90,52,'Next Files'))
     # Random preset: the dice deals the next sound of the deck (no repeats until every
     # installed sound has played once). It sits last in the command row, where a tap
@@ -704,6 +728,8 @@ def add_library(c):
     step=(status_y-4-174)//6;row_h=step-2
     for row in range(6):
         y=174+row*step;by=y+(row_h-52)//2;available=handle(f'storage_available_{row}')
+        # The favourites frame lies under the row text and takes no touch.
+        c.append(ent(f'Favourite row frame {row+1}','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':library_row_frame(row_w,row_h+1),'numFrames':3,'handleName':handle(f'library_favourite_row_state_{row}'),'animated':False},(24,y-1,row_w,row_h+1)))
         c.append(rect('file separator',(24,y+row_h+1,row_w,1),LINE))
         c.append(label('File kind',(24,by+9,96,30),MUTED,18,value=f'storage_row_{row*2}'))
         c.append(label('File name',(124,by+4,heart_x-132,44),TEXT,24,value=f'storage_row_{row*2+1}'))
@@ -1041,6 +1067,7 @@ replacements=[{'key':'Parameter '+str(p['index']),'value':p['choices']} for p in
 # The table cursor's steps: synthetic numbers, not content names. They make the host
 # treat the handle as kTableSteps discrete choices instead of a 0..1 float.
 replacements.append({'key':'Parameter '+str(index('Table Step')),'value':[str(n) for n in range(1,TABLE_STEPS+1)]})
+replacements.append({'key':'Parameter '+str(index('Favourite Step')),'value':[str(n) for n in range(1,FAVOURITE_STEPS+1)]})
 tui={'pageData':{'version':1,'componentDefinitions':{'version':2,'importFiles':[],'localComponentDefinitions':definitions},'replacementStrings':replacements,'info':{'version':1,'type':'CompleteDescription'},'tabs':tabs}}
 qlinks={'version':4,'info':{'version':1,'type':'CompleteDescription'},'Screen Mode Q-Links':{'version':4,'map':maps},'Program Mode Q-Links':{f'Q-Link {i+1}':index(n) for i,n in enumerate(['macro_control_1','macro_control_2','macro_control_3','macro_control_4','filter_1_cutoff','filter_1_resonance','filter_2_cutoff','filter_2_resonance','Env attack','Env decay','Env sustain','Env release','volume','Voices','osc_1_wave_frame','osc_1_unison_voices'])}}
 for state in ['off','on']:

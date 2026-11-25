@@ -41,7 +41,21 @@ inline bool Vitaleon::storageChanged(int index){
     // shows it unlit: on the Live II the buttons used to stay lit after a tap and
     // looked like selections (user report, 0.3.18).
     publish(index,0);
-    std::lock_guard<std::mutex> lock(browserMutex_);int cmd=index-storageCommands_;
+    int cmd=index-storageCommands_;
+    if(cmd>=6&&favouritesFiltered()){
+        // The FAVS view draws its own list in these rows, so a row tap loads the favourite
+        // it shows instead of opening a browser entry. Same path as the LOAD button.
+        std::vector<int> files;{std::lock_guard<std::mutex> lock(favouritesMutex_);files=favouritesFiles_;}
+        const int pages=std::max(1,(int(files.size())+5)/6),at=mpc::clamp(getInt(libraryPage_),0,pages-1)*6+cmd-6;
+        if(at<int(files.size())){
+            const int file=files[size_t(at)];
+            favouriteCursor_=at;publishList(presetSelect_,float(file));
+            pendingPreset_.store(file);for(int i=0;i<4;++i)publishNormalised(loadText_+i,.25f);
+            requestService();refreshLibrary();browserDisplayDirty_.store(true);
+        }
+        return true;
+    }
+    std::lock_guard<std::mutex> lock(browserMutex_);
     BrowserJob job{cmd,browser_.path,browser_.root};
     if(cmd>=6){size_t row=size_t(browser_.page*6+cmd-6);if(row>=browser_.entries.size())return true;auto entry=browser_.entries[row];job.path=entry.path;if(browser_.path.empty())job.root=entry.path;job.command=entry.directory?12:13;
         if(entry.program>=0){job.command=15;job.program=entry.program;}
@@ -53,7 +67,8 @@ inline void Vitaleon::publishBrowser(){
     static std::atomic<unsigned> serial{0};float marker=float((++serial)%16000000)/16000000;
     for(int p=storageRows_;p<numParams()&&p<=activeBankText_+1;++p)publishNormalised(p,marker);
     // Three states per row: 0 empty, 1 OPEN (drive, folder, bank), 2 LOAD (sound).
-    for(int row=0;row<6;++row){const int n=browser_.page*6+row;float state=0;
+    // While the favourites view is on its own list owns these rows (refreshLibrary).
+    if(!favouritesFiltered())for(int row=0;row<6;++row){const int n=browser_.page*6+row;float state=0;
         if(n<int(browser_.entries.size()))state=browser_.entries[size_t(n)].sound?1.0f:0.5f;
         publishNormalised(storageAvailable_+row,state);}
     browserDisplayDirty_.store(true);
@@ -152,6 +167,30 @@ inline void Vitaleon::serviceBrowser(){
 inline bool Vitaleon::formatStorage(int index,std::string& out){
     if(index<storageRows_||index>activeBankText_+1)return false;
     if(index>=activeBankText_){auto c=std::atomic_load(&activeCatalog_);out=textPart(c?c->name:"Installed banks",index-activeBankText_);return true;}
+    if(favouritesFiltered()){
+        // The FAVS view prints its own list in the LIBRARY rows. Snapshot the files first:
+        // the favourites set is written from the host thread and its lock must not nest
+        // inside the browser lock.
+        std::vector<int> files;{std::lock_guard<std::mutex> lock(favouritesMutex_);files=favouritesFiles_;}
+        const int pages=std::max(1,(int(files.size())+5)/6),page=mpc::clamp(getInt(libraryPage_),0,pages-1);
+        if(index<storageRows_+12){
+            const int row=(index-storageRows_)/2,part=(index-storageRows_)%2,at=page*6+row;
+            if(part==0)out=at<int(files.size())?(at==favouriteCursor_?std::string(">"):std::string("FAV")):std::string();
+            else if(at<int(files.size())){
+                // The kind column carries the cursor, so the name keeps the full row text.
+                std::string name=assets_[0][size_t(files[size_t(at)])].name;
+                if(name.size()>31){size_t head=19,tail=name.size()-9;
+                    while(head>0&&(uint8_t(name[head])&0xc0)==0x80)--head;while(tail<name.size()&&(uint8_t(name[tail])&0xc0)==0x80)++tail;
+                    name=name.substr(0,head)+"..."+name.substr(tail);}
+                out=name;
+            }else if(row==0)out="No favourites yet";
+            return true;
+        }
+        if(index>=storagePath_&&index<storagePath_+3){out=index==storagePath_?std::to_string(files.size())+" favourites":std::string();return true;}
+        if(index==storagePage_){out=std::to_string(page+1)+" / "+std::to_string(pages);return true;}
+        if(index>=storageStatus_&&index<storageStatus_+4){std::lock_guard<std::mutex> lock(browserMutex_);out=textPart(browser_.status,index-storageStatus_);return true;}
+        return true;
+    }
     std::lock_guard<std::mutex> lock(browserMutex_);
     if(index<storageRows_+12){
         // Two columns per row: the kind, and the name in ONE label (the two halves of
@@ -172,7 +211,12 @@ inline bool Vitaleon::formatStorage(int index,std::string& out){
         if(place.size()>31){size_t cut=place.size()-28;while(cut<place.size()&&(uint8_t(place[cut])&0xc0)==0x80)++cut;size_t slash=place.find('/',cut);if(slash!=std::string::npos&&slash+1<place.size()&&place.size()-slash<=28)cut=slash;place="..."+place.substr(cut);}
         out=index==storagePath_?place:std::string();
     }
-    else if(index>=storageStatus_&&index<storageStatus_+4)out=textPart(browser_.status,index-storageStatus_);
+    else if(index>=storageStatus_&&index<storageStatus_+4){
+        // The page cell is the wheel now, so the drive browser's page reads in the status
+        // line instead of a label that no longer exists.
+        std::string message=browser_.status+" Page "+std::to_string(browser_.page+1)+"/"+std::to_string(std::max(1,(int(browser_.entries.size())+5)/6));
+        out=textPart(message,index-storageStatus_);
+    }
     else if(index==storagePage_)out=std::to_string(browser_.page+1)+" / "+std::to_string(std::max(1,(int(browser_.entries.size())+5)/6))+" - "+std::to_string(browser_.entries.size())+" items";
     return true;
 }

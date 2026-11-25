@@ -10950,7 +10950,7 @@
   "value": 1.2499999968440534e-07
  },
  {
-  "display": "reopen plugin.",
+  "display": "reopen plugin. Page 1/1",
   "index": 1825,
   "name": "storage_status_2",
   "value": 1.2499999968440534e-07
@@ -11979,6 +11979,48 @@
   "display": "0.00",
   "index": 1996,
   "name": "library_loaded_favourite",
+  "value": 0.0
+ },
+ {
+  "display": "1/1",
+  "index": 1997,
+  "name": "Favourite Step",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1998,
+  "name": "library_favourite_row_state_0",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 1999,
+  "name": "library_favourite_row_state_1",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 2000,
+  "name": "library_favourite_row_state_2",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 2001,
+  "name": "library_favourite_row_state_3",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 2002,
+  "name": "library_favourite_row_state_4",
+  "value": 0.0
+ },
+ {
+  "display": "0.00",
+  "index": 2003,
+  "name": "library_favourite_row_state_5",
   "value": 0.0
  }
 ]

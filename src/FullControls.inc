@@ -108,6 +108,14 @@ inline void Vitaleon::createControls(){
     // to 0, so the heart no longer depends on a value the host owns and can reset.
     libraryFavouriteState_=numParams();for(int i=0;i<6;++i)addReadout("library_favourite_state_"+std::to_string(i));
     libraryLoadedFavourite_=addReadout("library_loaded_favourite");
+    // The favourites list's wheel, appended last like every other new parameter. It is a
+    // discrete step handle (the skin gives it kFavouriteSteps replacementStrings), so one
+    // click is one favourite and the page follows the cursor like the wavetable picker.
+    // The name carries no "Library " prefix: the skin must label it with fixed strings.
+    {auto p=mpc::intParam("library_favourite_step","Favourite Step",0,kFavouriteSteps-1,0);p.automatable=false;libraryFavouriteStep_=addParam(p);}
+    // One readout per row: 0 empty, 0.5 a favourite, 1 the row the wheel points at. The
+    // host paints the row frame from it, so no host repaint can lose the marker.
+    libraryFavouriteRowState_=numParams();for(int i=0;i<6;++i)addReadout("library_favourite_row_state_"+std::to_string(i));
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){

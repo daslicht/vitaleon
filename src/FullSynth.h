@@ -216,6 +216,13 @@ private:
     // Heart badge in the LIBRARY message line: filled while the LOADED preset is a
     // favourite, so the line says at a glance whether the current sound is marked.
     int libraryLoadedFavourite_=-1;
+    // Favourites list (0.3.39, user request): the FAVS view works like the wavetable
+    // picker. The step handle has kFavouriteSteps replacementStrings, so one wheel click
+    // is exactly one favourite; the page follows the cursor and the row readouts paint
+    // which row the wheel points at.
+    static constexpr int kFavouriteSteps=512;
+    int libraryFavouriteStep_=-1,libraryFavouriteRowState_=-1;
+    int favouriteCursor_=0;
     mutable std::vector<int> favouritesFiles_;
     void rebuildFavouritesFiles();
     size_t favouriteCount()const;
