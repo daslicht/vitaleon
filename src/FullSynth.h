@@ -30,7 +30,10 @@
 
 class Vitaleon : public VitaleonLegacy {
 public:
-    static constexpr int FullMode=16;
+    // 0.4.0: the full graph is the only engine. Voices and Bench are the two legacy
+    // slots that remain (polyphony, benchmark arming), so the retired mode flag is
+    // the first free index after them; it stays pinned to 1.
+    static constexpr int FullMode=2;
     Vitaleon();
     ~Vitaleon() override;
     void prepare(double sampleRate,int maxBlock) override;
@@ -315,6 +318,8 @@ private:
     std::array<int,3> waveBankReadout_{};
     int curveBankReadout_=-1;
     std::array<int,3> wavePosition_{};
+    // Live position of each oscillator's wave frame (base value plus modulations).
+    std::array<vital::Value*,3> wavePositionValue_{};
     int graphTurn_=0; // audio thread: the oscillator whose graph the rotation refreshes
     int lfoReadout_=-1,modReadout_=-1,envReadout_=-1,curveReadout_=-1;
     int lfoPhaseReadout_=-1;
@@ -338,7 +343,6 @@ private:
     std::atomic<bool> curveSelectionChanged_{true};
     std::atomic<bool> inspectCurve_{false};
     std::atomic<bool> programReset_{false};
-    std::atomic<bool> migrateOldTables_{false};
     std::mutex lifecycleMutex_; // serialize prepare and non-audio service only
     std::thread service_;
     std::array<std::atomic<int>,2048> held_{};
@@ -474,8 +478,8 @@ private:
     }
     LineGenerator* selectedCurve(){return getBool(curveTarget_)?engine_->getModulationBank().atIndex(getInt(routeSelect_)-1)->modulation_processor->lineMapGenerator():engine_->getLfoSource(getInt(lfoSelect_)-1);}
     void defaultTables();
-    void migrateOldControls();
-    void migrationTables();
+
+
     void captureAssets();
     Json readAsset(const Asset& asset);
     std::vector<uint8_t> readAssetBytes(const Asset& asset);

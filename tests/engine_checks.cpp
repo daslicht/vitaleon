@@ -44,10 +44,9 @@ int main(int argc, char**) {
     synth->prepare(44100,512); synth->reset();
     float left[512]={},right[512]={}; float* channels[]={left,right};
     mpc::ProcessContext ctx; ctx.outputs=channels; ctx.numOutputs=2; ctx.numFrames=128; ctx.sampleRate=44100;
-    // Benchmark regression checks exercise the preserved 0.1.x architecture.
-    synth->set(Vitaleon::FullMode,0);
+    // Benchmark regression checks exercise the one full graph.
     for(int i=0;i<10000&&synth->busy();++i){synth->process(ctx);std::this_thread::sleep_for(std::chrono::milliseconds(1));}
-    check(!synth->busy(),"legacy graph selected");
+    check(!synth->busy(),"engine ready for the benchmark");
     auto render=[&]() {
         mpc::ScopedDenormalsOff denormals;
         audit_allocations=true;
@@ -81,8 +80,8 @@ int main(int argc, char**) {
     // a second eight-note chord, even with the polyphony setting at eight.
     // Exercise repeated overlap, held sustain, and supported host block sizes.
     bool bounded=true;
-    synth->set(Vitaleon::Volume,-36); synth->set(Vitaleon::Unison,8);
-    synth->set(Vitaleon::Oscillators,3); synth->set(Vitaleon::Release,1000);
+    synth->set(synth->controlIndex("osc_1_unison_voices"),8);
+    for(const char* osc:{"osc_1_on","osc_2_on","osc_3_on"})synth->set(synth->controlIndex(osc),1);
     for(int block:{32,128,512}) for(int limit:{1,2,4,6,8,16,32}) {
         synth->reset();synth->set(Vitaleon::Voices,float(limit));ctx.numFrames=block;
         std::array<mpc::MidiEvent,32> chord{};
@@ -100,15 +99,16 @@ int main(int argc, char**) {
     }
     check(bounded,"overlapping chords stay within configured polyphony (1..32, blocks 32/128/512)");
     note=mpc::MidiEvent::cc(0,64,0);ctx.midi=&note;ctx.numMidiEvents=1;render();ctx.numMidiEvents=0;
-    synth->reset();synth->set(Vitaleon::Release,180);
+    synth->reset();
     std::printf("BENCHMARK: desktop timings only; NOT MPC voice-capacity measurements.\n");
     std::printf("profile,block,voices,active,unison,oscillators,mean_audio_budget_pct,p99_audio_budget_pct,peak\n");
     for(int profile=0;profile<4;++profile) {
-        synth->set(Vitaleon::Oscillators,profile>=2?3:1);
-        synth->set(Vitaleon::Unison,profile==0?1:4);
-        synth->set(Vitaleon::Spectral,profile==3?1:0);
-        synth->set(Vitaleon::Warp,.65f);
-        synth->set(Vitaleon::Volume,-36);
+        synth->set(synth->controlIndex("osc_1_on"),1);
+        synth->set(synth->controlIndex("osc_2_on"),profile>=2?1:0);
+        synth->set(synth->controlIndex("osc_3_on"),profile>=2?1:0);
+        synth->set(synth->controlIndex("osc_1_unison_voices"),profile==0?1:4);
+        synth->set(synth->controlIndex("osc_1_spectral_morph_type"),profile==3?1:0);
+        synth->set(synth->controlIndex("osc_1_spectral_morph_amount"),.65f);
         for(int voices : {1,2,4,8,12,16,24,32}) {
             synth->set(Vitaleon::Voices,float(voices)); synth->set(Vitaleon::Bench,1);
             ctx.numFrames=128;
@@ -121,7 +121,7 @@ int main(int argc, char**) {
                 for(int i=0;i<128;++i) peak=std::max(peak,std::abs(left[i]));
             }
             std::sort(times.begin(),times.end());
-            std::printf("%d,128,%d,%d,%d,%d,%.3f,%.3f,%.6f\n",profile,voices,synth->activeVoices(),synth->getInt(Vitaleon::Unison),synth->getInt(Vitaleon::Oscillators),sum/300*44100/128*100,times[296]*44100/128*100,peak);
+            std::printf("%d,128,%d,%d,%d,%d,%.3f,%.3f,%.6f\n",profile,voices,synth->activeVoices(),synth->getInt(synth->controlIndex("osc_1_unison_voices")),synth->getInt(synth->controlIndex("osc_1_on"))+synth->getInt(synth->controlIndex("osc_2_on"))+synth->getInt(synth->controlIndex("osc_3_on")),sum/300*44100/128*100,times[296]*44100/128*100,peak);
             check(peak>1e-6f && peak<1,"benchmark output audible and unclipped at test gain");
         }
     }

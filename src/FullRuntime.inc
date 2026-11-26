@@ -255,7 +255,7 @@ inline void Vitaleon::parkEngine(){
     }
     fxWaitIdle(); // the effect worker may still be finishing the last chunk
 }
-inline void Vitaleon::beginStateTransaction(bool writing){lifecycleMutex_.lock();parkEngine();if(writing){startSound_.store(false);pendingPreset_.store(-1);externalPresetPending_=false;programReset_.store(false);migrateOldTables_.store(false);}else {refreshLibrary();publishLoadedName();refreshHome();} }
+inline void Vitaleon::beginStateTransaction(bool writing){lifecycleMutex_.lock();parkEngine();if(writing){startSound_.store(false);pendingPreset_.store(-1);externalPresetPending_=false;programReset_.store(false);}else {refreshLibrary();publishLoadedName();refreshHome();} }
 inline void Vitaleon::endStateTransaction(bool writing){
     // Restore remains parked until the worker has rebuilt routes and assets.
     if(writing)requestService();else gate_.store(3);
@@ -281,7 +281,7 @@ inline void Vitaleon::serviceChanges(bool rebuild){
     {
         if(programReset_.exchange(false)){
             curveEdits_.store(0);
-            if(migrateOldTables_.exchange(false))migrationTables();else defaultTables();
+            defaultTables();
             engine_->getSample()->init();savedAssets_.erase("sample");
             for(int i=0;i<8;++i)engine_->getLfoSource(i)->initTriangle();
             for(int i=0;i<64;++i)engine_->getModulationBank().atIndex(i)->modulation_processor->lineMapGenerator()->initLinear();
@@ -329,7 +329,7 @@ inline void Vitaleon::process(mpc::ProcessContext& ctx){
     if(!fxPriority_&&fxThread_.joinable()){fxPriority_=true;sched_param parameter{};int policy=0;
         if(pthread_getschedparam(pthread_self(),&policy,&parameter)==0)pthread_setschedparam(fxThread_.native_handle(),policy,&parameter);}
 #endif
-    if(resetPending_.exchange(false)){asleep_=false;silentFrames_=0;engine_->allSoundsOff();engine_->process(128);for(auto& key:held_)key.store(0);replayNotes_.store(false);controlsSynced_=false;benchmarkCount_=0;benchArmed_=resetBenchArmed_.load();}
+    if(resetPending_.exchange(false)){asleep_=false;silentFrames_=0;engine_->allSoundsOff();engine_->process(128);for(auto& key:held_)key.store(0);replayNotes_.store(false);benchmarkCount_=0;benchArmed_=resetBenchArmed_.load();}
     if(replayNotes_.exchange(false)){asleep_=false;silentFrames_=0;for(int n=0;n<2048;++n){int velocity=held_[n].load();if(velocity)engine_->noteOn(n%128,velocity/127.0f,0,n/128);}}
     // Mode changes wait for the service transaction, so no half-applied graph is audible.
     syncFullControls();
@@ -457,7 +457,7 @@ inline void Vitaleon::updateDisplays(int frames){
     if(visible.group==1&&visible.member>=1&&visible.member<=3)plot[0]=visible.member-1;
     graphTurn_=(graphTurn_+1)%3;
     if(plot[0]!=graphTurn_)plot[1]=graphTurn_;
-    for(int o=0;o<3;++o){auto* t=engine_->getWavetable(o);float position=osc_[o].position->value();
+    for(int o=0;o<3;++o){auto* t=engine_->getWavetable(o);float position=wavePositionValue_[o]->value();
         if(waveMonoSwitch_[o]->value()!=0)position=waveMono_[o]->buffer[0][0];
         if(wavePolySwitch_[o]->value()!=0&&engine_->getNumActiveVoices())position+=wavePoly_[o]->buffer[0][0];
         position=mpc::clamp(position,0.0f,float(t->numFrames()-1));int a=int(position),b=std::min(a+1,t->numFrames()-1);float blend=position-a;
@@ -495,11 +495,10 @@ inline void Vitaleon::loadExtraState(const uint8_t* data,size_t size){
     catch(const std::exception& e){std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=e.what();setLoadStatus(2);}
     requestService();
 }
-inline void Vitaleon::stateRestored(uint32_t count,bool){
-    if(count<=Count||!getBool(FullMode)){
-        migrateOldControls();std::lock_guard<std::mutex> state(stateMutex_);stagedState_=Json();
-        loadedName_="Converted project";publishLoadedName();loadMessage_="Previous project converted.";setLoadStatus(0);
-    }
+inline void Vitaleon::stateRestored(uint32_t,bool){
+    // 0.4.0: the fifteen legacy controls are gone, so a project saved by 0.1.x/0.2.x
+    // restores every parameter it still shares by id and starts the rest at their
+    // defaults. There is no conversion step left to run.
     applyMidiLearn();refreshLibrary();requestService();
     {std::lock_guard<std::mutex> nav(navigationMutex_);updateNavigation();}
 }

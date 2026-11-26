@@ -469,24 +469,6 @@ int main(int argc,char** argv){
   std::cout<<"filter_audio_program=Init low="<<low<<" high="<<high<<" bypass="<<bypass<<std::endl;
   check(high>low*4&&high>1e-8&&bypass>low*4,"Init HOME/FILTER 1 cutoff changes rendered audio; bypass is explicit");
  }
- auto legacy=std::make_unique<VitaleonLegacy>();legacy->set(Vitaleon::Cutoff,812.5f);legacy->set(Vitaleon::Unison,8);auto oldState=legacy->internalSaveState();
- check(synth->internalLoadState(oldState.data(),oldState.size()),"0.1.4 state accepted");settle();
- check(synth->getBool(Vitaleon::FullMode)&&synth->getInt(synth->controlIndex("osc_1_unison_voices"))==8&&std::abs(vital::utils::midiNoteToFrequency(synth->get(synth->controlIndex("filter_1_cutoff")))-812.5f)<.1f,"old project cutoff and unison migrate into the single full engine");
- check(synth->displayText(id("library_loaded_0"))=="Converted project","old project restore cannot retain an unrelated preset label");
- // Freeze telemetry for byte-exact serialization: settle() processes audio,
- // and its scheduling can otherwise change only the live waveform readouts.
- synth->set(id("visuals"),0);
- auto converted=synth->internalSaveState();auto convertedAssets=synth->testAssets();synth->testInit();settle();
- check(synth->internalLoadState(converted.data(),converted.size()),"converted project reload accepted");settle();
- auto convertedAgain=synth->internalSaveState();
- if(convertedAgain!=converted&&argc>2){std::ofstream a(std::string(argv[2])+".state-before",std::ios::binary),b(std::string(argv[2])+".state-after",std::ios::binary);a.write(reinterpret_cast<const char*>(converted.data()),converted.size());b.write(reinterpret_cast<const char*>(convertedAgain.data()),convertedAgain.size());}
- check(synth->testAssets()==convertedAssets&&convertedAgain==converted,"converted waveforms and state round-trip exactly");
- // 0.2.x saved many more than sixteen parameters while its old mode was active.
- synth->publishNormalised(Vitaleon::FullMode,0);auto oldExpanded=synth->internalSaveState();
- check(synth->internalLoadState(oldExpanded.data(),oldExpanded.size()),"expanded old-mode project accepted");settle();
- check(synth->getBool(Vitaleon::FullMode)&&std::abs(vital::utils::midiNoteToFrequency(synth->get(synth->controlIndex("filter_1_cutoff")))-812.5f)<.1f,"0.2.x old-mode flag triggers conversion rather than an inactive UI");
- synth->set(Vitaleon::FullMode,0);check(synth->getBool(Vitaleon::FullMode),"retired mode parameter cannot reactivate a second engine");
- synth->testInit();settle();check(synth->getBool(Vitaleon::FullMode),"Init after a converted project uses the one engine");
  // Exercise the exported entry point and real VST dispatcher used by the
  // host's PRESET dropdown, independently of the retired custom browser.
  if(argc>3){

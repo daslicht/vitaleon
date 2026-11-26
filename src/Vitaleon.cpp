@@ -14,26 +14,15 @@
 
 class VitaleonLegacy : public mpc::Plugin {
 public:
-    enum { Volume, Voices, Unison, Oscillators, WavePos, Cutoff, Resonance, Detune,
-           Attack, Decay, Sustain, Release, Filter, Spectral, Warp, Bench, Count };
+    // 0.4.0 (user report): the fourteen legacy controls (Volume, Cutoff, Attack...)
+    // were dead since the full graph took over, yet the host still offered them as
+    // automation targets that did nothing. Only the two slots the full engine still
+    // reads remain: Voices is the polyphony, Bench the benchmark arming flag.
+    enum { Voices, Bench, Count };
     VitaleonLegacy() : mpc::Plugin(makeInfo()) {
-        addParam(mpc::floatParam("volume", "Volume", -60, -6, -24, "dB", 1));
         // At most eight voices (0.3.24, user request): more than that is beyond the MPC's
         // processor with a full sound. A project saved with more is restored at eight.
         addParam(mpc::intParam("voices", "Voices", 1, 8, 4));
-        addParam(mpc::intParam("unison", "Unison", 1, 8, 1));
-        addParam(mpc::intParam("oscillators", "Oscillators", 1, 3, 1));
-        addParam(mpc::floatParam("wave_pos", "Wave Pos", 0, 3, 2, "", 2));
-        addParam(mpc::logParam("cutoff", "Cutoff", 40, 18000, 4000, "Hz", 0));
-        addParam(mpc::floatParam("resonance", "Resonance", 0, 0.85f, 0.15f, "", 2));
-        addParam(mpc::floatParam("detune", "Detune", 0, 30, 8, "%", 1));
-        addParam(mpc::logParam("attack", "Attack", 1, 2000, 5, "ms", 0));
-        addParam(mpc::logParam("decay", "Decay", 5, 3000, 200, "ms", 0));
-        addParam(mpc::floatParam("sustain", "Sustain", 0, 1, 0.8f, "", 2));
-        addParam(mpc::logParam("release", "Release", 5, 3000, 180, "ms", 0));
-        addParam(mpc::boolParam("filter", "Filter", true));
-        addParam(mpc::choiceParam("spectral", "Spectral", {"Off", "Formant", "Harmonic", "Smear"}, 0));
-        addParam(mpc::floatParam("warp", "Warp", 0, 1, 0.5f, "", 2));
         auto bench = mpc::boolParam("bench", "Bench", false);
         bench.automatable = false;
         addParam(bench);
@@ -45,11 +34,7 @@ public:
             if (found == controls.end()) throw std::runtime_error("Missing engine control: " + key);
             return found->second;
         };
-        volume_ = find("volume"); polyphony_ = find("polyphony");
-        filter_on_ = find("filter_1_on"); filter_cutoff_ = find("filter_1_cutoff");
-        filter_resonance_ = find("filter_1_resonance");
-        attack_ = find("env_1_attack"); decay_ = find("env_1_decay");
-        sustain_ = find("env_1_sustain"); release_ = find("env_1_release");
+        polyphony_ = find("polyphony");
         find("oversampling")->set(0);
         // Andersson Audio, 2026-11-13: reuse voices at the polyphony limit.
         // Vital's default kKill mode can render a second full chord while the
@@ -65,10 +50,6 @@ public:
             vital::PredefinedWaveFrames::kSaw, vital::PredefinedWaveFrames::kSquare};
         for (int i = 0; i < 3; ++i) {
             auto prefix = std::string("osc_") + std::to_string(i + 1) + "_";
-            auto& o = osc_[i];
-            o.on = find(prefix + "on"); o.unison = find(prefix + "unison_voices");
-            o.detune = find(prefix + "unison_detune"); o.position = find(prefix + "wave_frame");
-            o.spectral = find(prefix + "spectral_morph_type"); o.warp = find(prefix + "spectral_morph_amount");
             find(prefix + "destination")->set(vital::constants::kFilter1);
             find(prefix + "level")->set(0.5f); find(prefix + "random_phase")->set(0.75f);
             find(prefix + "tune")->set(i == 0 ? 0 : (i == 1 ? -0.07f : 0.07f));
@@ -80,8 +61,6 @@ public:
     }
     void prepare(double sampleRate, int) override {
         engine_->setSampleRate(int(sampleRate)); engine_->checkOversampling();
-        controlsSynced_ = false;
-        syncControls();
         engine_->noteOn(60, .1f, 0, 0); engine_->process(128); engine_->allSoundsOff();
     }
     void reset() override {
@@ -89,10 +68,8 @@ public:
         engine_->process(128); // clear accumulated output from the previous voice set
         // Preserve the saved parameter; require Off -> On before restarting a saved benchmark.
         benchArmed_ = !getBool(Bench); benchmarkCount_ = 0;
-        controlsSynced_ = false;
     }
     void process(mpc::ProcessContext& ctx) override {
-        syncControls();
         if (!getBool(Bench)) benchArmed_ = true;
         const bool bench = getBool(Bench) && benchArmed_;
         const int desired = bench ? getInt(Voices) : 0;
@@ -122,44 +99,11 @@ public:
     }
     int activeVoices() const { return engine_->getNumActiveVoices(); }
 protected:
-    struct OscControls { vital::Value *on, *unison, *detune, *position, *spectral, *warp; };
+    // The full graph owns every sound control; only polyphony is still read here.
     std::unique_ptr<vital::SoundEngine> engine_;
-    std::array<OscControls, 3> osc_;
-    vital::Value *volume_, *polyphony_, *filter_on_, *filter_cutoff_, *filter_resonance_;
-    vital::Value *attack_, *decay_, *sustain_, *release_;
+    vital::Value *polyphony_;
     int benchmarkCount_ = 0;
     bool benchArmed_ = true;
-    std::array<float, Count> syncedParameters_{};
-    bool controlsSynced_ = false;
-    void syncControls() {
-        // Andersson Audio, 2026-11-12: host values are already atomic. Avoid
-        // repeating log/pow conversions and control-buffer writes when static.
-        bool changed = !controlsSynced_;
-        for (int i = 0; i < Count; ++i) {
-            const float value = getNormalised(i);
-            changed |= value != syncedParameters_[i];
-            syncedParameters_[i] = value;
-        }
-        if (!changed) return;
-        controlsSynced_ = true;
-        const float db = get(Volume) + 80;
-        volume_->set(db * db); polyphony_->set(float(getInt(Voices)));
-        engine_->setVoiceLimit(getInt(Voices));
-        filter_on_->set(getBool(Filter) ? 1 : 0);
-        filter_cutoff_->set(69 + 12 * std::log2(get(Cutoff) / 440));
-        filter_resonance_->set(get(Resonance));
-        attack_->set(std::sqrt(std::sqrt(get(Attack) * .001f)));
-        decay_->set(std::sqrt(std::sqrt(get(Decay) * .001f)));
-        sustain_->set(getBool(Bench) ? 1 : get(Sustain));
-        release_->set(std::sqrt(std::sqrt(get(Release) * .001f)));
-        constexpr int modes[] = {vital::SynthOscillator::kNoSpectralMorph,
-            vital::SynthOscillator::kFormScale, vital::SynthOscillator::kHarmonicScale, vital::SynthOscillator::kSmear};
-        for (int i = 0; i < 3; ++i) {
-            auto& o = osc_[i]; o.on->set(i < getInt(Oscillators) ? 1 : 0);
-            o.unison->set(float(getInt(Unison))); o.detune->set(std::sqrt(get(Detune)));
-            o.position->set(get(WavePos)); o.spectral->set(float(modes[getInt(Spectral)])); o.warp->set(get(Warp));
-        }
-    }
     void handleMidi(const mpc::MidiEvent& e, int offset) {
         const int ch = e.channel();
         if (e.isNoteOn()) engine_->noteOn(e.note(), e.velocity() / 127.0f, offset, ch);

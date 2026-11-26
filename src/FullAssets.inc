@@ -41,41 +41,6 @@ inline void Vitaleon::defaultTables(){
         WavetableCreator creator(table);creator.initPredefinedWaves();creator.render();savedAssets_["wavetables"].push_back(creator.stateToJson());
     }
 }
-// One-time conversion of the original sixteen-parameter project/program format.
-// Only the full graph renders audio; the old fields remain reserved for state IDs.
-inline void Vitaleon::migrateOldControls(){
-    for(const auto& b:bindings_)publish(b.index,param(b.index).def);
-    auto put=[&](const char* key,float value){publish(controlIndex(key),value);};
-    put("volume",(get(Volume)+80)*(get(Volume)+80));
-    put("filter_1_on",get(Filter));put("filter_1_cutoff",69+12*std::log2(get(Cutoff)/440));
-    put("filter_1_resonance",get(Resonance));put("filter_1_model",vital::constants::kDigital);put("filter_1_style",0);
-    put("env_1_attack",std::pow(get(Attack)*.001f,.25f));put("env_1_decay",std::pow(get(Decay)*.001f,.25f));
-    put("env_1_sustain",get(Sustain));put("env_1_release",std::pow(get(Release)*.001f,.25f));
-    put("oversampling",0);put("voice_override",vital::VoiceHandler::kSteal);
-    for(const char* key:{"chorus_on","compressor_on","delay_on","distortion_on","eq_on","filter_fx_on","flanger_on","phaser_on","reverb_on","filter_2_on","sample_on"})put(key,0);
-    const int spectral[]={vital::SynthOscillator::kNoSpectralMorph,vital::SynthOscillator::kFormScale,vital::SynthOscillator::kHarmonicScale,vital::SynthOscillator::kSmear};
-    for(int o=0;o<3;++o){auto pre="osc_"+std::to_string(o+1)+"_";
-        auto osc=[&](const char* suffix,float value){publish(controlIndex(pre+suffix),value);};
-        osc("on",o<getInt(Oscillators)?1:0);osc("unison_voices",get(Unison));osc("unison_detune",std::sqrt(get(Detune)));
-        osc("wave_frame",get(WavePos)*85);osc("spectral_morph_type",float(spectral[getInt(Spectral)]));osc("spectral_morph_amount",get(Warp));
-        osc("destination",vital::constants::kFilter1);osc("level",.5f);osc("random_phase",.75f);osc("tune",o==0?0:(o==1?-.07f:.07f));
-        publishList(tableSelect_[o],0);
-    }
-    for(const auto& route:routes_){publish(route.source,0);publish(route.destination,0);}
-    publishList(presetSelect_,0);publishList(sampleSelect_,0);publishList(lfoShapeSelect_,0);publish(FullMode,1);
-    migrateOldTables_.store(true);programReset_.store(true);refreshProxies();
-}
-inline void Vitaleon::migrationTables(){
-    const vital::PredefinedWaveFrames::Shape shapes[]={vital::PredefinedWaveFrames::kSin,vital::PredefinedWaveFrames::kTriangle,vital::PredefinedWaveFrames::kSaw,vital::PredefinedWaveFrames::kSquare};
-    savedAssets_["wavetables"]=Json::array();
-    for(int o=0;o<3;++o){
-        WavetableCreator creator(engine_->getWavetable(o));auto* group=new WavetableGroup();auto* wave=new WaveSource();
-        wave->setInterpolationStyle(WaveSource::kLinear);wave->setInterpolationMode(WaveSource::kTime);
-        for(int i=0;i<4;++i){wave->insertNewKeyframe(i*85);wave->getKeyframe(i)->wave_frame()->copy(vital::PredefinedWaveFrames::getWaveFrame(shapes[i]));}
-        group->addComponent(wave);creator.addGroup(group);auto state=creator.stateToJson();state["full_normalize"]=false;state["remove_all_dc"]=false;
-        creator.jsonToState(state);savedAssets_["wavetables"].push_back(creator.stateToJson());
-    }
-}
 inline void Vitaleon::loadTable(int oscillator,const Json& table){
     vitaleon_assets::table(table);
     if(savedAssets_.count("wavetables")&&savedAssets_["wavetables"].size()==3&&savedAssets_["wavetables"][oscillator]==table)return;
@@ -186,7 +151,7 @@ inline void Vitaleon::loadPreset(const Json& preset){
     // it with the preset's embedded sample. Missing samples still reset to noise.
     if(!s.count("sample")||s["sample"].is_null()){engine_->getSample()->init();savedAssets_.erase("sample");}
     for(int i=0;i<8;++i)engine_->getLfoSource(i)->initTriangle();
-    programReset_.store(false);migrateOldTables_.store(false);curveEdits_.store(0);
+    programReset_.store(false);curveEdits_.store(0);
     for(const auto& b:bindings_)publish(b.index,s.count(b.key)?float(controlValue(b.key,s[b.key].get<double>())):param(b.index).def);
     // MPC budget: imported sounds start at 1x oversampling and at most eight
     // voices. Nearly every Vital preset stores 2x, which roughly doubles the

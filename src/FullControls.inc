@@ -74,7 +74,7 @@ inline void Vitaleon::createControls(){
     // is loaded when the plugin starts (see prepare). Only a plugin without any
     // installed sound gets one "Init" program, so that it can still be played.
     for(int i=0;i<numParams();++i)initValues_.push_back(param(i).def);
-    initValues_[FullMode]=1;initValues_[Volume]=-24;initValues_[Voices]=8;
+    initValues_[FullMode]=1;initValues_[Voices]=8;
     initValues_[size_t(controlIndex("voice_override"))]=vital::VoiceHandler::kSteal;
     initValues_[size_t(controlIndex("volume"))]=3136;
     if(assets_[0].size()<=1)addProgram("Init",initValues_);
@@ -161,7 +161,9 @@ inline void Vitaleon::createReadouts(){
     curveReadout_=numParams();for(int i=0;i<96;++i)addReadout("display_lfo_curve_"+std::to_string(i));
     lfoReadout_=addReadout("display_lfo_value");modReadout_=addReadout("display_mod_value");envReadout_=addReadout("display_env_value");
     const auto& mono=engine_->getMonoModulations();const auto& poly=engine_->getPolyModulations();
-    for(int i=0;i<3;++i){auto key="osc_"+std::to_string(i+1)+"_wave_frame";waveMono_[i]=mono.at(key);wavePoly_[i]=poly.at(key);waveMonoSwitch_[i]=engine_->getMonoModulationSwitch(key);wavePolySwitch_[i]=engine_->getPolyModulationSwitch(key);}
+    for(int i=0;i<3;++i){auto key="osc_"+std::to_string(i+1)+"_wave_frame";waveMono_[i]=mono.at(key);wavePoly_[i]=poly.at(key);waveMonoSwitch_[i]=engine_->getMonoModulationSwitch(key);wavePolySwitch_[i]=engine_->getPolyModulationSwitch(key);
+        // The live frame position the graphs read: the engine control of that key.
+        for(const auto& b:bindings_)if(b.key==key)wavePositionValue_[i]=b.value;}
     for(int i=0;i<8;++i){auto key="lfo_"+std::to_string(i+1);lfoSource_[i]=int(std::find(sources_.begin(),sources_.end(),key)-sources_.begin());lfoStatus_[i]=engine_->getStatusOutput(key);lfoPhase_[i]=engine_->getStatusOutput(key+"_phase");}
     for(int i=0;i<6;++i)envStatus_[i]=engine_->getStatusOutput("env_"+std::to_string(i+1));
 }
