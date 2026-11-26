@@ -76,9 +76,11 @@ inline void Vitaleon::serviceLoop(){
     while(!quit_.load()){
         if(browserPending_.load())serviceBrowser();
         serviceTables();
+        serviceBrowserLoad();
         serviceRandomFlash();
         serviceRandomMidi();
         serviceFavourites();
+        serviceMidiLearn();
         if(browserDisplayDirty_.exchange(false)){
             // No state/lifecycle lock may be held: hosts may synchronously query
             // parameter strings or save state during these callbacks.
@@ -498,7 +500,7 @@ inline void Vitaleon::stateRestored(uint32_t count,bool){
         migrateOldControls();std::lock_guard<std::mutex> state(stateMutex_);stagedState_=Json();
         loadedName_="Converted project";publishLoadedName();loadMessage_="Previous project converted.";setLoadStatus(0);
     }
-    refreshLibrary();requestService();
+    applyMidiLearn();refreshLibrary();requestService();
     {std::lock_guard<std::mutex> nav(navigationMutex_);updateNavigation();}
 }
 inline void Vitaleon::programSelected(int index){

@@ -488,14 +488,6 @@ definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition(
     ent('value','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},
         (TABLE_VALUE_X,TABLE_VALUE_Y,TABLE_VALUE,TABLE_VALUE)),
 ],'00000000'))))
-# 0.3.39 (user request): the favourites list works like the wavetable list. Its wheel sits
-# where the LIBRARY page used to print the page number: a value tile that takes hardware
-# focus and writes the discrete step handle, so one click is one favourite and the page
-# follows the highlighted row. While the view is off the same cell pages the drive browser.
-definitions.append(g.obj(('key','library-page'),('value',g.component_definition([],[
-    g.entry('focus','Focus',g.focus_data(COLORS['env']),'0 0 64 52','No','Show','WhenFocussed'),
-    ent('value','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},(0,0,64,52)),
-],'00000000'))))
 # The wave frame cell is narrower than a slot (the table knob shares the row), so
 # its own definition trims the readout box instead of letting it run into the
 # neighbouring cell, which the touch check reads as a label/control collision.
@@ -608,24 +600,29 @@ def heart_image(w,h,filled):
     name=f'fav-heart-{"on" if filled else "off"}-{w}x{h}{DEF_SUFFIX}.png'
     if not (skin/name).exists():heart_tile(w,h,filled).save(skin/name)
     return name
-def heart_frames(w,h):
+def heart_frames(w,h,blank=False):
     # Two frames: 0 outline, 1 filled. The host picks the frame from the row's state
     # readout, so only the plugin decides what the heart looks like (user report: the
     # marker vanished as soon as a note was played, because the button's own value is
-    # owned by the host and came back as 0).
-    name=f'fav-heart-{w}x{h}-frames{DEF_SUFFIX}.png'
+    # owned by the host and came back as 0). With blank=True an empty frame comes first:
+    # a row that holds no preset (drive, folder, bank) then shows no heart at all (user
+    # request), and the plugin publishes 0 empty / 0.5 outline / 1 filled.
+    frames=3 if blank else 2
+    name=f'fav-heart-{w}x{h}{"-blank" if blank else ""}-frames{DEF_SUFFIX}.png'
     if not (skin/name).exists():
-        image=Image.new('RGBA',(w,h*2))
-        for frame in range(2):image.paste(heart_tile(w,h,frame==1),(0,frame*h))
+        image=Image.new('RGBA',(w,h*frames))
+        for frame in range(frames):
+            tile=Image.new('RGBA',(w,h),(0,0,0,0)) if blank and frame==0 else heart_tile(w,h,frame==frames-1)
+            image.paste(tile,(0,frame*h))
         image.save(skin/name)
     return name
-def heart_button(text,x,y,w,h,param,state):
+def heart_button(text,x,y,w,h,param,state,focus=True):
     # The image below carries the look, the transparent button on top takes the tap as a
     # one-shot command that the plugin immediately returns to 0. Its on image is the filled
     # heart so the tap itself already reads as a change.
     data={'version':2,'onImage':heart_image(w,h,True),'offImage':table_row_blank(w,h),'buttonId':1,'numButtonsInGroup':1,'handleName':handle(param),'gestureBehaviour':'Instant'}
-    return [ent(text+' heart','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':heart_frames(w,h),'numFrames':2,'handleName':handle(state),'animated':False},(x,y,w,h)),
-            ent(text,'Button',data,(x,y,w,h),True)]
+    return [ent(text+' heart','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':heart_frames(w,h,True),'numFrames':3,'handleName':handle(state),'animated':False},(x,y,w,h)),
+            ent(text,'Button',data,(x,y,w,h),focus)]
 def library_row_frame(w,h):
     # Three frames like the table rows: 0 empty, 1 a favourite, 2 the row the wheel points
     # at. The plugin publishes the state readout, so nothing about the marker is host state.
@@ -698,13 +695,57 @@ def add_library(c):
     # both screens; it is the parameters' own display text, so nothing new is drawn.
     c.append(label('Random MIDI',(490,76,240,26),MUTED,18,value='Random MIDI Note'))
     c.append(label('Favourite MIDI',(736,76,260,26),MUTED,18,value='Favourite MIDI Note'))
+    row_w=full(976);action_x=full(840);heart_x=full(768)
+    # The six rows take the whole height of the section (user request: use the full display
+    # height). Only the message line keeps its 26 px at the bottom edge, where the empty
+    # band under the old tab strip used to be. On the MPC the page tabs start at y=568, so
+    # the last message pixel is 560 there.
+    lib_bottom=616 if FORCE else 560
+    status_y=lib_bottom-26
+    step=(status_y-4-174)//6;row_h=step-2
+    def row_definition(row):
+        # 0.3.40 (user request): the row is the wheel. Until now the only focusable
+        # widgets of a row were OPEN/LOAD, so a tap focused the button and the data wheel
+        # turned that button's own command again -- the list itself never had the focus.
+        # Following the SDK slot pattern (ui-reference 5.2) the whole row is ONE focus
+        # stop: every child is 'No', a tap anywhere on the row focuses it, and an 8x8 value
+        # handle carries the list step, so one wheel click walks the list by one entry.
+        # 0.3.41 (user report): the host keeps its hardware focus on the row instance that
+        # was tapped while the wheel moves the cursor, so 'Open Row N' from Enter Pressed
+        # loaded the tapped row instead of the highlighted entry. A tap now only moves the
+        # cursor, and the push has its own handle that acts on the cursor.
+        available=handle(f'storage_available_{row}');by=(row_h-52)//2
+        children=[
+            # The favourites frame lies under the row text and takes no touch.
+            ent(f'Favourite row frame {row+1}','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':library_row_frame(row_w,row_h+1),'numFrames':3,'handleName':handle(f'library_favourite_row_state_{row}'),'animated':False},(0,0,row_w,row_h+1)),
+            rect('file separator',(0,row_h,row_w,1),LINE),
+            label('File kind',(0,by+9,96,30),MUTED,18,value=f'storage_row_{row*2}'),
+            label('File name',(100,by+4,heart_x-132,44),TEXT,24,value=f'storage_row_{row*2+1}'),
+            # The wheel handle is invisible: it sits at the right edge, where no label
+            # covers it, and is never drawn -- the row frame shows where the list stands.
+            ent('Wheel handle','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},(row_w-8,1,8,8)),
+            # The heart sits between the name and OPEN/LOAD: 64 px wide is the touch minimum,
+            # and OPEN/LOAD keeps its full 156 px on both screens.
+            *heart_button(f'Favourite row {row+1}',heart_x-24,by,64,52,f'Favourite Row {row+1}',f'library_favourite_state_{row}',focus=False),
+            conditional(nav_button('OPEN',action_x-24,by,156,52,f'Open Row {row+1}',focus=False),['IndexedEnabling/1/3/'+available]),
+            conditional(nav_button('LOAD',action_x-24,by,156,52,f'Open Row {row+1}',color='env',focus=False),['IndexedEnabling/2/3/'+available]),
+        ]
+        key=f'library-row-{row+1}'
+        actions=[g.action('Mouse Down','Toggle Switch',handle(f'Row Select {row+1}'),''),
+                 g.action('Enter Pressed','Toggle Switch',handle('Row Enter'),'')]
+        definitions.append(g.obj(('key',key),('value',g.component_definition(actions,children,'00000000'))))
+        return key
+    # Rows before the command row: the first row is the first focus stop of the page, so the
+    # data wheel reaches the list before anything else can take it.
+    for row in range(6):
+        y=174+row*step
+        c.append(ent(f'Library row {row+1}',row_definition(row),{'version':1,'handleName':'Data'},(24,y-1,row_w,row_h+1),True,remap=[('Data','WithName[Favourite Step]/'+handle('Favourite Step'))]))
     for n,(caption,param,w) in enumerate([('DRIVES','Drives',120),('UP','Up Folder',120),('INSTALLED','Installed Banks',150)]):c.append(nav_button(caption,[24,152,280][n],108,w,52,param))
     # Two learns and the favourites view share the end of the command row, so the row is
     # tighter than it was: still every button over the 64 x 52 minimum, right edge 990.
-    # The page text became the favourites wheel (0.3.39, user request): with the view off it
-    # pages the drive browser, with the view on it scrolls the favourites and the page
-    # follows. PREV/NEXT stay for the browser and move the cursor with the page.
-    c.append(ent('Page cursor','library-page',{'version':1,'handleName':'Data'},(438,110,64,52),True,remap=[('Data','WithName[Favourite Step]/'+handle('Favourite Step'))]))
+    # The wheel lives on the rows now, so the old page tile cell reads the position again.
+    # PREV/NEXT stay for the browser and move the cursor with the page.
+    c.append(label('Page',(438,124,64,26),MUTED,18,value='Favourite Step'))
     c.append(nav_button('PREV',506,108,90,52,'Previous Files'));c.append(nav_button('NEXT',604,108,90,52,'Next Files'))
     # Random preset: the dice deals the next sound of the deck (no repeats until every
     # installed sound has played once). It sits last in the command row, where a tap
@@ -718,26 +759,6 @@ def add_library(c):
     c.append(nav_button('FAV',854,108,64,52,'Favourite MIDI Learn',steady=True))
     # A view, not a command: lit means the LIST shows nothing but hearted presets.
     c.append(nav_button('FAVS',926,108,64,52,'Favourites Only'))
-    row_w=full(976);action_x=full(840);heart_x=full(768)
-    # The six rows take the whole height of the section (user request: use the full display
-    # height). Only the message line keeps its 26 px at the bottom edge, where the empty
-    # band under the old tab strip used to be. On the MPC the page tabs start at y=568, so
-    # the last message pixel is 560 there.
-    lib_bottom=616 if FORCE else 560
-    status_y=lib_bottom-26
-    step=(status_y-4-174)//6;row_h=step-2
-    for row in range(6):
-        y=174+row*step;by=y+(row_h-52)//2;available=handle(f'storage_available_{row}')
-        # The favourites frame lies under the row text and takes no touch.
-        c.append(ent(f'Favourite row frame {row+1}','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':library_row_frame(row_w,row_h+1),'numFrames':3,'handleName':handle(f'library_favourite_row_state_{row}'),'animated':False},(24,y-1,row_w,row_h+1)))
-        c.append(rect('file separator',(24,y+row_h+1,row_w,1),LINE))
-        c.append(label('File kind',(24,by+9,96,30),MUTED,18,value=f'storage_row_{row*2}'))
-        c.append(label('File name',(124,by+4,heart_x-132,44),TEXT,24,value=f'storage_row_{row*2+1}'))
-        # The heart sits between the name and OPEN/LOAD: 64 px wide is the touch minimum,
-        # and OPEN/LOAD keeps its full 156 px on both screens.
-        c.extend(heart_button(f'Favourite row {row+1}',heart_x,by,64,52,f'Favourite Row {row+1}',f'library_favourite_state_{row}'))
-        c.append(conditional(nav_button('OPEN',action_x,by,156,52,f'Open Row {row+1}'),['IndexedEnabling/1/3/'+available]))
-        c.append(conditional(nav_button('LOAD',action_x,by,156,52,f'Open Row {row+1}',color='env'),['IndexedEnabling/2/3/'+available]))
     # The heart in front of the message line says whether the LOADED preset carries a heart
     # (filled) or not (outline); the text moved right by its width.
     c.append(ent('Loaded heart','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':heart_frames(26,22),'numFrames':2,'handleName':handle('library_loaded_favourite'),'animated':False},(24,status_y+2,26,22)))

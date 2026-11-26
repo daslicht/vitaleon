@@ -11988,10 +11988,10 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "1.00",
   "index": 1998,
   "name": "library_favourite_row_state_0",
-  "value": 0.0
+  "value": 1.0
  },
  {
   "display": "0.00",
@@ -12021,6 +12021,48 @@
   "display": "0.00",
   "index": 2003,
   "name": "library_favourite_row_state_5",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 2004,
+  "name": "Row Select 1",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 2005,
+  "name": "Row Select 2",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 2006,
+  "name": "Row Select 3",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 2007,
+  "name": "Row Select 4",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 2008,
+  "name": "Row Select 5",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 2009,
+  "name": "Row Select 6",
+  "value": 0.0
+ },
+ {
+  "display": "Off",
+  "index": 2010,
+  "name": "Row Enter",
   "value": 0.0
  }
 ]

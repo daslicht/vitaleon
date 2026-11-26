@@ -116,6 +116,17 @@ inline void Vitaleon::createControls(){
     // One readout per row: 0 empty, 0.5 a favourite, 1 the row the wheel points at. The
     // host paints the row frame from it, so no host repaint can lose the marker.
     libraryFavouriteRowState_=numParams();for(int i=0;i<6;++i)addReadout("library_favourite_row_state_"+std::to_string(i));
+    // Row select and wheel push, appended last again. A tap on a row moves the list cursor
+    // (no load, so a stray tap never replaces the sounding preset); the push is its own
+    // command because the host's hardware focus stays on the tapped row while the wheel
+    // moves the cursor, so 'Open Row N' from the push acted on the wrong entry.
+    libraryRowSelect_=numParams();
+    for(int i=0;i<6;++i){auto p=mpc::boolParam(("library_row_select_"+std::to_string(i)).c_str(),("Row Select "+std::to_string(i+1)).c_str(),false);p.automatable=false;addParam(p);}
+    {auto p=mpc::boolParam("library_row_enter","Row Enter",false);p.automatable=false;libraryRowEnter_=addParam(p);}
+    // The learned MIDI keys are settings of the plugin, not of the project (user report: a
+    // new instance started with MIDI off). Read them once both parameters exist, so every
+    // instance starts with the same remote controls.
+    loadMidiLearn();applyMidiLearn();
 }
 
 inline int Vitaleon::addProxyBank(const std::string& title,const std::string& prefix,int count,const std::vector<std::string>& suffixes){

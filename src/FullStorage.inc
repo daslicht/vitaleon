@@ -34,7 +34,46 @@ inline void Vitaleon::createStorage(){
     storageAvailable_=numParams();for(int i=0;i<6;++i)addReadout("storage_available_"+std::to_string(i));
     browser_.entries=vitaleon_storage::discover(mpc::pluginFolder());publishBrowser();
 }
+inline void Vitaleon::loadFavouriteAt(int at){
+    // The FAVS view draws its own list in the LIBRARY rows, so its LOAD buttons and the
+    // wheel push load the favourite they show. An empty row loads nothing.
+    std::vector<int> files;{std::lock_guard<std::mutex> lock(favouritesMutex_);files=favouritesFiles_;}
+    if(at<0||at>=int(files.size()))return;
+    const int file=files[size_t(at)];
+    favouriteCursor_=at;publishList(presetSelect_,float(file));
+    pendingPreset_.store(file);for(int i=0;i<4;++i)publishNormalised(loadText_+i,.25f);
+    requestService();refreshLibrary();browserDisplayDirty_.store(true);
+}
 inline bool Vitaleon::storageChanged(int index){
+    // A tap anywhere on a row only moves the list cursor. The host keeps its hardware
+    // focus on the row instance it was tapped on, so a tap must not load: the wheel and
+    // the push have to act on the same entry the frame shows (user report: the wheel push
+    // loaded a different preset than the highlighted one).
+    if(libraryRowSelect_>=0&&index>=libraryRowSelect_&&index<libraryRowSelect_+6){
+        publish(index,0);
+        const int row=index-libraryRowSelect_;
+        if(favouritesFiltered()){
+            const int count=int(favouriteCount()),pages=std::max(1,(count+5)/6);
+            const int at=mpc::clamp(getInt(libraryPage_),0,pages-1)*6+row;
+            if(at<count){favouriteCursor_=at;refreshLibrary();browserDisplayDirty_.store(true);}
+        }else{
+            std::lock_guard<std::mutex> lock(browserMutex_);
+            const int at=browser_.page*6+row;
+            if(at<int(browser_.entries.size())){browserCursor_=at;publishBrowserFocus();browserDisplayDirty_.store(true);}
+        }
+        return true;
+    }
+    if(index==libraryRowEnter_){
+        // The data wheel push opens or loads the entry the frame stands on, whatever row
+        // the hardware focus sits on. The resting-wheel load of that same entry is due
+        // anyway, so its timer is dropped instead of loading it twice.
+        publish(index,0);
+        if(favouritesFiltered()){loadFavouriteAt(favouriteCursor_);return true;}
+        int row=0;{std::lock_guard<std::mutex> lock(browserMutex_);row=browserCursor_;}
+        browserLoadDue_.store(0,std::memory_order_relaxed);
+        queueBrowserRow(row);
+        return true;
+    }
     if(index<storageCommands_||index>=storageCommands_+12)return false;
     // Every tap is one command, whatever value the toggle sends. The button goes
     // straight back to "off" and the display update that follows each command
@@ -43,35 +82,125 @@ inline bool Vitaleon::storageChanged(int index){
     publish(index,0);
     int cmd=index-storageCommands_;
     if(cmd>=6&&favouritesFiltered()){
-        // The FAVS view draws its own list in these rows, so a row tap loads the favourite
-        // it shows instead of opening a browser entry. Same path as the LOAD button.
-        std::vector<int> files;{std::lock_guard<std::mutex> lock(favouritesMutex_);files=favouritesFiles_;}
-        const int pages=std::max(1,(int(files.size())+5)/6),at=mpc::clamp(getInt(libraryPage_),0,pages-1)*6+cmd-6;
-        if(at<int(files.size())){
-            const int file=files[size_t(at)];
-            favouriteCursor_=at;publishList(presetSelect_,float(file));
-            pendingPreset_.store(file);for(int i=0;i<4;++i)publishNormalised(loadText_+i,.25f);
-            requestService();refreshLibrary();browserDisplayDirty_.store(true);
-        }
+        // The FAVS view draws its own list in these rows, so a row button loads the
+        // favourite it shows instead of opening a browser entry.
+        const int pages=std::max(1,(int(favouriteCount())+5)/6);
+        loadFavouriteAt(mpc::clamp(getInt(libraryPage_),0,pages-1)*6+cmd-6);
         return true;
     }
     std::lock_guard<std::mutex> lock(browserMutex_);
+    // A row tap and the wheel share one path: the row is where the list stands from now on.
+    if(cmd>=6){queueBrowserRowLocked(browser_.page*6+cmd-6);return true;}
     BrowserJob job{cmd,browser_.path,browser_.root};
-    if(cmd>=6){size_t row=size_t(browser_.page*6+cmd-6);if(row>=browser_.entries.size())return true;auto entry=browser_.entries[row];job.path=entry.path;if(browser_.path.empty())job.root=entry.path;job.command=entry.directory?12:13;
-        if(entry.program>=0){job.command=15;job.program=entry.program;}
-        else if(!entry.directory){auto ext=std::filesystem::path(entry.path).extension().string();for(auto& ch:ext)ch=char(std::tolower((unsigned char)ch));if(ext==".vital")job.command=14;}}
     if(browserJobs_.size()>=16)return true;
     browserJobs_.push_back(std::move(job));browserPending_.fetch_add(1);return true;
+}
+inline void Vitaleon::publishBrowserFocus(){
+    // Caller holds browserMutex_. The LIBRARY row frame is the focus of the plugin list:
+    // 1 the entry the wheel points at, 0.5 every other entry, 0 an empty row. The drive
+    // browser publishes it too (user report: the list showed no focus at all, neither on
+    // start nor after a manual load); while the favourites view is on, that view owns
+    // these readouts (refreshLibrary).
+    if(libraryFavouriteRowState_<0||favouritesFiltered())return;
+    const int count=int(browser_.entries.size());
+    browserCursor_=mpc::clamp(browserCursor_,0,std::max(0,count-1));
+    browser_.page=mpc::clamp(browser_.page,0,std::max(0,(count-1)/6));
+    for(int row=0;row<6;++row){const int n=browser_.page*6+row;
+        publishNormalised(libraryFavouriteRowState_+row,n<count?(n==browserCursor_?1.f:.5f):0.f);}
+    // Keep the wheel on the focus: a row tap moves the frame, and the cell still shows
+    // the page the list is on instead of a position the wheel no longer owns.
+    if(libraryFavouriteStep_>=0)publish(libraryFavouriteStep_,float(browserCursor_));
+}
+inline std::string Vitaleon::presetLabelKey(const std::string& path,const std::string& entry){
+    // One key for both sides of the lookup. The path is normalised lexically, because the
+    // browser lists a canonical folder while the asset scan walks the content root.
+    return std::filesystem::path(path).lexically_normal().generic_string()+"\n"+entry;
+}
+inline std::string Vitaleon::browserFavouriteLabel(int row){
+    // Caller holds browserMutex_. A heart belongs to a preset, so only a sound row can
+    // carry one: its key is the Asset::label the LIBRARY heart stores (the path inside
+    // Content/Presets, or "<bank> / <entry>"), which keeps both views on the same set.
+    const int at=browser_.page*6+row;
+    if(at<0||at>=int(browser_.entries.size()))return std::string();
+    const auto& entry=browser_.entries[size_t(at)];
+    if(entry.program>=0){
+        // A sound of the bank that is open: only that catalog says which asset it is, and
+        // only while the browser still shows that bank.
+        auto catalog=std::atomic_load(&activeCatalog_);
+        if(!catalog||catalog->path!=entry.path||size_t(entry.program)>=catalog->files.size())return std::string();
+        const auto& asset=catalog->files[size_t(entry.program)];
+        const auto found=presetLabels_.find(presetLabelKey(asset.path,asset.entry));
+        return found==presetLabels_.end()?std::string():found->second;
+    }
+    if(!entry.sound)return std::string(); // drive, folder, bank: no preset, no heart
+    const auto found=presetLabels_.find(presetLabelKey(entry.path,std::string()));
+    return found==presetLabels_.end()?std::string():found->second;
+}
+inline void Vitaleon::publishHeartState(int row,const std::string& label){
+    // 0 no heart (the row holds no preset), 0.5 an outline (a preset without a heart),
+    // 1 filled. The image is a filmstrip, so the host picks one frame per value.
+    if(libraryFavouriteState_<0)return;
+    publishNormalised(libraryFavouriteState_+row,label.empty()?0.f:(isFavourite(label)?1.f:.5f));
+}
+inline void Vitaleon::publishBrowserHearts(){
+    // Caller holds browserMutex_. The drive browser draws the same six heart slots as the
+    // favourites list, so they have to follow its rows (user report: after navigating they
+    // kept the state of the first list, because only refreshLibrary ever wrote them).
+    for(int row=0;row<6;++row)publishHeartState(row,browserFavouriteLabel(row));
+}
+inline std::string Vitaleon::favouriteLabelForRow(int row){
+    // The preset a heart of a visible row belongs to, in whichever list is on screen. The
+    // favourites view shows its own files, the drive browser whatever entry its row holds;
+    // an empty key means the row cannot carry a heart.
+    if(libraryRows_<0||row<0||row>=6)return std::string();
+    if(favouritesFiltered()){const int file=libraryFile(row);return file?assets_[0][size_t(file)].label:std::string();}
+    std::lock_guard<std::mutex> lock(browserMutex_);return browserFavouriteLabel(row);
 }
 inline void Vitaleon::publishBrowser(){
     static std::atomic<unsigned> serial{0};float marker=float((++serial)%16000000)/16000000;
     for(int p=storageRows_;p<numParams()&&p<=activeBankText_+1;++p)publishNormalised(p,marker);
+    // First the focus: it clamps the page to the entries, so the row states below are
+    // computed for the page the frame is on.
+    publishBrowserFocus();
     // Three states per row: 0 empty, 1 OPEN (drive, folder, bank), 2 LOAD (sound).
     // While the favourites view is on its own list owns these rows (refreshLibrary).
-    if(!favouritesFiltered())for(int row=0;row<6;++row){const int n=browser_.page*6+row;float state=0;
-        if(n<int(browser_.entries.size()))state=browser_.entries[size_t(n)].sound?1.0f:0.5f;
-        publishNormalised(storageAvailable_+row,state);}
+    if(!favouritesFiltered()){
+        for(int row=0;row<6;++row){const int n=browser_.page*6+row;float state=0;
+            if(n<int(browser_.entries.size()))state=browser_.entries[size_t(n)].sound?1.0f:0.5f;
+            publishNormalised(storageAvailable_+row,state);}
+        // The heart slots follow these rows: a preset shows its heart here too, a drive,
+        // folder or bank shows none. The favourites view owns the slots while it is on.
+        publishBrowserHearts();
+    }
     browserDisplayDirty_.store(true);
+}
+inline bool Vitaleon::queueBrowserRowLocked(int row){
+    // One tap, the data wheel push and the wheel at rest all act on a row through this.
+    if(row<0||row>=int(browser_.entries.size()))return false;
+    if(browserJobs_.size()>=16)return false;
+    auto entry=browser_.entries[size_t(row)];
+    BrowserJob job{entry.directory?12:13,browser_.path,browser_.root};
+    job.path=entry.path;if(browser_.path.empty())job.root=entry.path;
+    if(entry.program>=0){job.command=15;job.program=entry.program;}
+    else if(!entry.directory){auto ext=std::filesystem::path(entry.path).extension().string();for(auto& ch:ext)ch=char(std::tolower((unsigned char)ch));if(ext==".vital")job.command=14;}
+    // The tapped row is where the list stands from now on, also while the load runs.
+    browserCursor_=row;publishBrowserFocus();browserDisplayDirty_.store(true);
+    browserJobs_.push_back(std::move(job));browserPending_.fetch_add(1);return true;
+}
+inline bool Vitaleon::queueBrowserRow(int row){std::lock_guard<std::mutex> lock(browserMutex_);return queueBrowserRowLocked(row);}
+inline void Vitaleon::serviceBrowserLoad(){
+    // The wheel only moves the frame; the entry it rests on loads, exactly like the table
+    // picker. Drives, folders and banks are never opened by turning the wheel: they wait
+    // for their OPEN tap (or the wheel push).
+    long long due=browserLoadDue_.load(std::memory_order_relaxed);
+    if(!due||nowMs()<due)return;
+    if(!browserLoadDue_.compare_exchange_strong(due,0,std::memory_order_relaxed))return;
+    const int row=browserLoadRow_.load(std::memory_order_relaxed);
+    {std::lock_guard<std::mutex> lock(browserMutex_);
+     if(row<0||row>=int(browser_.entries.size())||!browser_.entries[size_t(row)].sound)return;
+     // The wheel moved on: only the entry it landed on is loaded.
+     if(row!=browserCursor_||row/6!=browser_.page)return;}
+    queueBrowserRow(row);
 }
 inline std::shared_ptr<const Vitaleon::Catalog> Vitaleon::indexBank(const std::string& path){
     BankArchive bank(path);auto c=std::make_shared<Catalog>();c->path=path;c->name=std::filesystem::path(path).stem().string();std::set<std::string> entries,used;
@@ -137,7 +266,7 @@ inline void Vitaleon::serviceBrowser(){
                 // An opened bank is shown like a folder: its sounds are rows with LOAD.
                 std::vector<vitaleon_storage::Entry> sounds;
                 for(size_t i=0;i<c->files.size();++i)sounds.push_back({c->files[i].name,job.path,false,true,int(i)});
-                browser_.entries=std::move(sounds);browser_.path=job.path;browser_.root=job.root;browser_.page=0;
+                browser_.entries=std::move(sounds);browser_.path=job.path;browser_.root=job.root;browser_.page=0;browserCursor_=0;
                 browser_.status=std::to_string(c->files.size())+" sounds. Tap LOAD.";
             }
             publishBrowser();
@@ -154,12 +283,12 @@ inline void Vitaleon::serviceBrowser(){
             auto active=std::atomic_load(&activeCatalog_);
             for(size_t i=0;i<active->files.size();++i)if(active->files[i].path==job.path){setProgram(factoryProgramCount_+int(i));break;}
         }else if(job.command==3||job.command==4){
-            std::lock_guard<std::mutex> lock(browserMutex_);int last=std::max(0,(int(browser_.entries.size())-1)/6);browser_.page=mpc::clamp(browser_.page+(job.command==4?1:-1),0,last);publishBrowser();
+            std::lock_guard<std::mutex> lock(browserMutex_);int last=std::max(0,(int(browser_.entries.size())-1)/6);browser_.page=mpc::clamp(browser_.page+(job.command==4?1:-1),0,last);browserCursor_=browser_.page*6;publishBrowser();
         }else{
             if(job.command==0||job.command==2){job.path.clear();job.root.clear();}
             if(job.command==1){if(job.path==job.root){job.path.clear();job.root.clear();}else job.path=std::filesystem::path(job.path).parent_path().string();}
             auto entries=job.path.empty()?vitaleon_storage::discover(mpc::pluginFolder()):vitaleon_storage::list(job.path,job.root);
-            std::lock_guard<std::mutex> lock(browserMutex_);browser_.entries=std::move(entries);browser_.path=job.path;browser_.root=job.root;browser_.page=0;browser_.status=browser_.entries.empty()?"Nothing to open here.":browser_.path.empty()?"Choose a drive.":"OPEN a folder, LOAD a sound.";publishBrowser();
+            std::lock_guard<std::mutex> lock(browserMutex_);browser_.entries=std::move(entries);browser_.path=job.path;browser_.root=job.root;browser_.page=0;browserCursor_=0;browser_.status=browser_.entries.empty()?"Nothing to open here.":browser_.path.empty()?"Choose a drive.":"OPEN a folder, LOAD a sound.";publishBrowser();
         }
     }catch(const std::exception& e){std::lock_guard<std::mutex> lock(browserMutex_);browser_.status=std::string("Cannot open: ")+e.what();publishBrowser();}
     browserPending_.fetch_sub(1);

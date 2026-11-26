@@ -314,20 +314,28 @@ int main(int argc,char** argv){
    const int favNote=id("library_favourite_note"),favLearn=id("library_favourite_learn");
    const std::string favouritesFile=synth->testFavouritesPath();
    // The heart look is the row's state readout, not the tap handle (which returns to 0).
-   auto heart=[&](int row){return synth->getNormalised(id("library_favourite_state_"+std::to_string(row)))>0.5f;};
+   // 0 = no heart (drive, folder, bank, empty row), 0.5 = a sound without a heart, 1 = favourite.
+   auto heartState=[&](int row){return synth->getNormalised(id("library_favourite_state_"+std::to_string(row)));};
+   auto heart=[&](int row){return heartState(row)>0.75f;};
    auto favouritesText=[&]{std::vector<uint8_t> bytes;if(!mpc::readFile(favouritesFile,bytes))return std::string();return std::string(bytes.begin(),bytes.end());};
+   // The LIBRARY rows are the drive browser, so a heart belongs to the entry a row shows
+   // (user report: the hearts kept the state of the first list while navigating).
+   auto browserRow=[&](const std::string& text){for(int p=0;p<10;++p){for(int row=0;row<6;++row)if(synth->displayText(id("storage_row_"+std::to_string(row*2+1)))==text){synth->set(id("storage_command_"+std::to_string(6+row)),1);settle();return true;}synth->set(id("storage_command_4"),1);settle();}return false;};
+   synth->set(id("storage_command_0"),1);settle();
+   check(heartState(0)==0.f,"a drive row carries no heart");
+   check(browserRow("Plugin Content")&&browserRow("Presets"),"the drive browser reaches the installed presets");
    std::remove(favouritesFile.c_str());synth->testReloadFavourites();settle();
-   check(heart(0)==0&&heart(5)==0,"a missing favourites file starts with every heart off");
+   check(std::abs(heartState(0)-.5f)<1e-6&&heart(0)==0&&heart(5)==0,"a missing favourites file leaves every preset unhearted");
    synth->set(row0,1);settle();
    check(heart(0)==1&&favouritesText().find("\"favourites\":[\"")!=std::string::npos,"a heart tap stores the preset in Favourites.json");
    synth->testReloadFavourites();settle();
    check(heart(0)==1,"the heart survives reading the file again");
-   synth->set(id("library_page"),1);settle();
-   check(heart(0)==0,"the hearts follow the presets of the next page");
+   synth->set(id("storage_command_4"),1);settle();
+   check(std::abs(heartState(0)-.5f)<1e-6&&heartState(5)==0.f,"the hearts follow the rows of the next page and an empty row carries none");
    synth->set(row5,1);settle();
-   check(heart(5)==0,"an empty row cannot be favourited");
-   synth->set(id("library_page"),0);settle();
-   check(heart(0)==1,"the favourited preset keeps its heart on its own page");
+   check(heart(5)==0&&favouritesText().find("01 Import Test.vital")!=std::string::npos,"an empty row cannot be favourited");
+   synth->set(id("storage_command_3"),1);settle();
+   check(heart(0)==1,"the favourited preset keeps its heart on its own row");
    // Favourites-only view (0.3.38): the LIST shows hearted presets only and follows them.
    const int favsOnly=id("library_favourites_only");
    synth->set(favsOnly,1);settle();
@@ -366,14 +374,47 @@ int main(int argc,char** argv){
    std::remove(favouritesFile.c_str());synth->testReloadFavourites();settle();
    check(heart(0)==0,"the checks leave no favourites behind");
   }
+  // Learned MIDI keys as settings (user report): both LEARN assignments live in
+  // MidiLearn.json, so a new instance starts with the same remote controls instead of
+  // MIDI off, and a project restore cannot switch them off either.
+  {
+   const int favNote=id("library_favourite_note"),randNote=id("library_random_note");
+   const int favLearn=id("library_favourite_learn"),randLearn=id("library_random_learn");
+   const std::string learnFile=synth->testMidiLearnPath();
+   auto learnText=[&]{std::vector<uint8_t> bytes;if(!mpc::readFile(learnFile,bytes))return std::string();return std::string(bytes.begin(),bytes.end());};
+   std::remove(learnFile.c_str());synth->testReloadMidiLearn();settle();
+   check(synth->getInt(favNote)==-1&&synth->getInt(randNote)==-1,"a missing learn file starts with both keys off");
+   synth->set(favLearn,1);settle();playNote(73,true);settle();
+   synth->set(randLearn,1);settle();playNote(74,true);settle();
+   check(synth->getInt(favNote)==73&&synth->getInt(randNote)==74,"both keys take the notes that were played");
+   check(learnText().find("\"random_note\":74")!=std::string::npos&&learnText().find("\"favourite_note\":73")!=std::string::npos,"both learned keys are stored in MidiLearn.json");
+   synth->testReloadMidiLearn();settle();
+   check(synth->getInt(favNote)==73&&synth->getInt(randNote)==74,"a new instance starts with both learned keys");
+   // A chunk saved with MIDI off must not win over the file the instance read.
+   synth->testInit();settle();
+   auto cleared=synth->internalSaveState();
+   check(synth->internalLoadState(cleared.data(),cleared.size()),"state without learned keys accepted");settle();
+   check(synth->getInt(favNote)==73&&synth->getInt(randNote)==74,"a restored project keeps the keys the file holds");
+   // Turning a key off is a setting too: the next instance keeps it off.
+   synth->set(randLearn,1);settle();synth->set(randLearn,1);settle();
+   check(synth->getInt(randNote)==-1,"a second LEARN tap leaves the key off");
+   synth->testReloadMidiLearn();settle();
+   check(synth->getInt(randNote)==-1&&synth->getInt(favNote)==73,"the off state is a setting the next instance reads");
+   std::remove(learnFile.c_str());synth->testReloadMidiLearn();settle();
+   check(synth->getInt(favNote)==-1&&synth->getInt(randNote)==-1,"the checks leave no learned keys behind");
+  }
   // Favourites list (0.3.39, user request): the FAVS view works like the wavetable picker.
   // The wheel moves a cursor, the page follows it, the row frame marks it, the rows name
   // the favourites (not the drive browser) and a row tap loads the sound it shows.
   {
    const int favsOnly=id("library_favourites_only"),favStep=id("library_favourite_step"),page=id("library_page");
    std::remove(synth->testFavouritesPath().c_str());synth->testReloadFavourites();settle();
-   // Seven hearts spread over two pages of the bank list.
-   for(int at=0;at<7;++at){synth->set(page,at/6);settle();synth->set(id("library_favourite_row_"+std::to_string(at%6)),1);settle();}
+   // Seven hearts in the drive browser, spread over both pages of the preset folder: a
+   // heart belongs to the row that is on screen, so it is set through the browser rows.
+   auto browserRow=[&](const std::string& text){for(int p=0;p<10;++p){for(int row=0;row<6;++row)if(synth->displayText(id("storage_row_"+std::to_string(row*2+1)))==text){synth->set(id("storage_command_"+std::to_string(6+row)),1);settle();return true;}synth->set(id("storage_command_4"),1);settle();}return false;};
+   synth->set(id("storage_command_0"),1);settle();
+   check(browserRow("Plugin Content")&&browserRow("Presets"),"the drive browser reaches the installed presets again");
+   for(int at=0;at<7;++at){if(at==6){synth->set(id("storage_command_4"),1);settle();}synth->set(id("library_favourite_row_"+std::to_string(at%6)),1);settle();}
    synth->set(favsOnly,1);settle();
    check(synth->getInt(page)==0&&synth->displayText(id("library_page_text"))=="7 favourites","the favourites view starts on its first page and counts seven");
    check(synth->displayText(id("storage_row_0"))==">"&&synth->displayText(id("storage_row_2"))=="FAV","the FAVS rows are the favourites list, marked at the cursor");
@@ -389,7 +430,10 @@ int main(int argc,char** argv){
    synth->set(id("library_favourite_row_0"),1);settle();
    check(synth->displayText(id("library_page_text"))=="6 favourites"&&synth->getInt(page)==0,"removing the last heart of a page follows the shorter list");
    synth->set(favsOnly,0);settle();
-   std::remove(synth->testFavouritesPath().c_str());synth->testReloadFavourites();settle();synth->set(favStep,0);settle();
+   std::remove(synth->testFavouritesPath().c_str());synth->testReloadFavourites();settle();
+   // Back to the drive list before the wheel returns to 0: the wheel resting on a preset
+   // row would load that sound and change the state the following checks examine.
+   synth->set(id("storage_command_0"),1);settle();synth->set(favStep,0);settle();
   }
   ctx.midi=notes.data();ctx.numMidiEvents=0;
  }
@@ -404,7 +448,8 @@ int main(int argc,char** argv){
   check(!browserCommands,"failed custom SELECT/LOAD browser is absent from the shipped skin");
   check(skinHasComponent(skin,"Random preset"),"the shipped skin carries the LIBRARY page's random preset button");
   check(skinHasComponent(skin,"Favourite row 1")&&skinHasComponent(skin,"Favourite row 6"),"the shipped skin carries a heart on every LIBRARY row");
-  check(skinHasComponent(skin,"Page cursor"),"the shipped skin carries the favourites wheel in the LIBRARY command row");
+  check(skinHasComponent(skin,"Library row 1")&&skinHasComponent(skin,"Library row 6"),"every LIBRARY row is one focus stop for the data wheel");
+  check(!skinHasComponent(skin,"Page cursor"),"the LIBRARY list needs no separate wheel tile");
   check(skinHasComponent(skin,"Favourite row frame 1")&&skinHasComponent(skin,"Favourite row frame 6"),"the shipped skin carries a frame on every LIBRARY row");
   check(skinHasComponent(skin,"FAV")&&skinHasComponent(skin,"Favourite MIDI"),"the shipped skin carries the favourite learn button and its label");
  }
@@ -516,12 +561,27 @@ int main(int argc,char** argv){
   command(5);check(effect->numPrograms==12&&native->get(cutoff)==81,"Installed banks returns original catalog while retaining external sound");
   command(0);check(!native->displayText(id("storage_row_0")).empty(),"Drives rescans storage roots");
   openItem("Plugin Content");openItem("Storage Tests");openItem("Folder 0");bool emptyRows=true;for(int row=0;row<6;++row)emptyRows&=native->getNormalised(id("storage_available_"+std::to_string(row)))==0;
-  check(emptyRows,"empty folder hides all six OPEN buttons and keeps navigation available");command(0);
+  check(emptyRows,"empty folder hides all six OPEN buttons and keeps navigation available");
+  // Hearts follow the rows the list shows (user report: they kept the first list's state
+  // while navigating). A folder holds no preset, so no row carries a heart and a tap on
+  // one writes nothing.
+  {bool noHearts=true;for(int row=0;row<6;++row)noHearts&=native->getNormalised(id("library_favourite_state_"+std::to_string(row)))==0.f;
+   native->set(id("library_favourite_row_0"),1);waitNative();
+   check(noHearts&&native->getNormalised(id("library_favourite_state_0"))==0.f,"rows without a preset carry no heart and a tap on one writes nothing");}
+  command(0);
   // 0.3.19 library: a tapped button goes back to off, a bank opens like a folder,
   // its sounds are LOAD rows, UP leaves the bank, removable drives come first.
   {void* before=nullptr;auto beforeBytes=dispatch(effGetChunk,0,0,&before);std::vector<uint8_t> kept((uint8_t*)before,(uint8_t*)before+beforeBytes);
    check(native->getNormalised(id("storage_command_0"))==0,"a tapped library button returns to off");
    check(native->displayText(id("storage_row_0"))=="DRIVE"&&native->getNormalised(id("storage_available_0"))==0.5f,"the drive list shows kind and an OPEN row");
+   // Plugin-list focus (user report): the drive browser frames the row the wheel points
+   // at, already on start and after a manual load, not only the favourites view.
+   check(native->getNormalised(id("library_favourite_row_state_0"))>0.9f,"the plugin list holds its focus on the first row from the start");
+   // The wheel only focuses a drive; opening it stays a tap (or the wheel push).
+   native->set(id("library_favourite_step"),1);
+   for(int i=0;i<300;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(1));}
+   waitNative();
+   check(native->displayText(id("storage_path_0"))=="Drives","the wheel focuses a drive but never opens it");
    openItem("Plugin Content");openItem("Storage Tests");
    // The folder has more than six entries: look through the pages.
    auto findRow=[&](const std::string& name){for(int page=0;page<10;++page){for(int row=0;row<6;++row)if(native->displayText(id("storage_row_"+std::to_string(row*2+1)))==name)return row;command(4);}return -1;};
@@ -529,11 +589,44 @@ int main(int argc,char** argv){
    check(bankRow,"a bank is listed by name without extension and offers OPEN");
    openItem("B large");
    check(native->displayText(id("storage_row_0"))=="SOUND"&&native->displayText(id("storage_row_1"))=="Same name"&&native->displayText(id("storage_row_3"))=="Sound 1"&&native->getNormalised(id("storage_available_1"))==1.0f&&native->getNormalised(id("storage_available_3"))==0,"an opened bank lists its sounds as LOAD rows");
-   command(7);check(native->get(cutoff)==72&&native->testAssets().value("preset_name",std::string())=="Sound 1","LOAD on a bank row loads that sound");
+   check(native->getNormalised(id("library_favourite_row_state_0"))>0.9f&&native->getNormalised(id("library_favourite_row_state_3"))<0.75f,"an opened bank focuses its first sound");
+   native->set(id("library_favourite_step"),2);waitNative();
+   check(native->getNormalised(id("library_favourite_row_state_2"))>0.9f&&native->getNormalised(id("library_favourite_row_state_0"))>0.4f&&native->getNormalised(id("library_favourite_row_state_0"))<0.75f,"the wheel walks the plugin list and the frame follows it");
+   // Resting on a sound loads it without a tap: the wheel auditions the list.
+   native->set(id("library_favourite_step"),1);
+   for(int i=0;i<300;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(1));}
+   waitNative();
+   check(native->testAssets().value("preset_name",std::string())=="Sound 1","the resting wheel loads the sound it points at");
+   // Row tap and wheel push (user report: the push loaded the row the hardware focus sat
+   // on, not the entry the frame showed). A tap only moves the cursor, the push loads what
+   // the cursor points at -- whatever row the host focus happens to sit on.
+   native->set(id("library_favourite_step"),2);waitNative();
+   native->set(id("library_row_select_0"),1);waitNative();
+   check(native->getInt(id("library_favourite_step"))==0&&native->getNormalised(id("library_favourite_row_state_0"))>0.9f&&native->getNormalised(id("library_favourite_row_state_2"))<0.75f,"a row tap moves the wheel to that row");
+   check(native->testAssets().value("preset_name",std::string())=="Sound 1","a row tap leaves the sounding preset alone");
+   native->set(id("library_row_enter"),1);
+   for(int i=0;i<300;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(1));}
+   waitNative();
+   check(native->testAssets().value("preset_name",std::string())=="Same name","the wheel push loads the entry the frame shows");
+   command(7);check(native->getNormalised(id("library_favourite_row_state_1"))>0.9f&&native->getNormalised(id("library_favourite_row_state_2"))<0.75f&&native->getInt(id("library_favourite_step"))==1,"a row LOAD button moves the focus to the row it loads");
+   check(native->get(cutoff)==72&&native->testAssets().value("preset_name",std::string())=="Sound 1","LOAD on a bank row loads that sound");
    command(1);bool back=findRow("B large")>=0;
    check(back,"UP leaves the bank and shows its folder again");
    check(vitaleon_storage::drivePriority("vfat")<vitaleon_storage::drivePriority("ext4")&&vitaleon_storage::drivePriority("exfat")==1,"removable file systems are listed before internal ones");
    {std::string path,type;check(vitaleon_storage::parseMount("98 61 8:17 / /media/USB\\040STICK rw,noexec - vfat /dev/sdb1 rw,fmask=0022",path,type)&&path=="/media/USB STICK"&&type=="vfat","mount lines give the path and the file system");}
+   // Preset rows in the browser: an outline heart until the row's preset is marked, and
+   // the marked one follows its row across the pages instead of staying on the first page.
+   auto heartsText=[&]{std::vector<uint8_t> bytes;if(!mpc::readFile(native->testFavouritesPath(),bytes))return std::string();return std::string(bytes.begin(),bytes.end());};
+   command(1);check(openItem("Presets"),"UP returns to the content folders");
+   check(std::abs(native->getNormalised(id("library_favourite_state_0"))-.5f)<1e-6,"a preset row shows an outline heart");
+   native->set(id("library_favourite_row_0"),1);waitNative();
+   check(native->getNormalised(id("library_favourite_state_0"))>0.75f&&heartsText().find("01 Import Test.vital")!=std::string::npos&&heartsText().find("Browser Fixture")==std::string::npos,"a heart tap marks the preset the row shows");
+   command(4);
+   check(native->getNormalised(id("library_favourite_state_0"))<0.75f,"the hearts follow the rows of the next page");
+   command(3);
+   check(native->getNormalised(id("library_favourite_state_0"))>0.75f,"the marked preset keeps its heart on its own row");
+   native->set(id("library_favourite_row_0"),1);waitNative();
+   check(std::abs(native->getNormalised(id("library_favourite_state_0"))-.5f)<1e-6&&heartsText().find("01 Import Test.vital")==std::string::npos,"a second tap removes the heart again");
    command(5);command(0);dispatch(effSetChunk,0,kept.size(),kept.data());waitNative();}
   // Every rendered module/section must remap Q-Links to its actual parameters.
   auto spec=nlohmann::json::parse(surfaceMapJson);bool mapped=true;int sectionCount=0;nlohmann::json snapshots;int expectedSections=0;for(const auto& pageSpec:spec)expectedSections+=int(pageSpec["sections"].size());

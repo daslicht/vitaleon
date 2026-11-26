@@ -16,6 +16,7 @@
 #include <mutex>
 #include <chrono>
 #include <filesystem>
+#include <map>
 #include <fstream>
 #include <set>
 #include <deque>
@@ -73,6 +74,10 @@ public:
     // Re-read the favourites file, for the checks: same path as a fresh instance.
     void testReloadFavourites(){loadFavourites();refreshLibrary();}
     std::string testFavouritesPath()const{return favouritesPath();}
+    // A fresh instance starts with the parameters at their default and fills the learned
+    // keys from MidiLearn.json, exactly like the constructor does.
+    void testReloadMidiLearn(){publish(libraryRandomNote_,-1);publish(libraryFavouriteNote_,-1);loadMidiLearn();applyMidiLearn();}
+    std::string testMidiLearnPath()const{return midiLearnPath();}
     // Engine checks start from the Init state instead of the first installed sound.
     void testNoStartSound(){startSound_.store(false);}
     bool testEngineSwitch(const std::string& key)const{for(const auto& b:bindings_)if(b.key==key)return b.value->value()!=0;return false;}
@@ -132,6 +137,24 @@ private:
     bool formatStorage(int index,std::string& out);
     void serviceBrowser();
     void publishBrowser();
+    void publishBrowserFocus(); // caller holds browserMutex_
+    // Hearts of the LIBRARY rows (user report: while navigating they kept the state of
+    // the first list). A heart belongs to a preset, so the readouts follow the rows of the
+    // view that is on screen: 0 no heart (drive, folder, bank, empty row), 0.5 an outline,
+    // 1 a favourite.
+    void publishBrowserHearts(); // caller holds browserMutex_
+    void publishHeartState(int row,const std::string& label);
+    std::string browserFavouriteLabel(int row); // caller holds browserMutex_
+    std::string favouriteLabelForRow(int row);  // the row's key in the view that is on screen
+    static std::string presetLabelKey(const std::string& path,const std::string& entry);
+    // The wheel of the plugin list loads the entry it lands on once it rests, the same
+    // way the table picker does: a spin only acts on the entry it stops at.
+    bool queueBrowserRowLocked(int row); // caller holds browserMutex_
+    bool queueBrowserRow(int row);
+    void serviceBrowserLoad();
+    std::atomic<long long> browserLoadDue_{0};
+    std::atomic<int> browserLoadRow_{-1};
+    static constexpr long long kBrowserLoadMs=150;
     std::shared_ptr<const Catalog> indexBank(const std::string& path);
     void installCatalog(std::shared_ptr<const Catalog> catalog,bool lifecycleHeld=false);
     void createNavigation();
@@ -168,6 +191,11 @@ private:
     void serviceRandomFlash();
     void serviceRandomMidi();
     void serviceFavourites();
+    void serviceMidiLearn();
+    static std::string midiLearnPath();
+    void loadMidiLearn();
+    void applyMidiLearn();
+    void saveMidiLearn();
     static std::string favouritesPath();
     void loadFavourites();
     void saveFavourites();
@@ -205,6 +233,12 @@ private:
     std::atomic<bool> favouriteLearnArmed_{false};
     std::atomic<int> favouriteLearnCaptured_{-1};
     std::atomic<bool> favouriteMidiPending_{false};
+    // The two learned keys are settings, not project state (user report: a new instance
+    // started with MIDI off). MidiLearn.json next to the plugin holds them; the parameters
+    // stay the live copy the audio thread reads, and every new instance fills them from
+    // the file, also after a project restore.
+    std::atomic<int> randomNoteStored_{-1},favouriteNoteStored_{-1};
+    std::atomic<bool> midiLearnDirty_{false};
     // Favourites-only view (0.3.38): while the toggle is on, the LIST shows nothing but
     // hearted presets. The file list is rebuilt from the label set, so a heart removed
     // inside the filtered view makes its row disappear.
@@ -223,7 +257,20 @@ private:
     static constexpr int kFavouriteSteps=512;
     int libraryFavouriteStep_=-1,libraryFavouriteRowState_=-1;
     int favouriteCursor_=0;
+    // Row select and wheel push, appended last (user report: the push loaded the row the
+    // hardware focus sat on while the wheel had moved the frame to another entry -- the
+    // host keeps its focus on the tapped row instance, the plugin cannot move it). A tap
+    // therefore only moves the list cursor, and the push acts on the cursor.
+    int libraryRowSelect_=-1,libraryRowEnter_=-1;
+    void loadFavouriteAt(int at);
+    // Focus of the plugin list (user report): the drive browser carries the same row
+    // frame as the favourites list. The cursor is the entry the wheel points at, so the
+    // list says where a tap acts from the first repaint on and after every manual load.
+    int browserCursor_=0;
     mutable std::vector<int> favouritesFiles_;
+    // Browser entry -> favourite key, built once from assets_[0] in createLibrary: a loose
+    // preset is its path inside Content/Presets, a bank sound its archive path plus entry.
+    std::map<std::string,std::string> presetLabels_;
     void rebuildFavouritesFiles();
     size_t favouriteCount()const;
     bool favouritesFiltered()const;

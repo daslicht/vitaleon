@@ -52,6 +52,11 @@ inline void Vitaleon::createLibrary(){
     // The hearts only mirror what the file already said; a missing or broken file is an
     // empty list, never an error, so the library starts with the sounds it can see.
     loadFavourites();
+    // One lookup table from a browser entry to the preset's favourite key, built once:
+    // assets_ never changes after the scan and the drive browser asks for it per repaint.
+    presetLabels_.clear();
+    for(int file=1;file<int(assets_[0].size());++file)
+        presetLabels_[presetLabelKey(assets_[0][file].path,assets_[0][file].entry)]=assets_[0][file].label;
 }
 inline std::string Vitaleon::favouritesPath(){return mpc::pluginFolder()+"/Favourites.json";}
 inline bool Vitaleon::isFavourite(const std::string& label)const{
@@ -90,6 +95,47 @@ inline void Vitaleon::saveFavourites(){
     std::fclose(file);
     if(written&&std::rename(temp.c_str(),path.c_str())==0)return;
     std::remove(temp.c_str());
+}
+inline std::string Vitaleon::midiLearnPath(){return mpc::pluginFolder()+"/MidiLearn.json";}
+inline void Vitaleon::loadMidiLearn(){
+    int random=-1,favourite=-1;
+    std::vector<uint8_t> bytes;
+    if(mpc::readFile(midiLearnPath(),bytes)){
+        try{Json state=Json::parse(bytes.begin(),bytes.end());
+            if(state.is_object()&&state.value("format",0)==1){
+                random=state.value("random_note",-1);favourite=state.value("favourite_note",-1);
+            }
+        }catch(const std::exception&){/* a broken file simply means no learned keys */}
+    }
+    randomNoteStored_.store(mpc::clamp(random,-1,127),std::memory_order_relaxed);
+    favouriteNoteStored_.store(mpc::clamp(favourite,-1,127),std::memory_order_relaxed);
+}
+inline void Vitaleon::applyMidiLearn(){
+    // Called once the parameters exist and again after a project restore: a chunk that was
+    // saved with MIDI off must not switch off a key learned in another instance.
+    const int random=randomNoteStored_.load(std::memory_order_relaxed),favourite=favouriteNoteStored_.load(std::memory_order_relaxed);
+    if(libraryRandomNote_>=0&&getInt(libraryRandomNote_)!=random)publish(libraryRandomNote_,float(random));
+    if(libraryFavouriteNote_>=0&&getInt(libraryFavouriteNote_)!=favourite)publish(libraryFavouriteNote_,float(favourite));
+    browserDisplayDirty_.store(true);
+}
+inline void Vitaleon::saveMidiLearn(){
+    // Nothing to write while the parameters already match the file.
+    const int random=libraryRandomNote_>=0?getInt(libraryRandomNote_):-1,favourite=libraryFavouriteNote_>=0?getInt(libraryFavouriteNote_):-1;
+    if(random==randomNoteStored_.load(std::memory_order_relaxed)&&favourite==favouriteNoteStored_.load(std::memory_order_relaxed))return;
+    randomNoteStored_.store(random,std::memory_order_relaxed);favouriteNoteStored_.store(favourite,std::memory_order_relaxed);
+    // Temp file and rename, like Favourites.json: a power cut leaves the previous keys.
+    const Json state={{"format",1},{"random_note",random},{"favourite_note",favourite}};
+    const std::string path=midiLearnPath(),temp=path+".tmp",text=state.dump();
+    std::FILE* file=std::fopen(temp.c_str(),"wb");
+    if(file==nullptr)return;
+    const bool written=std::fwrite(text.data(),1,text.size(),file)==text.size();
+    std::fclose(file);
+    if(written&&std::rename(temp.c_str(),path.c_str())==0)return;
+    std::remove(temp.c_str());
+}
+inline void Vitaleon::serviceMidiLearn(){
+    // The host callback only marks the file dirty; writing stays on the service thread.
+    if(midiLearnDirty_.exchange(false,std::memory_order_relaxed))saveMidiLearn();
 }
 inline bool Vitaleon::favouritesFiltered()const{return libraryFavouritesOnly_>=0&&getBool(libraryFavouritesOnly_);}
 inline void Vitaleon::rebuildFavouritesFiles(){
@@ -137,9 +183,13 @@ inline void Vitaleon::refreshLibrary(){
         if(libraryFavouriteRow_>=0){
             // The row handle is the one-shot tap and stays at 0; the readout under the image
             // is what the host paints, so a host repaint can never lose the heart.
-            const float heart=file&&isFavourite(assets_[0][file].label)?1.f:0.f;
             publish(libraryFavouriteRow_+row,0);
-            if(libraryFavouriteState_>=0)publishNormalised(libraryFavouriteState_+row,heart);
+        }
+        if(filtered&&libraryFavouriteState_>=0){
+            // Every row of this view holds a favourite, so its heart is filled; an empty
+            // row carries none. The drive browser publishes its own hearts (publishBrowser),
+            // because its rows are not this list.
+            publishNormalised(libraryFavouriteState_+row,file?1.f:0.f);
         }
         if(filtered&&libraryFavouriteRowState_>=0){
             // Row frame: 0 empty, 0.5 a favourite, 1 the row the wheel points at.
@@ -147,6 +197,13 @@ inline void Vitaleon::refreshLibrary(){
             publishNormalised(libraryFavouriteRowState_+row,file?(at==favouriteCursor_?1.f:.5f):0.f);
         }
         float marker=float(file)/4096;for(int part=0;part<2;++part)publishNormalised(libraryNames_+row*2+part,marker);}
+    if(!filtered){
+        // The drive browser frames the same rows, so the plugin list names the entry a tap
+        // acts on from the first repaint on (user report: no focus on start or after a load).
+        // Its hearts follow those rows too: a heart tap, a MIDI toggle or a fresh file read
+        // repaints them here, not only when the browser is navigated.
+        std::lock_guard<std::mutex> lock(browserMutex_);publishBrowserFocus();publishBrowserHearts();
+    }
     float selected=float(getInt(presetSelect_))/4096,bank=float(getInt(libraryBank_))/4096;
     for(int i=0;i<2;++i){publishNormalised(librarySelectedText_+i,selected);publishNormalised(libraryBankText_+i,bank);}
     if(libraryLoadedFavourite_>=0){std::string loaded;{std::lock_guard<std::mutex> lock(stateMutex_);loaded=selectedAsset_.label;}
@@ -207,7 +264,7 @@ inline void Vitaleon::serviceRandomMidi(){
         for(int ch=0;ch<16;++ch)held_[ch*128+captured].store(0);
         notifyHostParameterChanged(libraryRandomNote_);
         {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Random preset via MIDI note "+std::to_string(captured)+".";}
-        setLoadStatus(0);
+        setLoadStatus(0);saveMidiLearn();
     }
     if(!randomMidiPending_.exchange(false,std::memory_order_relaxed))return;
     if(libraryBanks_[0].files.empty()){
@@ -226,7 +283,7 @@ inline void Vitaleon::serviceFavourites(){
         for(int ch=0;ch<16;++ch)held_[ch*128+captured].store(0);
         notifyHostParameterChanged(libraryFavouriteNote_);
         {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Favourite key is MIDI note "+std::to_string(captured)+".";}
-        setLoadStatus(0);
+        setLoadStatus(0);saveMidiLearn();
     }
     if(favouriteMidiPending_.exchange(false,std::memory_order_relaxed)){
         // A note can only address the sound that is already loaded, never a list row.
@@ -257,8 +314,19 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
             refresh();return true;
         }
         std::lock_guard<std::mutex> lock(browserMutex_);
-        browser_.page=mpc::clamp(getInt(index),0,std::max(1,(int(browser_.entries.size())+5)/6)-1);
-        publishBrowser();return true;
+        // Same wheel, same list: in the drive browser it walks the entries one click at a
+        // time and the page follows the focus, exactly like the favourites list. Clamped to
+        // the entries, so the wheel can never point past the last one.
+        const int count=int(browser_.entries.size());
+        browserCursor_=mpc::clamp(getInt(index),0,std::max(0,count-1));
+        browser_.page=browserCursor_/6;
+        publish(index,float(browserCursor_));
+        publishBrowser();
+        // A sound under the resting wheel loads itself, like the table picker; a drive,
+        // folder or bank is only focused (OPEN stays a tap, the push opens as well).
+        if(count>0&&browser_.entries[size_t(browserCursor_)].sound){browserLoadRow_.store(browserCursor_,std::memory_order_relaxed);browserLoadDue_.store(nowMs()+kBrowserLoadMs,std::memory_order_relaxed);}
+        else browserLoadDue_.store(0,std::memory_order_relaxed);
+        return true;
     }
     if(index==libraryLoad_){pendingPreset_.store(getInt(presetSelect_));for(int i=0;i<4;++i)publishNormalised(loadText_+i,.25f);requestService();browserDisplayDirty_.store(true);return true;}
     if(index==libraryRandomLearn_){
@@ -271,6 +339,7 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
             {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="MIDI learn cancelled.";}
         }else{
             publish(libraryRandomNote_,-1);
+            midiLearnDirty_.store(true,std::memory_order_relaxed);requestService(false);
             randomLearnArmed_.store(true);
             {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="MIDI learn: play the note that should deal a random preset.";}
         }
@@ -289,6 +358,7 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         }else{
             randomLearnArmed_.store(false);
             publish(libraryFavouriteNote_,-1);
+            midiLearnDirty_.store(true,std::memory_order_relaxed);requestService(false);
             favouriteLearnArmed_.store(true);
             {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_="Favourite learn: play the note that marks a sound.";}
         }
@@ -304,21 +374,24 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         setLoadStatus(0);refresh();return true;
     }
     if(index>=libraryFavouriteRow_&&index<libraryFavouriteRow_+6){
-        // The button's value *is* the heart state, so a tap arrives as the wanted 0 or 1.
-        // Apply it to the preset of this row and let refresh() publish the truth for
-        // every row; an empty row resets its own heart instead of storing anything.
+        // The tap toggles the heart of the preset the row shows, in the view that is on:
+        // the favourites list shows its own files, the drive browser its entries. A drive,
+        // folder or bank row holds no preset, so its slot stays empty and the tap writes
+        // nothing (user report: the hearts pointed at another preset than the visible row).
         // One tap toggles: the handle returns to 0, so a host that also reports the release
         // cannot toggle twice, and the tap direction comes from the stored state. The
         // release is filtered first: publish() re-enters this handler, and publishing 0
         // before this line would recurse into itself until the stack ran out.
         if(plain<=0)return true;
         publish(index,0);
-        const int row=index-libraryFavouriteRow_,file=libraryFile(row);
-        if(!file)return true;
-        const std::string label=assets_[0][file].label;
+        const int row=index-libraryFavouriteRow_;
+        const std::string label=favouriteLabelForRow(row);
+        if(label.empty())return true;
         const bool wanted=!isFavourite(label);
         setFavourite(label,wanted);
-        {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=(wanted?"Favourite: ":"Favourite removed: ")+assets_[0][file].name;}
+        std::string name=std::filesystem::path(label).filename().stem().string();
+        while(!name.empty()&&name.front()==' ')name.erase(0,1);
+        {std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=(wanted?"Favourite: ":"Favourite removed: ")+name;}
         setLoadStatus(0);refresh();return true;
     }
     if(index==libraryRandom_){
@@ -344,6 +417,12 @@ inline bool Vitaleon::libraryChanged(int index,float plain){
         if(favouritesFiltered())favouriteCursor_=mpc::clamp(getInt(libraryPage_)*6,0,std::max(0,int(favouriteCount())-1));
         refresh();return true;}
     if(index>=libraryRows_&&index<libraryRows_+6){int file=libraryFile(index-libraryRows_);if(file)publishList(presetSelect_,float(file));refresh();return true;}
+    if(index==libraryRandomNote_||index==libraryFavouriteNote_){
+        // The keys are settings of the plugin, not of the project: whatever writes them
+        // (a host, a controller, an old project) the file follows, so the next instance
+        // starts with the same remote controls.
+        midiLearnDirty_.store(true,std::memory_order_relaxed);browserDisplayDirty_.store(true);requestService(false);return true;
+    }
     if(index==presetSelect_){refresh();return true;} // browsing never changes sound
     return false;
 }
