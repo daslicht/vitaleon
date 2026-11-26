@@ -2,6 +2,10 @@
 build/
 dist/
 
+# Files the plugin writes next to itself (favourites, learned MIDI keys)
+MidiLearn.json
+Favourites.json
+
 # Logs, archives and compiled files
 *.log
 *.zip

@@ -501,6 +501,14 @@ int main(int argc,char** argv){
   wheel(0);play();double picked=energy(40);wheel(127);play();double pickedOpen=energy(40);
   std::cout<<"matrix_picked_route closed="<<picked<<" opened="<<pickedOpen<<std::endl;
   check(pickedOpen>picked*2.0&&pickedOpen>1e-6,"MOD MATRIX: the AMOUNT fader and the TARGET picker drive the route");
+  // A project save/load restores every parameter; the route has to sound afterwards.
+  std::vector<float> snapshot;for(int i=0;i<synth->numParams();++i)snapshot.push_back(synth->getNormalised(i));
+  synth->set(id("route_1_source"),0.0f);synth->set(id("route_1_destination"),0.0f);settle();
+  for(int i=0;i<synth->numParams();++i)if(synth->getNormalised(i)!=snapshot[size_t(i)])synth->setNormalised(i,snapshot[size_t(i)]);
+  settle();
+  wheel(0);play();double restored=energy(40);wheel(127);play();double restoredOpen=energy(40);
+  std::cout<<"matrix_restored closed="<<restored<<" opened="<<restoredOpen<<std::endl;
+  check(restoredOpen>restored*2.0&&restoredOpen>1e-6,"MOD MATRIX: a restored parameter set still connects the route");
   start();route("lfo_1");play();double low=1e9,high=0;
   for(int b=0;b<120;++b){double e=energy(6);low=std::min(low,e);high=std::max(high,e);}
   std::cout<<"matrix_lfo low="<<low<<" high="<<high<<std::endl;
