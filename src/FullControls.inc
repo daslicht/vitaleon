@@ -257,6 +257,14 @@ inline void Vitaleon::parameterChanged(int index,float plain){
 }
 inline bool Vitaleon::formatValue(int index,float plain,std::string& out){
     if(uiKnobs_>=0&&index>=uiKnobs_&&index<uiKnobs_+16){int target=uiTargets_[index-uiKnobs_].load();out=target>=0?displayText(target):"Unused";return true;}
+    // The matrix rows and the picker show a route's source and target. The host
+    // only has the engine key, so spell it the way the rest of the screen does
+    // ("Filter 1 Cutoff", not "filter_1_cutoff").
+    for(const auto& r:routes_)if(index==r.source||index==r.destination){
+        const auto& list=index==r.source?sources_:destinations_;
+        const int n=mpc::clamp(int(plain),0,int(list.size())-1);if(n==0){out="None";return true;}
+        const int named=controlIndex(list[size_t(n)]);
+        out=named>=0?param(named).name:list[size_t(n)];return true;}
     if(formatStorage(index,out))return true;
     if(homeControls_>=0&&index>=homeControls_&&index<homeControls_+7){
         int target=homeTarget(index-homeControls_);float value=param(target).toPlain(plain);

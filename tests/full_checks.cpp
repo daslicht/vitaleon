@@ -123,6 +123,7 @@ int main(int argc,char** argv){
  auto synth=std::make_unique<Vitaleon>();synth->testNoStartSound();synth->prepare(44100,512);
  displayEffect.object=synth.get();synth->effect_=&displayEffect;synth->host_=displayHost;
  auto id=[&](const std::string& name){for(int i=0;i<synth->numParams();++i)if(synth->param(i).id==name)return i;throw std::runtime_error("Missing parameter "+name);};
+ auto byName=[&](const std::string& name){for(int i=0;i<synth->numParams();++i)if(synth->param(i).name==name)return i;throw std::runtime_error("Missing parameter named "+name);};
  // 0.3.34 (user report): the Force tab bar writes no page, so the first tap on a tab
  // reaches the plugin only after the host has painted it. Every group's Q-Link slots
  // must therefore already carry its default page's values at load, or OSC 1's level
@@ -160,7 +161,7 @@ int main(int argc,char** argv){
  synth->set(id("advanced_parameter"),0);interleavedEdit(id("advanced_value"),.37f);
  check(std::abs(synth->getNormalised(synth->controlIndex(synth->param(id("advanced_parameter")).choices[0]))-.37f)<1e-5,"advanced gesture survives audio refresh");
  synth->set(id("route_1_source"),choice(id("route_1_source"),"lfo_1"));synth->set(id("route_1_destination"),choice(id("route_1_destination"),"osc_1_wave_frame"));
- synth->set(synth->controlIndex("modulation_1_amount"),.8f);settle();
+ synth->set(byName("modulation 1 amount"),.8f);settle();
  float min=1,max=0;for(int b=0;b<700;++b){render();float p=synth->get(id("display_position_0"));min=std::min(min,p);max=std::max(max,p);}check(max-min>.1f,"wavetable display follows actual LFO modulation");std::cout<<"frame_display_min="<<min<<" max="<<max<<std::endl;
  if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<synth->numParams();++i)values.push_back({{"id",synth->param(i).id},{"name",synth->param(i).name},{"index",i},{"value",synth->getNormalised(i)},{"display",synth->displayText(i)}});std::ofstream file(argv[2]);file<<values.dump(2);}
  for(const char* fx:{"chorus_on","compressor_on","delay_on","distortion_on","eq_on","filter_fx_on","flanger_on","phaser_on","reverb_on"}){synth->set(synth->controlIndex(fx),1);for(int b=0;b<12;++b)render();synth->set(synth->controlIndex(fx),0);}
@@ -468,6 +469,43 @@ int main(int argc,char** argv){
   double low=energy(.08f,true),high=energy(.9f,true),bypass=energy(.08f,false);
   std::cout<<"filter_audio_program=Init low="<<low<<" high="<<high<<" bypass="<<bypass<<std::endl;
   check(high>low*4&&high>1e-8&&bypass>low*4,"Init HOME/FILTER 1 cutoff changes rendered audio; bypass is explicit");
+ }
+ // 0.4.1 (user report): a mapped matrix route has to be audible. Measured on the
+ // rendered audio, because the host shows the mapping either way.
+ {
+  auto energy=[&](int blocks){double e=0;for(int b=0;b<blocks;++b){render();for(int n=0;n<ctx.numFrames;++n)e+=left[n]*left[n]+right[n]*right[n];}return e/std::max(1,blocks*ctx.numFrames);};
+  auto start=[&]{synth->testInit();settle();
+   synth->set(id("home_filter_on"),1);synth->setNormalised(id("home_1"),.12f);
+   synth->set(synth->controlIndex("osc_1_wave_frame"),170);synth->set(synth->controlIndex("env_1_sustain"),1);};
+  auto play=[&]{synth->reset();auto note=mpc::MidiEvent::noteOn(0,60,100);ctx.midi=&note;ctx.numMidiEvents=1;render();ctx.numMidiEvents=0;ctx.midi=nullptr;};
+  auto wheel=[&](int value){auto cc=mpc::MidiEvent::cc(0,1,value);ctx.midi=&cc;ctx.numMidiEvents=1;render();ctx.numMidiEvents=0;ctx.midi=nullptr;};
+  auto route=[&](const char* source){
+   synth->set(id("route_1_source"),choice(id("route_1_source"),source));
+   synth->set(id("route_1_destination"),choice(id("route_1_destination"),"filter_1_cutoff"));
+   synth->set(byName("modulation 1 amount"),1.0f);settle();};
+  start();play();wheel(0);double quiet=energy(40);wheel(127);play();double loud=energy(40);
+  std::cout<<"matrix_no_route quiet="<<quiet<<" loud="<<loud<<std::endl;
+  check(loud<quiet*2.0,"an unmapped mod wheel changes nothing");
+  start();route("mod_wheel");wheel(0);play();double closed=energy(40);wheel(127);play();double opened=energy(40);
+  std::cout<<"matrix_modwheel closed="<<closed<<" opened="<<opened<<std::endl;
+  check(opened>closed*2.0&&opened>1e-6,"MOD MATRIX: mod wheel on filter 1 cutoff opens the filter");
+  // The touchscreen's own path: the TARGET cell writes the route parameter by
+  // plain index (77 = filter_1_cutoff in the picker's order) and the AMOUNT
+  // fader writes UI Control 1 of the visible MATRIX section.
+  start();int target=id("route_1_destination");synth->set(target,77);
+  synth->set(id("route_1_source"),choice(id("route_1_source"),"mod_wheel"));
+  synth->set(id("ui_group"),6);synth->set(id("ui_page"),34);synth->set(id("ui_section"),0);
+  synth->setNormalised(id("ui_knob_0"),1.0f);settle();
+  std::cout<<"matrix_picker target='"<<synth->displayText(target)<<"' source='"<<synth->displayText(id("route_1_source"))<<"' amount='"<<synth->displayText(byName("modulation 1 amount"))<<"'"<<std::endl;
+  check(synth->displayText(target)=="filter 1 cutoff"&&synth->displayText(id("route_1_source"))=="mod wheel","the TARGET picker index reaches the route and the cells spell the route out");
+  wheel(0);play();double picked=energy(40);wheel(127);play();double pickedOpen=energy(40);
+  std::cout<<"matrix_picked_route closed="<<picked<<" opened="<<pickedOpen<<std::endl;
+  check(pickedOpen>picked*2.0&&pickedOpen>1e-6,"MOD MATRIX: the AMOUNT fader and the TARGET picker drive the route");
+  start();route("lfo_1");play();double low=1e9,high=0;
+  for(int b=0;b<120;++b){double e=energy(6);low=std::min(low,e);high=std::max(high,e);}
+  std::cout<<"matrix_lfo low="<<low<<" high="<<high<<std::endl;
+  check(high>low*1.5,"MOD MATRIX: an LFO route reaches the same target");
+  ctx.midi=nullptr;ctx.numMidiEvents=0;
  }
  // Exercise the exported entry point and real VST dispatcher used by the
  // host's PRESET dropdown, independently of the retired custom browser.
