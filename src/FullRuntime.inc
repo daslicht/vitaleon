@@ -8,6 +8,11 @@ inline Vitaleon::Vitaleon(){
     setLoadStatus(loadMessage_.find("Bank skipped:")==0?2:0);
     browserDisplayDirty_.store(false); // initial UI obtains its values on open
     startSound_.store(!filePrograms_.empty());
+#ifdef VITALEON_TEST
+    // The skin tools name parameters in build/params.json and tools/init-values.json.
+    // The Q-Link slots are renamed at run time, so the dumps keep the declared names.
+    declaredNames_.reserve(size_t(numParams()));for(int i=0;i<numParams();++i)declaredNames_.push_back(param(i).name);
+#endif
     ready_=true;service_=std::thread([this]{serviceLoop();});
     try{fxThread_=std::thread([this]{fxLoop();});}catch(...){/* stay single-threaded */}
 }
@@ -75,13 +80,14 @@ inline void Vitaleon::connectRoutes(){
 inline void Vitaleon::serviceLoop(){
     while(!quit_.load()){
         if(browserPending_.load())serviceBrowser();
-        serviceTables();
         serviceBrowserLoad();
         serviceRandomFlash();
         serviceRandomMidi();
         serviceFavourites();
         serviceMidiLearn();
-        if(browserDisplayDirty_.exchange(false)){
+        const bool slotNames=slotNamesDirty_.exchange(false);
+        if(slotNames)syncSlotNames();
+        if(browserDisplayDirty_.exchange(false)||slotNames){
             // No state/lifecycle lock may be held: hosts may synchronously query
             // parameter strings or save state during these callbacks.
             // This is a display invalidation, not an automation gesture. In
@@ -107,6 +113,9 @@ inline void Vitaleon::serviceLoop(){
         try {serviceChanges(rebuild);}
         catch(const std::exception& e){succeeded=false;std::lock_guard<std::mutex> lock(stateMutex_);loadMessage_=std::string("Load failed: ")+e.what();setLoadStatus(2);}
         completed_.store(revision);if(rebuild&&succeeded)replayNotes_.store(true);gate_.store(3);
+        // serviceChanges released the state lock; lifecycle is still held here, so
+        // installCatalog takes only its flag and finds the sound via selectedAsset_.
+        if(programListHome_.exchange(false)){auto all=std::atomic_load(&initialCatalog_);if(all)installCatalog(all,true);}
     }
 }
 // The audio thread writes the graph readouts into read-only parameters and
@@ -277,6 +286,10 @@ inline void Vitaleon::serviceChanges(bool rebuild){
         selectedAsset_=assets_[0][requestedPreset];
         savedAssets_["preset_name"]=loadedName_;loaded=true;
     }
+    // The host names the plugin's header after its current program. The browser
+    // sets it in setProgram(); the LIBRARY, the dice and FAVS load from the index
+    // and must point it at the sound that just loaded.
+    if(requestedPreset>=0&&loaded)pointProgramAtFile(requestedPreset);
     engine_->allSoundsOff();publish(FullMode,1);
     {
         if(programReset_.exchange(false)){

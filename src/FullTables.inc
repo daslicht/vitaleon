@@ -122,9 +122,14 @@ inline bool Vitaleon::tableChanged(int index,float plain){
     // The discrete knob: its value is the entry, so no fraction has to be decoded.
     if(index==tableViewStep_){
         showTableCursor(getInt(tableViewStep_));
-        // Load once the wheel rests, so a spin parses only the table it lands on.
-        tableLoadSlot_.store(mpc::clamp(getInt(tableViewTarget_),0,2),std::memory_order_relaxed);
-        tableLoadDue_.store(nowMs()+120,std::memory_order_relaxed);
+        // 0.3.43 (user request): the wheel is the loader. Every entry it lands on loads
+        // at once, through the same path as tapping its row, so no second press and no
+        // load button are needed. loadSelections() always applies the selection that is
+        // current when the service thread runs, so a fast spin coalesces to the tables
+        // it actually passes instead of stopping at the last one.
+        const int slot=mpc::clamp(getInt(tableViewTarget_),0,2);
+        if(tableCount()>0)publishList(tableSelect_[slot],float(tableCursor_));
+        requestService(false);
         publishTables();browserDisplayDirty_.store(true);return true;
     }
     if(index>=tableCommands_&&index<tableCommands_+4){
@@ -137,7 +142,6 @@ inline bool Vitaleon::tableChanged(int index,float plain){
             // Built-in: index 0 is the built-in table, at once.
             const int slot=mpc::clamp(getInt(tableViewTarget_),0,2);
             showTableCursor(0);publishList(tableSelect_[slot],0);
-            tableLoadSlot_.store(slot);tableLoadDue_.store(0);
             requestService(false);
         }
         publishTables();browserDisplayDirty_.store(true);return true;
@@ -150,23 +154,11 @@ inline bool Vitaleon::tableChanged(int index,float plain){
         if(at<tableCount()){
             showTableCursor(at);
             publishList(tableSelect_[slot],float(at));
-            tableLoadSlot_.store(slot);tableLoadDue_.store(0);
             requestService(false);
         }
         publishTables();browserDisplayDirty_.store(true);return true;
     }
     return false;
-}
-inline void Vitaleon::serviceTables(){
-    long long due=tableLoadDue_.load(std::memory_order_relaxed);
-    if(!due||nowMs()<due)return;
-    if(!tableLoadDue_.compare_exchange_strong(due,0,std::memory_order_relaxed))return;
-    const int slot=mpc::clamp(tableLoadSlot_.load(std::memory_order_relaxed),0,2);
-    const int count=tableCount();if(count<=0)return;
-    const int cursor=mpc::clamp(tableCursor_,0,count-1);
-    if(getInt(tableSelect_[slot])!=cursor)publishList(tableSelect_[slot],float(cursor));
-    requestService(false);
-    publishTables();browserDisplayDirty_.store(true);
 }
 inline bool Vitaleon::formatTable(int index,std::string& out){
     if(tableRowStates_<0)return false;

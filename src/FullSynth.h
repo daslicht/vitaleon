@@ -114,17 +114,29 @@ private:
     // refreshNavigation() keep every group's slots filled, so the host paints real
     // values on a tab's first visit instead of the 0 a fresh slot was created with.
     std::array<std::array<std::atomic<int>,16>,7> groupTargets_{};
+    // Last page/section a group's slots were filled from; keeps the audio thread
+    // from rebuilding all seven groups on every block.
+    std::array<std::atomic<int>,7> groupPageSeen_{},groupSectionSeen_{};
     // What the host still has to hear about the Q-Link slots (0.3.23). A moving control
     // must not call into the host: 0.3.22 sent audioMasterAutomate on every movement and
     // redrew the page when the knob group changed, and the controls felt sluggish on the
     // device. The service thread sends these instead, the sound parameter and the page
     // redraw only once the control has rested for kSlotRestMs.
     static constexpr int kSlotRestMs=300;
+    static constexpr int kSlotLiveMs=40;
     std::array<std::atomic<int>,16> slotAutomated_{}; // sound parameter of a moved slot, -1 none
     std::atomic<int> slotStepped_{-1};                // switch or list that stepped: redraw it now
     std::atomic<bool> bankChanged_{false},bankRedraw_{false};
     std::atomic<long long> slotEditMs_{0};            // time of the last slot write, 0 = at rest
+    // A moved screen control must also move the Q-Link the user is watching, and a
+    // Track QControl must move the screen knob. These are sent throttled from the
+    // service thread while the control turns, not only after it rests.
+    std::atomic<int> liveProxy_{-1},liveTarget_{-1},liveGroup_{-1};
+    std::atomic<long long> liveWriteMs_{0},liveSentMs_{0};
+    std::atomic<bool> liveDirty_{false};             // a write arrived since the last live send
+    bool writingSlot_=false;                          // set only around applySlot's setNormalised
     static long long nowMs(){return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();}
+    void noteLive(int proxy,int target,int group);
     void flushSlotNotifications();
     // Matrix table and its two-step target picker (helper views are hidden).
     int matrixView_=-1,pickGroupView_=-1,pickTargetView_=-1,routeTargetProxy_=-1,uiPick_=-1;
@@ -162,11 +174,15 @@ private:
     void installCatalog(std::shared_ptr<const Catalog> catalog,bool lifecycleHeld=false);
     void createNavigation();
     void updateNavigation();
+    void syncSlotNames();
     bool applySlot(int slot,float plain);
     int groupMemberPage(int group,int member);
     int tabMemberIndex(int page);
     bool navigationChanged(int index,float plain);
     void refreshNavigation();
+    void syncGroupTargets(int group);
+    void syncSectionTargets();
+    int slotDisplayTarget(int group,int slot)const;
     // Run-time list selectors: the wheel's coarse fraction moves one entry (listStep).
     float listRaw_[6]{};int listIndex_[6]{};long long listMs_[6]{};float listTravel_[6]{};
     void listStep(int index,float plain);
@@ -181,8 +197,6 @@ private:
     int tableOpen_=-1,tableCommands_=-1,tableRows_=-1,tableRowStates_=-1,tableRowNames_=-1,tableRowFolders_=-1,tablePosition_=-1,tableStatus_=-1,tableNameReadout_=-1;
     int tableViewTarget_=-1,tableViewPage_=-1,tableViewStep_=-1;
     int tableCursor_=0;
-    std::atomic<long long> tableLoadDue_{0};
-    std::atomic<int> tableLoadSlot_{-1};
     std::mutex tableMutex_; // guards assets_[1]: RELOAD may swap it while the host reads
     void createTables();
     void createTableStep();
@@ -190,7 +204,6 @@ private:
     void syncSectionFromStrip();
     void publishTables();
     void showTableCursor(int entry);
-    void serviceTables();
     void serviceRandomFlash();
     void serviceRandomMidi();
     void serviceFavourites();
@@ -221,6 +234,10 @@ private:
     int libraryBank_=-1,libraryPage_=-1,libraryLoad_=-1,libraryPrevious_=-1,libraryNext_=-1,bankPrevious_=-1,bankNext_=-1;
     int libraryRows_=-1,libraryNames_=-1,libraryBankText_=-1,librarySelectedText_=-1,libraryLoadedText_=-1,libraryPageText_=-1;
     std::atomic<int> pendingPreset_{-1};
+    // A plugin-started load must also move the host's program slot, or the name above
+    // the plugin keeps the previous sound. When the open PRESET list is a browsed bank
+    // that does not hold the sound, the list returns to all installed sounds instead.
+    std::atomic<bool> programListHome_{false};
     // Random preset (0.3.35): a shuffled deck of the current bank's files. Drawing
     // without putting back means every installed sound plays once before any of them
     // can repeat, and a bank of N cannot show the same preset twice in a row. The
@@ -280,7 +297,7 @@ private:
     std::vector<int> randomDeck_;long long randomDeckStamp_=0;size_t randomDrawn_=0;
     std::mt19937 randomRng_{std::random_device{}()};
     // Deadline that ends the press flash of the dice, in the same style as
-    // tableLoadDue_: written by the tap, extended while a load runs, cleared by the
+    // browserLoadDue_: written by the tap, extended while a load runs, cleared by the
     // service loop. Long enough to be seen: the first repaint after a tap can only
     // arrive once the loading callback has returned.
     std::atomic<long long> randomFlashDue_{0};
@@ -294,6 +311,11 @@ private:
     // UI caches must be refreshed explicitly after browser/state changes.
     // The service thread delivers host callbacks outside the engine locks.
     std::atomic<bool> browserDisplayDirty_{false};
+    // The Force prints a Q-Link slot's parameter name on its screen strip, and the
+    // group slots are proxies (user report: it read "Group 2 Slot 1" instead of the
+    // control the knob turns). updateNavigation() marks this, the service thread
+    // renames the slots before its display update, never on the audio thread.
+    std::atomic<bool> slotNamesDirty_{false};
     std::string loadedName_="Built-in / current";
     int homeControls_=-1;
     int homeFilter_=-1;
@@ -421,9 +443,16 @@ private:
     int diagConfig_=-1,diagCount_=0,diagShown_=0;long diagFrames_=0;double diagSum_=0;
     std::array<std::atomic<int>,8> diagResult_{};std::atomic<int> diagBlock_{0},diagVersion_{0};
     void diagApply(int config);void diagStep(int frames);void diagReport();
+#ifdef VITALEON_TEST
+    std::vector<std::string> declaredNames_; // names as created, for the skin tools' dumps
+#endif
 public:
     bool testAsleep()const{return asleep_;}
     bool testSlotsAtRest()const{return slotEditMs_.load()==0;}
+#ifdef VITALEON_TEST
+    const std::string& testDeclaredName(int i)const{return declaredNames_[size_t(i)];}
+#endif
+    void testClearLive(){liveProxy_=-1;liveTarget_=-1;liveGroup_=-1;liveWriteMs_=0;liveDirty_=false;}
 private:
     int displayCountdown_=0,lastPreset_=0,lastSample_=0,lastShape_=0;
     std::array<int,3> lastTable_{{0,0,0}};
@@ -456,6 +485,7 @@ private:
     int libraryFile(int row)const;
     int libraryPageCount()const;
     void loadFileIndex(int file);
+    void pointProgramAtFile(int file);
     int drawRandomFile();
     void flashRandomPress();
     static std::string textPart(const std::string& text,int part);

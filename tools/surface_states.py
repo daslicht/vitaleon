@@ -13,7 +13,14 @@ TABS=UI['tabs']
 # the group page parameter counts members inside the group.
 GROUP_MODEL=len(TABS)>1
 PARAMS=json.loads((PROJECT/'build/params.json').read_text())['params']
-NAMES={p['name']:p['index'] for p in PARAMS}
+NAMES={}
+for p in PARAMS:NAMES.setdefault(p['name'],p['index'])  # a renamed Q-Link slot must not shadow a real name
+# The Q-Link slots are renamed at run time to their visible target, so build/params.json
+# can hold 'Master' where the created parameter is 'Group 0 Slot 1'. The declared names
+# in tools/init-values.json stay stable and keep the Q-Link map checks addressable.
+for p,v in zip(PARAMS,json.loads((PROJECT/'tools/init-values.json').read_text())):
+    assert v['index']==p['index'],(p['name'],v['name'])
+    NAMES.setdefault(v['name'],p['index'])
 def resolve(h,mapping):
     for _ in range(8):
         if h in mapping and mapping[h]!=h:h=mapping[h]

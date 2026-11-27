@@ -13,12 +13,13 @@ static std::atomic<size_t> selectedCache{0},loadedCache{0};
 static std::atomic<bool> displayOnAudio{false};
 static std::atomic<int> automatedTarget{-1};
 static std::atomic<unsigned> readoutUpdates{0};
+static std::atomic<unsigned> proxyAnnouncements{0},displayAnnouncements{0};
 static std::atomic<unsigned> automateCalls{0}; // every audioMasterAutomate, whatever the parameter
 static std::atomic<int> cachedProgramCount{0};
 static std::atomic<bool> validReentrantNames{true};
 static AEffect displayEffect{};
 static VstIntPtr displayHost(AEffect* effect,VstInt32 opcode,VstInt32 index,VstIntPtr,void*,float){
- if(opcode==audioMasterAutomate){automateCalls.fetch_add(1);if(static_cast<mpc::Plugin*>(effect->object)->param(index).automatable)automatedTarget.store(index);else readoutUpdates.fetch_add(1);}
+ if(opcode==audioMasterAutomate){automateCalls.fetch_add(1);const auto& p=static_cast<mpc::Plugin*>(effect->object)->param(index);if(p.automatable)automatedTarget.store(index);else{readoutUpdates.fetch_add(1);if(p.id.rfind("ui_knob_",0)==0||p.id.find("_slot_")!=std::string::npos)proxyAnnouncements.fetch_add(1);if(p.id.rfind("display_",0)==0)displayAnnouncements.fetch_add(1);}}
  if(opcode==audioMasterUpdateDisplay){
   if(audit)displayOnAudio.store(true);
   auto* plugin=static_cast<mpc::Plugin*>(effect->object);
@@ -76,7 +77,7 @@ int main(int argc,char** argv){
    double sum=0;for(int n=0;n<80;++n){e->processReplacing(e,nullptr,out,128);for(int j=0;j<128;++j)sum+=l[j]*l[j]+r[j]*r[j];}return sum;};
   wait();check(e->numPrograms==1&&std::string(name)=="Init"&&d(effGetProgram)==0,"plugin without sounds offers exactly one Init program");
   // The Init state of every parameter, for tools/generate_surface.py (tools/init-values.json).
-  if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<p->numParams();++i)values.push_back({{"index",i},{"name",p->param(i).name},{"value",p->getNormalised(i)},{"display",p->displayText(i)}});std::ofstream file(argv[2]);file<<values.dump(1);}
+  if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<p->numParams();++i)values.push_back({{"index",i},{"name",p->testDeclaredName(i)},{"value",p->getNormalised(i)},{"display",p->displayText(i)}});std::ofstream file(argv[2]);file<<values.dump(1);}
   check(energy()>1e-6,"plugin without sounds plays its default sound");
   int cutoff=p->controlIndex("filter_1_cutoff");float before=p->get(cutoff);p->set(cutoff,before==20?30.0f:20.0f);d(effSetProgram,0,0);wait();
   int loaded=-1;for(int i=0;i<p->numParams();++i)if(p->param(i).id=="library_loaded_0")loaded=i;
@@ -163,7 +164,7 @@ int main(int argc,char** argv){
  synth->set(id("route_1_source"),choice(id("route_1_source"),"lfo_1"));synth->set(id("route_1_destination"),choice(id("route_1_destination"),"osc_1_wave_frame"));
  synth->set(byName("modulation 1 amount"),.8f);settle();
  float min=1,max=0;for(int b=0;b<700;++b){render();float p=synth->get(id("display_position_0"));min=std::min(min,p);max=std::max(max,p);}check(max-min>.1f,"wavetable display follows actual LFO modulation");std::cout<<"frame_display_min="<<min<<" max="<<max<<std::endl;
- if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<synth->numParams();++i)values.push_back({{"id",synth->param(i).id},{"name",synth->param(i).name},{"index",i},{"value",synth->getNormalised(i)},{"display",synth->displayText(i)}});std::ofstream file(argv[2]);file<<values.dump(2);}
+ if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<synth->numParams();++i)values.push_back({{"id",synth->param(i).id},{"name",synth->testDeclaredName(i)},{"index",i},{"value",synth->getNormalised(i)},{"display",synth->displayText(i)}});std::ofstream file(argv[2]);file<<values.dump(2);}
  for(const char* fx:{"chorus_on","compressor_on","delay_on","distortion_on","eq_on","filter_fx_on","flanger_on","phaser_on","reverb_on"}){synth->set(synth->controlIndex(fx),1);for(int b=0;b<12;++b)render();synth->set(synth->controlIndex(fx),0);}
  check(finite,"all nine effects render finite audio");check(allocations==0,"no C++ allocations in callback (full graph, modulation, effects)");std::cout<<"callback_allocations="<<allocations<<std::endl;
  synth->set(id("effect_slot"),1);synth->set(id("effect_type"),8);int order[9];vital::utils::decodeFloatToOrder(order,synth->get(synth->controlIndex("effect_chain_order")),9);check(order[0]==8,"FX reorder controls update engine order");
@@ -250,7 +251,7 @@ int main(int argc,char** argv){
   tap("library_load");settle();check(synth->get(synth->controlIndex("filter_1_cutoff"))==77,"LOAD applies preset selected by touch row");
   synth->set(synth->controlIndex("filter_1_cutoff"),23);tap("library_load");settle();check(synth->get(synth->controlIndex("filter_1_cutoff"))==77,"LOAD reloads same preset after edits");
   auto beforeBlank=synth->getInt(selector);tap("library_row_5");check(synth->getInt(selector)==beforeBlank,"empty row cannot select or load another sound");
-  if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<synth->numParams();++i)values.push_back({{"id",synth->param(i).id},{"name",synth->param(i).name},{"index",i},{"value",synth->getNormalised(i)},{"display",synth->displayText(i)}});std::ofstream file(std::string(argv[2])+"-library.json");file<<values.dump(2);}
+  if(argc>2){nlohmann::json values=nlohmann::json::array();for(int i=0;i<synth->numParams();++i)values.push_back({{"id",synth->param(i).id},{"name",synth->testDeclaredName(i)},{"index",i},{"value",synth->getNormalised(i)},{"display",synth->displayText(i)}});std::ofstream file(std::string(argv[2])+"-library.json");file<<values.dump(2);}
   auto loadedState=synth->internalSaveState();synth->testInit();settle();check(synth->internalLoadState(loadedState.data(),loadedState.size()),"imported state accepted");settle();  check(synth->displayText(id("library_loaded_0"))=="02 Bank Test"&&synth->get(synth->controlIndex("filter_1_cutoff"))==77,"loaded filename and sound survive project restore");
   // Random preset (0.3.35): the deck deals every installed sound once per cycle, so a
   // bank of N cannot repeat a preset until the other N-1 have played.
@@ -262,6 +263,10 @@ int main(int argc,char** argv){
   int duplicates=0,smallest=installed+1;
   for(size_t a=0;a<dealt.size();++a){smallest=std::min(smallest,dealt[a]);for(size_t b=a+1;b<dealt.size();++b)if(dealt[a]==dealt[b])++duplicates;}
   check(installed>2&&int(dealt.size())==installed&&!duplicates&&smallest>0&&!synth->busy(),"random preset deals every installed sound once per cycle");
+  // The header above the plugin prints the host's current program. The dice loads
+  // straight from the index, so the load must also move that program slot to the
+  // sound it dealt (this fixture has no built-in programs, so the map is 1:1).
+  check(synth->currentProgram()==synth->getInt(selector)-1,"the dice points the host's program at the sound it loaded");
   const int lastDealt=dealt.back();std::vector<int> again;
   for(int n=0;n<2;++n){pressRandom();again.push_back(synth->getInt(selector));}
   check(again[0]!=lastDealt&&again[1]!=again[0],"random preset never repeats across the cycle boundary");
@@ -691,6 +696,40 @@ int main(int argc,char** argv){
   // The sound parameter is announced once the control rests (0.3.23), not while it moves.
   for(int i=0;i<1000&&!native->testSlotsAtRest();++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
   check(native->testSlotsAtRest()&&automatedTarget.load()==native->controlIndex("lfo_8_frequency"),"Q-Link automation reports stable LFO 8 parameter rather than navigation proxy");
+  // The Force paints the page and section the host selected before the plugin sees
+  // the callback. A knob must resolve them from the host's own handles; otherwise
+  // FILTER 2 quietly edits FILTER 1, and the slot jumps back when the page lands.
+  {const int c2=native->controlIndex("filter_2_cutoff");
+   native->set(id("ui_page"),8);native->set(id("ui_section"),0);
+   native->publishNormalised(id("ui_gpage_2"),native->param(id("ui_gpage_2")).toNormalised(1));
+   native->publishNormalised(id("ui_gsec_2"),native->param(id("ui_gsec_2")).toNormalised(0));
+   const float before1=native->getNormalised(cutoff);
+   native->setNormalised(id("ui_g2_slot_0"),.7f);
+   check(native->getInt(id("ui_page"))==9&&std::abs(native->getNormalised(c2)-.7f)<1e-5&&std::abs(native->getNormalised(cutoff)-before1)<1e-6,
+         "a Force Q-Link follows the FILTER 2 page the host shows, not the plugin's stale page");
+   // The host's section strip selects ROUTING; Q-Link 2 must then edit blend,
+   // not the SOUND section's cutoff, and the slot must show the target's text.
+   native->publishNormalised(id("ui_gsec_2"),native->param(id("ui_gsec_2")).toNormalised(1));
+   native->setNormalised(id("ui_g2_slot_1"),.4f);
+   check(native->getInt(id("ui_section"))==1&&std::abs(native->getNormalised(native->controlIndex("filter_2_blend"))-.4f)<1e-5,
+         "a Force section button steers the Q-Link to the section the host shows");
+   check(native->displayText(id("ui_g2_slot_1"))==native->displayText(native->controlIndex("filter_2_blend")),
+         "a Force Q-Link slot shows the target's value text, not the raw 0..1 proxy");
+   // A Program/Track QControl writes the sound parameter directly (Q-Link 7 is
+   // filter 2 cutoff by default). The page's slot must mirror that write.
+   native->publishNormalised(id("ui_gsec_2"),native->param(id("ui_gsec_2")).toNormalised(0));
+   native->testClearLive();const unsigned proxies=proxyAnnouncements.load();
+   native->setNormalised(c2,.81f);
+   for(int i=0;i<100&&proxyAnnouncements.load()==proxies;++i)std::this_thread::sleep_for(std::chrono::milliseconds(2));
+   check(proxyAnnouncements.load()>proxies,"a Track QControl is mirrored to the visible screen and Q-Link proxies in real time");
+   check(std::abs(native->getNormalised(id("ui_g2_slot_0"))-.81f)<1e-6&&native->displayText(id("ui_g2_slot_0"))==native->displayText(c2),
+         "a Track QControl on filter 2 cutoff moves the FILTER 2 screen knob and its display");
+   // The MOD tab's bank belongs to group 4 even while the matrix (group 6) is on
+   // screen, so its slot must show the matrix amount rather than the LFO's value.
+   native->set(id("ui_page"),34);native->set(id("ui_section"),0);
+   check(std::abs(native->getNormalised(id("ui_g4_slot_0"))-native->getNormalised(native->controlIndex("modulation_1_amount")))<1e-6&&
+         native->displayText(id("ui_g4_slot_0"))==native->displayText(native->controlIndex("modulation_1_amount")),
+         "the MOD tab's Q-Link slot shows the matrix amount on the matrix screen");}
   // The MOD tab hosts two groups on one Q-Link bank: a matrix knob write must
   // stay on the matrix page instead of pulling the LFO page back.
   native->set(id("ui_gpage_6"),0);native->set(id("ui_section"),0);
@@ -739,18 +778,28 @@ int main(int argc,char** argv){
    native->set(id("ui_section"),3);waitNative();
    check(native->getInt(id("ui_gsec_1"))==3,"the strip follows a section the plugin changed");
    native->set(id("ui_page"),0);native->set(id("ui_section"),0);}
-  // 0.3.34 (user report): the host paints the page it just opened before the plugin
-  // publishes its slot values, so a Q-Link-bound fader kept the 0 its slot was created
-  // with (OSC 1 Level showed 0 until OSC 2 and back). The plugin now announces the
-  // slots it just published, which is what moves the host's own widget.
-  {native->set(id("ui_page"),0);waitNative();
+  // A page or section change publishes its slot values and redraws the page. It must
+  // not announce the slot proxies as automation: the Force's Q-Link Learn adds every
+  // parameter announced while Learn is engaged, so a FILTER page would learn its six
+  // UI Controls, six group slots and the target instead of just the target.
+  {native->testClearLive();std::this_thread::sleep_for(std::chrono::milliseconds(80));native->testClearLive();
+   native->set(id("ui_page"),0);waitNative();
    native->set(id("ui_page"),4);waitNative();
-   unsigned announced=readoutUpdates.load();
+   unsigned proxies=proxyAnnouncements.load();
    native->set(id("ui_section"),0);waitNative();
    const int level=native->controlIndex("osc_1_level");
    check(std::abs(native->getNormalised(id("ui_g1_slot_1"))-native->getNormalised(level))<1e-6,
          "a section change puts its controls into the Q-Link slots");
-   check(readoutUpdates.load()>=announced+2,"the slots a page or section shows are announced to the host");}
+   check(proxyAnnouncements.load()==proxies,"a page or section change does not announce its proxy slots to Q-Link Learn");
+   // The Force prints the mapped parameter's name in its Q-Link strip. The slots
+   // are proxies, so they must be renamed after the control they turn.
+   auto slotName=[&](int slot){return native->param(id("ui_g1_slot_"+std::to_string(slot))).name;};
+   for(int i=0;i<200&&slotName(0)!="Wave Frame";++i)std::this_thread::sleep_for(std::chrono::milliseconds(2));
+   check(slotName(0)=="Wave Frame","the Q-Link strip names the control a slot turns, not the proxy");
+   native->set(id("ui_section"),2);waitNative(); // OSC 1 > UNISON
+   for(int i=0;i<200&&slotName(0)!="Unison";++i)std::this_thread::sleep_for(std::chrono::milliseconds(2));
+   check(slotName(0)=="Unison","the Q-Link names follow a section change");
+   native->set(id("ui_section"),0);native->set(id("ui_page"),0);waitNative();}
   // The preset selector is a run-time list, so the host turns it as a continuous
   // parameter: one coarse wheel click still moves it by one entry.
   {
@@ -777,8 +826,8 @@ int main(int argc,char** argv){
     check(native->getInt(sel)>=8,"a jump in a run-time list stays absolute again");
   }
   // 0.3.35 table picker, the seventh section of each oscillator page since 0.3.36.
-  // The wheel moves one cursor entry per click and the entry loads when the wheel
-  // rests; a row button loads at once.
+  // The wheel moves one cursor entry per click and loads the entry it lands on; a row
+  // tap loads at once too.
   {
     const int open=id("table_open_1"),step=id("table_view_step"),table=id("table_1");
     auto idle=[&](int blocks){for(int i=0;i<blocks;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}};
@@ -805,10 +854,10 @@ int main(int argc,char** argv){
     check(firstName=="Test Table 1"&&native->displayText(id("table_row_1_folder"))=="Test","the table rows carry the installed names and their folder");
     click();
     check(native->testTableCursor()==1,"one data wheel click moves the table cursor by one entry");
-    check(loaded(1),"the cursor entry loads once the wheel rests");
+    check(loaded(1),"the entry under the wheel loads at once");
     check(native->displayText(step)==std::to_string(native->testTableCursor()+1)+"/"+std::to_string(native->testTableCount()),"the table tile shows its position in the list");
     check(native->displayText(id("display_table_name_1"))==firstName,"the oscillator names the table it loaded");
-    // A quick spin: three clicks inside the 120 ms rest window load only the last entry.
+    // A quick spin: three clicks coalesce to the table it lands on.
     click();click();click();
     check(native->testTableCursor()==4,"a quick spin moves the cursor once per click");
     check(loaded(4),"a quick spin loads only the table it lands on");
@@ -850,10 +899,12 @@ int main(int argc,char** argv){
    int knob=id("ui_knob_0"),sound=id("home_0"),volume=native->controlIndex("volume");effect->setParameter(effect,knob,.5f);rest();
    unsigned shown=displayUpdates.load(),calls=automateCalls.load();float turned=.8f;automatedTarget.store(-1);
    for(int step=1;step<=20;++step){effect->setParameter(effect,knob,.5f+step*.015f);idle(2);}
-   check(displayUpdates.load()==shown&&automateCalls.load()==calls,"a moving control makes no call into the host");
+   std::this_thread::sleep_for(std::chrono::milliseconds(60));
+   check(displayUpdates.load()==shown,"a moving control does not redraw the page");
+   check(automateCalls.load()>calls,"a moving control follows on the host while it turns");
    check(std::abs(native->getNormalised(sound)-turned)<1e-5&&std::abs(effect->getParameter(effect,knob)-turned)<1e-5,"a Q-Link turn reaches the sound and the slot keeps the value the host wrote");
    rest();
-   check(automateCalls.load()==calls+1&&automatedTarget.load()==volume&&displayUpdates.load()==shown,"a rested control announces its sound parameter once, without a page redraw");
+   check(automateCalls.load()>=calls+1&&automatedTarget.load()==volume&&displayUpdates.load()==shown,"a rested control announces its sound parameter and keeps the page unredrawn");
    check(native->getInt(id("ui_bank"))==0,"the first four Q-Links are group 1");
    // Another knob group: the frame parameter is announced at once, the page redrawn at rest.
    unsigned framed=readoutUpdates.load();shown=displayUpdates.load();
@@ -906,14 +957,14 @@ int main(int argc,char** argv){
   // readouts are never sent as single parameter notifications (they delayed the
   // MPC's audio callback), and a picture that does not change asks for nothing.
   {native->set(id("ui_page"),4);waitNative();for(int i=0;i<120;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
-   unsigned single=readoutUpdates.load(),shown=displayUpdates.load();int frame=native->controlIndex("osc_1_wave_frame");native->set(frame,native->get(frame)<100?170.0f:20.0f);
+   unsigned single=displayAnnouncements.load(),shown=displayUpdates.load();int frame=native->controlIndex("osc_1_wave_frame");native->set(frame,native->get(frame)<100?170.0f:20.0f);
    for(int i=0;i<2000&&displayUpdates.load()==shown;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
    check(displayUpdates.load()>shown,"a changed oscillator graph asks the host for a display update");
    for(int i=0;i<150;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
    unsigned still=displayUpdates.load();
    for(int i=0;i<200;++i){effect->processReplacing(effect,nullptr,outputs,128);std::this_thread::sleep_for(std::chrono::milliseconds(2));}
    check(displayUpdates.load()==still,"a graph that does not change asks for nothing");
-   check(readoutUpdates.load()==single,"graph readouts are never sent as single parameter notifications");
+   check(displayAnnouncements.load()==single,"graph readouts are never sent as single parameter notifications");
    // Columns 97-128 live in the second readout block; the frame is moved to a second shape so both blocks must follow.
    auto column=[&](int c){return native->getNormalised(c<96?id("display_wave_0_0")+c:id("display_wave_bank_0_0")+c-96);};
    std::array<float,128> first{};for(int c=0;c<128;++c)first[size_t(c)]=column(c);

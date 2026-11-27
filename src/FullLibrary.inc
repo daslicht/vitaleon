@@ -236,7 +236,7 @@ inline void Vitaleon::flashRandomPress(){
     browserDisplayDirty_.store(true);
 }
 inline void Vitaleon::serviceRandomFlash(){
-    // Same deadline pattern as serviceTables: the service loop runs this on every
+    // Same deadline pattern as the browser load: the service loop runs this on every
     // pass, also while idle. A load runs inside the host's parameter callback, and
     // the host cannot repaint while it is inside that callback, so a countdown
     // started at the tap would be over before the first repaint arrives. Keep the

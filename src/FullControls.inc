@@ -240,7 +240,21 @@ inline void Vitaleon::parameterChanged(int index,float plain){
         return;}
     if(index==advancedValue_){setNormalised(advancedTargets_[getInt(advancedSelector_)],plain);return;}
     if(index==effectType_){int order[9];vital::utils::decodeFloatToOrder(order,get(effectOrder_),9);int position=getInt(effectSlot_)-1,target=int(std::lround(plain));for(int i=0;i<9;++i)if(order[i]==target){std::swap(order[i],order[position]);break;}set(effectOrder_,vital::utils::encodeOrderToFloat(order,9));return;}
+    // A section button the host wrote without a callback is still the section on
+    // screen; sync it before the proxies fill the visible slots.
+    syncSectionFromStrip();
     refreshProxies();
+    // A Track QControl writes the sound parameter directly. The screen knob and a
+    // Screen-mode Q-Link are separate proxy parameters, so mirror the change into
+    // the visible ones and let the service thread announce them while it turns.
+    if(!writingSlot_&&param(index).automatable){
+        int proxy=-1,group=-1;
+        for(int i=0;i<16;++i)if(uiTargets_[i].load()==index){proxy=uiKnobs_+i;break;}
+        const int page=uiPage_>=0?mpc::clamp(getInt(uiPage_),0,int(surfaceViews_.size())-1):-1;
+        if(page>=0){const int g=mpc::clamp(surfaceViews_[page].group,0,6);const int bank=g==6?4:g;
+            if(groupSlot_[bank]>=0)for(int i=0;i<9;++i)if(groupTargets_[size_t(bank)][size_t(i)].load()==index){group=groupSlot_[bank]+i;break;}}
+        if(proxy>=0||group>=0)noteLive(proxy,-1,group);
+    }
     if(index==curveTarget_||index==routeSelect_||index==pointSelect_||index==lfoSelect_){
         // Selecting a view is read-only: it must never stop/retrigger held notes.
         curveSelectionChanged_.store(true);inspectCurve_.store(true);return;
@@ -257,6 +271,11 @@ inline void Vitaleon::parameterChanged(int index,float plain){
 }
 inline bool Vitaleon::formatValue(int index,float plain,std::string& out){
     if(uiKnobs_>=0&&index>=uiKnobs_&&index<uiKnobs_+16){int target=uiTargets_[index-uiKnobs_].load();out=target>=0?displayText(target):"Unused";return true;}
+    // The Force's Screen-mode knobs write one slot per group. They are proxies for
+    // the control on the visible page, so their value text must be the target's
+    // text (Hz, dB, semitones) and not the raw 0..1 slot value.
+    for(int g=0;g<7;++g)if(groupSlot_[g]>=0&&index>=groupSlot_[g]&&index<groupSlot_[g]+9){
+        const int target=slotDisplayTarget(g,index-groupSlot_[g]);out=target>=0?displayText(target):"Unused";return true;}
     // The matrix rows and the picker show a route's source and target. The host
     // only has the engine key, so spell it the way the rest of the screen does
     // ("Filter 1 Cutoff", not "filter_1_cutoff").

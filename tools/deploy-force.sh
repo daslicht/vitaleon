@@ -2,10 +2,11 @@
 # Deploy the built Vitaleon folder to an Akai Force over SSH.
 #
 # The plugin folder is replaced as a whole, so a stale file inside it (an old
-# skin, an old .so) cannot survive an update. The one exception is Content/:
-# the banks, presets, samples and wavetables installed on the device are copied
-# into the new folder before the old one is moved away. Everything else is
-# taken from build/, never merged.
+# skin, an old .so) cannot survive an update. The exceptions are the user data
+# next to the plugin: Content/ (banks, presets, samples and wavetables) and the
+# runtime files Favourites.json and MidiLearn.json. They are copied into the new
+# folder before the old one is moved away; everything else is taken from build/,
+# never merged.
 #
 #   tools/deploy-force.sh              deploy
 #   tools/deploy-force.sh --reboot     deploy, then reboot the Force
@@ -59,6 +60,12 @@ echo "== keep installed Content =="
 $SSH "if [ -d $(q "$PLUGINS/$NAME/Content") ]; then cp -a $(q "$PLUGINS/$NAME/Content/.") $(q "$STAGE/$NAME/Content/"); fi
 echo \"Content files now: \$(find $(q "$STAGE/$NAME/Content") -type f | wc -l)\""
 
+echo "== keep runtime files =="
+$SSH "for f in Favourites.json MidiLearn.json; do
+    src=$(q "$PLUGINS/$NAME")/\$f; dst=$(q "$STAGE/$NAME")/\$f
+    if [ -f \"\$src\" ]; then cp -a \"\$src\" \"\$dst\"; echo \"kept \$f\"; fi
+done"
+
 echo "== swap =="
 $SSH "set -e
 rm -rf $(q "$PLUGINS/$NAME.old")
@@ -69,7 +76,8 @@ sync
 echo \"installed: \$(grep -m1 '\"version\"' $(q "$PLUGINS/$NAME/plugin.json"))\"
 echo \"arm32: \$(md5sum $(q "$PLUGINS/$NAME/VST/vitaleon-arm32.so") | cut -d' ' -f1)\"
 echo \"Content files: \$(find $(q "$PLUGINS/$NAME/Content") -type f | wc -l)\"
-echo \"skins: \$(ls $(q "$PLUGINS/$NAME/Plugin Skins") | wc -l)\""
+echo \"skins: \$(ls $(q "$PLUGINS/$NAME/Plugin Skins") | wc -l)\"
+for f in Favourites.json MidiLearn.json; do if [ -f $(q "$PLUGINS/$NAME")/\$f ]; then echo \"runtime: \$f kept\"; fi; done"
 
 echo "== local arm32 =="
 md5 -q "$SRC/VST/vitaleon-arm32.so" 2>/dev/null || md5sum "$SRC/VST/vitaleon-arm32.so" | cut -d' ' -f1

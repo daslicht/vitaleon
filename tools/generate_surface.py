@@ -16,7 +16,11 @@ def native_label_data(label_type,colour,height=30.0,justification='left',text=No
     return result
 g.label_data=native_label_data
 skin=project/'skins';skin.mkdir(exist_ok=True)
-params=json.loads((project/'build/params.json').read_text())['params']; byname={p['name']:p for p in params}
+params=json.loads((project/'build/params.json').read_text())['params']
+# First wins: a Q-Link slot renamed to its target ('Voices') must not shadow the real
+# parameter of that name in every later lookup.
+byname={}
+for p in params:byname.setdefault(p['name'],p)
 # The build's parameter dump holds the values of whatever sound the plugin had loaded
 # when it was made (since 0.3.20 the first installed sound). Value and text of every
 # parameter therefore come from tools/init-values.json: the Init state of a plugin
@@ -25,7 +29,11 @@ params=json.loads((project/'build/params.json').read_text())['params']; byname={
 init_values=json.loads((root/'init-values.json').read_text())
 assert len(init_values)==len(params),'tools/init-values.json is stale: run tests/run_full_checks.py and copy build/full-checks/init-values.json'
 for p,v in zip(params,init_values):
-    assert v['index']==p['index'] and v['name']==p['name'],(p['name'],v['name'])
+    assert v['index']==p['index'],(p['name'],v['name'])
+    # The Q-Link slots are renamed at run time (slotCaption), so the build dump can
+    # already hold 'Master' where the created name is 'Group 0 Slot 1'. The declared
+    # name from the test dump stays stable, so keep it as a second way in.
+    byname.setdefault(v['name'],p)
     p['default']=v['value'];p['display']=v['display']
 catalog_data=json.loads((root/'catalog.json').read_text());catalog=catalog_data['controls']
 catalog_by_id={c['id']:c for c in catalog}
@@ -103,10 +111,10 @@ SLOT=f'0 0 {SLOT_W} {SLOT_H}'
 SCREEN_RIGHT=1256 if FORCE else 1000
 KNOB=120 if FORCE else 112
 FADER_W,FADER_H=(372,64) if FORCE else (300,56)
-KNOB_SMALL=64 if FORCE else 56  # the table cursor's rotary, one header line high
-# 0.3.34 (user request): the table knob sits right of the wave frame knob in the
-# oscillator's SOUND section, so that row splits: the wave frame keeps its dial and
-# readout, the table knob gets a compact cell before the list.
+KNOB_SMALL=64 if FORCE else 56
+# 0.3.34 (user request): the oscillator's SOUND row splits beside the wave frame
+# cell, which keeps its dial and readout. 0.3.42: the table list starts in the band
+# the old cursor tile used, so this is the gap between the frame and the list.
 TABLE_KNOB_W=148 if FORCE else 104
 WAVE_SLOT_W=SLOT_W-TABLE_KNOB_W-8
 # 0.3.34: SOUND carries four knobs beside the table, so they use a compact cell.
@@ -459,35 +467,10 @@ from surface_spec import VIEWS,GROUPS,TARGET_GROUPS,write_header
 # is the space one tab owns.
 assert all(len(v['sections'])<=8 for v in VIEWS if not v.get('hidden')),max(len(v['sections']) for v in VIEWS)
 write_header()
-# The table cursor is a rotary in a slot like every other knob. A bare Knob entry
-# showed no focus ring and the data wheel kept editing whatever had focus before;
-# the slot takes hardware focus, its Focus child draws the ring and the wheel turns
-# it. The SDK has no endless-encoder widget: the knob follows the cursor and stops
-# at the first and last table. The skin binds it to the discrete step handle, so one
-# wheel click is exactly one table and the plugin loads the entry it lands on.
-# 0.3.34 (user request): the table control is a value tile, not a rotary. The step
-# handle is a list position, so a dial only suggested a continuous knob. The SDK's
-# ValueSlider widget draws the value text and nothing else; the ring behind it is our
-# own image, and the tile keeps the focus ring and the data wheel of the old knob.
-TABLE_VALUE=84 if FORCE else 72
-TABLE_VALUE_X=(TABLE_KNOB_W-TABLE_VALUE)//2
-TABLE_VALUE_Y=48
-def table_dial_image():
-    name=f'table-dial-osc{DEF_SUFFIX}.png'
-    if not (skin/name).exists():
-        image=Image.new('RGBA',(TABLE_VALUE,TABLE_VALUE),(0,0,0,0))
-        rgb=tuple(bytes.fromhex(COLORS['osc'][2:]));fill=tuple(bytes.fromhex(PANEL[2:]))
-        ImageDraw.Draw(image).ellipse((1,1,TABLE_VALUE-2,TABLE_VALUE-2),outline=rgb+(230,),width=2,fill=fill+(255,))
-        image.save(skin/name)
-    return name
-definitions.append(g.obj(('key','table-cursor'),('value',g.component_definition([],[
-    g.entry('focus','Focus',g.focus_data(COLORS['osc']),f'{TABLE_VALUE_X} {TABLE_VALUE_Y} {TABLE_VALUE} {TABLE_VALUE}','No','Show','WhenFocussed'),
-    ent('name','Label',g.label_data('Name',TEXT,SLOT_FONT),(0,0,TABLE_KNOB_W,30 if FORCE else 26)),
-    ent('dial','Image',{'version':1,'colour':'0','image':table_dial_image()},(TABLE_VALUE_X,TABLE_VALUE_Y,TABLE_VALUE,TABLE_VALUE)),
-    # The value is the parameter's display text, i.e. 'position/total' (formatTable).
-    ent('value','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},
-        (TABLE_VALUE_X,TABLE_VALUE_Y,TABLE_VALUE,TABLE_VALUE)),
-],'00000000'))))
+# 0.3.42 (user request): the table rows take the focus themselves, like the LIBRARY
+# rows. A row is a component instance that accepts hardware focus and carries an
+# invisible Data handle on Table Step, so the data wheel walks the list from
+# whichever row was touched. The separate cursor tile that owned the focus is gone.
 # The wave frame cell is narrower than a slot (the table knob shares the row), so
 # its own definition trims the readout box instead of letting it run into the
 # neighbouring cell, which the touch check reads as a label/control collision.
@@ -652,34 +635,50 @@ def table_row_blank(w,h):
 def add_table(c):
     # 0.3.34 (user request): the row itself is the tab. A separate LOAD button was
     # both a second step and a second tap (the host took the press for focus), so the
-    # whole row is one transparent button over its text and the loaded row carries
-    # the accent frame. PREV/NEXT and BUILT-IN are gone: the page follows the table
-    # cursor (step tile, wheel) and the built-in table is the first row. RELOAD stays
-    # because it is the only way to pick up newly copied tables without reopening the
-    # plugin.
+    # whole row is one hit area and the loaded row carries the accent frame. PREV/NEXT
+    # and BUILT-IN are gone: the page follows the table cursor and the built-in table
+    # is the first row. RELOAD stays because it is the only way to pick up newly
+    # copied tables without reopening the plugin.
+    # 0.3.42 (user request): the rows do what the LIBRARY rows do. Each row is its own
+    # component instance: it accepts hardware focus, remaps its invisible Data handle
+    # onto Table Step and loads its entry on a tap (Select Table Row N), so the data
+    # wheel walks the list from whichever row was touched. Unlike the LIBRARY tap,
+    # which only moves the cursor, the tap keeps loading at once: this is a picker and
+    # the wheel already previews every entry it passes.
     show=sec_show(0)
-    # 0.3.34 (user request): the list is flush with the right edge and fills the height
-    # below the position line, so the six rows are as tall as the content area allows.
     rows=TABLE_ROWS
+    # The list starts right of the SOUND knobs: the section's second row of small
+    # cells ends at 838 on the Force (754 on the MPC), so a row laid over them would
+    # swallow their taps. The band the cursor tile used stays empty.
     x=424+SLOT_W+24;w=SCREEN_RIGHT-x
     top=172
     bottom=TABLE_BOTTOM if FORCE else 560  # the MPC keeps its group footer band free
     step=(bottom-top)//rows;row_h=step-4
     text_w=w-12
-    blank=table_row_blank(w,row_h)
+    def row_definition(row):
+        children=[
+            # The tab frame lies under the text and takes no touch. Its three frames
+            # come from the row's own state readout: 0 empty, 0.5 listed, 1 loaded.
+            ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w,row_h+4),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(0,0,w,row_h+4)),
+            # Labels, not value widgets: a Knob bound to a readout draws no text.
+            label('Row text folder',(6,16,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),
+            label('Row text name',(6,38,text_w,26),TEXT,20,value=f'table_row_{row}_name'),
+            # The wheel handle is invisible, like the LIBRARY one: it sits at the right
+            # edge, where no text covers it, and the row frame shows where the list
+            # stands. The instance remaps its Data handle onto Table Step.
+            ent('Wheel handle','Knob',{'version':4,'knobType':'ValueSlider','textStyle':dict(sdk_label_data('Text',TEXT,20,'horizontallyCentred verticallyCentred'))['textStyle'],'dragOrientation':'Vertical','handleName':'Data'},(w-8,1,8,8)),
+        ]
+        # The tap is the load: the handler is the same row command the old transparent
+        # button wrote, so the plugin loads the entry without a second press.
+        actions=[g.action('Mouse Down','Toggle Switch',handle(f'Select Table Row {row+1}'),'')]
+        key=f'table-row-{row+1}'
+        definitions.append(g.obj(('key',key),('value',g.component_definition(actions,children,'00000000'))))
+        return key
     c.append(conditional(label('Table position',(x,136,w,28),TEXT,20,value='table_position'),show))
     for row in range(rows):
         y=top+row*step
-        c.append(conditional(ent('Table tab','Image',{'version':2,'imageType':'FilmStrip','colour':'0','image':table_tab_image(w,row_h+4),'numFrames':3,'handleName':handle(f'table_row_{row}_state'),'animated':False},(x,y-4,w,row_h+4)),show))
-        # Labels, not value widgets: a Knob bound to a readout draws no text. They are
-        # named 'Row text ...' so the caption baker leaves them alone: the transparent
-        # row button is emitted after them, so it is the widget on top and takes the tap.
-        # Text centred in the taller row: folder line, then the name.
-        c.append(conditional(label('Row text folder',(x+6,y+12,text_w,20),MUTED,15,value=f'table_row_{row}_folder'),show))
-        c.append(conditional(label('Row text name',(x+6,y+34,text_w,26),TEXT,20,value=f'table_row_{row}_name'),show))
-        # buttonId 1 of 2: at rest the handle reads 0, so the host sees this row as
-        # unselected and writes it on the first press instead of finding it chosen.
-        c.append(conditional(ent('Table row','Button',{'version':2,'onImage':blank,'offImage':blank,'buttonId':1,'numButtonsInGroup':2,'handleName':handle(f'Select Table Row {row+1}'),'gestureBehaviour':'Instant'},(x,y,w,row_h),False),show))
+        c.append(conditional(ent(f'Table row {row+1}',row_definition(row),{'version':1,'handleName':'Data'},(x,y-4,w,row_h+4),True,
+            remap=[('Data','WithName[Table Step]/'+handle('Table Step'))]),show))
     assert top+rows*step<=bottom,(TABLE_ROWS,'table rows do not fit the content area')
     # No RELOAD button (0.3.34, user request): the list is scanned when the plugin
     # opens, so a new table only needs the plugin reopened, and the button sat right
@@ -1006,12 +1005,6 @@ for i,view in enumerate(VIEWS):
             # slots directly; a four-slot bank outline would only mislead there.
             if not FORCE:children.extend(qlink_frames(cells,section,color))
             children.extend(cells)
-            # 0.3.34 (user request): the old TABLE page's cursor rotary, back
-            # beside the wave frame knob. It writes the discrete step handle, so
-            # one click is one table and the plugin loads the entry it lands on.
-            if isinstance(chart,int) and section==0:
-                children.append(conditional(ent('Table cursor','table-cursor',{'version':1,'handleName':'Data'},
-                    (424+WAVE_SLOT_W+8,166,TABLE_KNOB_W,SLOT_H),True,remap=[('Data','WithName[Table Step]/'+handle('Table Step'))]),sec_show(0)))
 
         if isinstance(chart,int):
             add_table(children)
@@ -1080,9 +1073,12 @@ if FORCE:
     maps=[]
     for t,(tab_name,groups) in enumerate(FORCE_TABS):
         # A tab owns one bank; the MOD tab uses the LFO bank for both groups.
+        # The Force has eight knobs, and the schema requires all sixteen keys:
+        # with Row its first bank is Q-Links 1..8, the second bank stays unassigned.
         bank=groups[0]
         gm={f'Q-Link {slot+1}':index(f'Group {bank} Slot {slot+1}') for slot in range(8)}
-        maps.append({'Tab':t+1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':gm})
+        gm.update({f'Q-Link {slot+1}':-1 for slot in range(8,16)})
+        maps.append({'Tab':t+1,'SubTab':1,'Bank Direction':'Row','Q-Links':gm})
 else:maps=[{'Tab':1,'SubTab':1,'Bank Direction':'RowTopDown','Q-Links':q}]
 replacements=[{'key':'Parameter '+str(p['index']),'value':p['choices']} for p in params if p['name']!='Full Engine' and len(p.get('choices',[]))>1]
 # The table cursor's steps: synthetic numbers, not content names. They make the host

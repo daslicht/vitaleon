@@ -9,6 +9,22 @@ inline const char* Vitaleon::programName(int i)const{
     if(i<0||i>=int(c->names.size())){name[0]=0;return name;}
     const auto& text=c->names[i];size_t n=std::min(text.size(),size_t(kVstMaxProgNameLen));std::memcpy(name,text.data(),n);name[n]=0;return name;
 }
+// The header above the plugin prints the current program's name. A load the plugin
+// starts itself (LIBRARY LOAD, the dice, FAVS) never passes through setProgram(), so
+// the header kept the previous sound's name (user report: the dice loaded a sound but
+// the wrapper still named the old one). Point the host's program slot at the file that
+// loaded; when the open list is another bank that does not hold it, the PRESET list
+// returns to all installed sounds, where the file has its slot and its name.
+inline void Vitaleon::pointProgramAtFile(int file){
+    if(file<=0||file>=int(assets_[0].size()))return;
+    const Asset& sound=assets_[0][size_t(file)];
+    auto c=std::atomic_load(&activeCatalog_);if(!c)return;
+    int slot=-1;
+    for(size_t i=0;i<c->files.size();++i)
+        if(c->files[i].path==sound.path&&c->files[i].entry==sound.entry){slot=factoryProgramCount_+int(i);break;}
+    if(slot>=0){currentProgram_=slot;browserDisplayDirty_.store(true);}
+    else programListHome_.store(true,std::memory_order_relaxed);
+}
 inline void Vitaleon::setProgram(int i){
     if(i<0||i>=numPrograms())return;
     if(i<factoryProgramCount_){mpc::Plugin::setProgram(i);return;}
@@ -189,9 +205,9 @@ inline bool Vitaleon::queueBrowserRowLocked(int row){
 }
 inline bool Vitaleon::queueBrowserRow(int row){std::lock_guard<std::mutex> lock(browserMutex_);return queueBrowserRowLocked(row);}
 inline void Vitaleon::serviceBrowserLoad(){
-    // The wheel only moves the frame; the entry it rests on loads, exactly like the table
-    // picker. Drives, folders and banks are never opened by turning the wheel: they wait
-    // for their OPEN tap (or the wheel push).
+    // The wheel only moves the frame; the entry it rests on loads. Drives, folders and
+    // banks are never opened by turning the wheel: they wait for their OPEN tap (or the
+    // wheel push). The table picker is different: it loads every entry at once.
     long long due=browserLoadDue_.load(std::memory_order_relaxed);
     if(!due||nowMs()<due)return;
     if(!browserLoadDue_.compare_exchange_strong(due,0,std::memory_order_relaxed))return;

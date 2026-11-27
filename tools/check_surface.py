@@ -13,14 +13,36 @@ assert 'Parameter '+str(NAMES['Value']) not in replacement
 assert replacement['Parameter '+str(NAMES['voice override'])]==['Kill','Steal']
 assert len(replacement['Parameter '+str(NAMES['Table Step'])])==512
 assert len(replacement['Parameter '+str(NAMES['Favourite Step'])])==512
+# 0.3.42: the table rows are the data wheel's focus stops, like the LIBRARY rows.
+# Each row accepts hardware focus, remaps its Data handle onto Table Step and writes
+# its own Select Table Row N on a tap; the separate cursor tile is gone.
+TABLE_ROWS=int(re.search(r'kTableRows=(\d+)',(PROJECT/'src/FullSynth.h').read_text(encoding='utf-8')).group(1))
+def walk(entries):
+    for entry in entries:
+        yield entry
+        kind=entry['componentData'].get('type')
+        if kind in DEFS:yield from walk(DEFS[kind]['componentsData'])
+osc=next(i for i,v in enumerate(VIEWS) if v['chart']==0)
+table_rows=[e for e in walk(DEFS[f'view-{osc}']['componentsData']) if e['componentData']['type'].startswith('table-row-')]
+assert len(table_rows)==TABLE_ROWS,len(table_rows)
+for number,entry in enumerate(table_rows):
+    assert entry['bounds']['acceptsHWFocus']=='Yes',number
+    remap={p['key']:p['value'] for p in entry['handle remapping']['map']}
+    assert remap['Data']=='WithName[Table Step]/Parameter '+str(NAMES['Table Step']),(number,remap)
+    definition=DEFS[entry['componentData']['type']]
+    assert [a['handleName'] for a in definition['actions']]==['Parameter '+str(NAMES['Select Table Row %d'%(number+1)])],(number,definition['actions'])
+    assert any(c['componentData']['type']=='Knob' for c in definition['componentsData']),number
+assert 'table-cursor' not in DEFS
 mapping=json.loads((skin/('Q-Links - Force.json' if GROUP_MODEL else 'Q-Links.json')).read_text())['Screen Mode Q-Links']['map']
 if GROUP_MODEL:
     # One Q-Link map per tab, each bound to its group slots, so a knob names
-    # the group it belongs to instead of a shared page model.
-    assert len(mapping)==6 and all(m['Bank Direction']=='RowTopDown' for m in mapping)
+    # the group it belongs to instead of a shared page model. The schema needs
+    # all sixteen keys; the Force's first 8-knob bank is Q-Links 1..8 under Row.
+    assert len(mapping)==6 and all(m['Bank Direction']=='Row' for m in mapping)
     for g,m in enumerate(mapping):
-        assert m['Tab']==g+1
+        assert m['Tab']==g+1 and len(m['Q-Links'])==16,(g,len(m['Q-Links']))
         for slot in range(8):assert m['Q-Links'][f'Q-Link {slot+1}']==NAMES[f'Group {g} Slot {slot+1}'],(g,slot)
+        for slot in range(8,16):assert m['Q-Links'][f'Q-Link {slot+1}']==-1,(g,slot)
 else:
     assert len(mapping)==1 and mapping[0]['Bank Direction']=='RowTopDown'
     for slot in range(16):
@@ -75,4 +97,4 @@ if GROUP_MODEL:
         leaves=expand(tab_entries(page),only)
         assert any(e['kind']=='Label' and 64<=e['box'][1]<568 for e in leaves),(page,section,'section must follow exactly one handle')
 result=audit();assert not result['errors'],result['errors']
-print(f'PASS: 40 module views / {checked} states, seven footer groups, all nine FX, exact 16:9 oscillator graphs, native-size controls, table value tile, complete bindings, Q-Link map, no control under the Q-Link sidebar and no label/control collisions')
+print(f'PASS: 40 module views / {checked} states, seven footer groups, all nine FX, exact 16:9 oscillator graphs, native-size controls, table rows on the data wheel focus, complete bindings, Q-Link map, no control under the Q-Link sidebar and no label/control collisions')

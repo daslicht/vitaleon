@@ -11304,55 +11304,55 @@
   "value": 0.0
  },
  {
-  "display": "0.42",
+  "display": "-24dB",
   "index": 1884,
   "name": "Group 0 Slot 1",
   "value": 0.42381584644317627
  },
  {
-  "display": "0.43",
+  "display": "4",
   "index": 1885,
   "name": "Group 0 Slot 2",
   "value": 0.4285714328289032
  },
  {
-  "display": "0.41",
+  "display": "262 Hz",
   "index": 1886,
   "name": "Group 0 Slot 3",
   "value": 0.40625
  },
  {
-  "display": "0.50",
+  "display": "50%",
   "index": 1887,
   "name": "Group 0 Slot 4",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0.5 ms",
   "index": 1888,
   "name": "Group 0 Slot 5",
   "value": 0.5007121562957764
  },
  {
-  "display": "0.69",
+  "display": "89.9 ms",
   "index": 1889,
   "name": "Group 0 Slot 6",
   "value": 0.6926976442337036
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1890,
   "name": "Group 0 Slot 7",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1891,
   "name": "Group 0 Slot 8",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1892,
   "name": "Group 0 Slot 9",
   "value": 0.0
@@ -11364,55 +11364,55 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "0",
   "index": 1894,
   "name": "Group 1 Slot 1",
   "value": 0.0
  },
  {
-  "display": "0.71",
+  "display": "0.5",
   "index": 1895,
   "name": "Group 1 Slot 2",
   "value": 0.7071067690849304
  },
  {
-  "display": "0.50",
+  "display": "0%",
   "index": 1896,
   "name": "Group 1 Slot 3",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1897,
   "name": "Group 1 Slot 4",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1898,
   "name": "Group 1 Slot 5",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "180",
   "index": 1899,
   "name": "Group 1 Slot 6",
   "value": 0.5
  },
  {
-  "display": "1.00",
+  "display": "100%",
   "index": 1900,
   "name": "Group 1 Slot 7",
   "value": 1.0
  },
  {
-  "display": "1.00",
+  "display": "On",
   "index": 1901,
   "name": "Group 1 Slot 8",
   "value": 1.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1902,
   "name": "Group 1 Slot 9",
   "value": 0.0
@@ -11424,55 +11424,55 @@
   "value": 0.0
  },
  {
-  "display": "0.41",
+  "display": "262 Hz",
   "index": 1904,
   "name": "Group 2 Slot 1",
   "value": 0.40625
  },
  {
-  "display": "0.50",
+  "display": "50%",
   "index": 1905,
   "name": "Group 2 Slot 2",
   "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "0dB",
   "index": 1906,
   "name": "Group 2 Slot 3",
   "value": 0.0
  },
  {
-  "display": "1.00",
+  "display": "100%",
   "index": 1907,
   "name": "Group 2 Slot 4",
   "value": 1.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1908,
   "name": "Group 2 Slot 5",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Analog",
   "index": 1909,
   "name": "Group 2 Slot 6",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1910,
   "name": "Group 2 Slot 7",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1911,
   "name": "Group 2 Slot 8",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1912,
   "name": "Group 2 Slot 9",
   "value": 0.0
@@ -11484,55 +11484,55 @@
   "value": 0.0
  },
  {
-  "display": "0.50",
+  "display": "0.5 ms",
   "index": 1914,
   "name": "Group 3 Slot 1",
   "value": 0.5007121562957764
  },
  {
-  "display": "0.81",
+  "display": "1 s",
   "index": 1915,
   "name": "Group 3 Slot 2",
   "value": 0.8052446842193604
  },
  {
-  "display": "1.00",
+  "display": "1",
   "index": 1916,
   "name": "Group 3 Slot 3",
   "value": 1.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1917,
   "name": "Group 3 Slot 4",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1918,
   "name": "Group 3 Slot 5",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1919,
   "name": "Group 3 Slot 6",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1920,
   "name": "Group 3 Slot 7",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1921,
   "name": "Group 3 Slot 8",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1922,
   "name": "Group 3 Slot 9",
   "value": 0.0
@@ -11544,55 +11544,55 @@
   "value": 0.0
  },
  {
-  "display": "0.50",
+  "display": "500 ms",
   "index": 1924,
   "name": "Group 4 Slot 1",
   "value": 0.5
  },
  {
-  "display": "0.25",
+  "display": "Tempo",
   "index": 1925,
   "name": "Group 4 Slot 2",
   "value": 0.25
  },
  {
-  "display": "0.58",
+  "display": "1/2",
   "index": 1926,
   "name": "Group 4 Slot 3",
   "value": 0.5833333134651184
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1927,
   "name": "Group 4 Slot 4",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1928,
   "name": "Group 4 Slot 5",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1929,
   "name": "Group 4 Slot 6",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1930,
   "name": "Group 4 Slot 7",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1931,
   "name": "Group 4 Slot 8",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1932,
   "name": "Group 4 Slot 9",
   "value": 0.0
@@ -11604,55 +11604,55 @@
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1934,
   "name": "Group 5 Slot 1",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1935,
   "name": "Group 5 Slot 2",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1936,
   "name": "Group 5 Slot 3",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1937,
   "name": "Group 5 Slot 4",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1938,
   "name": "Group 5 Slot 5",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1939,
   "name": "Group 5 Slot 6",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1940,
   "name": "Group 5 Slot 7",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1941,
   "name": "Group 5 Slot 8",
   "value": 0.0
  },
  {
-  "display": "0.00",
+  "display": "Off",
   "index": 1942,
   "name": "Group 5 Slot 9",
   "value": 0.0
@@ -11664,55 +11664,55 @@
   "value": 0.0
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1944,
   "name": "Group 6 Slot 1",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1945,
   "name": "Group 6 Slot 2",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1946,
   "name": "Group 6 Slot 3",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1947,
   "name": "Group 6 Slot 4",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1948,
   "name": "Group 6 Slot 5",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1949,
   "name": "Group 6 Slot 6",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1950,
   "name": "Group 6 Slot 7",
   "value": 0.5
  },
  {
-  "display": "0.50",
+  "display": "0",
   "index": 1951,
   "name": "Group 6 Slot 8",
   "value": 0.5
  },
  {
-  "display": "0.00",
+  "display": "Unused",
   "index": 1952,
   "name": "Group 6 Slot 9",
   "value": 0.0
